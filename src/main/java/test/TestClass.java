@@ -1,7 +1,7 @@
 package test;
 
 /**
- * Created by GreenNun on 21.05.2016.
+ * Created by Stanislav Bausov on 21.05.2016.
  */
 public class TestClass {
     public static void main(String[] args) {
