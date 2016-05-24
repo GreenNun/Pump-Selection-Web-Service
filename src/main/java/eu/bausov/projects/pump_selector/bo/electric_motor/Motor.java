@@ -8,6 +8,7 @@ import eu.bausov.projects.pump_selector.bo.ExplosionProofType;
  */
 public class Motor extends Equipment {
     double kWt;
+    MotorSpeed motorSpeed;
     int voltage;
     int phases;
     int poles;
