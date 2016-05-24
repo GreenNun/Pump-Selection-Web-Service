@@ -5,4 +5,5 @@ package eu.bausov.projects.pump_selector.bo;
  */
 public abstract class Equipment {
     Producer producer;
+    String modelName;
 }
