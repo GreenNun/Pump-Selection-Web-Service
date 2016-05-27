@@ -14,5 +14,4 @@ public abstract class Pump extends Equipment {
     Capacity capacity;
     Pressure pressure;
     Temperature maxTemperature;
-
 }
