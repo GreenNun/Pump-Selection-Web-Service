@@ -9,5 +9,8 @@ public class TestClass {
         pump.bushingMaterial = null;
         pump.producer.producerName = null;
 
+        PumpAggregate pumpAggregate = new PumpAggregate();
+        pumpAggregate.pump = new InternalGearPump();
+
     }
 }

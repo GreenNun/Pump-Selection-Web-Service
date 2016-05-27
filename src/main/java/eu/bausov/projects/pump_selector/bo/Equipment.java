@@ -1,6 +1,6 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import eu.bausov.projects.pump_selector.bo.price.Price;
+import eu.bausov.projects.pump_selector.utils.priceis_and_currency_convertor.Price;
 
 /**
  * Created by Stanislav Bausov on 22.05.2016.

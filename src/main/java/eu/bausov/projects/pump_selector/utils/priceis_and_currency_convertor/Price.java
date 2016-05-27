@@ -1,4 +1,4 @@
-package eu.bausov.projects.pump_selector.bo.price;
+package eu.bausov.projects.pump_selector.utils.priceis_and_currency_convertor;
 
 import java.math.BigDecimal;
 
