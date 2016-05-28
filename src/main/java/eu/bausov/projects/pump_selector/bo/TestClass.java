@@ -11,6 +11,5 @@ public class TestClass {
 
         PumpAggregate pumpAggregate = new PumpAggregate();
         pumpAggregate.pump = new InternalGearPump();
-
     }
 }
