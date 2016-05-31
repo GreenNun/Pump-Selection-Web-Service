@@ -1,8 +1,5 @@
 package eu.bausov.projects.pump_selector.bo.electric_motor;
 
-/**
- * Created by Stanislav Bausov on 25.05.2016.
- */
 public class PowerInKWT {
     public static final double KWT_0_55 = 0.55;
     public static final double KWT_1_1 = 1.1;
