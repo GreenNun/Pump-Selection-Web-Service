@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TB_LOOKUP", uniqueConstraints = { @UniqueConstraint(columnNames = { "label", "type" }) })
-public class Lookup extends JPA {
+@Table(name = "TB_TYPES", uniqueConstraints = { @UniqueConstraint(columnNames = { "label", "type" }) })
+public class Type extends JPA {
 
     private String label;
     private String type;

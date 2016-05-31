@@ -9,7 +9,6 @@ public abstract class Equipment extends JPA {
 
     private Producer producer;
     private String modelName;
-
     private Price price;
 
     @ManyToOne(optional = false)

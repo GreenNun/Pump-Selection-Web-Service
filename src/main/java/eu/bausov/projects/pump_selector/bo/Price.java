@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class Price {
 
     private BigDecimal price;
-    private Lookup currency;
+    private Type currency;
 
     public BigDecimal getPrice() {
         return price;
@@ -19,11 +19,11 @@ public class Price {
     }
 
     @ManyToOne(optional = false)
-    public Lookup getCurrency() {
+    public Type getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Lookup currency) {
+    public void setCurrency(Type currency) {
         this.currency = currency;
     }
 }

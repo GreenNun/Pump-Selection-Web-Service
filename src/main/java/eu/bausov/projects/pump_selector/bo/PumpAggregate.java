@@ -6,5 +6,5 @@ public class PumpAggregate extends Equipment {
     Motor motor;
     Coupling coupling;
     Frame frame;
-    int speedOnShaft;
+    Integer speedOnShaft;
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Producer extends JPA {
 
     private String producerName;
-    private Lookup producerCountry;
+    private Type producerCountry;
 
     @Basic(optional = false)
     public String getProducerName() {
@@ -19,11 +19,11 @@ public class Producer extends JPA {
     }
 
     @ManyToOne(optional = false)
-    public Lookup getProducerCountry() {
+    public Type getProducerCountry() {
         return producerCountry;
     }
 
-    public void setProducerCountry(Lookup producerCountry) {
+    public void setProducerCountry(Type producerCountry) {
         this.producerCountry = producerCountry;
     }
 }

@@ -3,87 +3,87 @@ package eu.bausov.projects.pump_selector.bo;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_LOOKUP", uniqueConstraints = {@UniqueConstraint(columnNames = {"label"})})
+@Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})}) // label
 public class Motor extends Equipment {
 
-    private String label;
+    //private String label;
+    private Type speed;
+    private Type ip;
+    private Type voltage;
+    private Type explosionProof;
+    private Type kwt;
+    private Type phases;
+    private Type poles;
 
-    private Lookup speed;
-    private Lookup ip;
-    private Lookup voltage;
-    private Lookup explosionProof;
-    private Lookup kwt;
+//    @Basic(optional = false)
+//    public String getLabel() {
+//        return label;
+//    }
 
-    private Integer phases;
-    private Integer poles;
-
-    @Basic(optional = false)
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
+//    public void setLabel(String label) {
+//        this.label = label;
+//    }
 
     @ManyToOne(optional = false)
-    public Lookup getSpeed() {
+    public Type getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Lookup speed) {
+    public void setSpeed(Type speed) {
         this.speed = speed;
     }
 
     @ManyToOne(optional = false)
-    public Lookup getIp() {
+    public Type getIp() {
         return ip;
     }
 
-    public void setIp(Lookup ip) {
+    public void setIp(Type ip) {
         this.ip = ip;
     }
 
     @ManyToOne(optional = false)
-    public Lookup getVoltage() {
+    public Type getVoltage() {
         return voltage;
     }
 
-    public void setVoltage(Lookup voltage) {
+    public void setVoltage(Type voltage) {
         this.voltage = voltage;
     }
 
     @ManyToOne(optional = false)
-    public Lookup getExplosionProof() {
+    public Type getExplosionProof() {
         return explosionProof;
     }
 
-    public void setExplosionProof(Lookup explosionProof) {
+    public void setExplosionProof(Type explosionProof) {
         this.explosionProof = explosionProof;
     }
 
     @ManyToOne(optional = false)
-    public Lookup getKwt() {
+    public Type getKwt() {
         return kwt;
     }
 
-    public void setKwt(Lookup kwt) {
+    public void setKwt(Type kwt) {
         this.kwt = kwt;
     }
 
-    public Integer getPhases() {
+    @ManyToOne(optional = false)
+    public Type getPhases() {
         return phases;
     }
 
-    public void setPhases(Integer phases) {
+    public void setPhases(Type phases) {
         this.phases = phases;
     }
 
-    public Integer getPoles() {
+    @ManyToOne(optional = false)
+    public Type getPoles() {
         return poles;
     }
 
-    public void setPoles(Integer poles) {
+    public void setPoles(Type poles) {
         this.poles = poles;
     }
 }
