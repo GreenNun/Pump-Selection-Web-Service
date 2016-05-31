@@ -1,8 +1,5 @@
-package eu.bausov.projects.pump_selector.bo.electric_motor;
+package eu.bausov.projects.pump_selector.bo;
 
-import eu.bausov.projects.pump_selector.bo.Equipment;
-import eu.bausov.projects.pump_selector.bo.ExplosionProofType;
-import eu.bausov.projects.pump_selector.bo.Lookup;
 import javax.persistence.*;
 
 @Entity
@@ -19,13 +16,6 @@ public class Motor extends Equipment {
 
     private Integer phases;
     private Integer poles;
-
-    //double kWt;
-    // MotorSpeed motorSpeed;
-    //int voltage;
-
-    // IP ipType;
-    // ExplosionProofType explosionProofType;
 
     @Basic(optional = false)
     public String getLabel() {

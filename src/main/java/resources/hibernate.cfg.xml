@@ -15,7 +15,7 @@
 
         <mapping class="eu.bausov.projects.pump_selector.bo.Lookup"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.Producer"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.electric_motor.Motor"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.Motor"/>
 
 
     </session-factory>

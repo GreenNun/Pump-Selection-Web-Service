@@ -1,6 +1,5 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import eu.bausov.projects.pump_selector.bo.Lookup;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
