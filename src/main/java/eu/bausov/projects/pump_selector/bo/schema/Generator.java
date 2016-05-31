@@ -7,15 +7,10 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-
 import java.io.File;
 
 public class Generator {
-
-
     public static void main(String[] args) {
-
-
         try {
             Resource resource = new FileSystemResource("src/main/java/resources/hibernate.cfg.xml");
 
@@ -30,7 +25,5 @@ public class Generator {
         } catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);
         }
-
     }
-
 }
