@@ -10,6 +10,8 @@ public abstract class Equipment extends JPA {
     private Producer producer;
     private String modelName;
     private Price price;
+    // add weight in kg
+    // private Type weight
 
     @ManyToOne(optional = false)
     public Producer getProducer() {

@@ -5,5 +5,5 @@ public class InternalGearPump extends Pump {
     Type idlerGearMaterial;
     Type bushingMaterial;
     Valve pressureReliefValve;
-    // TODO: Heating jackets
+    // TODO: Heating jackets, connections sizes
 }
