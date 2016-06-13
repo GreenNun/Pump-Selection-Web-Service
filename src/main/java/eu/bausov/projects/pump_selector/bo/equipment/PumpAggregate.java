@@ -1,8 +1,8 @@
-package eu.bausov.projects.pump_selector.bo;
+package eu.bausov.projects.pump_selector.bo.equipment;
 
 public class PumpAggregate extends Equipment {
     Pump pump;
-    Reducer reductor;
+    Reducer reducer;
     Motor motor;
     Coupling coupling;
     Frame frame;

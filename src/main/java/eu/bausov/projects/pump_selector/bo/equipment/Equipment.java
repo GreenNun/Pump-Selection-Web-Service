@@ -1,6 +1,10 @@
-package eu.bausov.projects.pump_selector.bo;
+package eu.bausov.projects.pump_selector.bo.equipment;
 
-import javax.persistence.Embedded;
+import eu.bausov.projects.pump_selector.bo.JPA;
+import eu.bausov.projects.pump_selector.bo.Producer;
+
+import java.math.BigDecimal;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -9,9 +13,7 @@ public abstract class Equipment extends JPA {
 
     private Producer producer;
     private String modelName;
-    private Price price;
-    // add weight in kg
-    // private Type weight
+    private BigDecimal price;
 
     @ManyToOne(optional = false)
     public Producer getProducer() {
@@ -30,12 +32,11 @@ public abstract class Equipment extends JPA {
         this.modelName = modelName;
     }
 
-    @Embedded
-    public Price getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Price price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }
