@@ -15,9 +15,6 @@ public abstract class Pump extends Equipment {
     private Constant connectionsAngle;
     private Constant maxTemperature;
     private Seal seal;
-    private Double capacity;
-    private Double diffPressure;
-    // link capacity ---- rpm
 
     @ManyToOne(optional = false)
     public Constant getCastingMaterial() {
@@ -89,21 +86,5 @@ public abstract class Pump extends Equipment {
 
     public void setSeal(Seal seal) {
         this.seal = seal;
-    }
-
-    public Double getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Double capacity) {
-        this.capacity = capacity;
-    }
-
-    public Double getDiffPressure() {
-        return diffPressure;
-    }
-
-    public void setDiffPressure(Double diffPressure) {
-        this.diffPressure = diffPressure;
     }
 }

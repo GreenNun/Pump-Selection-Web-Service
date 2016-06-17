@@ -2,10 +2,7 @@ package eu.bausov.projects.pump_selector.bo.equipment;
 
 import eu.bausov.projects.pump_selector.bo.Constant;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_INT_GEAR_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
@@ -13,10 +10,6 @@ public class InternalGearPump extends Pump {
     private Constant rotorGearMaterial;
     private Constant idlerGearMaterial;
     private Constant bushingMaterial;
-//    private Boolean isPressureReliefValve;
-//    private Boolean isCoverHeatingJacket;
-//    private Boolean isCastingHeatingJacket;
-//    private Boolean isBracketHeatingJacket;
 
     @ManyToOne(optional = false)
     public Constant getRotorGearMaterial() {
