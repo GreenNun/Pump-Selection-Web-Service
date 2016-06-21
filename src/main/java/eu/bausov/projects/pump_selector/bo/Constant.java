@@ -6,19 +6,18 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "key", "value" }) })
+@Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "value" }) })
 public class Constant extends JPA {
-
-    private String key;
+    private String name;
     private String value;
 
     @Basic(optional = false)
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String label) {
-        this.key = label;
+    public void setName(String label) {
+        this.name = label;
     }
 
     @Basic(optional = false)

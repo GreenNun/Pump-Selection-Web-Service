@@ -10,7 +10,7 @@ public class Motor extends Equipment {
 
     private Constant speed;
     private Constant explosionProof;
-    private Constant kwt;
+    private Constant powerHp;
 
     @ManyToOne(optional = false)
     public Constant getSpeed() {
@@ -31,11 +31,11 @@ public class Motor extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Constant getKwt() {
-        return kwt;
+    public Constant getPowerHp() {
+        return powerHp;
     }
 
-    public void setKwt(Constant kwt) {
-        this.kwt = kwt;
+    public void setPowerHp(Constant powerHp) {
+        this.powerHp = powerHp;
     }
 }
