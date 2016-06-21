@@ -11,7 +11,7 @@ public abstract class Pump extends Equipment {
     private Constant shaftMaterial;
     private Constant connectionsType;
     private Constant dn;
-    private Constant maxPressure;
+    private Constant maxPressure; // example name: pressure value: 16
     private Constant connectionsAngle;
     private Constant maxTemperature;
     private Seal seal;

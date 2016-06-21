@@ -3,7 +3,7 @@ package eu.bausov.projects.pump_selector.bo;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_PRODUCER", uniqueConstraints = {@UniqueConstraint(columnNames = {"producerName", "producer_country"})})
+@Table(name = "TB_PRODUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"producerName", "producer_country"})})
 public class Producer extends JPA {
 
     private String producerName;
