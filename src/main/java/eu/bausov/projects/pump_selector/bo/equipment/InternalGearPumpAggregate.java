@@ -11,7 +11,6 @@ public class InternalGearPumpAggregate extends Equipment {
     private Motor motor;
     private Coupling coupling;
     private Frame frame;
-    private Integer speedOnShaft;
 
     @ManyToOne(optional = false)
     public InternalGearPump getInternalGearPump() {
@@ -56,15 +55,6 @@ public class InternalGearPumpAggregate extends Equipment {
 
     public void setFrame(Frame frame) {
         this.frame = frame;
-    }
-
-    @Basic(optional = false)
-    public Integer getSpeedOnShaft() {
-        return speedOnShaft;
-    }
-
-    public void setSpeedOnShaft(Integer speedOnShaft) {
-        this.speedOnShaft = speedOnShaft;
     }
 
     @Basic(optional = false)
