@@ -5,12 +5,15 @@ import eu.bausov.projects.pump_selector.bo.Range;
 
 import javax.persistence.*;
 
+/**
+ * Reducer (Geared Box).
+ */
 @Entity
 @Table(name = "TB_REDUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
 public class Reducer extends Equipment {
     private Range speedRange;
     private Constant explosionProof;
-    private Constant suitablePowerHp;
+    private Constant requiredMotorPowerHp;
 
     @ManyToOne(optional = false)
     public Range getSpeedRange() {
@@ -32,10 +35,10 @@ public class Reducer extends Equipment {
 
     @ManyToOne(optional = false)
     public Constant getSuitablePowerHp() {
-        return suitablePowerHp;
+        return requiredMotorPowerHp;
     }
 
-    public void setSuitablePowerHp(Constant suitablePowerHp) {
-        this.suitablePowerHp = suitablePowerHp;
+    public void setSuitablePowerHp(Constant requieredMotorPowerHp) {
+        this.requiredMotorPowerHp = requieredMotorPowerHp;
     }
 }

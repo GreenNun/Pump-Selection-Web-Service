@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
 public class Motor extends Equipment {
-
     private Constant speed;
     private Constant explosionProof;
     private Constant powerHp;
