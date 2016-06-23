@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Table(name = "TB_REDUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
 public class Reducer extends Equipment {
     private Range speedRange;
-    private Constant explosionProof;
-    private Constant requiredMotorPowerHp;
+    private Constant constExplosionProof;
+    private Constant constRequiredMotorPowerHp;
 
     @ManyToOne(optional = false)
     public Range getSpeedRange() {
@@ -25,20 +25,20 @@ public class Reducer extends Equipment {
     }
 
     @ManyToOne
-    public Constant getExplosionProof() {
-        return explosionProof;
+    public Constant getConstExplosionProof() {
+        return constExplosionProof;
     }
 
-    public void setExplosionProof(Constant explosionProof) {
-        this.explosionProof = explosionProof;
+    public void setConstExplosionProof(Constant constExplosionProof) {
+        this.constExplosionProof = constExplosionProof;
     }
 
     @ManyToOne(optional = false)
-    public Constant getSuitablePowerHp() {
-        return requiredMotorPowerHp;
+    public Constant getConstRequiredMotorPowerHp() {
+        return constRequiredMotorPowerHp;
     }
 
-    public void setSuitablePowerHp(Constant requieredMotorPowerHp) {
-        this.requiredMotorPowerHp = requieredMotorPowerHp;
+    public void setConstRequiredMotorPowerHp(Constant constRequiredMotorPowerHp) {
+        this.constRequiredMotorPowerHp = constRequiredMotorPowerHp;
     }
 }

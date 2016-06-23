@@ -9,19 +9,19 @@ import javax.persistence.UniqueConstraint;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
-public class Coupling extends Equipment {
-    private Constant couplingType;
+@Table(name = "TB_HEATING_JACKETS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+public class HeatingJacket {
+    private Constant heatingJacketType;
     // TODO: 23.06.2016 mapping
     private Set<Pump> suitablePumps;
 
     @ManyToOne(optional = false)
-    public Constant getCouplingType() {
-        return couplingType;
+    public Constant getHeatingJacketType() {
+        return heatingJacketType;
     }
 
-    public void setCouplingType(Constant couplingType) {
-        this.couplingType = couplingType;
+    public void setHeatingJacketType(Constant heatingJacketType) {
+        this.heatingJacketType = heatingJacketType;
     }
 
     public Set<Pump> getSuitablePumps() {

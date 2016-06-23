@@ -28,8 +28,8 @@ public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedC
         this.coefficient = coefficient;
     }
 
-    @Override
-    public int compareTo(SpeedCorrectionCoefficient o) {
-        return Integer.compare(viscosity, o.viscosity);
+    @Override // for sorting in Stream API
+    public int compareTo(SpeedCorrectionCoefficient c) {
+        return Integer.compare(viscosity, c.viscosity);
     }
 }

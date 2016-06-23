@@ -2,6 +2,7 @@ package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Arrays;
 import java.util.Optional;
@@ -10,10 +11,24 @@ import java.util.stream.Stream;
 @Entity
 @Table(name = "TB_PARAMETERS")
 public class Parameters extends JPA {
+    private Constant constPumpType;
     private Double capacity;
     private Integer pressure;
     private Integer viscosity;
     private Integer temperature;
+    private Constant constSealType;
+    private boolean isReliefValve;
+    private boolean isHeatingJacketed;
+    private boolean isExplosionProofed;
+
+    @ManyToOne(optional = false)
+    public Constant getConstPumpType() {
+        return constPumpType;
+    }
+
+    public void setConstPumpType(Constant constPumpType) {
+        this.constPumpType = constPumpType;
+    }
 
     @Basic(optional = false)
     public Double getCapacity() {
@@ -49,6 +64,42 @@ public class Parameters extends JPA {
 
     public void setTemperature(Integer temperature) {
         this.temperature = temperature;
+    }
+
+    @ManyToOne(optional = false)
+    public Constant getConstSealType() {
+        return constSealType;
+    }
+
+    public void setConstSealType(Constant constSealType) {
+        this.constSealType = constSealType;
+    }
+
+    @Basic(optional = false)
+    public boolean isReliefValve() {
+        return isReliefValve;
+    }
+
+    public void setReliefValve(boolean reliefValve) {
+        isReliefValve = reliefValve;
+    }
+
+    @Basic(optional = false)
+    public boolean isHeatingJacketed() {
+        return isHeatingJacketed;
+    }
+
+    public void setHeatingJacketed(boolean heatingJacketed) {
+        isHeatingJacketed = heatingJacketed;
+    }
+
+    @Basic(optional = false)
+    public boolean isExplosionProofed() {
+        return isExplosionProofed;
+    }
+
+    public void setExplosionProofed(boolean explosionProofed) {
+        isExplosionProofed = explosionProofed;
     }
 
     /**
