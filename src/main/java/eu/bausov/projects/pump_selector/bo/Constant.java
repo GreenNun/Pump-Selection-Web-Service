@@ -28,4 +28,22 @@ public class Constant extends JPA {
     public void setValue(String value) {
         this.value = value;
     }
+
+    /**
+     * Parses string value of Constant to integer type.
+     *
+     * @return int value
+     */
+    public int getIntegerValue(){
+        return Integer.parseInt(value);
+    }
+
+    /**
+     * Parses string value of Constant to double type.
+     *
+     * @return double value
+     */
+    public double getDoubleValue(){
+        return Double.parseDouble(value);
+    }
 }

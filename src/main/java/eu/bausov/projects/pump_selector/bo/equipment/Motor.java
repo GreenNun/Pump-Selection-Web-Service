@@ -7,34 +7,42 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
 public class Motor extends Equipment {
-    private Constant speed;
-    private Constant explosionProof;
-    private Constant powerHp;
+    private Constant constSpeed;
+    private Constant constExplosionProof;
+    private Constant constPowerHp;
 
     @ManyToOne(optional = false)
-    public Constant getSpeed() {
-        return speed;
+    public Constant getConstSpeed() {
+        return constSpeed;
     }
 
-    public void setSpeed(Constant speed) {
-        this.speed = speed;
-    }
-
-    @ManyToOne(optional = false)
-    public Constant getExplosionProof() {
-        return explosionProof;
-    }
-
-    public void setExplosionProof(Constant explosionProof) {
-        this.explosionProof = explosionProof;
+    public void setConstSpeed(Constant constSpeed) {
+        this.constSpeed = constSpeed;
     }
 
     @ManyToOne(optional = false)
-    public Constant getPowerHp() {
-        return powerHp;
+    public Constant getConstExplosionProof() {
+        return constExplosionProof;
     }
 
-    public void setPowerHp(Constant powerHp) {
-        this.powerHp = powerHp;
+    public void setConstExplosionProof(Constant constExplosionProof) {
+        this.constExplosionProof = constExplosionProof;
+    }
+
+    @ManyToOne(optional = false)
+    public Constant getConstPowerHp() {
+        return constPowerHp;
+    }
+
+    public void setConstPowerHp(Constant constPowerHp) {
+        this.constPowerHp = constPowerHp;
+    }
+
+    public boolean isMotorValid(Reducer reducer) {
+        return constPowerHp.getIntegerValue() == reducer.getConstRequiredMotorPowerHp().getIntegerValue();
+    }
+
+    public boolean isExplosionProofAvailable(){
+        return !getConstExplosionProof().getValue().equals("none");
     }
 }
