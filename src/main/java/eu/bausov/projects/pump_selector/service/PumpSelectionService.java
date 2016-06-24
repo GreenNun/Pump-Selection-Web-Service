@@ -3,7 +3,8 @@ package eu.bausov.projects.pump_selector.service;
 import eu.bausov.projects.pump_selector.bo.Parameters;
 import eu.bausov.projects.pump_selector.bo.equipment.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PumpSelectionService {
     private Parameters parameters;
@@ -37,14 +38,14 @@ public class PumpSelectionService {
     }
 
     /**
-     private Pump pump; +
-     private Seal seal; +
-     private ReliefValve reliefValve;
-     private HeatingJacket heatingJacket;
-     private Reducer reducer; +
-     private Motor motor; +
-     private Coupling coupling;
-     private Frame frame;
+     * private Pump pump; +
+     * private Seal seal; +
+     * private ReliefValve reliefValve;+
+     * private HeatingJacket heatingJacket; +
+     * private Reducer reducer; +
+     * private Motor motor; +
+     * private Coupling coupling;
+     * private Frame frame;
      */
     public List<PumpAggregate> getSuitableInternalGearPumps() {
         List<PumpAggregate> list = new ArrayList<>();
@@ -52,17 +53,41 @@ public class PumpSelectionService {
         PumpAggregate aggregate = null;
 
         for (Pump pump : pumps) {
-            if (isPressureValid(pump) && isTemperatureValid(pump)) {
+            if (pump.isPressureValid(parameters) && pump.isTemperatureValid(parameters)) {
                 for (Reducer reducer : reducers) {
-                    if (pump.isSuitableReducer(reducer, parameters)) {
+                    if (pump.isReducerValid(reducer, parameters)) {
                         for (Motor motor : motors) {
                             if (motor.isMotorValid(reducer) &&
                                     parameters.isExplosionProofed() == motor.isExplosionProofAvailable()) {
-                                for (Seal seal : seals){
-                                    if (seal.isSealValid(pump)){
+                                for (Seal seal : seals) {
+                                    if (pump.isValidTo(seal.getSuitablePumps())) {
+                                        for (ReliefValve reliefValve : reliefValves) {
+                                            if (pump.isValidTo(reliefValve.getSuitablePumps())){
+                                                for (HeatingJacket heatingJacket : heatingJackets){
+                                                    if (pump.isValidTo(heatingJacket.getSuitablePumps())){
+                                                        for (Coupling coupling : couplings){
+                                                            if (pump.isValidTo(coupling.getSuitablePumps())){
+                                                                for (Frame frame : frames){
+                                                                    if (pump.isValidTo(frame.getSuitablePumps())){
+                                                                        aggregate = new PumpAggregate();
+                                                                        aggregate.setPump(pump);
+                                                                        aggregate.setReducer(reducer);
+                                                                        aggregate.setMotor(motor);
+                                                                        aggregate.setSeal(seal);
+                                                                        aggregate.setReliefValve(reliefValve);
+                                                                        aggregate.setHeatingJacket(heatingJacket);
+                                                                        aggregate.setCoupling(coupling);
+                                                                        aggregate.setFrame(frame);
 
-                                        //
-
+                                                                        list.add(aggregate);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -76,15 +101,5 @@ public class PumpSelectionService {
         return list;
     }
 
-    private boolean isPressureValid(Pump pump) {
-        return pump.getConstMaxPressure().getIntegerValue() <= parameters.getPressure();
-    }
 
-    private boolean isTemperatureValid(Pump pump) {
-        return pump.getConstMaxTemperature().getIntegerValue() <= parameters.getTemperature();
-    }
-
-    private boolean isSealTypeValid(Seal seal){
-        return seal.getSealType().getValue().equals(parameters.getConstSealType().getValue());
-    }
 }

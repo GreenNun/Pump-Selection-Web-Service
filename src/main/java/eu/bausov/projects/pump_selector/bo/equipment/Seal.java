@@ -31,15 +31,4 @@ public class Seal extends Equipment {
     public void setSuitablePumps(Set<Pump> suitablePumps) {
         this.suitablePumps = suitablePumps;
     }
-
-    // if producer, country and model name are equal/
-    public boolean isSealValid(Pump pump) {
-        if (pump == null) return false;
-        for (Pump pumpFromSet : suitablePumps) {
-            if (pump.getProducer().getProducerName().equals(pumpFromSet.getProducer().getProducerName()) &&
-                    pump.getProducer().getProducerCountry().equals(pumpFromSet.getProducer().getProducerCountry()) &&
-                    pump.getModelName().equals(pumpFromSet.getModelName())) return true;
-        }
-        return false;
-    }
 }
