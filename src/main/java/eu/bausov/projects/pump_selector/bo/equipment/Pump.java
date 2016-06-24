@@ -10,51 +10,51 @@ import java.util.Set;
 
 /**
  * Bareshafted pump (pump head).
- *
+ * <p>
  * Constants:
- *
+ * <p>
  * constPumpType             name:   "pump type";
- *                           value:  "gear pump" | "internal gear pump" | "helical gear pump" | "lobe pump";
- *
+ * value:  "gear pump" | "internal gear pump" | "helical gear pump" | "lobe pump";
+ * <p>
  * constReliefValve          name:   "relief valve";
- *                           value:  "none" | "yes";
- *
+ * value:  "none" | "yes";
+ * <p>
  * constHeatingJacket        name:   "heating jacket";
- *                           value:  "none" | "on cover" | "on casting" | "on bracket";
- *
+ * value:  "none" | "on cover" | "on casting" | "on bracket";
+ * <p>
  * constCastingMaterial      name:   "material";
- *                           value:  "cast iron" | "steal" | "stainless steal";
- *
+ * value:  "cast iron" | "steal" | "stainless steal";
+ * <p>
  * constRotorGearMaterial    name:   "material";
- *                           value:  "cast iron" | "steal" | "stainless steal";
- *
+ * value:  "cast iron" | "steal" | "stainless steal";
+ * <p>
  * constIdlerGearMaterial    name:   "material";
- *                           value:  "cast iron" | "steal" | "stainless steal";
- *
+ * value:  "cast iron" | "steal" | "stainless steal";
+ * <p>
  * constBushingMaterial      name:   "material";
- *                           value:  "bronze";
- *
+ * value:  "bronze";
+ * <p>
  * constShaftMaterial        name:   "material";
- *                           value:  "heat treating steal";
- *
+ * value:  "heat treating steal";
+ * <p>
  * constConnectionsType      name:   "connections type";
- *                           value:  "thread" | "flange";
- *
+ * value:  "thread" | "flange";
+ * <p>
  * constDn                   name:   "constDn";
- *                           value:  "3 inch" | "3.5 inch" | "4 inch" | ... ;
- *
+ * value:  "3 inch" | "3.5 inch" | "4 inch" | ... ;
+ * <p>
  * constMaxPressure          name:   "pressure";
- *                           value:  "10" | "12";
- *
+ * value:  "10" | "12";
+ * <p>
  * constConnectionsAngle     name:   "connections angle";
- *                           value:  "90" | "180";
- *
+ * value:  "90" | "180";
+ * <p>
  * constMaxTemperature       name:   "temperature";
- *                           value:  "180" | "200" | "220";
+ * value:  "180" | "200" | "220";
  */
 @Entity
 @Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
-public abstract class Pump extends Equipment {
+public class Pump extends Equipment {
     private Constant constPumpType;
     private Constant constReliefValve;
     private Constant constHeatingJacket;
@@ -216,7 +216,7 @@ public abstract class Pump extends Equipment {
      * @param p Parameters instance to take required motor standard power [HP] value.
      * @return true if passed reducer can be used with current pump for passed parameters.
      */
-    public boolean isSuitableReducer(Reducer r, Parameters p) {
+    public boolean isReducerValid(Reducer r, Parameters p) {
         return r.getSpeedRange().contains(getShaftSpeed(p)) &&
                 (p.getRequiredMotorStandardPowerHP() == r.getConstRequiredMotorPowerHp().getDoubleValue());
     }
@@ -251,5 +251,39 @@ public abstract class Pump extends Equipment {
             return optional.get().getCoefficient();
         }
         return 0;
+    }
+
+    /**
+     * Checks pressure value in parameters for current pump pressure limit.
+     *
+     * @param parameters Parameters instance to take comprising pressure value.
+     * @return Returns true if pressure limit is not exceeded.
+     */
+    public boolean isPressureValid(Parameters parameters) {
+        return getConstMaxPressure().getIntegerValue() <= parameters.getPressure();
+    }
+
+    /**
+     * Checks temperature value in parameters for current pump temperature limit.
+     *
+     * @param parameters Parameters instance to take comprising temperature value.
+     * @return Returns true if temperature limit is not exceeded.
+     */
+    public boolean isTemperatureValid(Parameters parameters) {
+        return getConstMaxTemperature().getIntegerValue() <= parameters.getTemperature();
+    }
+
+
+    // TODO: 24.06.2016 description
+    /**
+     *
+     * @param set
+     * @return
+     */
+    public boolean isValidTo(Set<Pump> set){
+        for (Pump pump : set){
+            if (this.equals(pump)) return true;
+        }
+        return false;
     }
 }

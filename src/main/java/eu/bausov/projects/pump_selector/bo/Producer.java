@@ -26,4 +26,24 @@ public class Producer extends JPA {
     public void setProducerCountry(Constant producerCountry) {
         this.producerCountry = producerCountry;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Producer)) return false;
+
+        Producer producer = (Producer) o;
+
+        if (!producerName.equals(producer.producerName)) return false;
+        return producerCountry.equals(producer.producerCountry);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + producerName.hashCode();
+        result = 31 * result + producerCountry.hashCode();
+        return result;
+    }
 }
