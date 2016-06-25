@@ -7,16 +7,27 @@
 
         <property name="naming.strategy">org.hibernate.cfg.ImprovedNamingStrategy</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
+        <!--<property name="dialect">org.hibernate.dialect.MySQLDialect</property>-->
         <property name="id.new_generator_mappings">true</property>
         <property name="use_sql_comments">false</property>
         <property name="format_sql">true</property>
         <property name="show_sql">false</property>
 
-
-        <mapping class="eu.bausov.projects.pump_selector.bo.Type"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.Constant"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.Parameters"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.Producer"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.Motor"/>
-
+        <mapping class="eu.bausov.projects.pump_selector.bo.Range"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Coupling"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Equipment"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Frame"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.HeatingJacket"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Pump"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Motor"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.PumpAggregate"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Reducer"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.ReliefValve"/>
+        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Seal"/>
 
     </session-factory>
 </hibernate-configuration>
