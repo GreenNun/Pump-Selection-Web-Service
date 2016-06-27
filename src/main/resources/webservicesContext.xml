@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+    <context:property-placeholder location="classpath:service.properties" />
+
+    <context:component-scan base-package="eu.bausov.projects.pump_selector.web.rest"/>
+
+    <bean id="jacksonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="jacksonHibernateObjectMapper"/>
+    </bean>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                <property name="marshaller" ref="jaxb2marshaller"/>
+                <property name="unmarshaller" ref="jaxb2marshaller"/>
+            </bean>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <util:constant static-field="org.springframework.http.MediaType.APPLICATION_JSON"/>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="jacksonHibernateObjectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="jacksonHibernateObjectMapper" class="eu.bausov.projects.pump_selector.web.rest.HibernateAwareObjectMapper"/>
+
+    <bean id="jaxb2marshaller" class="eu.bausov.projects.pump_selector.web.rest.HibernateJaxb2Marshaller">
+        <property name="packagesToScan">
+            <list>
+                <value>eu.bausov.projects.pump_selector.bo</value>
+                <value>eu.bausov.projects.pump_selector.bo.*</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="serviceDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="username" value="${core.dataSourceUsername}"/>
+        <property name="password" value="${core.dataSourcePassword}"/>
+        <property name="url" value="${core.dataSourceUrl}"/>
+        <property name="driverClassName" value="${core.driverClassName}"/>
+        <property name="defaultAutoCommit" value="${core.defaultAutoCommit}"/>
+        <property name="defaultReadOnly" value="${core.defaultReadOnly}"/>
+        <property name="defaultCatalog" value="${core.defaultCatalog}"/>
+        <property name="initialSize" value="${core.initialSize}"/>
+        <property name="maxActive" value="${core.maxActive}"/>
+        <property name="maxIdle" value="${core.maxIdle}"/>
+        <property name="minIdle" value="${core.minIdle}"/>
+        <property name="maxWait" value="${core.maxWait}"/>
+        <property name="validationQuery" value="${core.validationQuery}"/>
+        <property name="testOnBorrow" value="${core.testOnBorrow}"/>
+        <property name="testOnReturn" value="${core.testOnReturn}"/>
+        <property name="testWhileIdle" value="${core.testWhileIdle}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${core.timeBetweenEvictionRunsMillis}"/>
+        <property name="numTestsPerEvictionRun" value="${core.numTestsPerEvictionRun}"/>
+        <property name="minEvictableIdleTimeMillis" value="${core.minEvictableIdleTimeMillis}"/>
+        <property name="poolPreparedStatements" value="${core.poolPreparedStatements}"/>
+        <property name="maxOpenPreparedStatements" value="${core.maxOpenPreparedStatements}"/>
+        <property name="accessToUnderlyingConnectionAllowed" value="true"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="serviceDataSource" />
+        <property name="fetchSize" value="1000" />
+    </bean>
+
+    <bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy"/>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" destroy-method="destroy">
+        <property name="dataSource" ref="serviceDataSource"/>
+        <property name="namingStrategy" ref="namingStrategy"/>
+        <property name="configLocation" value="classpath:/hibernate.cfg.xml"/>
+        <property name="annotatedPackages" value="eu.bausov.projects.pump_selector.bo"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>
