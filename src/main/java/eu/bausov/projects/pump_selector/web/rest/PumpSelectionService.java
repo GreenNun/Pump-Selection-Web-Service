@@ -1,4 +1,4 @@
-package eu.bausov.projects.pump_selector.service;
+package eu.bausov.projects.pump_selector.web.rest;
 
 import eu.bausov.projects.pump_selector.bo.Parameters;
 import eu.bausov.projects.pump_selector.bo.equipment.*;
