@@ -14,6 +14,7 @@ public class PumpAggregate extends Equipment {
     private Motor motor;
     private Coupling coupling;
     private Frame frame;
+    private BigDecimal totalPrice;
 
     @ManyToOne(optional = false)
     public Pump getPump() {
@@ -87,8 +88,17 @@ public class PumpAggregate extends Equipment {
         this.frame = frame;
     }
 
-    @Basic(optional = false)
+    @Basic
     public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Transient
+    public BigDecimal getAllComponentsPrices() {
         BigDecimal totalPrice = new BigDecimal(BigDecimal.ROUND_UNNECESSARY);
         totalPrice = totalPrice.add(pump.getPrice());
         totalPrice = totalPrice.add(reducer.getPrice());
