@@ -42,6 +42,7 @@ public class Motor extends Equipment {
         return constPowerHp.getIntegerValue() == reducer.getConstRequiredMotorPowerHp().getIntegerValue();
     }
 
+    @Transient
     public boolean isExplosionProofAvailable(){
         return !getConstExplosionProof().getValue().equals("none");
     }

@@ -14,7 +14,7 @@
         <property name="show_sql">false</property>
 
         <mapping class="eu.bausov.projects.pump_selector.bo.Constant"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.Parameters"/>
+        <!--<mapping class="eu.bausov.projects.pump_selector.bo.Parameters"/>-->
         <mapping class="eu.bausov.projects.pump_selector.bo.Producer"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.Range"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient"/>

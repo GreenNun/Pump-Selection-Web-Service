@@ -72,7 +72,6 @@ public class Pump extends Equipment {
     private Constant constMaxTemperature;
 
     private Double rpmCoefficient;
-    // TODO: 23.06.2016 mapping
     private Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients;
 
     @ManyToOne(optional = false)
@@ -201,6 +200,7 @@ public class Pump extends Equipment {
         this.rpmCoefficient = rpmCoefficient;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
         return speedCorrectionCoefficients;
     }
