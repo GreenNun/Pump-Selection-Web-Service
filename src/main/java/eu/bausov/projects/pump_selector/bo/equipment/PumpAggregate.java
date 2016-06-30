@@ -1,10 +1,12 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_PUMP_AGGREGATES")
+@XmlRootElement
 public class PumpAggregate extends Equipment {
     private Pump pump;
     private Seal seal;
@@ -87,7 +89,7 @@ public class PumpAggregate extends Equipment {
         this.frame = frame;
     }
 
-    @Basic(optional = false)
+    @Transient
     public BigDecimal getTotalPrice() {
         BigDecimal totalPrice = new BigDecimal(BigDecimal.ROUND_UNNECESSARY);
         totalPrice = totalPrice.add(pump.getPrice());

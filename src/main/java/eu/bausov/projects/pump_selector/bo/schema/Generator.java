@@ -9,7 +9,7 @@ import org.springframework.core.io.Resource;
 public class Generator {
     public static void main(String[] args) {
         try {
-            Resource resource = new FileSystemResource("src/main/java/resources/hibernate.cfg.xml");
+            Resource resource = new FileSystemResource("src/main/resources/hibernate.cfg.xml");
 
             Configuration configuration = new Configuration().configure(resource.getURL());
             configuration.setNamingStrategy(ImprovedNamingStrategy.INSTANCE);

@@ -273,8 +273,6 @@ public class Pump extends Equipment {
         return getConstMaxTemperature().getIntegerValue() <= parameters.getTemperature();
     }
 
-
-    // TODO: 24.06.2016 description
     /**
      *
      * @param set

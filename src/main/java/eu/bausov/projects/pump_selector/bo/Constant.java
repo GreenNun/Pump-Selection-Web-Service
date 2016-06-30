@@ -1,9 +1,6 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "value" }) })
@@ -54,6 +51,7 @@ public class Constant extends JPA {
      *
      * @return int value
      */
+    @Transient
     public int getIntegerValue(){
         return Integer.parseInt(value);
     }
@@ -63,6 +61,7 @@ public class Constant extends JPA {
      *
      * @return double value
      */
+    @Transient
     public double getDoubleValue(){
         return Double.parseDouble(value);
     }

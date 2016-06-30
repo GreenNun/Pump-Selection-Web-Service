@@ -4,12 +4,14 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Entity
-@Table(name = "TB_PARAMETERS")
+//@Entity
+//@Table(name = "TB_PARAMETERS")
+@XmlRootElement
 public class Parameters extends JPA {
     private Constant constPumpType;
     private Double capacity;
@@ -21,7 +23,7 @@ public class Parameters extends JPA {
     private boolean isHeatingJacketed;
     private boolean isExplosionProofed;
 
-    @ManyToOne(optional = false)
+    //@ManyToOne(optional = false)
     public Constant getConstPumpType() {
         return constPumpType;
     }
@@ -30,7 +32,7 @@ public class Parameters extends JPA {
         this.constPumpType = constPumpType;
     }
 
-    @Basic(optional = false)
+    //@Basic(optional = false)
     public Double getCapacity() {
         return capacity;
     }
@@ -39,7 +41,7 @@ public class Parameters extends JPA {
         this.capacity = capacity;
     }
 
-    @Basic(optional = false)
+    //@Basic(optional = false)
     public Integer getPressure() {
         return pressure;
     }
@@ -48,7 +50,7 @@ public class Parameters extends JPA {
         this.pressure = pressure;
     }
 
-    @Basic(optional = false)
+    //@Basic(optional = false)
     public Integer getViscosity() {
         return viscosity;
     }
@@ -57,7 +59,7 @@ public class Parameters extends JPA {
         this.viscosity = viscosity;
     }
 
-    @Basic(optional = false)
+    //@Basic(optional = false)
     public Integer getTemperature() {
         return temperature;
     }
@@ -66,7 +68,7 @@ public class Parameters extends JPA {
         this.temperature = temperature;
     }
 
-    @ManyToOne(optional = false)
+    //@ManyToOne(optional = false)
     public Constant getConstSealType() {
         return constSealType;
     }
@@ -75,7 +77,7 @@ public class Parameters extends JPA {
         this.constSealType = constSealType;
     }
 
-    @Basic(optional = false)
+   // @Basic(optional = false)
     public boolean isReliefValve() {
         return isReliefValve;
     }
@@ -84,7 +86,7 @@ public class Parameters extends JPA {
         isReliefValve = reliefValve;
     }
 
-    @Basic(optional = false)
+    //@Basic(optional = false)
     public boolean isHeatingJacketed() {
         return isHeatingJacketed;
     }
@@ -93,7 +95,7 @@ public class Parameters extends JPA {
         isHeatingJacketed = heatingJacketed;
     }
 
-    @Basic(optional = false)
+   // @Basic(optional = false)
     public boolean isExplosionProofed() {
         return isExplosionProofed;
     }
