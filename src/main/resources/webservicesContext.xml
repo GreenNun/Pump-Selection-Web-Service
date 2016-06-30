@@ -44,8 +44,8 @@
     <bean id="jaxb2marshaller" class="eu.bausov.projects.pump_selector.web.rest.HibernateJaxb2Marshaller">
         <property name="packagesToScan">
             <list>
-                <value>eu.bausov.projects.pump_selector.bo</value>
-                <value>eu.bausov.projects.pump_selector.bo.*</value>
+                <value>eu.bausov.projects.pump_selector.bo.equipment</value>
+                <value>eu.bausov.projects.pump_selector.bo.equipment.*</value>
             </list>
         </property>
     </bean>

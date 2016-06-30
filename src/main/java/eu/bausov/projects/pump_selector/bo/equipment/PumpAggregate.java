@@ -1,10 +1,12 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_PUMP_AGGREGATES")
+@XmlRootElement
 public class PumpAggregate extends Equipment {
     private Pump pump;
     private Seal seal;
