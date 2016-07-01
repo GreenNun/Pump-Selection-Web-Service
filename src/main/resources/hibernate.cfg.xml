@@ -6,7 +6,8 @@
     <session-factory>
 
         <property name="naming.strategy">org.hibernate.cfg.ImprovedNamingStrategy</property>
-        <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <!--<property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>-->
         <!--<property name="dialect">org.hibernate.dialect.MySQLDialect</property>-->
         <property name="id.new_generator_mappings">true</property>
         <property name="use_sql_comments">false</property>
