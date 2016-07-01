@@ -30,11 +30,11 @@ public class PumpSelectionService {
 
     @ResponseBody
     @RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    public Parameters getSuitablePumps(@RequestBody Parameters params
+    public String getSuitablePumps(@RequestBody Parameters params
     ) {
 
 
-        return params;
+        return params.toString();
     }
 
     @ResponseBody

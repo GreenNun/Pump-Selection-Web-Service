@@ -14,7 +14,7 @@
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
-    <import resource="classpath:webservicesContext.xml"/>
+    <import resource="classpath:webServicesContext.xml"/>
 
     <bean id="exceptionResolver" class="eu.bausov.projects.pump_selector.web.rest.HandlerExceptionResolver">
         <property name="order" value="1"/>

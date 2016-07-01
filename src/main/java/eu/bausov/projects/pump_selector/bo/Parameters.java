@@ -135,4 +135,19 @@ public class Parameters extends JPA {
     private double getMetersHead() {
         return pressure * 10.19977334;
     }
+
+    @Override
+    public String toString() {
+        return "Parameters{" + "\n" +
+                "constPumpType=" + constPumpType + "\n" +
+                ", capacity=" + capacity + "\n" +
+                ", pressure=" + pressure + "\n" +
+                ", viscosity=" + viscosity + "\n" +
+                ", temperature=" + temperature + "\n" +
+                ", constSealType=" + constSealType + "\n" +
+                ", isReliefValve=" + isReliefValve + "\n" +
+                ", isHeatingJacketed=" + isHeatingJacketed + "\n" +
+                ", isExplosionProofed=" + isExplosionProofed + "\n" +
+                '}';
+    }
 }
