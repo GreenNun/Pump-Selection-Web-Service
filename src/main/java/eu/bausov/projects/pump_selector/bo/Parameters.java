@@ -1,9 +1,5 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
@@ -18,6 +14,7 @@ public class Parameters extends JPA {
     private Integer pressure;
     private Integer viscosity;
     private Integer temperature;
+    private Constant constCastingMaterial;
     private Constant constSealType;
     private boolean isReliefValve;
     private boolean isHeatingJacketed;
@@ -66,6 +63,15 @@ public class Parameters extends JPA {
 
     public void setTemperature(Integer temperature) {
         this.temperature = temperature;
+    }
+
+    //@ManyToOne(optional = false)
+    public Constant getConstCastingMaterial() {
+        return constCastingMaterial;
+    }
+
+    public void setConstCastingMaterial(Constant constCastingMaterial) {
+        this.constCastingMaterial = constCastingMaterial;
     }
 
     //@ManyToOne(optional = false)

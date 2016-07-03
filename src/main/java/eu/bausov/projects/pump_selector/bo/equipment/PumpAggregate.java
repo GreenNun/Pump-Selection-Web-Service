@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 @Table(name = "TB_PUMP_AGGREGATES")
 @XmlRootElement
 public class PumpAggregate extends Equipment {
+    private String parameters;
+
     private Pump pump;
     private Seal seal;
     private ReliefValve reliefValve;
@@ -16,6 +18,15 @@ public class PumpAggregate extends Equipment {
     private Motor motor;
     private Coupling coupling;
     private Frame frame;
+
+    @Basic(optional = false)
+    public String getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
+    }
 
     @ManyToOne(optional = false)
     public Pump getPump() {
@@ -98,6 +109,7 @@ public class PumpAggregate extends Equipment {
         totalPrice = totalPrice.add(coupling.getPrice());
         totalPrice = totalPrice.add(frame.getPrice());
 
-        return totalPrice;
+        // Price * 2
+        return totalPrice.multiply(new BigDecimal(2));
     }
 }
