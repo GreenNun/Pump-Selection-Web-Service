@@ -60,10 +60,12 @@ public class PumpSelectionService {
                     pump.isTemperatureValid(parameters)) {                                          // temperature
                 // Reducer
                 for (Reducer reducer : reducers) {
-                    if (pump.isReducerValid(reducer, parameters)) {
+                    if (pump.getProducer().equals(reducer.getVendor()) && // vendor check
+                            pump.isReducerValid(reducer, parameters)) {
                         // Motor
                         for (Motor motor : motors) {
-                            if (motor.isMotorValid(reducer) &&
+                            if (pump.getProducer().equals(motor.getVendor()) && // vendor check
+                                    motor.isMotorValid(reducer) &&
                                     parameters.getExplosionProof() == motor.isExplosionProofAvailable()) {
                                 // Coupling
                                 for (Coupling coupling : couplings) {

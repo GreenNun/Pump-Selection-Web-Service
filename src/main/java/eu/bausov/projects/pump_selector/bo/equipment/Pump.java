@@ -16,14 +16,8 @@ import java.util.Set;
  * constPumpType             name:   "pump type";
  * value:  "gear pump" | "internal gear pump" | "helical gear pump" | "lobe pump";
  * <p>
- * constReliefValve          name:   "relief valve";
- * value:  "none" | "yes";
- * <p>
- * constHeatingJacket        name:   "heating jacket";
- * value:  "none" | "on cover" | "on casting" | "on bracket";
- * <p>
  * constCastingMaterial      name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GG 25 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel";
  * <p>
  * constRotorGearMaterial    name:   "material";
  * value:  "cast iron" | "steal" | "stainless steal";
