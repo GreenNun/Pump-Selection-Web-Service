@@ -55,7 +55,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "isReliefValve",
         "isHeatingJacketOnCover", "isHeatingJacketOnCasting", "isHeatingJacketOnBracket", "seal", "constCastingMaterial",
-        "constRotorGearMaterial", "constIdlerGearMaterial", "constBushingMaterial", "constShaftMaterial",
+        "constRotorGearMaterial", "constIdlerGearMaterial", "constShaftSupportMaterial", "constShaftMaterial",
         "constConnectionsType", "constDn", "constMaxPressure", "constConnectionsAngle", "constMaxTemperature",
         "rpmCoefficient", "speedCorrectionCoefficients"})})
 public class Pump extends Equipment {
@@ -70,7 +70,7 @@ public class Pump extends Equipment {
     private Constant constCastingMaterial;
     private Constant constRotorGearMaterial;
     private Constant constIdlerGearMaterial;
-    private Constant constBushingMaterial;
+    private Constant constShaftSupportMaterial;
     private Constant constShaftMaterial;
 
     private Constant constConnectionsType;
@@ -164,12 +164,12 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Constant getConstBushingMaterial() {
-        return constBushingMaterial;
+    public Constant getConstShaftSupportMaterial() {
+        return constShaftSupportMaterial;
     }
 
-    public void setConstBushingMaterial(Constant constBushingMaterial) {
-        this.constBushingMaterial = constBushingMaterial;
+    public void setConstShaftSupportMaterial(Constant constShaftSupportMaterial) {
+        this.constShaftSupportMaterial = constShaftSupportMaterial;
     }
 
     @ManyToOne(optional = false)
