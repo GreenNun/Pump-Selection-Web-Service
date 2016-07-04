@@ -91,7 +91,7 @@ public class Pump extends Equipment {
         this.constPumpType = constPumpType;
     }
 
-    @Basic
+    @Basic(optional = false)
     public Boolean getReliefValve() {
         return isReliefValve;
     }
@@ -100,7 +100,7 @@ public class Pump extends Equipment {
         isReliefValve = reliefValve;
     }
 
-    @Basic
+    @Basic(optional = false)
     public Boolean getHeatingJacketOnCover() {
         return isHeatingJacketOnCover;
     }
@@ -109,7 +109,7 @@ public class Pump extends Equipment {
         isHeatingJacketOnCover = heatingJacketOnCover;
     }
 
-    @Basic
+    @Basic(optional = false)
     public Boolean getHeatingJacketOnCasting() {
         return isHeatingJacketOnCasting;
     }
@@ -118,7 +118,7 @@ public class Pump extends Equipment {
         isHeatingJacketOnCasting = heatingJacketOnCasting;
     }
 
-    @Basic
+    @Basic(optional = false)
     public Boolean getHeatingJacketOnBracket() {
         return isHeatingJacketOnBracket;
     }
