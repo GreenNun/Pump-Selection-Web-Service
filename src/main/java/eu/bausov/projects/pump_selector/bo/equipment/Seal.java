@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "sealType", "oRingMaterial"})})
+@Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "seal_Type", "oRing_Material"})})
 public class Seal extends Equipment {
     private Constant sealType;
     private Constant oRingMaterial;

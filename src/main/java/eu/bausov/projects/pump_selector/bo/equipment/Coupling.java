@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "couplingType", "suitablePump"})})
+@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "coupling_Type", "suitable_Pump"})})
 public class Coupling extends Equipment {
     private Constant couplingType;
     private Pump suitablePump;

@@ -47,11 +47,11 @@ import java.util.Set;
  * value:  "180" | "200" | "220";
  */
 @Entity
-@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "isReliefValve",
-        "isHeatingJacketOnCover", "isHeatingJacketOnCasting", "isHeatingJacketOnBracket", "seal", "constCastingMaterial",
-        "constRotorGearMaterial", "constIdlerGearMaterial", "constShaftSupportMaterial", "constShaftMaterial",
-        "constConnectionsType", "constDn", "constMaxPressure", "constConnectionsAngle", "constMaxTemperature",
-        "rpmCoefficient", "speedCorrectionCoefficients"})})
+@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "const_Pump_Type",
+        "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasting", "HeatingJacketOnBracket", "seal",
+        "const_Casting_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
+        "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
+//@Table(name = "TB_PUMPS")
 public class Pump extends Equipment {
     private Constant constPumpType;
     private Boolean isReliefValve;
