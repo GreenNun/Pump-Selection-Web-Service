@@ -1,9 +1,5 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
@@ -18,6 +14,7 @@ public class Parameters extends JPA {
     private Integer pressure;
     private Integer viscosity;
     private Integer temperature;
+    private Constant constCastingMaterial;
     private Constant constSealType;
     private boolean isReliefValve;
     private boolean isHeatingJacketed;
@@ -69,6 +66,15 @@ public class Parameters extends JPA {
     }
 
     //@ManyToOne(optional = false)
+    public Constant getConstCastingMaterial() {
+        return constCastingMaterial;
+    }
+
+    public void setConstCastingMaterial(Constant constCastingMaterial) {
+        this.constCastingMaterial = constCastingMaterial;
+    }
+
+    //@ManyToOne(optional = false)
     public Constant getConstSealType() {
         return constSealType;
     }
@@ -77,7 +83,7 @@ public class Parameters extends JPA {
         this.constSealType = constSealType;
     }
 
-    //@Basic(optional = false)
+    // @Basic(optional = false)
     public boolean isReliefValve() {
         return isReliefValve;
     }
@@ -95,7 +101,7 @@ public class Parameters extends JPA {
         isHeatingJacketed = heatingJacketed;
     }
 
-    //@Basic(optional = false)
+    // @Basic(optional = false)
     public boolean isExplosionProofed() {
         return isExplosionProofed;
     }
@@ -134,5 +140,20 @@ public class Parameters extends JPA {
      */
     private double getMetersHead() {
         return pressure * 10.19977334;
+    }
+
+    @Override
+    public String toString() {
+        return "Parameters{" + "\n" +
+                "constPumpType=" + constPumpType + "\n" +
+                ", capacity=" + capacity + "\n" +
+                ", pressure=" + pressure + "\n" +
+                ", viscosity=" + viscosity + "\n" +
+                ", temperature=" + temperature + "\n" +
+                ", constSealType=" + constSealType + "\n" +
+                ", isReliefValve=" + isReliefValve + "\n" +
+                ", isHeatingJacketed=" + isHeatingJacketed + "\n" +
+                ", isExplosionProofed=" + isExplosionProofed + "\n" +
+                '}';
     }
 }

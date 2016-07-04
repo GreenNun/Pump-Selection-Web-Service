@@ -16,132 +16,59 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/PumpSelectionService")
+@PreAuthorize("hasRole('ADMIN')")
 public class PumpSelectionService {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    //@ResponseBody
-    /*@RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void getSuitablePumps(@RequestBody PumpAggregate aggregate) {
-
-    }*/
-
     @ResponseBody
     @RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    public Parameters getSuitablePumps(@RequestBody Parameters params
-    ) {
-
-
-        return params;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<String> getSuitablePumps(
-            //public List<PumpAggregate> getSuitablePumps(
-            @RequestParam(required = false, value = "queryParam1") Integer p1,
-            @RequestParam(required = true, value = "queryParam2") String p2,
-            HttpSession httpSession
-    ) {
+    public List<PumpAggregate> getSuitablePumps(@RequestBody Parameters parameters) {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-        //Get all pumps from DB
-        List<Pump> pumpsList = currentSession.createCriteria(Pump.class).list();
-        List<Reducer> reducersList = currentSession.createCriteria(Reducer.class).list();
-
-        for (Pump pump : pumpsList) {
-
-        }
+        // Get all equipment lists from DB
+        List<Pump> pumps = currentSession.createCriteria(Pump.class).list();
+        List<Reducer> reducers = currentSession.createCriteria(Reducer.class).list();
+        List<Motor> motors = currentSession.createCriteria(Motor.class).list();
+        List<Seal> seals = currentSession.createCriteria(Seal.class).list();
+        List<ReliefValve> reliefValves = currentSession.createCriteria(ReliefValve.class).list();
+        List<HeatingJacket> heatingJackets = currentSession.createCriteria(HeatingJacket.class).list();
+        List<Coupling> couplings = currentSession.createCriteria(Coupling.class).list();
+        List<Frame> frames = currentSession.createCriteria(Frame.class).list();
 
 
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
-
-        Pump pump = new Pump();
-        pump.setModelName("Model name");
-
-        PumpAggregate tmp = new PumpAggregate();
-        tmp.setPump(pump);
-
-        pumpAggregates.add(tmp);
-
-
-        //return pumpAggregates;
-
-        return Arrays.asList("sd", "dd");
-
-    }
-
-
-   /* private Parameters parameters;
-    private List<Pump> pumps;
-    private List<Reducer> reducers;
-    private List<Motor> motors;
-    private List<Seal> seals;
-    private List<ReliefValve> reliefValves;
-    private List<HeatingJacket> heatingJackets;
-    private List<Coupling> couplings;
-    private List<Frame> frames;
-
-    public PumpSelectionService(Parameters parameters,
-                                List<Pump> pumps,
-                                List<Reducer> reducers,
-                                List<Motor> motors,
-                                List<Seal> seals,
-                                List<ReliefValve> reliefValves,
-                                List<HeatingJacket> heatingJackets,
-                                List<Coupling> couplings,
-                                List<Frame> frames) {
-        this.parameters = parameters;
-        this.pumps = pumps;
-        this.reducers = reducers;
-        this.motors = motors;
-        this.seals = seals;
-        this.reliefValves = reliefValves;
-        this.heatingJackets = heatingJackets;
-        this.couplings = couplings;
-        this.frames = frames;
-    }*/
-
-
-
-
-    /**
-     * private Pump pump; +
-     * private Seal seal; +
-     * private ReliefValve reliefValve;+
-     * private HeatingJacket heatingJacket; +
-     * private Reducer reducer; +
-     * private Motor motor; +
-     * private Coupling coupling;
-     * private Frame frame;
-     */
-   /* public List<PumpAggregate> getSuitableInternalGearPumps() {
-        List<PumpAggregate> list = new ArrayList<>();
-
-        PumpAggregate aggregate = null;
-
+        // Pump
         for (Pump pump : pumps) {
-            if (pump.isPressureValid(parameters) && pump.isTemperatureValid(parameters)) {
+            if (pump.getConstPumpType().equals(parameters.getConstPumpType()) &&
+                    pump.isPressureValid(parameters) &&
+                    pump.isTemperatureValid(parameters) &&
+                    pump.getConstCastingMaterial().equals(parameters.getConstCastingMaterial())) {
+                // Reducer
                 for (Reducer reducer : reducers) {
                     if (pump.isReducerValid(reducer, parameters)) {
+                        // Motor
                         for (Motor motor : motors) {
                             if (motor.isMotorValid(reducer) &&
                                     parameters.isExplosionProofed() == motor.isExplosionProofAvailable()) {
+                                // Seal
                                 for (Seal seal : seals) {
                                     if (pump.isValidTo(seal.getSuitablePumps())) {
+                                        // Valve
                                         for (ReliefValve reliefValve : reliefValves) {
-                                            if (pump.isValidTo(reliefValve.getSuitablePumps())){
-                                                for (HeatingJacket heatingJacket : heatingJackets){
-                                                    if (pump.isValidTo(heatingJacket.getSuitablePumps())){
-                                                        for (Coupling coupling : couplings){
-                                                            if (pump.isValidTo(coupling.getSuitablePumps())){
-                                                                for (Frame frame : frames){
-                                                                    if (pump.isValidTo(frame.getSuitablePumps())){
-                                                                        aggregate = new PumpAggregate();
+                                            if (pump.isValidTo(reliefValve.getSuitablePumps())) {
+                                                // Jacket
+                                                for (HeatingJacket heatingJacket : heatingJackets) {
+                                                    if (pump.isValidTo(heatingJacket.getSuitablePumps())) {
+                                                        // Coupling
+                                                        for (Coupling coupling : couplings) {
+                                                            if (pump.isValidTo(coupling.getSuitablePumps())) {
+                                                                // Frame
+                                                                for (Frame frame : frames) {
+                                                                    if (pump.isValidTo(frame.getSuitablePumps())) {
+                                                                        PumpAggregate aggregate = new PumpAggregate();
                                                                         aggregate.setPump(pump);
                                                                         aggregate.setReducer(reducer);
                                                                         aggregate.setMotor(motor);
@@ -151,7 +78,7 @@ public class PumpSelectionService {
                                                                         aggregate.setCoupling(coupling);
                                                                         aggregate.setFrame(frame);
 
-                                                                        list.add(aggregate);
+                                                                        pumpAggregates.add(aggregate);
                                                                     }
                                                                 }
                                                             }
@@ -169,10 +96,41 @@ public class PumpSelectionService {
             }
         }
 
+        // Temporary solution
+        ///////////////////////////////////////////////////////////////////
+        Pump pump = new Pump();
+        pump.setModelName("Model name");
+        PumpAggregate tmp = new PumpAggregate();
+        tmp.setPump(pump);
+        pumpAggregates.add(tmp);
 
-        return list;
+        //return Arrays.asList("sd", "dd");
+
+        return pumpAggregates;
     }
-    */
-
-
 }
+
+//@ResponseBody
+    /*@RequestMapping(value = "/pumps", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
+    public void getSuitablePumps(@RequestBody PumpAggregate aggregate) {
+    }*/
+
+//    @ResponseBody
+//    @RequestMapping(value = "/pumps", method = RequestMethod.POST)
+//    public String getSuitablePumps(@RequestBody Parameters params
+//    ) {
+//
+//
+//        return params.toString();
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
+//    @PreAuthorize("hasRole('ADMIN')")
+//    //public List<String> getSuitablePumps(
+//    public List<PumpAggregate> getSuitablePumps(
+//            @RequestParam(required = false, value = "queryParam1") Integer p1,
+//            @RequestParam(required = true, value = "queryParam2") String p2,
+//            HttpSession httpSession
+//    )
