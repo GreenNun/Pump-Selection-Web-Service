@@ -13,6 +13,7 @@ public class Parameters extends JPA {
     private Double capacity;
     private Integer pressure;
     private Integer viscosity;
+    private Double sg;
     private Integer temperature;
     private Constant constCastingMaterial;
     private Constant constSealType;
@@ -54,6 +55,15 @@ public class Parameters extends JPA {
 
     public void setViscosity(Integer viscosity) {
         this.viscosity = viscosity;
+    }
+
+    //@Basic
+    public Double getSg() {
+        return sg;
+    }
+
+    public void setSg(Double sg) {
+        this.sg = sg;
     }
 
     //@Basic(optional = false)
@@ -149,6 +159,7 @@ public class Parameters extends JPA {
                 ", capacity=" + capacity + "\n" +
                 ", pressure=" + pressure + "\n" +
                 ", viscosity=" + viscosity + "\n" +
+                ", sg=" + sg + "\n" +
                 ", temperature=" + temperature + "\n" +
                 ", constSealType=" + constSealType + "\n" +
                 ", isReliefValve=" + isReliefValve + "\n" +
