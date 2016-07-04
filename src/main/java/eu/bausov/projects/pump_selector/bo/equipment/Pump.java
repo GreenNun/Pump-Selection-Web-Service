@@ -14,31 +14,34 @@ import java.util.Set;
  * Constants:
  * <p>
  * constPumpType             name:   "pump type";
- * value:  "gear pump" | "internal gear pump" | "helical gear pump" | "lobe pump";
+ * value:  "Modular Gear Pump" | "Internal Eccentric Gear Pump" | "Helical Gear Pump" | "Lobe Pump" | "Food Pump";
  * <p>
  * constCastingMaterial      name:   "material";
  * value:  "GG 25 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel";
  * <p>
  * constRotorGearMaterial    name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GGG 40 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
  * constIdlerGearMaterial    name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GGG 40 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
- * constBushingMaterial      name:   "material";
- * value:  "bronze";
+ * constShaftSupportMaterial name:   "material";
+ * value:  "CuSn 12 Bronze Bushings" | "Carbon Graphite Bushings" | "Ball Bearings";
  * <p>
  * constShaftMaterial        name:   "material";
- * value:  "heat treating steal";
+ * value:  "1050 Steel, Heat Treated" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
  * constConnectionsType      name:   "connections type";
- * value:  "thread" | "flange";
+ * value:  "Thread" | "Flange";
  * <p>
  * constDn                   name:   "constDn";
- * value:  "3 inch" | "3.5 inch" | "4 inch" | ... ;
+ * value:  "20" | "25" | "40" | "50"  | "65" | "80" | "100" | "125" | "200";
  * <p>
  * constMaxPressure          name:   "pressure";
- * value:  "10" | "12";
+ * value:  "10" | "12" | "14";
  * <p>
  * constConnectionsAngle     name:   "connections angle";
  * value:  "90" | "180";
@@ -51,7 +54,6 @@ import java.util.Set;
         "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasting", "HeatingJacketOnBracket", "seal",
         "const_Casting_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
         "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
-//@Table(name = "TB_PUMPS")
 public class Pump extends Equipment {
     private Constant constPumpType;
     private Boolean isReliefValve;
