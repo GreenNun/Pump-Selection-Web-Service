@@ -21,13 +21,10 @@
         <mapping class="eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Coupling"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Equipment"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Frame"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.HeatingJacket"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Pump"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Motor"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.PumpAggregate"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Reducer"/>
-        <mapping class="eu.bausov.projects.pump_selector.bo.equipment.ReliefValve"/>
         <mapping class="eu.bausov.projects.pump_selector.bo.equipment.Seal"/>
 
     </session-factory>

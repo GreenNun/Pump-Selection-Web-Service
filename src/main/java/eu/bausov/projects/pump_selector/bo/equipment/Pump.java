@@ -53,11 +53,19 @@ import java.util.Set;
  * value:  "180" | "200" | "220";
  */
 @Entity
-@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "isReliefValve",
+        "isHeatingJacketOnCover", "isHeatingJacketOnCasting", "isHeatingJacketOnBracket", "seal", "constCastingMaterial",
+        "constRotorGearMaterial", "constIdlerGearMaterial", "constBushingMaterial", "constShaftMaterial",
+        "constConnectionsType", "constDn", "constMaxPressure", "constConnectionsAngle", "constMaxTemperature",
+        "rpmCoefficient", "speedCorrectionCoefficients"})})
 public class Pump extends Equipment {
     private Constant constPumpType;
-    private Constant constReliefValve;
-    private Constant constHeatingJacket;
+    private Boolean isReliefValve;
+    private Boolean isHeatingJacketOnCover;
+    private Boolean isHeatingJacketOnCasting;
+    private Boolean isHeatingJacketOnBracket;
+
+    private Seal seal;
 
     private Constant constCastingMaterial;
     private Constant constRotorGearMaterial;
@@ -83,22 +91,49 @@ public class Pump extends Equipment {
         this.constPumpType = constPumpType;
     }
 
+    @Basic
+    public Boolean getReliefValve() {
+        return isReliefValve;
+    }
+
+    public void setReliefValve(Boolean reliefValve) {
+        isReliefValve = reliefValve;
+    }
+
+    @Basic
+    public Boolean getHeatingJacketOnCover() {
+        return isHeatingJacketOnCover;
+    }
+
+    public void setHeatingJacketOnCover(Boolean heatingJacketOnCover) {
+        isHeatingJacketOnCover = heatingJacketOnCover;
+    }
+
+    @Basic
+    public Boolean getHeatingJacketOnCasting() {
+        return isHeatingJacketOnCasting;
+    }
+
+    public void setHeatingJacketOnCasting(Boolean heatingJacketOnCasting) {
+        isHeatingJacketOnCasting = heatingJacketOnCasting;
+    }
+
+    @Basic
+    public Boolean getHeatingJacketOnBracket() {
+        return isHeatingJacketOnBracket;
+    }
+
+    public void setHeatingJacketOnBracket(Boolean heatingJacketOnBracket) {
+        isHeatingJacketOnBracket = heatingJacketOnBracket;
+    }
+
     @ManyToOne(optional = false)
-    public Constant getConstReliefValve() {
-        return constReliefValve;
+    public Seal getSeal() {
+        return seal;
     }
 
-    public void setConstReliefValve(Constant constReliefValve) {
-        this.constReliefValve = constReliefValve;
-    }
-
-    @ManyToOne(optional = false)
-    public Constant getConstHeatingJacket() {
-        return constHeatingJacket;
-    }
-
-    public void setConstHeatingJacket(Constant constHeatingJacket) {
-        this.constHeatingJacket = constHeatingJacket;
+    public void setSeal(Seal seal) {
+        this.seal = seal;
     }
 
     @ManyToOne(optional = false)
@@ -271,19 +306,5 @@ public class Pump extends Equipment {
      */
     public boolean isTemperatureValid(Parameters parameters) {
         return getConstMaxTemperature().getIntegerValue() <= parameters.getTemperature();
-    }
-
-
-    // TODO: 24.06.2016 description
-    /**
-     *
-     * @param set
-     * @return
-     */
-    public boolean isValidTo(Set<Pump> set){
-        for (Pump pump : set){
-            if (this.equals(pump)) return true;
-        }
-        return false;
     }
 }

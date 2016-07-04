@@ -1,5 +1,7 @@
 package eu.bausov.projects.pump_selector.bo;
 
+import eu.bausov.projects.pump_selector.bo.equipment.Seal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
@@ -16,10 +18,10 @@ public class Parameters extends JPA {
     private Double sg;
     private Integer temperature;
     private Constant constCastingMaterial;
-    private Constant constSealType;
-    private boolean isReliefValve;
-    private boolean isHeatingJacketed;
-    private boolean isExplosionProofed;
+    private Seal seal;
+    private Boolean isReliefValve;
+    private Boolean isHeatingJacket;
+    private Boolean isExplosionProof;
 
     //@ManyToOne(optional = false)
     public Constant getConstPumpType() {
@@ -85,39 +87,50 @@ public class Parameters extends JPA {
     }
 
     //@ManyToOne(optional = false)
-    public Constant getConstSealType() {
-        return constSealType;
+    public Seal getSeal() {
+        return seal;
     }
 
-    public void setConstSealType(Constant constSealType) {
-        this.constSealType = constSealType;
+    public void setSeal(Seal seal) {
+        this.seal = seal;
     }
 
-    // @Basic(optional = false)
-    public boolean isReliefValve() {
+    //@Basic(optional = false)
+    public Boolean getReliefValve() {
         return isReliefValve;
     }
 
-    public void setReliefValve(boolean reliefValve) {
+    public void setReliefValve(Boolean reliefValve) {
         isReliefValve = reliefValve;
     }
 
     //@Basic(optional = false)
-    public boolean isHeatingJacketed() {
-        return isHeatingJacketed;
+    public Boolean getHeatingJacket() {
+        return isHeatingJacket;
     }
 
-    public void setHeatingJacketed(boolean heatingJacketed) {
-        isHeatingJacketed = heatingJacketed;
+    public void setHeatingJacketed(Boolean heatingJacket) {
+        isHeatingJacket = heatingJacket;
     }
 
-    // @Basic(optional = false)
-    public boolean isExplosionProofed() {
-        return isExplosionProofed;
+    //@Basic(optional = false)
+    public Boolean getExplosionProof() {
+        return isExplosionProof;
     }
 
-    public void setExplosionProofed(boolean explosionProofed) {
-        isExplosionProofed = explosionProofed;
+    public void setExplosionProof(Boolean explosionProof) {
+        isExplosionProof = explosionProof;
+    }
+
+    @Override
+    public String toString() {
+        return "Parameters{" +
+                "capacity=" + capacity + "\n" +
+                ", pressure=" + pressure + "\n" +
+                ", viscosity=" + viscosity + "\n" +
+                ", sg=" + sg + "\n" +
+                ", temperature=" + temperature +
+                '}';
     }
 
     /**
@@ -125,6 +138,7 @@ public class Parameters extends JPA {
      *
      * @return standard motor power in HP, if there no suitable motor, returns -1 (if required more them 250 hp).
      */
+    //@Transient
     public double getRequiredMotorStandardPowerHP() {
         Stream<Double> stream = Arrays.asList(0.16, 0.25, 0.34, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.5,
                 7.5, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0, 60.0, 75.0,
@@ -148,23 +162,8 @@ public class Parameters extends JPA {
      *
      * @return pressure in meters head.
      */
+    //@Transient
     private double getMetersHead() {
         return pressure * 10.19977334;
-    }
-
-    @Override
-    public String toString() {
-        return "Parameters{" + "\n" +
-                "constPumpType=" + constPumpType + "\n" +
-                ", capacity=" + capacity + "\n" +
-                ", pressure=" + pressure + "\n" +
-                ", viscosity=" + viscosity + "\n" +
-                ", sg=" + sg + "\n" +
-                ", temperature=" + temperature + "\n" +
-                ", constSealType=" + constSealType + "\n" +
-                ", isReliefValve=" + isReliefValve + "\n" +
-                ", isHeatingJacketed=" + isHeatingJacketed + "\n" +
-                ", isExplosionProofed=" + isExplosionProofed + "\n" +
-                '}';
     }
 }

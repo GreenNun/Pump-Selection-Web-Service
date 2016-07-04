@@ -6,10 +6,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "couplingType", "suitablePump"})})
 public class Coupling extends Equipment {
     private Constant couplingType;
-    private Set<Pump> suitablePumps;
+    private Pump suitablePump;
 
     @ManyToOne(optional = false)
     public Constant getCouplingType() {
@@ -20,12 +20,12 @@ public class Coupling extends Equipment {
         this.couplingType = couplingType;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Pump> getSuitablePumps() {
-        return suitablePumps;
+    @ManyToOne(optional = false)
+    public Pump getSuitablePump() {
+        return suitablePump;
     }
 
-    public void setSuitablePumps(Set<Pump> suitablePumps) {
-        this.suitablePumps = suitablePumps;
+    public void setSuitablePump(Pump suitablePump) {
+        this.suitablePump = suitablePump;
     }
 }
