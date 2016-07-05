@@ -14,55 +14,61 @@ import java.util.Set;
  * Constants:
  * <p>
  * constPumpType             name:   "pump type";
- * value:  "gear pump" | "internal gear pump" | "helical gear pump" | "lobe pump";
- * <p>
- * constReliefValve          name:   "relief valve";
- * value:  "none" | "yes";
- * <p>
- * constHeatingJacket        name:   "heating jacket";
- * value:  "none" | "on cover" | "on casting" | "on bracket";
+ * value:  "Modular Gear Pump" | "Internal Eccentric Gear Pump" | "Helical Gear Pump" | "Lobe Pump" | "Food Pump";
  * <p>
  * constCastingMaterial      name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GG 25 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel";
  * <p>
  * constRotorGearMaterial    name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GGG 40 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
  * constIdlerGearMaterial    name:   "material";
- * value:  "cast iron" | "steal" | "stainless steal";
+ * value:  "GGG 40 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
- * constBushingMaterial      name:   "material";
- * value:  "bronze";
+ * constShaftSupportMaterial name:   "material";
+ * value:  "CuSn 12 Bronze Bushings" | "Carbon Graphite Bushings" | "Ball Bearings";
  * <p>
  * constShaftMaterial        name:   "material";
- * value:  "heat treating steal";
+ * value:  "1050 Steel, Heat Treated" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel" |
+ *         "8620 Steel, Heat Treated";
  * <p>
  * constConnectionsType      name:   "connections type";
- * value:  "thread" | "flange";
+ * value:  "Thread" | "Flange";
  * <p>
- * constDn                   name:   "constDn";
- * value:  "3 inch" | "3.5 inch" | "4 inch" | ... ;
+ * constDn                   name:   "DN";
+ * value:  "20" | "25" | "40" | "50"  | "65" | "80" | "100" | "125" | "200";
  * <p>
- * constMaxPressure          name:   "pressure";
- * value:  "10" | "12";
+ * constMaxPressure          name:   "max. pressure";
+ * value:  "10" | "12" | "14";
  * <p>
  * constConnectionsAngle     name:   "connections angle";
  * value:  "90" | "180";
  * <p>
- * constMaxTemperature       name:   "temperature";
+ * constMaxTemperature       name:   "max. temperature";
  * value:  "180" | "200" | "220";
+ * <p>
+ * rpmCoefficient is ratio coefficient between Capacity [m3/h] and Shaft Rotations [rpm].
+ * <p>
+ * speedCorrectionCoefficients is pumps of coefficients correcting shaft speed according viscosity grades.
  */
 @Entity
-@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "const_Pump_Type",
+        "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasting", "HeatingJacketOnBracket",
+        "const_Casting_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
+        "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
 public class Pump extends Equipment {
     private Constant constPumpType;
-    private Constant constReliefValve;
-    private Constant constHeatingJacket;
+    private Boolean isReliefValve;
+    private Boolean isHeatingJacketOnCover;
+    private Boolean isHeatingJacketOnCasting;
+    private Boolean isHeatingJacketOnBracket;
 
     private Constant constCastingMaterial;
     private Constant constRotorGearMaterial;
     private Constant constIdlerGearMaterial;
-    private Constant constBushingMaterial;
+    private Constant constShaftSupportMaterial;
     private Constant constShaftMaterial;
 
     private Constant constConnectionsType;
@@ -83,22 +89,40 @@ public class Pump extends Equipment {
         this.constPumpType = constPumpType;
     }
 
-    @ManyToOne(optional = false)
-    public Constant getConstReliefValve() {
-        return constReliefValve;
+    @Basic(optional = false)
+    public Boolean getReliefValve() {
+        return isReliefValve;
     }
 
-    public void setConstReliefValve(Constant constReliefValve) {
-        this.constReliefValve = constReliefValve;
+    public void setReliefValve(Boolean reliefValve) {
+        isReliefValve = reliefValve;
     }
 
-    @ManyToOne(optional = false)
-    public Constant getConstHeatingJacket() {
-        return constHeatingJacket;
+    @Basic(optional = false)
+    public Boolean getHeatingJacketOnCover() {
+        return isHeatingJacketOnCover;
     }
 
-    public void setConstHeatingJacket(Constant constHeatingJacket) {
-        this.constHeatingJacket = constHeatingJacket;
+    public void setHeatingJacketOnCover(Boolean heatingJacketOnCover) {
+        isHeatingJacketOnCover = heatingJacketOnCover;
+    }
+
+    @Basic(optional = false)
+    public Boolean getHeatingJacketOnCasting() {
+        return isHeatingJacketOnCasting;
+    }
+
+    public void setHeatingJacketOnCasting(Boolean heatingJacketOnCasting) {
+        isHeatingJacketOnCasting = heatingJacketOnCasting;
+    }
+
+    @Basic(optional = false)
+    public Boolean getHeatingJacketOnBracket() {
+        return isHeatingJacketOnBracket;
+    }
+
+    public void setHeatingJacketOnBracket(Boolean heatingJacketOnBracket) {
+        isHeatingJacketOnBracket = heatingJacketOnBracket;
     }
 
     @ManyToOne(optional = false)
@@ -129,12 +153,12 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Constant getConstBushingMaterial() {
-        return constBushingMaterial;
+    public Constant getConstShaftSupportMaterial() {
+        return constShaftSupportMaterial;
     }
 
-    public void setConstBushingMaterial(Constant constBushingMaterial) {
-        this.constBushingMaterial = constBushingMaterial;
+    public void setConstShaftSupportMaterial(Constant constShaftSupportMaterial) {
+        this.constShaftSupportMaterial = constShaftSupportMaterial;
     }
 
     @ManyToOne(optional = false)
@@ -242,7 +266,7 @@ public class Pump extends Equipment {
      * Finds speed correction coefficient that belongs to viscosity value in Parameters object.
      *
      * @param p Parameters instance to take viscosity value
-     * @return int value of speedCorrectionCoefficient, 0 if set is empty
+     * @return int value of speedCorrectionCoefficient, 0 if pumps is empty
      */
     private int getSpeedCorrectionCoefficient(Parameters p) {
         Optional<SpeedCorrectionCoefficient> optional = speedCorrectionCoefficients.stream().sorted().filter((s) ->
@@ -276,12 +300,13 @@ public class Pump extends Equipment {
 
     // TODO: 24.06.2016 description
     /**
+     * Finds equivalent of current pump in passed pump pumps. Method uses to check
      *
-     * @param set
-     * @return
+     * @param pumps Set of pumps.
+     * @return Returns true if equivalent of current pump is found.
      */
-    public boolean isValidTo(Set<Pump> set){
-        for (Pump pump : set){
+    public boolean isValidTo(Set<Pump> pumps){
+        for (Pump pump : pumps){
             if (this.equals(pump)) return true;
         }
         return false;

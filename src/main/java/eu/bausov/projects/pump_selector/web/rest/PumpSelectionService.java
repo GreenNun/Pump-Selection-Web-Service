@@ -9,9 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -33,56 +31,48 @@ public class PumpSelectionService {
         List<Reducer> reducers = currentSession.createCriteria(Reducer.class).list();
         List<Motor> motors = currentSession.createCriteria(Motor.class).list();
         List<Seal> seals = currentSession.createCriteria(Seal.class).list();
-        List<ReliefValve> reliefValves = currentSession.createCriteria(ReliefValve.class).list();
-        List<HeatingJacket> heatingJackets = currentSession.createCriteria(HeatingJacket.class).list();
-        List<Coupling> couplings = currentSession.createCriteria(Coupling.class).list();
+        List<DriverAssembly> driverAssemblies = currentSession.createCriteria(DriverAssembly.class).list();
         List<Frame> frames = currentSession.createCriteria(Frame.class).list();
 
 
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
         for (Pump pump : pumps) {
-            if (pump.getConstPumpType().equals(parameters.getConstPumpType()) &&
-                    pump.isPressureValid(parameters) &&
-                    pump.isTemperatureValid(parameters) &&
-                    pump.getConstCastingMaterial().equals(parameters.getConstCastingMaterial())) {
+            if (pump.getConstPumpType().equals(parameters.getConstPumpType()) &&                    // pumpType
+                    pump.getReliefValve() == parameters.getReliefValve() &&                         // reliefValve
+                    (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
+                            pump.getHeatingJacketOnBracket()) == parameters.getHeatingJacket() &&   // heatingJacket
+                    pump.getConstCastingMaterial().equals(parameters.getConstCastingMaterial()) &&  // castingMaterial
+                    pump.isPressureValid(parameters) &&                                             // pressure
+                    pump.isTemperatureValid(parameters)) {                                          // temperature
                 // Reducer
                 for (Reducer reducer : reducers) {
-                    if (pump.isReducerValid(reducer, parameters)) {
+                    if (pump.getProducer().equals(reducer.getVendor()) &&                           // vendor check
+                            pump.isReducerValid(reducer, parameters)) {
                         // Motor
                         for (Motor motor : motors) {
-                            if (motor.isMotorValid(reducer) &&
-                                    parameters.isExplosionProofed() == motor.isExplosionProofAvailable()) {
+                            if (pump.getProducer().equals(motor.getVendor()) &&                     // vendor check
+                                    motor.isMotorValid(reducer) &&
+                                    parameters.getExplosionProof() == motor.isExplosionProofAvailable()) {
                                 // Seal
-                                for (Seal seal : seals) {
+                                for (Seal seal : seals) {                                           // seal
                                     if (pump.isValidTo(seal.getSuitablePumps())) {
-                                        // Valve
-                                        for (ReliefValve reliefValve : reliefValves) {
-                                            if (pump.isValidTo(reliefValve.getSuitablePumps())) {
-                                                // Jacket
-                                                for (HeatingJacket heatingJacket : heatingJackets) {
-                                                    if (pump.isValidTo(heatingJacket.getSuitablePumps())) {
-                                                        // Coupling
-                                                        for (Coupling coupling : couplings) {
-                                                            if (pump.isValidTo(coupling.getSuitablePumps())) {
-                                                                // Frame
-                                                                for (Frame frame : frames) {
-                                                                    if (pump.isValidTo(frame.getSuitablePumps())) {
-                                                                        PumpAggregate aggregate = new PumpAggregate();
-                                                                        aggregate.setPump(pump);
-                                                                        aggregate.setReducer(reducer);
-                                                                        aggregate.setMotor(motor);
-                                                                        aggregate.setSeal(seal);
-                                                                        aggregate.setReliefValve(reliefValve);
-                                                                        aggregate.setHeatingJacket(heatingJacket);
-                                                                        aggregate.setCoupling(coupling);
-                                                                        aggregate.setFrame(frame);
+                                        // DriverAssembly
+                                        for (DriverAssembly driverAssembly : driverAssemblies) {
+                                            if (parameters.getDriverAssembly().equals(driverAssembly) &&
+                                                    pump.isValidTo(driverAssembly.getSuitablePumps())) {
+                                                // Frame
+                                                for (Frame frame : frames) {
+                                                    if (pump.isValidTo(frame.getSuitablePumps())) {
+                                                        PumpAggregate aggregate = new PumpAggregate();
+                                                        aggregate.setPump(pump);
+                                                        aggregate.setReducer(reducer);
+                                                        aggregate.setMotor(motor);
+                                                        aggregate.setSeal(seal);
+                                                        aggregate.setDriverAssembly(driverAssembly);
+                                                        aggregate.setFrame(frame);
 
-                                                                        pumpAggregates.add(aggregate);
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
+                                                        pumpAggregates.add(aggregate);
                                                     }
                                                 }
                                             }

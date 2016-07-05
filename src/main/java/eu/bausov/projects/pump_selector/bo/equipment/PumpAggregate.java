@@ -8,18 +8,17 @@ import java.math.BigDecimal;
 @Table(name = "TB_PUMP_AGGREGATES")
 @XmlRootElement
 public class PumpAggregate extends Equipment {
+
     private String parameters;
 
     private Pump pump;
     private Seal seal;
-    private ReliefValve reliefValve;
-    private HeatingJacket heatingJacket;
     private Reducer reducer;
     private Motor motor;
-    private Coupling coupling;
+    private DriverAssembly driverAssembly;
     private Frame frame;
 
-    @Basic(optional = false)
+    @Basic
     public String getParameters() {
         return parameters;
     }
@@ -47,24 +46,6 @@ public class PumpAggregate extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public ReliefValve getReliefValve() {
-        return reliefValve;
-    }
-
-    public void setReliefValve(ReliefValve reliefValve) {
-        this.reliefValve = reliefValve;
-    }
-
-    @ManyToOne(optional = false)
-    public HeatingJacket getHeatingJacket() {
-        return heatingJacket;
-    }
-
-    public void setHeatingJacket(HeatingJacket heatingJacket) {
-        this.heatingJacket = heatingJacket;
-    }
-
-    @ManyToOne(optional = false)
     public Reducer getReducer() {
         return reducer;
     }
@@ -83,12 +64,12 @@ public class PumpAggregate extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Coupling getCoupling() {
-        return coupling;
+    public DriverAssembly getDriverAssembly() {
+        return driverAssembly;
     }
 
-    public void setCoupling(Coupling coupling) {
-        this.coupling = coupling;
+    public void setDriverAssembly(DriverAssembly driverAssembly) {
+        this.driverAssembly = driverAssembly;
     }
 
     @ManyToOne(optional = false)
@@ -106,8 +87,7 @@ public class PumpAggregate extends Equipment {
         totalPrice = totalPrice.add(pump.getPrice());
         totalPrice = totalPrice.add(reducer.getPrice());
         totalPrice = totalPrice.add(motor.getPrice());
-        totalPrice = totalPrice.add(coupling.getPrice());
-        totalPrice = totalPrice.add(frame.getPrice());
+        totalPrice = totalPrice.add(driverAssembly.getPrice());
 
         // Price * 2
         return totalPrice.multiply(new BigDecimal(2));
