@@ -9,6 +9,14 @@ public class Producer extends JPA {
     private String producerName;
     private Constant producerCountry;
 
+    public Producer() {
+    }
+
+    public Producer(String producerName, Constant producerCountry) {
+        this.producerName = producerName;
+        this.producerCountry = producerCountry;
+    }
+
     @Basic(optional = false)
     public String getProducerName() {
         return producerName;

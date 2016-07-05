@@ -1,15 +1,26 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
 import eu.bausov.projects.pump_selector.bo.Constant;
+import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor"})})
 public class Motor extends Equipment {
+    private Producer vendor;
     private Constant constSpeed;
     private Constant constExplosionProof;
     private Constant constPowerHp;
+
+    @ManyToOne(optional = false)
+    public Producer getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Producer vendor) {
+        this.vendor = vendor;
+    }
 
     @ManyToOne(optional = false)
     public Constant getConstSpeed() {

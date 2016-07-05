@@ -10,7 +10,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-
     <context:property-placeholder location="classpath:service.properties" />
 
     <context:component-scan base-package="eu.bausov.projects.pump_selector.web.rest"/>
@@ -44,8 +43,8 @@
     <bean id="jaxb2marshaller" class="eu.bausov.projects.pump_selector.web.rest.HibernateJaxb2Marshaller">
         <property name="packagesToScan">
             <list>
-                <value>eu.bausov.projects.pump_selector.bo</value>
-                <value>eu.bausov.projects.pump_selector.bo.*</value>
+                <value>eu.bausov.projects.pump_selector.bo.equipment</value>
+                <value>eu.bausov.projects.pump_selector.bo.equipment.*</value>
             </list>
         </property>
     </bean>

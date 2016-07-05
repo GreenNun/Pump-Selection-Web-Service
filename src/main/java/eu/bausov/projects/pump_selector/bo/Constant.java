@@ -8,6 +8,14 @@ public class Constant extends JPA {
     private String name;
     private String value;
 
+    public Constant() {
+    }
+
+    public Constant(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
     @Basic(optional = false)
     public String getName() {
         return name;
