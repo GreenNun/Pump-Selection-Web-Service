@@ -29,12 +29,14 @@ public class Seal extends Equipment {
     public Seal() {
     }
 
-    public Seal(Producer producer, String modelName, BigDecimal price, Constant sealType, Constant oRingMaterial) {
+    public Seal(Producer producer, String modelName, BigDecimal price, Constant sealType, Constant oRingMaterial,
+                Set<Pump> suitablePumps) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
         this.sealType = sealType;
         this.oRingMaterial = oRingMaterial;
+        this.suitablePumps = suitablePumps;
     }
 
     @ManyToOne(optional = false)
