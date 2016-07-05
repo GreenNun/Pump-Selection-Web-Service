@@ -2,6 +2,10 @@ package eu.bausov.projects.pump_selector.bo;
 
 import eu.bausov.projects.pump_selector.bo.equipment.Seal;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
@@ -9,8 +13,9 @@ import java.util.stream.Stream;
 
 //@Entity
 //@Table(name = "TB_PARAMETERS")
-@XmlRootElement
+//@XmlRootElement
 public class Parameters extends JPA {
+    private String medium;
     private Constant constPumpType;
     private Double capacity;
     private Integer pressure;
@@ -22,6 +27,15 @@ public class Parameters extends JPA {
     private Boolean isReliefValve;
     private Boolean isHeatingJacket;
     private Boolean isExplosionProof;
+
+//    @Basic(optional = false)
+//    public String getMedium() {
+//        return medium;
+//    }
+//
+//    public void setMedium(String medium) {
+//        this.medium = medium;
+//    }
 
     //@ManyToOne(optional = false)
     public Constant getConstPumpType() {
@@ -124,13 +138,12 @@ public class Parameters extends JPA {
 
     @Override
     public String toString() {
-        return "Parameters{" +
-                "capacity=" + capacity + "\n" +
-                ", pressure=" + pressure + "\n" +
-                ", viscosity=" + viscosity + "\n" +
-                ", sg=" + sg + "\n" +
-                ", temperature=" + temperature +
-                '}';
+        return //"medium: " + medium + "\n, " +
+                "capacity: " + capacity + "\n, " +
+                "pressure: " + pressure + "\n, " +
+                "viscosity: " + viscosity + "\n, " +
+                "sg: " + sg + "\n, " +
+                "temperature: " + temperature;
     }
 
     /**

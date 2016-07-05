@@ -1,15 +1,39 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
 import eu.bausov.projects.pump_selector.bo.Constant;
+import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * Seal.
+ * <p>
+ * Constants;
+ * <p>
+ * sealType              name:   "seal type";
+ * value:  "Packing" | "Rotatherm Seal" | "Mechanical seal" | "Lip Seal" | "Cartex Mechanical Seal";
+ * <p>
+ * oRingMaterial         name:   "o-ring material";
+ * value:  "none" | "Viton&reg;";
+ */
 @Entity
 @Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "seal_Type", "oRing_Material"})})
 public class Seal extends Equipment {
     private Constant sealType;
     private Constant oRingMaterial;
+
+    public Seal() {
+    }
+
+    public Seal(Producer producer, String modelName, BigDecimal price, Constant sealType, Constant oRingMaterial) {
+        this.setProducer(producer);
+        this.setModelName(modelName);
+        this.setPrice(price);
+        this.sealType = sealType;
+        this.oRingMaterial = oRingMaterial;
+    }
 
     @ManyToOne(optional = false)
     public Constant getSealType() {

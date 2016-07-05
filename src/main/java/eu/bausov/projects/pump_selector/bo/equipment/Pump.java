@@ -37,17 +37,21 @@ import java.util.Set;
  * constConnectionsType      name:   "connections type";
  * value:  "Thread" | "Flange";
  * <p>
- * constDn                   name:   "constDn";
+ * constDn                   name:   "DN";
  * value:  "20" | "25" | "40" | "50"  | "65" | "80" | "100" | "125" | "200";
  * <p>
- * constMaxPressure          name:   "pressure";
+ * constMaxPressure          name:   "max. pressure";
  * value:  "10" | "12" | "14";
  * <p>
  * constConnectionsAngle     name:   "connections angle";
  * value:  "90" | "180";
  * <p>
- * constMaxTemperature       name:   "temperature";
+ * constMaxTemperature       name:   "max. temperature";
  * value:  "180" | "200" | "220";
+ * <p>
+ * rpmCoefficient is ratio coefficient between Capacity [m3/h] and Shaft Rotations [rpm].
+ * <p>
+ * speedCorrectionCoefficients is set of coefficients correcting shaft speed according viscosity grades.
  */
 @Entity
 @Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "const_Pump_Type",
