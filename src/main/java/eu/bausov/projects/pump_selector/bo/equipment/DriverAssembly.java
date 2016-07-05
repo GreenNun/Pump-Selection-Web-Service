@@ -6,18 +6,19 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "coupling_Type", "suitable_Pump"})})
-public class Coupling extends Equipment {
-    private Constant couplingType;
+@Table(name = "TB_COUPLINGS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer",
+        "driver_Assembly_Type", "suitable_Pump"})})
+public class DriverAssembly extends Equipment {
+    private Constant driverAssemblyType;
     private Pump suitablePump;
 
     @ManyToOne(optional = false)
-    public Constant getCouplingType() {
-        return couplingType;
+    public Constant getDriverAssemblyType() {
+        return driverAssemblyType;
     }
 
-    public void setCouplingType(Constant couplingType) {
-        this.couplingType = couplingType;
+    public void setDriverAssemblyType(Constant driverAssemblyType) {
+        this.driverAssemblyType = driverAssemblyType;
     }
 
     @ManyToOne(optional = false)

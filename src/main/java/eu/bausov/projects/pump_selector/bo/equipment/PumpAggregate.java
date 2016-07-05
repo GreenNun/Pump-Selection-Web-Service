@@ -1,7 +1,5 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
-import eu.bausov.projects.pump_selector.bo.Parameters;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
@@ -17,7 +15,7 @@ public class PumpAggregate extends Equipment {
     private Seal seal;
     private Reducer reducer;
     private Motor motor;
-    private Coupling coupling;
+    private DriverAssembly driverAssembly;
 
     @Basic
     public String getParameters() {
@@ -65,12 +63,12 @@ public class PumpAggregate extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Coupling getCoupling() {
-        return coupling;
+    public DriverAssembly getDriverAssembly() {
+        return driverAssembly;
     }
 
-    public void setCoupling(Coupling coupling) {
-        this.coupling = coupling;
+    public void setDriverAssembly(DriverAssembly driverAssembly) {
+        this.driverAssembly = driverAssembly;
     }
 
     @Transient
@@ -79,7 +77,7 @@ public class PumpAggregate extends Equipment {
         totalPrice = totalPrice.add(pump.getPrice());
         totalPrice = totalPrice.add(reducer.getPrice());
         totalPrice = totalPrice.add(motor.getPrice());
-        totalPrice = totalPrice.add(coupling.getPrice());
+        totalPrice = totalPrice.add(driverAssembly.getPrice());
 
         // Price * 2
         return totalPrice.multiply(new BigDecimal(2));

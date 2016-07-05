@@ -9,9 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -32,7 +30,7 @@ public class PumpSelectionService {
         List<Pump> pumps = currentSession.createCriteria(Pump.class).list();
         List<Reducer> reducers = currentSession.createCriteria(Reducer.class).list();
         List<Motor> motors = currentSession.createCriteria(Motor.class).list();
-        List<Coupling> couplings = currentSession.createCriteria(Coupling.class).list();
+        List<DriverAssembly> driverAssemblies = currentSession.createCriteria(DriverAssembly.class).list();
 
 //        private Constant constPumpType; +
 //        private Double capacity;
@@ -67,14 +65,14 @@ public class PumpSelectionService {
                             if (pump.getProducer().equals(motor.getVendor()) && // vendor check
                                     motor.isMotorValid(reducer) &&
                                     parameters.getExplosionProof() == motor.isExplosionProofAvailable()) {
-                                // Coupling
-                                for (Coupling coupling : couplings) {
-                                    if (pump.equals(coupling.getSuitablePump())) {
+                                // DriverAssembly
+                                for (DriverAssembly driverAssembly : driverAssemblies) {
+                                    if (pump.equals(driverAssembly.getSuitablePump())) {
                                         PumpAggregate aggregate = new PumpAggregate();
                                         aggregate.setPump(pump);
                                         aggregate.setReducer(reducer);
                                         aggregate.setMotor(motor);
-                                        aggregate.setCoupling(coupling);
+                                        aggregate.setDriverAssembly(driverAssembly);
 
                                         pumpAggregates.add(aggregate);
                                     }
