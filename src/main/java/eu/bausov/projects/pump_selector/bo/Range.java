@@ -8,6 +8,14 @@ public class Range extends JPA {
     private Integer minValue;
     private Integer maxValue;
 
+    public Range() {
+    }
+
+    public Range(Integer minValue, Integer maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+    }
+
     @Basic(optional = false)
     public Integer getMinValue() {
         return minValue;

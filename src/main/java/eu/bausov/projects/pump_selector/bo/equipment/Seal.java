@@ -15,7 +15,7 @@ import java.util.Set;
  * sealType              name:   "seal type";
  * value:  "Packing" | "Rotatherm Seal" | "Mechanical seal" | "Lip Seal" | "Cartex Mechanical Seal";
  * <p>
- * oRingMaterial         name:   "o-ring material";
+ * oRingMaterial         name:   "material";
  * value:  "none" | "Viton&reg;";
  */
 @Entity
@@ -29,12 +29,14 @@ public class Seal extends Equipment {
     public Seal() {
     }
 
-    public Seal(Producer producer, String modelName, BigDecimal price, Constant sealType, Constant oRingMaterial) {
+    public Seal(Producer producer, String modelName, BigDecimal price, Constant sealType, Constant oRingMaterial,
+                Set<Pump> suitablePumps) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
         this.sealType = sealType;
         this.oRingMaterial = oRingMaterial;
+        this.suitablePumps = suitablePumps;
     }
 
     @ManyToOne(optional = false)

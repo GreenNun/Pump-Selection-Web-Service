@@ -1,13 +1,10 @@
-package eu.bausov.projects.pump_selector.web.rest;
+package eu.bausov.projects.pump_selector.bo.schema;
 
-import eu.bausov.projects.pump_selector.bo.*;
+import eu.bausov.projects.pump_selector.bo.Constant;
+import eu.bausov.projects.pump_selector.bo.Producer;
+import eu.bausov.projects.pump_selector.bo.Range;
+import eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.pump_selector.bo.equipment.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,31 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Controller
-@RequestMapping(value = "/PumpSelectionService")
-@PreAuthorize("hasRole('ADMIN')")
-public class PumpSelectionService {
-
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @ResponseBody
-    @RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    public List<PumpAggregate> getSuitablePumps(@RequestBody Parameters parameters) {
-
-//        Session currentSession = sessionFactory.getCurrentSession();
-//
-//        // Get all equipment lists from DB
-//        List<Pump> pumps = currentSession.createCriteria(Pump.class).list();
-//        List<Reducer> reducers = currentSession.createCriteria(Reducer.class).list();
-//        List<Motor> motors = currentSession.createCriteria(Motor.class).list();
-//        List<Seal> seals = currentSession.createCriteria(Seal.class).list();
-//        List<DriverAssembly> driverAssemblies = currentSession.createCriteria(DriverAssembly.class).list();
-//        List<Frame> frames = currentSession.createCriteria(Frame.class).list();
+public class PumpsGenerator {
 
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    public static void main(String[] args) {
         /* Producers */
         Producer dreampompa = new Producer();
         dreampompa.setProducerName("Dreampompa"); // producer
@@ -66,11 +42,11 @@ public class PumpSelectionService {
         Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
 
 //        private Seal seal;
-        Constant sealTypePacking = new Constant("sealType", "Packing");
-        Constant sealTypeLip = new Constant("sealType", "Lip Seal");
+        Constant sealTypePacking = new Constant("seal type", "Packing");
+        Constant sealTypeLip = new Constant("seal type", "Lip Seal");
         Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
-        Constant oRingMaterialNone = new Constant("material", "none");
-        Constant oRingMaterialViton = new Constant("material", "Viton&reg;");
+        Constant oRingMaterialNone = new Constant("o-ring material", "none");
+        Constant oRingMaterialViton = new Constant("o-ring material", "Viton&reg;");
 //        private Constant constCastingMaterial;
 //        private Constant constRotorGearMaterial;
 //        private Constant constIdlerGearMaterial;
@@ -117,7 +93,7 @@ public class PumpSelectionService {
         ykf3.setModelName("YKF-3");
         ykf3.setPrice(new BigDecimal("1020.00"));
         ykf3.setConstPumpType(internalGearPump);
-        ykf3.setReliefValve(true);
+        ykf3.setReliefValve(false);
         ykf3.setHeatingJacketOnCover(false);
         ykf3.setHeatingJacketOnCasting(false);
         ykf3.setHeatingJacketOnBracket(false);
@@ -143,7 +119,7 @@ public class PumpSelectionService {
         ykf3wValve.setPrice(new BigDecimal("1180.00"));
         ykf3wValve.setConstPumpType(internalGearPump);
         ykf3wValve.setReliefValve(true);
-        ykf3wValve.setHeatingJacketOnCover(true);
+        ykf3wValve.setHeatingJacketOnCover(false);
         ykf3wValve.setHeatingJacketOnCasting(false);
         ykf3wValve.setHeatingJacketOnBracket(false);
         ykf3wValve.setConstCastingMaterial(castIron25);
@@ -167,9 +143,9 @@ public class PumpSelectionService {
         ykf3wJC.setModelName("YKF-3 with jacket on cover");
         ykf3wJC.setPrice(new BigDecimal("1070.00"));
         ykf3wJC.setConstPumpType(internalGearPump);
-        ykf3wJC.setReliefValve(true);
-        ykf3wJC.setHeatingJacketOnCover(false);
-        ykf3wJC.setHeatingJacketOnCasting(true);
+        ykf3wJC.setReliefValve(false);
+        ykf3wJC.setHeatingJacketOnCover(true);
+        ykf3wJC.setHeatingJacketOnCasting(false);
         ykf3wJC.setHeatingJacketOnBracket(false);
         ykf3wJC.setConstCastingMaterial(castIron25);
         ykf3wJC.setConstRotorGearMaterial(castIron40);
@@ -193,9 +169,9 @@ public class PumpSelectionService {
         ykf3wRVandJC.setPrice(new BigDecimal("1070.00"));
         ykf3wRVandJC.setConstPumpType(internalGearPump);
         ykf3wRVandJC.setReliefValve(true);
-        ykf3wRVandJC.setHeatingJacketOnCover(false);
-        ykf3wRVandJC.setHeatingJacketOnCasting(false);
-        ykf3wRVandJC.setHeatingJacketOnBracket(true);
+        ykf3wRVandJC.setHeatingJacketOnCover(true);
+        ykf3wRVandJC.setHeatingJacketOnCasting(true);
+        ykf3wRVandJC.setHeatingJacketOnBracket(false);
         ykf3wRVandJC.setConstCastingMaterial(castIron25);
         ykf3wRVandJC.setConstRotorGearMaterial(castSteel);
         ykf3wRVandJC.setConstIdlerGearMaterial(castSteel);
@@ -222,7 +198,7 @@ public class PumpSelectionService {
         /**
          * Seals
          */
-        Seal seal01 = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSet);
+        Seal seal = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSet);
 
 
         /*
@@ -240,7 +216,7 @@ public class PumpSelectionService {
         /**
          * Frame
          */
-        Frame frame01 = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSet);
+        Frame frame = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSet);
 
         /**
          * Reducers
@@ -291,149 +267,14 @@ public class PumpSelectionService {
         motors.add(motor04);
         motors.add(motor05);
         List<Seal> seals = new ArrayList<>();
-        seals.add(seal01);
+        seals.add(seal);
         List<DriverAssembly> driverAssemblies = new ArrayList<>();
         driverAssemblies.add(ykf3assembly01);
         driverAssemblies.add(ykf3assembly02);
         driverAssemblies.add(ykf3assembly03);
         driverAssemblies.add(ykf3assembly04);
         List<Frame> frames = new ArrayList<>();
-        frames.add(frame01);
+        frames.add(frame);
 
-//        {
-//            "medium": "liquid",
-//                "constPumpType": {
-//            "name": "pump type",
-//                    "value": "Internal Eccentric Gear Pump"
-//        },
-//            "capacity": 25,
-//                "pressure": 4,
-//                "viscosity": 250000,
-//                "sg": 50,
-//                "temperature": 200,
-//                "constCastingMaterial": {
-//            "name": "material",
-//                    "value": "GG 25 Cast Iron"
-//        },
-//            "seal": {
-//            "sealType": {
-//                "name": "seal type",
-//                        "value": "Packing"
-//            },
-//            "oringMaterial": {
-//                "name": "material",
-//                        "value": "none"
-//            }
-//        },
-//            "driverAssembly": {
-//            "driverAssemblyType": {
-//                "name": "driver assembly type",
-//                        "value": "Flexible Coupling"
-//            },
-//            "constExplosionProof": {
-//                "name": "explosion proof",
-//                        "value": "none"
-//            }
-//        },
-//            "reliefValve": true,
-//                "heatingJacketed": true,
-//                "explosionProof": false
-//        }
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        List<PumpAggregate> pumpAggregates = new ArrayList<>();
-        // Pump
-        for (Pump pump : pumps) {
-            if (pump.getConstPumpType().equals(parameters.getConstPumpType()) &&                    // pumpType
-                    pump.getReliefValve() == parameters.getReliefValve() &&                         // reliefValve
-                    (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
-                            pump.getHeatingJacketOnBracket()) == parameters.getHeatingJacket() &&   // heatingJacket
-                    pump.getConstCastingMaterial().equals(parameters.getConstCastingMaterial()) &&  // castingMaterial
-                    pump.isPressureValid(parameters) &&                                             // pressure
-                    pump.isTemperatureValid(parameters)) {                                          // temperature
-                // Reducer
-                for (Reducer reducer : reducers) {
-                    if (pump.getProducer().equals(reducer.getVendor()) &&                           // vendor check
-                            pump.isReducerValid(reducer, parameters)) {
-                        // Motor
-                        for (Motor motor : motors) {
-                            if (pump.getProducer().equals(motor.getVendor()) &&                     // vendor check
-                                    motor.isMotorValid(reducer) &&
-                                    parameters.getExplosionProof() == motor.isExplosionProofAvailable()) {
-                                // Seal
-                                for (Seal seal : seals) {                                           // seal
-                                    if (pump.isValidTo(seal.getSuitablePumps())) {
-                                        // DriverAssembly
-                                        for (DriverAssembly driverAssembly : driverAssemblies) {
-                                            if (parameters.getDriverAssembly().equals(driverAssembly) &&
-                                                    pump.isValidTo(driverAssembly.getSuitablePumps())) {
-                                                // Frame
-                                                for (Frame frame : frames) {
-                                                    if (pump.isValidTo(frame.getSuitablePumps())) {
-                                                        PumpAggregate aggregate = new PumpAggregate();
-                                                        aggregate.setPump(pump);
-                                                        aggregate.setReducer(reducer);
-                                                        aggregate.setMotor(motor);
-                                                        aggregate.setSeal(seal);
-                                                        aggregate.setDriverAssembly(driverAssembly);
-                                                        aggregate.setFrame(frame);
-
-                                                        // Write shaft speed to PumpAggregate field.
-                                                        aggregate.setShaftSpeed(pump.getShaftSpeed(parameters));
-                                                        // Write parameters to PumpAggregate field.
-                                                        aggregate.setParameters(parameters.toString());
-
-                                                        pumpAggregates.add(aggregate);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Temporary solution
-        ///////////////////////////////////////////////////////////////////
-//        Pump pump = new Pump();
-//        pump.setModelName("Model name");
-//        PumpAggregate tmp = new PumpAggregate();
-//        tmp.setPump(pump);
-//        pumpAggregates.add(tmp);
-
-        //return Arrays.asList("sd", "dd");
-
-        return pumpAggregates;
     }
 }
-
-//@ResponseBody
-    /*@RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void getSuitablePumps(@RequestBody PumpAggregate aggregate) {
-    }*/
-
-//    @ResponseBody
-//    @RequestMapping(value = "/pumps", method = RequestMethod.POST)
-//    public String getSuitablePumps(@RequestBody Parameters params
-//    ) {
-//
-//
-//        return params.toString();
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
-//    @PreAuthorize("hasRole('ADMIN')")
-//    //public List<String> getSuitablePumps(
-//    public List<PumpAggregate> getSuitablePumps(
-//            @RequestParam(required = false, value = "queryParam1") Integer p1,
-//            @RequestParam(required = true, value = "queryParam2") String p2,
-//            HttpSession httpSession
-//    )
