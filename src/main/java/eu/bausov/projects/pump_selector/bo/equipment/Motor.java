@@ -65,7 +65,7 @@ public class Motor extends Equipment {
     }
 
     public boolean isMotorValid(Reducer reducer) {
-        return constPowerHp.getIntegerValue() == reducer.getConstRequiredMotorPowerHp().getIntegerValue();
+        return constPowerHp.getDoubleValue() == reducer.getConstRequiredMotorPowerHp().getDoubleValue();
     }
 
     @Transient

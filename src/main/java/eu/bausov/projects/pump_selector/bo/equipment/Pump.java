@@ -255,7 +255,7 @@ public class Pump extends Equipment {
      * @param p Parameters instance to take capacity, got from user
      * @return int value of shaft speed
      */
-    private int getShaftSpeed(Parameters p) {
+    public int getShaftSpeed(Parameters p) {
         double q = p.getCapacity();
         double c1 = rpmCoefficient;
         int c2 = getSpeedCorrectionCoefficient(p);
@@ -284,7 +284,7 @@ public class Pump extends Equipment {
      * @return Returns true if pressure limit is not exceeded.
      */
     public boolean isPressureValid(Parameters parameters) {
-        return getConstMaxPressure().getIntegerValue() <= parameters.getPressure();
+        return getConstMaxPressure().getIntegerValue() >= parameters.getPressure();
     }
 
     /**
@@ -294,11 +294,9 @@ public class Pump extends Equipment {
      * @return Returns true if temperature limit is not exceeded.
      */
     public boolean isTemperatureValid(Parameters parameters) {
-        return getConstMaxTemperature().getIntegerValue() <= parameters.getTemperature();
+        return getConstMaxTemperature().getIntegerValue() >= parameters.getTemperature();
     }
 
-
-    // TODO: 24.06.2016 description
     /**
      * Finds equivalent of current pump in passed pump pumps. Method uses to check
      *

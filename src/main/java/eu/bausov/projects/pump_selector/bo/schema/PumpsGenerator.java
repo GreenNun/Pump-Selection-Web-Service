@@ -5,13 +5,11 @@ import eu.bausov.projects.pump_selector.bo.Producer;
 import eu.bausov.projects.pump_selector.bo.Range;
 import eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.pump_selector.bo.equipment.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PumpsGenerator {
@@ -44,8 +42,8 @@ public class PumpsGenerator {
         Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
 
 //        private Seal seal;
-        Constant sealTypePacking = new Constant("sealType", "Packing");
-        Constant sealTypeLip = new Constant("sealType", "Lip Seal");
+        Constant sealTypePacking = new Constant("seal type", "Packing");
+        Constant sealTypeLip = new Constant("seal type", "Lip Seal");
         Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
         Constant oRingMaterialNone = new Constant("o-ring material", "none");
         Constant oRingMaterialViton = new Constant("o-ring material", "Viton&reg;");
@@ -86,12 +84,6 @@ public class PumpsGenerator {
         speedCorrectionCoefficients.add(new SpeedCorrectionCoefficient(75000, 13));
         speedCorrectionCoefficients.add(new SpeedCorrectionCoefficient(250000, 1));
 
-//        private Pump pump; +
-//        private Seal seal; +
-//        private Reducer reducer; +
-//        private Motor motor;
-//        private DriverAssembly driverAssembly; +
-//        private Frame frame; +
 
         /**
          * YKF-3
@@ -196,35 +188,35 @@ public class PumpsGenerator {
         /**
          * Pumps set
          */
-        Set<Pump> pumps = new HashSet<>();
-        pumps.add(ykf3);
-        pumps.add(ykf3wValve);
-        pumps.add(ykf3wJC);
-        pumps.add(ykf3wRVandJC);
+        Set<Pump> pumpsSet = new HashSet<>();
+        pumpsSet.add(ykf3);
+        pumpsSet.add(ykf3wValve);
+        pumpsSet.add(ykf3wJC);
+        pumpsSet.add(ykf3wRVandJC);
 
 
         /**
          * Seals
          */
-        Seal seal = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumps);
+        Seal seal = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSet);
 
 
         /*
          * DriverAssembly
          */
         DriverAssembly ykf3assembly01 = new DriverAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
-                new Constant("driver assembly type", "Pump Adder"), new Constant("explosion proof", "ATEX"), pumps);
+                new Constant("driver assembly type", "Pump Adder"), new Constant("explosion proof", "ATEX"), pumpsSet);
         DriverAssembly ykf3assembly02 = new DriverAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
-                new Constant("driver assembly type", "Coupling"), new Constant("explosion proof", "ATEX"), pumps);
+                new Constant("driver assembly type", "Coupling"), new Constant("explosion proof", "ATEX"), pumpsSet);
         DriverAssembly ykf3assembly03 = new DriverAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
-                new Constant("driver assembly type", "Belt and Pulley"), new Constant("explosion proof", "none"), pumps);
+                new Constant("driver assembly type", "Belt and Pulley"), new Constant("explosion proof", "none"), pumpsSet);
         DriverAssembly ykf3assembly04 = new DriverAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
-                new Constant("driver assembly type", "Flexible Coupling"), new Constant("explosion proof", "none"), pumps);
+                new Constant("driver assembly type", "Flexible Coupling"), new Constant("explosion proof", "none"), pumpsSet);
 
         /**
          * Frame
          */
-        Frame frame = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumps);
+        Frame frame = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSet);
 
         /**
          * Reducers
@@ -256,8 +248,33 @@ public class PumpsGenerator {
         Motor motor05 = new Motor(turkishMotor, "turkish motor 20 HP", new BigDecimal("0"), dreampompa, new Constant("motor speed", "1500"),
                 new Constant("explosion proof", "none"), new Constant("motor power", "20"));
 
-
-
+        List<Pump> pumps = new ArrayList<>();
+        pumps.add(ykf3);
+        pumps.add(ykf3wJC);
+        pumps.add(ykf3wRVandJC);
+        pumps.add(ykf3wValve);
+        List<Reducer> reducers = new ArrayList<>();
+        reducers.add(reducer01);
+        reducers.add(reducer02);
+        reducers.add(reducer03);
+        reducers.add(reducer04);
+        reducers.add(reducer05);
+        reducers.add(reducer06);
+        List<Motor> motors = new ArrayList<>();
+        motors.add(motor01);
+        motors.add(motor02);
+        motors.add(motor03);
+        motors.add(motor04);
+        motors.add(motor05);
+        List<Seal> seals = new ArrayList<>();
+        seals.add(seal);
+        List<DriverAssembly> driverAssemblies = new ArrayList<>();
+        driverAssemblies.add(ykf3assembly01);
+        driverAssemblies.add(ykf3assembly02);
+        driverAssemblies.add(ykf3assembly03);
+        driverAssemblies.add(ykf3assembly04);
+        List<Frame> frames = new ArrayList<>();
+        frames.add(frame);
 
     }
 }

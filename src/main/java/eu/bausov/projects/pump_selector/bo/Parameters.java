@@ -149,11 +149,11 @@ public class Parameters extends JPA {
 
     @Override
     public String toString() {
-        return "medium: " + medium + "\n, " +
-                "capacity: " + capacity + "\n, " +
-                "pressure: " + pressure + "\n, " +
-                "viscosity: " + viscosity + "\n, " +
-                "sg: " + sg + "\n, " +
+        return "medium: " + medium + "\n" +
+                "capacity: " + capacity + "\n" +
+                "pressure: " + pressure + "\n" +
+                "viscosity: " + viscosity + "\n" +
+                "sg: " + sg + "\n" +
                 "temperature: " + temperature;
     }
 

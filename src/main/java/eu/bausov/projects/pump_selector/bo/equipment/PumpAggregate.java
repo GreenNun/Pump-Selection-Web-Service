@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 public class PumpAggregate extends Equipment {
 
     private String parameters;
+    private Integer shaftSpeed;
 
     private Pump pump;
     private Seal seal;
@@ -25,6 +26,15 @@ public class PumpAggregate extends Equipment {
 
     public void setParameters(String parameters) {
         this.parameters = parameters;
+    }
+
+    @Basic
+    public Integer getShaftSpeed() {
+        return shaftSpeed;
+    }
+
+    public void setShaftSpeed(Integer shaftSpeed) {
+        this.shaftSpeed = shaftSpeed;
     }
 
     @ManyToOne(optional = false)
