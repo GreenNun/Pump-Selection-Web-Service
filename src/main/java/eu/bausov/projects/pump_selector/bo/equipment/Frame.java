@@ -3,11 +3,13 @@ package eu.bausov.projects.pump_selector.bo.equipment;
 import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Table(name = "TB_FRAMES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@XmlRootElement
 public class Frame extends Equipment {
     private Set<Pump> suitablePumps;
 

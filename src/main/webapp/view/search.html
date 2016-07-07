@@ -1,0 +1,47 @@
+<div class="col-xs-12 col-sm-12 col-md-12" style="margin-left: 2em;">
+
+    <div class="form-group row">
+        <label for="med">Medium</label>
+        <div id="med" class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 2px; padding-right: 2px;">
+            <input
+                    ng-model="search.medium"
+                    class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="cap">Capacity</label>
+        <div id="cap" class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 2px; padding-right: 2px;">
+            <input
+                    ng-model="search.capacity"
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="tem">Temperature</label>
+        <div id="tem" class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 2px; padding-right: 2px;">
+            <input
+                    ng-model="search.temperature"
+                    type="number"
+                    min="0"
+                    step="1"
+                    class="form-control"/>
+        </div>
+    </div>
+
+
+    <button ng-click="doSearch()" class="btn btn-block btn-primary" type="submit">Поиск</button>
+
+    <div ng-if="result.list.length > 0" style="border: 2px groove #f2f2f2 !important; border-radius: 10px;">
+        <div><h4>Найдено {{result.list.length}} записей</h4></div>
+        <div ng-repeat="item in result.list" style="margin-bottom: 0.3em">
+            ID: {{item.id}}, Seal model: {{item.seal.modelName}}
+        </div>
+    </div>
+
+
+</div>

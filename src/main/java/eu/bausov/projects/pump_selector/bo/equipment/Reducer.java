@@ -5,6 +5,7 @@ import eu.bausov.projects.pump_selector.bo.Producer;
 import eu.bausov.projects.pump_selector.bo.Range;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 
 /**
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "TB_REDUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor"})})
+@XmlRootElement
 public class Reducer extends Equipment {
     private Producer vendor;
     private Range speedRange;

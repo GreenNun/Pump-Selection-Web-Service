@@ -220,7 +220,7 @@
             </plugin>
         </plugins>
 
-        <finalName>pump-selection-service-maven</finalName>
+        <finalName>pump</finalName>
 
 
     </build>

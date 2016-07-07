@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/PumpSelectionService")
@@ -22,6 +19,25 @@ public class PumpSelectionService {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @ResponseBody
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<PumpAggregate> searchPumps(@RequestBody Parameters parameters) {
+        List<PumpAggregate> pumpAggregates = new ArrayList<>();
+
+        PumpAggregate e = new PumpAggregate();
+        e.setId(100L);
+        e.setVersion(new Date());
+
+        Seal seal = new Seal();
+        seal.setModelName("Model");
+        e.setSeal(seal);
+
+        pumpAggregates.add(e);
+
+        return pumpAggregates;
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "/pumps", method = RequestMethod.POST)

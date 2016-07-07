@@ -1,9 +1,11 @@
 package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "value" }) })
+@XmlRootElement
 public class Constant extends JPA {
     private String name;
     private String value;

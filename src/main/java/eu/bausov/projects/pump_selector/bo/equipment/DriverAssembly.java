@@ -4,6 +4,7 @@ import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer",
         "driver_Assembly_Type", "const_Explosion_Proof"})})
+@XmlRootElement
 public class DriverAssembly extends Equipment {
     private Constant driverAssemblyType;
     private Constant constExplosionProof;

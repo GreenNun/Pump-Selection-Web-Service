@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 //@Entity
 //@Table(name = "TB_PARAMETERS")
-//@XmlRootElement
+@XmlRootElement
 public class Parameters extends JPA {
     private String medium;
     private Constant constPumpType;

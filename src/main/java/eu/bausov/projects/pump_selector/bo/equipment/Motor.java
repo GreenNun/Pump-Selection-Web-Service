@@ -4,10 +4,12 @@ import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor"})})
+@XmlRootElement
 public class Motor extends Equipment {
     private Producer vendor;
     private Constant constSpeed;

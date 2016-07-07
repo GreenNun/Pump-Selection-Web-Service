@@ -1,9 +1,11 @@
 package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "TB_RANGES", uniqueConstraints = {@UniqueConstraint(columnNames = {"minValue", "maxValue"})})
+@XmlRootElement
 public class Range extends JPA {
     private Integer minValue;
     private Integer maxValue;

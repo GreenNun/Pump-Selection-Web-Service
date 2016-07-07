@@ -46,6 +46,8 @@ public class HandlerExceptionResolver extends AbstractHandlerExceptionResolver {
             response.setHeader("Error-msg",  th.getMessage());
         }
 
+        logger.info("Full stack trace", ex);
+
         return new ModelAndView();
     }
 

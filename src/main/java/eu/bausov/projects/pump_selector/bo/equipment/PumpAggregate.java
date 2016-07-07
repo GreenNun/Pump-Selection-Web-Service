@@ -2,6 +2,7 @@ package eu.bausov.projects.pump_selector.bo.equipment;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
 @Entity
@@ -92,6 +93,7 @@ public class PumpAggregate extends Equipment {
     }
 
     @Transient
+    @XmlTransient
     public BigDecimal getTotalPrice() {
         BigDecimal totalPrice = new BigDecimal(BigDecimal.ROUND_UNNECESSARY);
         totalPrice = totalPrice.add(pump.getPrice());
