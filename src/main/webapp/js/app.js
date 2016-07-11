@@ -76,16 +76,16 @@ angular.module('pump.modules.route')
             $rootScope.stopViewReload();
 
             if (rejection.status == 500) {
-                $rootScope.addNotification('danger', 'Внутренняя ошибка сервера: "' + rejection.data + '"', true);
+                $rootScope.addNotification('danger', 'Internal server error: "' + rejection.data + '"', true);
             } else if (rejection.status == 400) {
                 var headerError = rejection.headers("error-msg");
                 if (headerError) {
-                    $rootScope.addNotification('danger', 'Невозможно получить данные: "' + headerError + '"', true);
+                    $rootScope.addNotification('danger', 'Unable to get data: "' + headerError + '"', true);
                 } else {
-                    $rootScope.addNotification('danger', 'Невозможно получить данные: "' + rejection.data + '"', true);
+                    $rootScope.addNotification('danger', 'Unable to get data: "' + rejection.data + '"', true);
                 }
             } else {
-                $rootScope.addNotification('danger', 'Ошибка сервиса, код: "' + rejection.status + '"', true);
+                $rootScope.addNotification('danger', 'Service error, code: "' + rejection.status + '"', true);
             }
         });
 

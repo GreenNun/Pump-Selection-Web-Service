@@ -2,6 +2,9 @@ angular.module('pump.modules.search')
     .controller('searchCtrl', function($rootScope, $scope, $http, $timeout) {
         
         $scope.test = 'TEST';
+        $scope.search = {
+            medium: 'default-medium'
+        };
 
         $scope.doSearch = function() {
 

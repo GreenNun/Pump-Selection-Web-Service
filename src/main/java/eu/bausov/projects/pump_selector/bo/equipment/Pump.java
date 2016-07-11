@@ -243,7 +243,7 @@ public class Pump extends Equipment {
      * @return true if passed reducer can be used with current pump for passed parameters.
      */
     public boolean isReducerValid(Reducer r, Parameters p) {
-        return r.getSpeedRange().contains(getShaftSpeed(p)) &&
+        return r.getMinRpm() <= (getShaftSpeed(p)) && r.getMaxRpm() >= (getShaftSpeed(p)) &&
                 (p.getRequiredMotorStandardPowerHP() == r.getConstRequiredMotorPowerHp().getDoubleValue());
     }
 
