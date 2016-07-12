@@ -36,26 +36,6 @@ public class Constant extends JPA {
         this.value = value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Constant)) return false;
-
-        Constant constant = (Constant) o;
-
-        if (!name.equals(constant.name)) return false;
-        return value.equals(constant.value);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + value.hashCode();
-        return result;
-    }
-
     /**
      * Parses string value of Constant to integer type.
      *

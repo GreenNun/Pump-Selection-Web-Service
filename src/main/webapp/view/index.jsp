@@ -28,8 +28,7 @@
                 "../css/bootstrap.min.css",
                 "../css/bootstrap-theme.min.css",
                 "../css/bootstrap-ng.min.css",
-                "../css/select2.css",
-                "../css/local.css",
+                "../css/style.css"
         };
     %>
 

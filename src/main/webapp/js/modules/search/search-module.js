@@ -1,10 +1,13 @@
 angular.module('pump.modules.search')
-    .controller('searchCtrl', function($rootScope, $scope, $http, $timeout) {
+    .controller('searchCtrl', function($rootScope, $scope, $http) {
         
-        $scope.test = 'TEST';
-        $scope.search = {
-            medium: 'default-medium'
-        };
+        // $scope.test = 'TEST';
+        // $scope.search = {
+        //     medium: 'default-medium'
+        // };
+        // $scope.search = {
+        //     value: 'default-name'
+        //     };
 
         $scope.doSearch = function() {
 
@@ -17,12 +20,12 @@ angular.module('pump.modules.search')
                 url: '/pump/api/PumpSelectionService/search',
                 data: $scope.search
             })
-                .success(function (data, status) {
+                .success(function (data) {
                     $scope.result = {
                         list: data
                     };
                 })
-                .error(function (data, status) {
+                .error(function (data) {
                     $rootScope.addNotification('danger', data);
                 });
         };
