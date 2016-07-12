@@ -1,9 +1,11 @@
 package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "TB_PRODUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"producerName", "producer_country"})})
+@XmlRootElement
 public class Producer extends JPA {
 
     private String producerName;

@@ -5,6 +5,7 @@ import eu.bausov.projects.pump_selector.bo.Parameters;
 import eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Optional;
 import java.util.Set;
 
@@ -58,6 +59,7 @@ import java.util.Set;
         "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasting", "HeatingJacketOnBracket",
         "const_Casting_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
         "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
+@XmlRootElement
 public class Pump extends Equipment {
     private Constant constPumpType;
     private Boolean isReliefValve;
@@ -241,7 +243,7 @@ public class Pump extends Equipment {
      * @return true if passed reducer can be used with current pump for passed parameters.
      */
     public boolean isReducerValid(Reducer r, Parameters p) {
-        return r.getSpeedRange().contains(getShaftSpeed(p)) &&
+        return r.getMinRpm() <= (getShaftSpeed(p)) && r.getMaxRpm() >= (getShaftSpeed(p)) &&
                 (p.getRequiredMotorStandardPowerHP() == r.getConstRequiredMotorPowerHp().getDoubleValue());
     }
 

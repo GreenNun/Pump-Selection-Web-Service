@@ -1,36 +1,26 @@
 package eu.bausov.projects.pump_selector.bo;
 
-import eu.bausov.projects.pump_selector.bo.equipment.DriverAssembly;
-import eu.bausov.projects.pump_selector.bo.equipment.Seal;
-
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-//@Entity
-//@Table(name = "TB_PARAMETERS")
-//@XmlRootElement
+@XmlRootElement
 public class Parameters extends JPA {
     private String medium;
-    private Constant constPumpType;
+    private String pumpType;
     private Double capacity;
     private Integer pressure;
     private Integer viscosity;
     private Double sg;
     private Integer temperature;
-    private Constant constCastingMaterial;
-    private Seal seal;
-    private DriverAssembly driverAssembly;
+    private String castingMaterial;
+    private String sealType;
+    private String driverAssemblyType;
     private Boolean isReliefValve;
     private Boolean isHeatingJacket;
     private Boolean isExplosionProof;
 
-    //@Basic(optional = false)
     public String getMedium() {
         return medium;
     }
@@ -39,16 +29,14 @@ public class Parameters extends JPA {
         this.medium = medium;
     }
 
-    //@ManyToOne(optional = false)
-    public Constant getConstPumpType() {
-        return constPumpType;
+    public String getPumpType() {
+        return pumpType;
     }
 
-    public void setConstPumpType(Constant constPumpType) {
-        this.constPumpType = constPumpType;
+    public void setPumpType(String pumpType) {
+        this.pumpType = pumpType;
     }
 
-    //@Basic(optional = false)
     public Double getCapacity() {
         return capacity;
     }
@@ -57,7 +45,6 @@ public class Parameters extends JPA {
         this.capacity = capacity;
     }
 
-    //@Basic(optional = false)
     public Integer getPressure() {
         return pressure;
     }
@@ -66,7 +53,6 @@ public class Parameters extends JPA {
         this.pressure = pressure;
     }
 
-    //@Basic(optional = false)
     public Integer getViscosity() {
         return viscosity;
     }
@@ -75,7 +61,6 @@ public class Parameters extends JPA {
         this.viscosity = viscosity;
     }
 
-    //@Basic
     public Double getSg() {
         return sg;
     }
@@ -84,7 +69,6 @@ public class Parameters extends JPA {
         this.sg = sg;
     }
 
-    //@Basic(optional = false)
     public Integer getTemperature() {
         return temperature;
     }
@@ -93,34 +77,30 @@ public class Parameters extends JPA {
         this.temperature = temperature;
     }
 
-    //@ManyToOne(optional = false)
-    public Constant getConstCastingMaterial() {
-        return constCastingMaterial;
+    public String getCastingMaterial() {
+        return castingMaterial;
     }
 
-    public void setConstCastingMaterial(Constant constCastingMaterial) {
-        this.constCastingMaterial = constCastingMaterial;
+    public void setCastingMaterial(String castingMaterial) {
+        this.castingMaterial = castingMaterial;
     }
 
-    //@ManyToOne(optional = false)
-    public Seal getSeal() {
-        return seal;
+    public String getSealType() {
+        return sealType;
     }
 
-    public void setSeal(Seal seal) {
-        this.seal = seal;
+    public void setSealType(String sealType) {
+        this.sealType = sealType;
     }
 
-    //@ManyToOne(optional = false)
-    public DriverAssembly getDriverAssembly() {
-        return driverAssembly;
+    public String getDriverAssemblyType() {
+        return driverAssemblyType;
     }
 
-    public void setDriverAssembly(DriverAssembly driverAssembly) {
-        this.driverAssembly = driverAssembly;
+    public void setDriverAssemblyType(String driverAssemblyType) {
+        this.driverAssemblyType = driverAssemblyType;
     }
 
-    //@Basic(optional = false)
     public Boolean getReliefValve() {
         return isReliefValve;
     }
@@ -129,32 +109,20 @@ public class Parameters extends JPA {
         isReliefValve = reliefValve;
     }
 
-    //@Basic(optional = false)
     public Boolean getHeatingJacket() {
         return isHeatingJacket;
     }
 
-    public void setHeatingJacketed(Boolean heatingJacket) {
+    public void setHeatingJacket(Boolean heatingJacket) {
         isHeatingJacket = heatingJacket;
     }
 
-    //@Basic(optional = false)
     public Boolean getExplosionProof() {
         return isExplosionProof;
     }
 
     public void setExplosionProof(Boolean explosionProof) {
         isExplosionProof = explosionProof;
-    }
-
-    @Override
-    public String toString() {
-        return "medium: " + medium + "\n" +
-                "capacity: " + capacity + "\n" +
-                "pressure: " + pressure + "\n" +
-                "viscosity: " + viscosity + "\n" +
-                "sg: " + sg + "\n" +
-                "temperature: " + temperature;
     }
 
     /**

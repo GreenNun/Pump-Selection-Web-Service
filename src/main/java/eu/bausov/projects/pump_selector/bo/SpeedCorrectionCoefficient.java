@@ -4,9 +4,11 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "TB_SPEED_CORRECTION_COEFFICIENTS", uniqueConstraints = {@UniqueConstraint(columnNames = {"viscosity", "coefficient"})})
+@XmlRootElement
 public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedCorrectionCoefficient> {
     private Integer viscosity;
     private Integer coefficient;

@@ -3,18 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
         http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
     <import resource="classpath:webServicesContext.xml"/>
+    <!--<mvc:resources mapping="" location=""-->
 
     <bean id="exceptionResolver" class="eu.bausov.projects.pump_selector.web.rest.HandlerExceptionResolver">
         <property name="order" value="1"/>

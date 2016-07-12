@@ -4,6 +4,7 @@ import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * Constants;
  * <p>
  * sealType              name:   "seal type";
- * value:  "Packing" | "Rotatherm Seal" | "Mechanical seal" | "Lip Seal" | "Cartex Mechanical Seal";
+ * value:  "Packing" | "Rotatherm Seal" | "Mechanical Seal" | "Lip Seal" | "Cartex Mechanical Seal";
  * <p>
  * oRingMaterial         name:   "material";
  * value:  "none" | "Viton&reg;";
@@ -21,6 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "seal_Type",
         "oRing_Material"})})
+@XmlRootElement
 public class Seal extends Equipment {
     private Constant sealType;
     private Constant oRingMaterial;
