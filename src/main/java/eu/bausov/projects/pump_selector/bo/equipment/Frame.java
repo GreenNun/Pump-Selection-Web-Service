@@ -1,6 +1,8 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
 import eu.bausov.projects.pump_selector.bo.Producer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,6 +25,7 @@ public class Frame extends Equipment {
         this.suitablePumps = suitablePumps;
     }
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Pump> getSuitablePumps() {
         return suitablePumps;

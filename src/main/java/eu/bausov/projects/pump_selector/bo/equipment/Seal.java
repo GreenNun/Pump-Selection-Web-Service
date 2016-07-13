@@ -2,6 +2,8 @@ package eu.bausov.projects.pump_selector.bo.equipment;
 
 import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Producer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -59,6 +61,7 @@ public class Seal extends Equipment {
         this.oRingMaterial = oRingMaterial;
     }
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Pump> getSuitablePumps() {
         return suitablePumps;

@@ -100,29 +100,30 @@ public class PumpSelectionService {
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
         for (Pump pump : pumps) {
-            if (pump.getConstPumpType().getValue().equals(parameters.getPumpType()) &&                    // pumpType
-                    pump.getReliefValve() == parameters.getReliefValve() &&                         // reliefValve
+            if (pump.getConstPumpType().getValue().equals(parameters.getPumpType()) &&                      // pumpType
+                    pump.getReliefValve() == parameters.isReliefValve() &&                                  // reliefValve
                     (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
-                            pump.getHeatingJacketOnBracket()) == parameters.getHeatingJacket() &&   // heatingJacket
-                    pump.getConstCastingMaterial().getValue().equals(parameters.getCastingMaterial()) &&  // castingMaterial
-                    pump.isPressureValid(parameters) &&                                             // pressure
-                    pump.isTemperatureValid(parameters)) {                                          // temperature
+                            pump.getHeatingJacketOnBracket()) == parameters.isHeatingJacket() &&            // heatingJacket
+                    pump.getConstCastingMaterial().getValue().equals(parameters.getCastingMaterial()) &&    // castingMaterial
+                    pump.isPressureValid(parameters) &&                                                     // pressure
+                    pump.isTemperatureValid(parameters)) {                                                  // temperature
                 // Reducer
                 for (Reducer reducer : reducers) {
-                    if (pump.getProducer().equals(reducer.getVendor()) &&                           // vendor check
+                    if (pump.getProducer().equals(reducer.getVendor()) &&                                   // vendor check
                             pump.isReducerValid(reducer, parameters)) {
                         // Motor
                         for (Motor motor : motors) {
-                            if (pump.getProducer().equals(motor.getVendor()) &&                     // vendor check
+                            if (pump.getProducer().equals(motor.getVendor()) &&                             // vendor check
                                     motor.isMotorValid(reducer) &&
-                                    parameters.getExplosionProof() == motor.isExplosionProofAvailable()) {
+                                    motor.isExplosionProofAvailable() == parameters.isExplosionProof()) {
                                 // Seal
-                                for (Seal seal : seals) {                                           // seal
+                                for (Seal seal : seals) {                                                   // seal
                                     // TODO: 11.07.2016 oRing check
                                     if (pump.isValidTo(seal.getSuitablePumps())) {
                                         // DriverAssembly
                                         for (DriverAssembly driverAssembly : driverAssemblies) {
-                                            if (parameters.getDriverAssemblyType().equals(driverAssembly.getDriverAssemblyType().getValue()) &&
+                                            if (parameters.getDriverAssemblyType().equals
+                                                    (driverAssembly.getDriverAssemblyType().getValue()) &&
                                                     pump.isValidTo(driverAssembly.getSuitablePumps())) {
                                                 // Frame
                                                 for (Frame frame : frames) {
