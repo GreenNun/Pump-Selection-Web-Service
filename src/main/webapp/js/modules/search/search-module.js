@@ -3,7 +3,7 @@ angular.module('pump.modules.search')
         
         $scope.search = {
             pumpType: 'Internal Eccentric Gear Pump',
-            castingMaterial: 'GG 25 Cast Iron',
+            castingMaterial: 'Cast Iron',
             sealType:'Packing',
             driverAssemblyType: 'Coupling',
             reliefValve: true,

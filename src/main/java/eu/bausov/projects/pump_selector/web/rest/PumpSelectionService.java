@@ -111,7 +111,7 @@ public class PumpSelectionService {
                     pump.getReliefValve() == parameters.isReliefValve() &&                                  // reliefValve
                     (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
                             pump.getHeatingJacketOnBracket()) == parameters.isHeatingJacket() &&            // heatingJacket
-                    pump.getConstCastingMaterial().getValue().equals(parameters.getCastingMaterial()) &&    // castingMaterial
+                    pump.getConstCastingMaterial().getValue().contains(parameters.getCastingMaterial()) &&    // castingMaterial
                     pump.isPressureValid(parameters) &&                                                     // pressure
                     pump.isTemperatureValid(parameters)) {                                                  // temperature
                 // Reducer
@@ -148,6 +148,8 @@ public class PumpSelectionService {
                                                         aggregate.setShaftSpeed(pump.getShaftSpeed(parameters));
                                                         // Write parameters to PumpAggregate field.
                                                         aggregate.setParameters(parameters.toString());
+                                                        // Calculate and write Total Price.
+                                                        aggregate.setTotalPrice(2);
 
                                                         pumpAggregates.add(aggregate);
                                                     }
