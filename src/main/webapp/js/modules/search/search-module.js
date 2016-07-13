@@ -1,13 +1,15 @@
 angular.module('pump.modules.search')
     .controller('searchCtrl', function($rootScope, $scope, $http) {
         
-        // $scope.test = 'TEST';
-        // $scope.search = {
-        //     medium: 'default-medium'
-        // };
-        // $scope.search = {
-        //     value: 'default-name'
-        //     };
+        $scope.search = {
+            pumpType: 'Internal Eccentric Gear Pump',
+            castingMaterial: 'GG 25 Cast Iron',
+            sealType:'Packing',
+            driverAssemblyType: 'Coupling',
+            reliefValve: true,
+            heatingJacket: false,
+            explosionProof: false
+        };
 
         $scope.doSearch = function() {
 

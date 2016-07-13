@@ -8,6 +8,8 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -228,6 +230,7 @@ public class Pump extends Equipment {
         this.rpmCoefficient = rpmCoefficient;
     }
 
+    @XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
@@ -300,6 +303,17 @@ public class Pump extends Equipment {
      */
     public boolean isTemperatureValid(Parameters parameters) {
         return getConstMaxTemperature().getIntegerValue() >= parameters.getTemperature();
+    }
+
+    /**
+     * // TODO: 13.07.2016  
+     * @param parameters
+     * @return
+     */
+    public boolean isViscosityValid(Parameters parameters) {
+        Optional<SpeedCorrectionCoefficient> max = getSpeedCorrectionCoefficients().stream()
+                .max((o1, o2) -> o1.getViscosity().compareTo(o2.getViscosity()));
+        return max.isPresent() && max.get().getViscosity() >= parameters.getViscosity();
     }
 
     /**

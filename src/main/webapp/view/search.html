@@ -147,9 +147,9 @@
         <div id="options" class="col-xs-12 col-sm-12 col-md-12">
             <label for="options">OPTIONS</label>
             <div class="btn-toolbar">
-                <input type="button" data-toggle="buttons-radio" class="btn btn-default" ng-model="search.reliefValve" btn-radio="'true'" value="Relief Valve">
-                <input type="button" data-toggle="buttons-radio" class="btn btn-default" ng-model="search.heatingJacket" btn-radio="'false'" value="Heating Jacket">
-                <input type="button" data-toggle="buttons-radio" class="btn btn-default" ng-model="search.explosionProof" btn-radio="'false'" value="Explosion Proof">
+                <input type="button"  class="btn btn-default" ng-model="search.reliefValve" btn-radio="'true'" value="Relief Valve">
+                <input type="button"  class="btn btn-default" ng-model="search.heatingJacket" btn-radio="'false'" value="Heating Jacket">
+                <input type="button"  class="btn btn-default" ng-model="search.explosionProof" btn-radio="'false'" value="Explosion Proof">
                 <!--<input type="button" data-toggle="buttons-radio" class="btn btn-default active" value="Button">-->
             </div>
         </div>
@@ -168,6 +168,8 @@
             Producer: {{item.producer.producerName}}
         </div>
     </div>
+
+    {{result.list}}
 
     <!--<div class="container">-->
         <!--&lt;!&ndash;<h2>Hover Rows</h2>&ndash;&gt;-->

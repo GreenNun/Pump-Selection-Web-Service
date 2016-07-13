@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ import java.util.*;
 @RequestMapping(value = "/PumpSelectionService")
 @PreAuthorize("hasRole('ADMIN')")
 public class PumpSelectionService {
+
+    Logger logger = LoggerFactory.getLogger(PumpSelectionService.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -45,6 +49,8 @@ public class PumpSelectionService {
     public List<PumpAggregate> getSuitablePumps(@RequestBody Parameters parameters) {
 
         Session currentSession = sessionFactory.getCurrentSession();
+
+        logger.info("Current session received '{}'", currentSession.getClass());
 
         // Get all equipment lists from DB
         List<Pump> pumps = currentSession.createCriteria(Pump.class).list();
@@ -100,7 +106,8 @@ public class PumpSelectionService {
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
         for (Pump pump : pumps) {
-            if (pump.getConstPumpType().getValue().equals(parameters.getPumpType()) &&                      // pumpType
+            if (pump.isViscosityValid(parameters) &&                                                        // viscosity
+                    pump.getConstPumpType().getValue().equals(parameters.getPumpType()) &&                  // pumpType
                     pump.getReliefValve() == parameters.isReliefValve() &&                                  // reliefValve
                     (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
                             pump.getHeatingJacketOnBracket()) == parameters.isHeatingJacket() &&            // heatingJacket
@@ -119,11 +126,12 @@ public class PumpSelectionService {
                                 // Seal
                                 for (Seal seal : seals) {                                                   // seal
                                     // TODO: 11.07.2016 oRing check
-                                    if (pump.isValidTo(seal.getSuitablePumps())) {
+                                    if (seal.getSealType().getValue().equals(parameters.getSealType()) &&   // seal type
+                                            pump.isValidTo(seal.getSuitablePumps())) {
                                         // DriverAssembly
-                                        for (DriverAssembly driverAssembly : driverAssemblies) {
-                                            if (parameters.getDriverAssemblyType().equals
-                                                    (driverAssembly.getDriverAssemblyType().getValue()) &&
+                                        for (DriverAssembly driverAssembly : driverAssemblies) {            // driver assembly
+                                            if (driverAssembly.getDriverAssemblyType().getValue().equals    // driver assembly type
+                                                    (parameters.getDriverAssemblyType()) &&
                                                     pump.isValidTo(driverAssembly.getSuitablePumps())) {
                                                 // Frame
                                                 for (Frame frame : frames) {
