@@ -3,6 +3,8 @@ package eu.bausov.projects.pump_selector.bo.equipment;
 import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Parameters;
 import eu.bausov.projects.pump_selector.bo.SpeedCorrectionCoefficient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -226,6 +228,7 @@ public class Pump extends Equipment {
         this.rpmCoefficient = rpmCoefficient;
     }
 
+    @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
         return speedCorrectionCoefficients;

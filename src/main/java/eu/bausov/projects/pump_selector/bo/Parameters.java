@@ -6,20 +6,20 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @XmlRootElement
-public class Parameters extends JPA {
+public class Parameters {
     private String medium;
     private String pumpType;
-    private Double capacity;
-    private Integer pressure;
-    private Integer viscosity;
-    private Double sg;
-    private Integer temperature;
+    private double capacity;
+    private int pressure;
+    private int viscosity;
+    private double sg;
+    private int temperature;
     private String castingMaterial;
     private String sealType;
     private String driverAssemblyType;
-    private Boolean isReliefValve;
-    private Boolean isHeatingJacket;
-    private Boolean isExplosionProof;
+    private boolean isReliefValve;
+    private boolean isHeatingJacket;
+    private boolean isExplosionProof;
 
     public String getMedium() {
         return medium;
@@ -37,43 +37,43 @@ public class Parameters extends JPA {
         this.pumpType = pumpType;
     }
 
-    public Double getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Double capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 
-    public Integer getPressure() {
+    public int getPressure() {
         return pressure;
     }
 
-    public void setPressure(Integer pressure) {
+    public void setPressure(int pressure) {
         this.pressure = pressure;
     }
 
-    public Integer getViscosity() {
+    public int getViscosity() {
         return viscosity;
     }
 
-    public void setViscosity(Integer viscosity) {
+    public void setViscosity(int viscosity) {
         this.viscosity = viscosity;
     }
 
-    public Double getSg() {
+    public double getSg() {
         return sg;
     }
 
-    public void setSg(Double sg) {
+    public void setSg(double sg) {
         this.sg = sg;
     }
 
-    public Integer getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Integer temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
@@ -101,27 +101,27 @@ public class Parameters extends JPA {
         this.driverAssemblyType = driverAssemblyType;
     }
 
-    public Boolean getReliefValve() {
+    public boolean isReliefValve() {
         return isReliefValve;
     }
 
-    public void setReliefValve(Boolean reliefValve) {
+    public void setReliefValve(boolean reliefValve) {
         isReliefValve = reliefValve;
     }
 
-    public Boolean getHeatingJacket() {
+    public boolean isHeatingJacket() {
         return isHeatingJacket;
     }
 
-    public void setHeatingJacket(Boolean heatingJacket) {
+    public void setHeatingJacket(boolean heatingJacket) {
         isHeatingJacket = heatingJacket;
     }
 
-    public Boolean getExplosionProof() {
+    public boolean isExplosionProof() {
         return isExplosionProof;
     }
 
-    public void setExplosionProof(Boolean explosionProof) {
+    public void setExplosionProof(boolean explosionProof) {
         isExplosionProof = explosionProof;
     }
 
