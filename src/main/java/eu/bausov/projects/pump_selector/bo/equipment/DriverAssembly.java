@@ -19,7 +19,7 @@ import java.util.Set;
  * Constants:
  * <p>
  * driverAssemblyType       name:   "driver assembly type";
- * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley";
+ * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley" | "Ex.Proof Coupling";
  * <p>
  * constExplosionProof      name:   "explosion proof";
  * value:  "none" | "ATEX";

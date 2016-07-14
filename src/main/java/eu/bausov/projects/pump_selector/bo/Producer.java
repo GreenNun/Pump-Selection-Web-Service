@@ -38,6 +38,7 @@ public class Producer extends JPA {
     }
 
     @Override
+    @Transient
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Producer)) return false;
@@ -50,6 +51,7 @@ public class Producer extends JPA {
     }
 
     @Override
+    @Transient
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + producerName.hashCode();

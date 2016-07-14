@@ -26,24 +26,6 @@ public class PumpSelectionService {
     @Autowired
     private SessionFactory sessionFactory;
 
-//    @ResponseBody
-//    @RequestMapping(value = "/search", method = RequestMethod.POST)
-//    public List<PumpAggregate> searchPumps(@RequestBody Parameters parameters) {
-//        List<PumpAggregate> pumpAggregates = new ArrayList<>();
-//
-//        PumpAggregate e = new PumpAggregate();
-//        e.setId(100L);
-//        e.setVersion(new Date());
-//
-//        Seal seal = new Seal();
-//        seal.setModelName("Model");
-//        e.setSeal(seal);
-//
-//        pumpAggregates.add(e);
-//
-//        return pumpAggregates;
-//    }
-
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public List<PumpAggregate> getSuitablePumps(@RequestBody Parameters parameters) {
@@ -60,58 +42,15 @@ public class PumpSelectionService {
         List<DriverAssembly> driverAssemblies = currentSession.createCriteria(DriverAssembly.class).list();
         List<Frame> frames = currentSession.createCriteria(Frame.class).list();
 
-        /**
-         * JSON Example
-         */
-//        {
-//            "medium": "liquid",
-//                "constPumpType": {
-//            "name": "pump type",
-//                    "value": "Internal Eccentric Gear Pump"
-//        },
-//            "capacity": 25,
-//                "pressure": 4,
-//                "viscosity": 250000,
-//                "sg": 50,
-//                "temperature": 200,
-//                "constCastingMaterial": {
-//            "name": "material",
-//                    "value": "GG 25 Cast Iron"
-//        },
-//            "seal": {
-//            "sealType": {
-//                "name": "seal type",
-//                        "value": "Packing"
-//            },
-//            "oringMaterial": {
-//                "name": "material",
-//                        "value": "none"
-//            }
-//        },
-//            "driverAssembly": {
-//            "driverAssemblyType": {
-//                "name": "driver assembly type",
-//                        "value": "Flexible Coupling"
-//            },
-//            "constExplosionProof": {
-//                "name": "explosion proof",
-//                        "value": "none"
-//            }
-//        },
-//            "reliefValve": true,
-//                "heatingJacketed": true,
-//                "explosionProof": false
-//        }
-
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
         for (Pump pump : pumps) {
             if (pump.isViscosityValid(parameters) &&                                                        // viscosity
                     pump.getConstPumpType().getValue().equals(parameters.getPumpType()) &&                  // pumpType
                     pump.getReliefValve() == parameters.isReliefValve() &&                                  // reliefValve
-                    (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasting() ||
+                    (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasing() ||
                             pump.getHeatingJacketOnBracket()) == parameters.isHeatingJacket() &&            // heatingJacket
-                    pump.getConstCastingMaterial().getValue().contains(parameters.getCastingMaterial()) &&    // castingMaterial
+                    pump.getConstCasingMaterial().getValue().contains(parameters.getCasingMaterial()) &&  // casingMaterial
                     pump.isPressureValid(parameters) &&                                                     // pressure
                     pump.isTemperatureValid(parameters)) {                                                  // temperature
                 // Reducer
@@ -168,329 +107,1761 @@ public class PumpSelectionService {
         return pumpAggregates;
     }
 
-//    @ResponseBody
-//    @RequestMapping(value = "/filldatabase", method = RequestMethod.GET)
-//    public String test() {
-//
-//    //http://127.0.0.1:8080/pump/api/PumpSelectionService/filldatabase
-//
-//        Session session = sessionFactory.getCurrentSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//        /**
-//         * COUNTRIES
-//         */
-//        Constant wonderland = new Constant("country", "Wonderland");
-//        session.persist(wonderland);
-//        Constant germany = new Constant("country", "Germany");
-//        session.persist(germany);
-//        Constant turkey =  new Constant("country", "Turkey");
-//        session.persist(turkey);
-//
-//        /* Producers */
-//        Producer dreampompa = new Producer();
-//        dreampompa.setProducerName("Dreampompa"); // producer
-//        dreampompa.setProducerCountry(wonderland); // country
-//        session.persist(dreampompa);
-//
-//        Producer eagleBurgmann = new Producer();
-//        eagleBurgmann.setProducerName("Eagle Burgmann"); // producer
-//        eagleBurgmann.setProducerCountry(germany); // country
-//        session.persist(eagleBurgmann);
-//
-////        Producer abb = new Producer();
-////        eagleBurgmann.setProducerName("ABB"); // producer
-////        eagleBurgmann.setProducerCountry(germany); // country
-////        session.persist(abb);
-//
-//        Producer turkishMotor = new Producer();
-//        turkishMotor.setProducerName("GAMAK, WAT, ABANA or VOLT"); // producer
-//        turkishMotor.setProducerCountry(turkey); // country
-//        session.persist(turkishMotor);
-//
-//        Producer iMak = new Producer();
-//        iMak.setProducerName("I.Mak Reduktor"); // producer
-//        iMak.setProducerCountry(turkey); // country
-//        session.persist(iMak);
-//
-//        Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
-//        session.persist(internalGearPump);
-//
-////        private Seal seal;
-//        Constant sealTypePacking = new Constant("sealType", "Packing");
-//        session.persist(sealTypePacking);
-////        Constant sealTypeLip = new Constant("sealType", "Lip Seal");
-////        session.persist(sealTypeLip);
-////        Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
-////        session.persist(sealTypeMechanical);
-//        Constant oRingMaterialNone = new Constant("material", "none");
-//        session.persist(oRingMaterialNone);
-////        Constant oRingMaterialViton = new Constant("material", "Viton&reg;");
-////        session.persist(oRingMaterialViton);
-////        private Constant constCastingMaterial;
-////        private Constant constRotorGearMaterial;
-////        private Constant constIdlerGearMaterial;
-//        Constant castIron25 = new Constant("material", "GG 25 Cast Iron");
-//        session.persist(castIron25);
-//        Constant castIron40 = new Constant("material", "GGG 40 Cast Iron");
-//        session.persist(castIron40);
-//        Constant castSteel = new Constant("material", "GS 45 Cast Steel");
-//        session.persist(castSteel);
-////        Constant cast304Steel = new Constant("material", "AISI 304 CrNi Stainless Steel");
-////        Constant cast316Steel = new Constant("material", "AISI 316 CrNi Stainless Steel");
-////        private Constant constShaftMaterial;
-//        Constant heatTreated1050 = new Constant("material", "1050 Steel, Heat Treated");
-//        session.persist(heatTreated1050);
-////        private Constant constShaftSupportMaterial;
-//        Constant bronze = new Constant("material", "CuSn 12 Bronze Bushings");
-//        session.persist(bronze);
-//        // Constant carbon = new Constant("material", "Carbon Graphite Bushings");
-////        private Constant constConnectionsType;
-//        Constant flange = new Constant("connections type", "flange");
-//        session.persist(flange);
-////        private Constant constDn;
-//        //Constant dn865 = new Constant("DN", "65");
-//        Constant dn80 = new Constant("DN", "80");
-//        session.persist(dn80);
-//        //Constant dn125 = new Constant("DN", "125");
-////        private Constant constMaxPressure;
-//        Constant maxPressure10 = new Constant("max. pressure", "10");
-//        session.persist(maxPressure10);
-////        private Constant constConnectionsAngle;
-//        Constant connectionsAngle90 = new Constant("connections angle", "90");
-//        session.persist(connectionsAngle90);
-//        //Constant connectionsAngle180 = new Constant("connections angle", "180");
-////        private Constant constMaxTemperature;
-//        Constant maxTemperature200 = new Constant("max. temperature", "200");
-//        session.persist(maxTemperature200);
-//
-//        Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients = new HashSet<>();
-//        SpeedCorrectionCoefficient sp38 = new SpeedCorrectionCoefficient(38, 60);
-//        session.persist(sp38);
-//        SpeedCorrectionCoefficient sp100 = new SpeedCorrectionCoefficient(100, 63);
-//        session.persist(sp100);
-//        SpeedCorrectionCoefficient sp750 = new SpeedCorrectionCoefficient(750, 30);
-//        session.persist(sp750);
-//        SpeedCorrectionCoefficient sp2500 = new SpeedCorrectionCoefficient(2500, 17);
-//        session.persist(sp2500);
-//        SpeedCorrectionCoefficient sp7500 = new SpeedCorrectionCoefficient(7500, 10);
-//        session.persist(sp7500);
-//        SpeedCorrectionCoefficient sp25000 = new SpeedCorrectionCoefficient(25000, 5);
-//        session.persist(sp25000);
-//        SpeedCorrectionCoefficient sp75000 = new SpeedCorrectionCoefficient(75000, 13);
-//        session.persist(sp75000);
-//        SpeedCorrectionCoefficient sp250000 = new SpeedCorrectionCoefficient(250000, 1);
-//        session.persist(sp250000);
-//        speedCorrectionCoefficients.add(sp38);
-//        speedCorrectionCoefficients.add(sp100);
-//        speedCorrectionCoefficients.add(sp750);
-//        speedCorrectionCoefficients.add(sp2500);
-//        speedCorrectionCoefficients.add(sp7500);
-//        speedCorrectionCoefficients.add(sp25000);
-//        speedCorrectionCoefficients.add(sp75000);
-//        speedCorrectionCoefficients.add(sp250000);
-//
-//
-//
-//        Pump ykf3 = new Pump();
-//        ykf3.setProducer(dreampompa);
-//        ykf3.setModelName("YKF-3");
-//        ykf3.setPrice(new BigDecimal("1020.00"));
-//        ykf3.setConstPumpType(internalGearPump);
-//        ykf3.setReliefValve(true);
-//        ykf3.setHeatingJacketOnCover(false);
-//        ykf3.setHeatingJacketOnCasting(false);
-//        ykf3.setHeatingJacketOnBracket(false);
-//        ykf3.setConstCastingMaterial(castIron25);
-//        ykf3.setConstRotorGearMaterial(castIron40);
-//        ykf3.setConstIdlerGearMaterial(castIron40);
-//        ykf3.setConstShaftSupportMaterial(bronze);
-//        ykf3.setConstShaftMaterial(heatTreated1050);
-//        ykf3.setConstConnectionsType(flange);
-//        ykf3.setConstDn(dn80);
-//        ykf3.setConstMaxPressure(maxPressure10);
-//        ykf3.setConstConnectionsAngle(connectionsAngle90);
-//        ykf3.setConstMaxTemperature(maxTemperature200);
-//        ykf3.setRpmCoefficient(12.5);
-//        ykf3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-//        session.persist(ykf3);
-//
-//        /**
-//         * YKF-3 w Valve
-//         */
-//        Pump ykf3wValve = new Pump();
-//        ykf3wValve.setProducer(dreampompa);
-//        ykf3wValve.setModelName("YKF-3 with relief valve");
-//        ykf3wValve.setPrice(new BigDecimal("1180.00"));
-//        ykf3wValve.setConstPumpType(internalGearPump);
-//        ykf3wValve.setReliefValve(true);
-//        ykf3wValve.setHeatingJacketOnCover(true);
-//        ykf3wValve.setHeatingJacketOnCasting(false);
-//        ykf3wValve.setHeatingJacketOnBracket(false);
-//        ykf3wValve.setConstCastingMaterial(castIron25);
-//        ykf3wValve.setConstRotorGearMaterial(castIron40);
-//        ykf3wValve.setConstIdlerGearMaterial(castIron40);
-//        ykf3wValve.setConstShaftSupportMaterial(bronze);
-//        ykf3wValve.setConstShaftMaterial(heatTreated1050);
-//        ykf3wValve.setConstConnectionsType(flange);
-//        ykf3wValve.setConstDn(dn80);
-//        ykf3wValve.setConstMaxPressure(maxPressure10);
-//        ykf3wValve.setConstConnectionsAngle(connectionsAngle90);
-//        ykf3wValve.setConstMaxTemperature(maxTemperature200);
-//        ykf3wValve.setRpmCoefficient(12.5);
-//        ykf3wValve.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-//        session.persist(ykf3wValve);
-//
-//
-//        Pump ykf3wJC = new Pump();
-//        ykf3wJC.setProducer(dreampompa);
-//        ykf3wJC.setModelName("YKF-3 with jacket on cover");
-//        ykf3wJC.setPrice(new BigDecimal("1070.00"));
-//        ykf3wJC.setConstPumpType(internalGearPump);
-//        ykf3wJC.setReliefValve(true);
-//        ykf3wJC.setHeatingJacketOnCover(false);
-//        ykf3wJC.setHeatingJacketOnCasting(true);
-//        ykf3wJC.setHeatingJacketOnBracket(false);
-//        ykf3wJC.setConstCastingMaterial(castIron25);
-//        ykf3wJC.setConstRotorGearMaterial(castIron40);
-//        ykf3wJC.setConstIdlerGearMaterial(castIron40);
-//        ykf3wJC.setConstShaftSupportMaterial(bronze);
-//        ykf3wJC.setConstShaftMaterial(heatTreated1050);
-//        ykf3wJC.setConstConnectionsType(flange);
-//        ykf3wJC.setConstDn(dn80);
-//        ykf3wJC.setConstMaxPressure(maxPressure10);
-//        ykf3wJC.setConstConnectionsAngle(connectionsAngle90);
-//        ykf3wJC.setConstMaxTemperature(maxTemperature200);
-//        ykf3wJC.setRpmCoefficient(12.5);
-//        ykf3wJC.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-//        session.persist(ykf3wJC);
-//
-//
-//        Pump ykf3wRVandJC = new Pump();
-//        ykf3wRVandJC.setProducer(dreampompa);
-//        ykf3wRVandJC.setModelName("YKF-3 with relief valve and jacket on casting");
-//        ykf3wRVandJC.setPrice(new BigDecimal("1070.00"));
-//        ykf3wRVandJC.setConstPumpType(internalGearPump);
-//        ykf3wRVandJC.setReliefValve(true);
-//        ykf3wRVandJC.setHeatingJacketOnCover(false);
-//        ykf3wRVandJC.setHeatingJacketOnCasting(false);
-//        ykf3wRVandJC.setHeatingJacketOnBracket(true);
-//        ykf3wRVandJC.setConstCastingMaterial(castIron25);
-//        ykf3wRVandJC.setConstRotorGearMaterial(castSteel);
-//        ykf3wRVandJC.setConstIdlerGearMaterial(castSteel);
-//        ykf3wRVandJC.setConstShaftSupportMaterial(bronze);
-//        ykf3wRVandJC.setConstShaftMaterial(heatTreated1050);
-//        ykf3wRVandJC.setConstConnectionsType(flange);
-//        ykf3wRVandJC.setConstDn(dn80);
-//        ykf3wRVandJC.setConstMaxPressure(maxPressure10);
-//        ykf3wRVandJC.setConstConnectionsAngle(connectionsAngle90);
-//        ykf3wRVandJC.setConstMaxTemperature(maxTemperature200);
-//        ykf3wRVandJC.setRpmCoefficient(12.5);
-//        ykf3wRVandJC.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-//        session.persist(ykf3wRVandJC);
-//
-//
-//        Set<Pump> pumpsSet = new HashSet<>();
-//        pumpsSet.add(ykf3);
-//        pumpsSet.add(ykf3wValve);
-//        pumpsSet.add(ykf3wJC);
-//        pumpsSet.add(ykf3wRVandJC);
-//
-//
-//
-//        Seal seal01 = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSet);
-//        session.persist(seal01);
-//
-//        Constant adder = new Constant("driver assembly type", "Pump Adder");
-//        session.persist(adder);
-//        Constant coupling = new Constant("driver assembly type", "Coupling");
-//        session.persist(coupling);
-//        Constant belt = new Constant("driver assembly type", "Belt and Pulley");
-//        session.persist(belt);
-//        Constant flex = new Constant("driver assembly type", "Flexible Coupling");
-//        session.persist(flex);
-//
-//        Constant atex = new Constant("explosion proof", "ATEX");
-//        session.persist(atex);
-//        Constant none = new Constant("explosion proof", "none");
-//        session.persist(none);
-//
-//        DriverAssembly ykf3assembly01 = new DriverAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
-//                adder, atex, pumpsSet);
-//        session.persist(ykf3assembly01);
-//        DriverAssembly ykf3assembly02 = new DriverAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
-//                coupling, atex, pumpsSet);
-//        session.persist(ykf3assembly02);
-//        DriverAssembly ykf3assembly03 = new DriverAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
-//                belt, none, pumpsSet);
-//        session.persist(ykf3assembly03);
-//        DriverAssembly ykf3assembly04 = new DriverAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
-//                flex, none, pumpsSet);
-//        session.persist(ykf3assembly04);
-//
-//
-//        Frame frame01 = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSet);
-//        session.persist(frame01);
-//
-//        Constant motorPower5_5 = new Constant("motor power", "5.5");
-//        session.persist(motorPower5_5);
-//        Constant motorPower7_5 = new Constant("motor power", "7.5");
-//        session.persist(motorPower7_5);
-//        Constant motorPower10 = new Constant("motor power", "10");
-//        session.persist(motorPower10);
-//        Constant motorPower15 = new Constant("motor power", "15");
-//        session.persist(motorPower15);
-//        Constant motorPower20 = new Constant("motor power", "20");
-//        session.persist(motorPower20);
-//
-//
-//
-//        Reducer reducer01 = new Reducer(iMak, "IRAM62/112M", new BigDecimal("555"), dreampompa, 87, 480,
-//                none, motorPower5_5);
-//        session.persist(reducer01);
-//        Reducer reducer02 = new Reducer(iMak, "IRAM62/C112M", new BigDecimal("555"), dreampompa, 210, 450,
-//                none, motorPower7_5);
-//        session.persist(reducer02);
-//        Reducer reducer03 = new Reducer(iMak, "IRAM72/132S", new BigDecimal("555"), dreampompa, 75, 210,
-//                none, motorPower7_5);
-//        session.persist(reducer03);
-//        Reducer reducer04 = new Reducer(iMak, "IRAM72/132M", new BigDecimal("555"), dreampompa, 93, 450,
-//                none, motorPower10);
-//        session.persist(reducer04);
-//        Reducer reducer05 = new Reducer(iMak, "IRAM72/C132M", new BigDecimal("555"), dreampompa, 200, 450,
-//                none, motorPower15);
-//        session.persist(reducer05);
-//        Reducer reducer06 = new Reducer(iMak, "IRAM82/160L", new BigDecimal("555"), dreampompa, 130, 450,
-//                none, motorPower20);
-//        session.persist(reducer06);
-//
-//        Constant motorSpeed1500 = new Constant("motor speed", "1500");
-//        session.persist(motorSpeed1500);
-//
-//        Motor motor01 = new Motor(turkishMotor, "turkish motor 5.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
-//                none, motorPower5_5);
-//        session.persist(motor01);
-//        Motor motor02 = new Motor(turkishMotor, "turkish motor 7.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
-//                none, motorPower7_5);
-//        session.persist(motor02);
-//        Motor motor03 = new Motor(turkishMotor, "turkish motor 10 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
-//                none, motorPower10);
-//        session.persist(motor03);
-//        Motor motor04 = new Motor(turkishMotor, "turkish motor 15 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
-//                none, motorPower15);
-//        session.persist(motor04);
-//        Motor motor05 = new Motor(turkishMotor, "turkish motor 20 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
-//                none, motorPower20);
-//        session.persist(motor05);
-//
-//        session.flush();
-//        session.clear();
-//
-//        transaction.commit();
-//
-//
-//        return "OK";
-//    }
+    @ResponseBody
+    @RequestMapping(value = "/filldatabase", method = RequestMethod.GET)
+    public String test() {
+
+        //http://127.0.0.1:8080/pump/api/PumpSelectionService/filldatabase
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        /**
+         * COUNTRIES
+         */
+        Constant wonderland = new Constant("country", "Wonderland");
+        session.persist(wonderland);
+        Constant germany = new Constant("country", "Germany");
+        session.persist(germany);
+        Constant turkey =  new Constant("country", "Turkey");
+        session.persist(turkey);
+
+        /**
+         * PRODUCERS
+         */
+        Producer dreampompa = new Producer();
+        dreampompa.setProducerName("Dreampompa"); // producer
+        dreampompa.setProducerCountry(wonderland); // country
+        session.persist(dreampompa);
+
+        Producer eagleBurgmann = new Producer();
+        eagleBurgmann.setProducerName("Eagle Burgmann"); // producer
+        eagleBurgmann.setProducerCountry(germany); // country
+        session.persist(eagleBurgmann);
+
+        Producer abb = new Producer();
+        abb.setProducerName("ABB"); // producer
+        abb.setProducerCountry(germany); // country
+        session.persist(abb);
+
+        Producer turkishMotor = new Producer();
+        turkishMotor.setProducerName("GAMAK, WAT, ABANA or VOLT"); // producer
+        turkishMotor.setProducerCountry(turkey); // country
+        session.persist(turkishMotor);
+
+        Producer iMak = new Producer();
+        iMak.setProducerName("I.Mak Reduktor"); // producer
+        iMak.setProducerCountry(turkey); // country
+        session.persist(iMak);
+
+        /**
+         * PUMP TYPES
+         */
+        Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
+        session.persist(internalGearPump);
+        Constant modularGearPump = new Constant("pump type", "Modular Gear Pump"); // pumpType
+        session.persist(internalGearPump);
+        Constant helicalGearPump = new Constant("pump type", "Helical Gear Pump"); // pumpType
+        session.persist(internalGearPump);
+        Constant lobePump = new Constant("pump type", "Lobe Pump"); // pumpType
+        session.persist(internalGearPump);
+        Constant foodPump = new Constant("pump type", "Food Pump"); // pumpType
+        session.persist(internalGearPump);
+
+        /**
+         * SEAL TYPES
+         */
+        Constant sealTypePacking = new Constant("sealType", "Packing");
+        session.persist(sealTypePacking);
+        Constant sealTypeLip = new Constant("sealType", "Lip Seal");
+        session.persist(sealTypeLip);
+        Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
+        session.persist(sealTypeMechanical);
+        Constant sealTypeCartexMechanical = new Constant("sealType", "Cartex Mechanical Seal");
+        session.persist(sealTypeCartexMechanical);
+
+        /**
+         * MATERIALS
+         */
+        Constant oRingMaterialNone = new Constant("material", "none"); // none
+        session.persist(oRingMaterialNone);
+        Constant oRingMaterialViton = new Constant("material", "Viton&reg;"); // Viton
+        session.persist(oRingMaterialViton);
+        Constant castIron25 = new Constant("material", "GG 25 Cast Iron");
+        session.persist(castIron25);
+        Constant castIron40 = new Constant("material", "GGG 40 Cast Iron");
+        session.persist(castIron40);
+        Constant castSteel = new Constant("material", "GS 45 Cast Steel");
+        session.persist(castSteel);
+        Constant cast304Steel = new Constant("material", "AISI 304 CrNi Stainless Steel");
+        session.persist(cast304Steel);
+        Constant cast316Steel = new Constant("material", "AISI 316 CrNi Stainless Steel");
+        session.persist(cast316Steel);
+        Constant heatTreated1050 = new Constant("material", "1050 Steel, Heat Treated");
+        session.persist(heatTreated1050);
+        Constant bronze = new Constant("material", "CuSn 12 Bronze Bushings");
+        session.persist(bronze);
+        Constant carbon = new Constant("material", "Carbon Graphite Bushings");
+        session.persist(carbon);
+
+
+        /**
+         * CONNECTIONS TYPES
+         */
+        Constant flange = new Constant("connections type", "Flange");
+        session.persist(flange);
+        Constant thread = new Constant("connections type", "Thread");
+        session.persist(thread);
+        Constant pipeToothed = new Constant("connections type", "Pipe Toothed");
+        session.persist(pipeToothed);
+
+        /**
+         * DN
+         */
+        Constant dn865 = new Constant("DN", "65");
+        session.persist(dn865);
+        Constant dn80 = new Constant("DN", "80");
+        session.persist(dn80);
+        Constant dn125 = new Constant("DN", "125");
+        session.persist(dn125);
+
+        /**
+         * MAX PRESSURE
+         */
+        Constant maxPressure10 = new Constant("max. pressure", "10");
+        session.persist(maxPressure10);
+        Constant maxPressure14 = new Constant("max. pressure", "14");
+        session.persist(maxPressure14);
+
+        /**
+         * CONNECTIONS ANGLE
+         */
+        Constant connectionsAngle90 = new Constant("connections angle", "90");
+        session.persist(connectionsAngle90);
+        Constant connectionsAngle180 = new Constant("connections angle", "180");
+        session.persist(connectionsAngle180);
+
+
+        /**
+         * MAX TEMPERATURE
+         */
+        Constant maxTemperature200 = new Constant("max. temperature", "200");
+        session.persist(maxTemperature200);
+
+        /**
+         * YKF-3 COEFFICIENTS
+         */
+        Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients = new HashSet<>();
+        SpeedCorrectionCoefficient sp38 = new SpeedCorrectionCoefficient(38, 60);
+        session.persist(sp38);
+        SpeedCorrectionCoefficient sp100 = new SpeedCorrectionCoefficient(100, 63);
+        session.persist(sp100);
+        SpeedCorrectionCoefficient sp750 = new SpeedCorrectionCoefficient(750, 30);
+        session.persist(sp750);
+        SpeedCorrectionCoefficient sp2500 = new SpeedCorrectionCoefficient(2500, 17);
+        session.persist(sp2500);
+        SpeedCorrectionCoefficient sp7500 = new SpeedCorrectionCoefficient(7500, 10);
+        session.persist(sp7500);
+        SpeedCorrectionCoefficient sp25000 = new SpeedCorrectionCoefficient(25000, 5);
+        session.persist(sp25000);
+        SpeedCorrectionCoefficient sp75000 = new SpeedCorrectionCoefficient(75000, 13);
+        session.persist(sp75000);
+        SpeedCorrectionCoefficient sp250000 = new SpeedCorrectionCoefficient(250000, 1);
+        session.persist(sp250000);
+        speedCorrectionCoefficients.add(sp38);
+        speedCorrectionCoefficients.add(sp100);
+        speedCorrectionCoefficients.add(sp750);
+        speedCorrectionCoefficients.add(sp2500);
+        speedCorrectionCoefficients.add(sp7500);
+        speedCorrectionCoefficients.add(sp25000);
+        speedCorrectionCoefficients.add(sp75000);
+        speedCorrectionCoefficients.add(sp250000);
+
+//////////////////////////////////////////////////////////////////////////////////////////
+        //YKF-3
+        Pump ykf3 = new Pump();
+        ykf3.setProducer(dreampompa);
+        ykf3.setModelName("YKF-3");
+        ykf3.setPrice(new BigDecimal("1020.00"));
+        ykf3.setConstPumpType(internalGearPump);
+        ykf3.setReliefValve(false);
+        ykf3.setHeatingJacketOnCover(false);
+        ykf3.setHeatingJacketOnCasing(false);
+        ykf3.setHeatingJacketOnBracket(false);
+        ykf3.setConstCasingMaterial(castIron25);
+        ykf3.setConstRotorGearMaterial(castIron40);
+        ykf3.setConstIdlerGearMaterial(castIron40);
+        ykf3.setConstShaftSupportMaterial(bronze);
+        ykf3.setConstShaftMaterial(heatTreated1050);
+        ykf3.setConstConnectionsType(flange);
+        ykf3.setConstDn(dn80);
+        ykf3.setConstMaxPressure(maxPressure10);
+        ykf3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3.setConstMaxTemperature(maxTemperature200);
+        ykf3.setRpmCoefficient(12.5);
+        ykf3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3);
+        // YKYF-3
+        Pump ykyf3 = new Pump();
+        ykyf3.setProducer(dreampompa);
+        ykyf3.setModelName("YKYF-3");
+        ykyf3.setPrice(new BigDecimal("1040.00"));
+        ykyf3.setConstPumpType(internalGearPump);
+        ykyf3.setReliefValve(false);
+        ykyf3.setHeatingJacketOnCover(false);
+        ykyf3.setHeatingJacketOnCasing(false);
+        ykyf3.setHeatingJacketOnBracket(false);
+        ykyf3.setConstCasingMaterial(castIron25);
+        ykyf3.setConstRotorGearMaterial(castIron40);
+        ykyf3.setConstIdlerGearMaterial(castIron40);
+        ykyf3.setConstShaftSupportMaterial(bronze);
+        ykyf3.setConstShaftMaterial(heatTreated1050);
+        ykyf3.setConstConnectionsType(flange);
+        ykyf3.setConstDn(dn80);
+        ykyf3.setConstMaxPressure(maxPressure10);
+        ykyf3.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3.setConstMaxTemperature(maxTemperature200);
+        ykyf3.setRpmCoefficient(12.5);
+        ykyf3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3);
+        // YKU-2.5
+        Pump yku2_5 = new Pump();
+        yku2_5.setProducer(dreampompa);
+        yku2_5.setModelName("YKF-2½");
+        yku2_5.setPrice(new BigDecimal("960.00"));
+        yku2_5.setConstPumpType(internalGearPump);
+        yku2_5.setReliefValve(false);
+        yku2_5.setHeatingJacketOnCover(false);
+        yku2_5.setHeatingJacketOnCasing(false);
+        yku2_5.setHeatingJacketOnBracket(false);
+        yku2_5.setConstCasingMaterial(castIron25);
+        yku2_5.setConstRotorGearMaterial(castIron40);
+        yku2_5.setConstIdlerGearMaterial(castIron40);
+        yku2_5.setConstShaftSupportMaterial(bronze);
+        yku2_5.setConstShaftMaterial(heatTreated1050);
+        yku2_5.setConstConnectionsType(pipeToothed);
+        yku2_5.setConstDn(dn80);
+        yku2_5.setConstMaxPressure(maxPressure10);
+        yku2_5.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5.setConstMaxTemperature(maxTemperature200);
+        yku2_5.setRpmCoefficient(12.5);
+        yku2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5);
+        // YKUF-2.5
+        Pump ykuf2_5 = new Pump();
+        ykuf2_5.setProducer(dreampompa);
+        ykuf2_5.setModelName("YKUF-2½");
+        ykuf2_5.setPrice(new BigDecimal("980.00"));
+        ykuf2_5.setConstPumpType(internalGearPump);
+        ykuf2_5.setReliefValve(false);
+        ykuf2_5.setHeatingJacketOnCover(false);
+        ykuf2_5.setHeatingJacketOnCasing(false);
+        ykuf2_5.setHeatingJacketOnBracket(false);
+        ykuf2_5.setConstCasingMaterial(castIron25);
+        ykuf2_5.setConstRotorGearMaterial(castIron40);
+        ykuf2_5.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5.setConstShaftSupportMaterial(bronze);
+        ykuf2_5.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5.setConstConnectionsType(flange);
+        ykuf2_5.setConstDn(dn80);
+        ykuf2_5.setConstMaxPressure(maxPressure10);
+        ykuf2_5.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5.setRpmCoefficient(12.5);
+        ykuf2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5);
+        // YKUYF-2.5
+        Pump ykuyf2_5 = new Pump();
+        ykuyf2_5.setProducer(dreampompa);
+        ykuyf2_5.setModelName("YKUYF-2½");
+        ykuyf2_5.setPrice(new BigDecimal("980.00"));
+        ykuyf2_5.setConstPumpType(internalGearPump);
+        ykuyf2_5.setReliefValve(false);
+        ykuyf2_5.setHeatingJacketOnCover(false);
+        ykuyf2_5.setHeatingJacketOnCasing(false);
+        ykuyf2_5.setHeatingJacketOnBracket(false);
+        ykuyf2_5.setConstCasingMaterial(castIron25);
+        ykuyf2_5.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5.setConstConnectionsType(flange);
+        ykuyf2_5.setConstDn(dn80);
+        ykuyf2_5.setConstMaxPressure(maxPressure10);
+        ykuyf2_5.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5.setRpmCoefficient(12.5);
+        ykuyf2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5);
+////////////////////////////////////////////////////////////////////////////////////////// + VALVE
+        //YKF-3
+        Pump ykf3v = new Pump();
+        ykf3v.setProducer(dreampompa);
+        ykf3v.setModelName("YKF-3 with Relief Valve");
+        ykf3v.setPrice(new BigDecimal("1180.00"));
+        ykf3v.setConstPumpType(internalGearPump);
+        ykf3v.setReliefValve(true);
+        ykf3v.setHeatingJacketOnCover(false);
+        ykf3v.setHeatingJacketOnCasing(false);
+        ykf3v.setHeatingJacketOnBracket(false);
+        ykf3v.setConstCasingMaterial(castIron25);
+        ykf3v.setConstRotorGearMaterial(castIron40);
+        ykf3v.setConstIdlerGearMaterial(castIron40);
+        ykf3v.setConstShaftSupportMaterial(bronze);
+        ykf3v.setConstShaftMaterial(heatTreated1050);
+        ykf3v.setConstConnectionsType(flange);
+        ykf3v.setConstDn(dn80);
+        ykf3v.setConstMaxPressure(maxPressure10);
+        ykf3v.setConstConnectionsAngle(connectionsAngle90);
+        ykf3v.setConstMaxTemperature(maxTemperature200);
+        ykf3v.setRpmCoefficient(12.5);
+        ykf3v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3v);
+        // YKYF-3
+        Pump ykyf3v = new Pump();
+        ykyf3v.setProducer(dreampompa);
+        ykyf3v.setModelName("YKYF-3 with Relief Valve");
+        ykyf3v.setPrice(new BigDecimal("1200.00"));
+        ykyf3v.setConstPumpType(internalGearPump);
+        ykyf3v.setReliefValve(true);
+        ykyf3v.setHeatingJacketOnCover(false);
+        ykyf3v.setHeatingJacketOnCasing(false);
+        ykyf3v.setHeatingJacketOnBracket(false);
+        ykyf3v.setConstCasingMaterial(castIron25);
+        ykyf3v.setConstRotorGearMaterial(castIron40);
+        ykyf3v.setConstIdlerGearMaterial(castIron40);
+        ykyf3v.setConstShaftSupportMaterial(bronze);
+        ykyf3v.setConstShaftMaterial(heatTreated1050);
+        ykyf3v.setConstConnectionsType(flange);
+        ykyf3v.setConstDn(dn80);
+        ykyf3v.setConstMaxPressure(maxPressure10);
+        ykyf3v.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3v.setConstMaxTemperature(maxTemperature200);
+        ykyf3v.setRpmCoefficient(12.5);
+        ykyf3v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3v);
+        // YKU-2.5
+        Pump yku2_5v = new Pump();
+        yku2_5v.setProducer(dreampompa);
+        yku2_5v.setModelName("YKF-2½ with Relief Valve");
+        yku2_5v.setPrice(new BigDecimal("1120.00"));
+        yku2_5v.setConstPumpType(internalGearPump);
+        yku2_5v.setReliefValve(true);
+        yku2_5v.setHeatingJacketOnCover(false);
+        yku2_5v.setHeatingJacketOnCasing(false);
+        yku2_5v.setHeatingJacketOnBracket(false);
+        yku2_5v.setConstCasingMaterial(castIron25);
+        yku2_5v.setConstRotorGearMaterial(castIron40);
+        yku2_5v.setConstIdlerGearMaterial(castIron40);
+        yku2_5v.setConstShaftSupportMaterial(bronze);
+        yku2_5v.setConstShaftMaterial(heatTreated1050);
+        yku2_5v.setConstConnectionsType(pipeToothed);
+        yku2_5v.setConstDn(dn80);
+        yku2_5v.setConstMaxPressure(maxPressure10);
+        yku2_5v.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5v.setConstMaxTemperature(maxTemperature200);
+        yku2_5v.setRpmCoefficient(12.5);
+        yku2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5v);
+        // YKUF-2.5
+        Pump ykuf2_5v = new Pump();
+        ykuf2_5v.setProducer(dreampompa);
+        ykuf2_5v.setModelName("YKUF-2½ with Relief Valve");
+        ykuf2_5v.setPrice(new BigDecimal("1140.00"));
+        ykuf2_5v.setConstPumpType(internalGearPump);
+        ykuf2_5v.setReliefValve(true);
+        ykuf2_5v.setHeatingJacketOnCover(false);
+        ykuf2_5v.setHeatingJacketOnCasing(false);
+        ykuf2_5v.setHeatingJacketOnBracket(false);
+        ykuf2_5v.setConstCasingMaterial(castIron25);
+        ykuf2_5v.setConstRotorGearMaterial(castIron40);
+        ykuf2_5v.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5v.setConstShaftSupportMaterial(bronze);
+        ykuf2_5v.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5v.setConstConnectionsType(flange);
+        ykuf2_5v.setConstDn(dn80);
+        ykuf2_5v.setConstMaxPressure(maxPressure10);
+        ykuf2_5v.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5v.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5v.setRpmCoefficient(12.5);
+        ykuf2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5v);
+        // YKUYF-2.5
+        Pump ykuyf2_5v = new Pump();
+        ykuyf2_5v.setProducer(dreampompa);
+        ykuyf2_5v.setModelName("YKUYF-2½ with Relief Valve");
+        ykuyf2_5v.setPrice(new BigDecimal("1140.00"));
+        ykuyf2_5v.setConstPumpType(internalGearPump);
+        ykuyf2_5v.setReliefValve(true);
+        ykuyf2_5v.setHeatingJacketOnCover(false);
+        ykuyf2_5v.setHeatingJacketOnCasing(false);
+        ykuyf2_5v.setHeatingJacketOnBracket(false);
+        ykuyf2_5v.setConstCasingMaterial(castIron25);
+        ykuyf2_5v.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5v.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5v.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5v.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5v.setConstConnectionsType(flange);
+        ykuyf2_5v.setConstDn(dn80);
+        ykuyf2_5v.setConstMaxPressure(maxPressure10);
+        ykuyf2_5v.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5v.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5v.setRpmCoefficient(12.5);
+        ykuyf2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5v);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER
+        //YKF-3
+        Pump ykf3h1 = new Pump();
+        ykf3h1.setProducer(dreampompa);
+        ykf3h1.setModelName("YKF-3 with Heating Jacket on Cover");
+        ykf3h1.setPrice(new BigDecimal("1070.00"));
+        ykf3h1.setConstPumpType(internalGearPump);
+        ykf3h1.setReliefValve(false);
+        ykf3h1.setHeatingJacketOnCover(true);
+        ykf3h1.setHeatingJacketOnCasing(false);
+        ykf3h1.setHeatingJacketOnBracket(false);
+        ykf3h1.setConstCasingMaterial(castIron25);
+        ykf3h1.setConstRotorGearMaterial(castIron40);
+        ykf3h1.setConstIdlerGearMaterial(castIron40);
+        ykf3h1.setConstShaftSupportMaterial(bronze);
+        ykf3h1.setConstShaftMaterial(heatTreated1050);
+        ykf3h1.setConstConnectionsType(flange);
+        ykf3h1.setConstDn(dn80);
+        ykf3h1.setConstMaxPressure(maxPressure10);
+        ykf3h1.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h1.setConstMaxTemperature(maxTemperature200);
+        ykf3h1.setRpmCoefficient(12.5);
+        ykf3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h1);
+        // YKYF-3
+        Pump ykyf3h1 = new Pump();
+        ykyf3h1.setProducer(dreampompa);
+        ykyf3h1.setModelName("YKYF-3 with Heating Jacket on Cover");
+        ykyf3h1.setPrice(new BigDecimal("1090.00"));
+        ykyf3h1.setConstPumpType(internalGearPump);
+        ykyf3h1.setReliefValve(false);
+        ykyf3h1.setHeatingJacketOnCover(true);
+        ykyf3h1.setHeatingJacketOnCasing(false);
+        ykyf3h1.setHeatingJacketOnBracket(false);
+        ykyf3h1.setConstCasingMaterial(castIron25);
+        ykyf3h1.setConstRotorGearMaterial(castIron40);
+        ykyf3h1.setConstIdlerGearMaterial(castIron40);
+        ykyf3h1.setConstShaftSupportMaterial(bronze);
+        ykyf3h1.setConstShaftMaterial(heatTreated1050);
+        ykyf3h1.setConstConnectionsType(flange);
+        ykyf3h1.setConstDn(dn80);
+        ykyf3h1.setConstMaxPressure(maxPressure10);
+        ykyf3h1.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3h1.setConstMaxTemperature(maxTemperature200);
+        ykyf3h1.setRpmCoefficient(12.5);
+        ykyf3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3h1);
+        // YKU-2.5
+        Pump yku2_5h1 = new Pump();
+        yku2_5h1.setProducer(dreampompa);
+        yku2_5h1.setModelName("YKF-2½ with Heating Jacket on Cover");
+        yku2_5h1.setPrice(new BigDecimal("1010.00"));
+        yku2_5h1.setConstPumpType(internalGearPump);
+        yku2_5h1.setReliefValve(false);
+        yku2_5h1.setHeatingJacketOnCover(true);
+        yku2_5h1.setHeatingJacketOnCasing(false);
+        yku2_5h1.setHeatingJacketOnBracket(false);
+        yku2_5h1.setConstCasingMaterial(castIron25);
+        yku2_5h1.setConstRotorGearMaterial(castIron40);
+        yku2_5h1.setConstIdlerGearMaterial(castIron40);
+        yku2_5h1.setConstShaftSupportMaterial(bronze);
+        yku2_5h1.setConstShaftMaterial(heatTreated1050);
+        yku2_5h1.setConstConnectionsType(pipeToothed);
+        yku2_5h1.setConstDn(dn80);
+        yku2_5h1.setConstMaxPressure(maxPressure10);
+        yku2_5h1.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5h1.setConstMaxTemperature(maxTemperature200);
+        yku2_5h1.setRpmCoefficient(12.5);
+        yku2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5h1);
+        // YKUF-2.5
+        Pump ykuf2_5h1 = new Pump();
+        ykuf2_5h1.setProducer(dreampompa);
+        ykuf2_5h1.setModelName("YKUF-2½ with Heating Jacket on Cover");
+        ykuf2_5h1.setPrice(new BigDecimal("1030.00"));
+        ykuf2_5h1.setConstPumpType(internalGearPump);
+        ykuf2_5h1.setReliefValve(false);
+        ykuf2_5h1.setHeatingJacketOnCover(true);
+        ykuf2_5h1.setHeatingJacketOnCasing(false);
+        ykuf2_5h1.setHeatingJacketOnBracket(false);
+        ykuf2_5h1.setConstCasingMaterial(castIron25);
+        ykuf2_5h1.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h1.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h1.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h1.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h1.setConstConnectionsType(flange);
+        ykuf2_5h1.setConstDn(dn80);
+        ykuf2_5h1.setConstMaxPressure(maxPressure10);
+        ykuf2_5h1.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h1.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h1.setRpmCoefficient(12.5);
+        ykuf2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h1);
+        // YKUYF-2.5
+        Pump ykuyf2_5h1 = new Pump();
+        ykuyf2_5h1.setProducer(dreampompa);
+        ykuyf2_5h1.setModelName("YKUYF-2½ with Heating Jacket on Cover");
+        ykuyf2_5h1.setPrice(new BigDecimal("1030.00"));
+        ykuyf2_5h1.setConstPumpType(internalGearPump);
+        ykuyf2_5h1.setReliefValve(false);
+        ykuyf2_5h1.setHeatingJacketOnCover(true);
+        ykuyf2_5h1.setHeatingJacketOnCasing(false);
+        ykuyf2_5h1.setHeatingJacketOnBracket(false);
+        ykuyf2_5h1.setConstCasingMaterial(castIron25);
+        ykuyf2_5h1.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5h1.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5h1.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5h1.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5h1.setConstConnectionsType(flange);
+        ykuyf2_5h1.setConstDn(dn80);
+        ykuyf2_5h1.setConstMaxPressure(maxPressure10);
+        ykuyf2_5h1.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5h1.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5h1.setRpmCoefficient(12.5);
+        ykuyf2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5h1);
+////////////////////////////////////////////////////////////////////////////////////////// + H CASING
+        //YKF-3
+        Pump ykf3h2 = new Pump();
+        ykf3h2.setProducer(dreampompa);
+        ykf3h2.setModelName("YKF-3 with Heating Jacket on Casing");
+        ykf3h2.setPrice(new BigDecimal("1120.00"));
+        ykf3h2.setConstPumpType(internalGearPump);
+        ykf3h2.setReliefValve(false);
+        ykf3h2.setHeatingJacketOnCover(false);
+        ykf3h2.setHeatingJacketOnCasing(true);
+        ykf3h2.setHeatingJacketOnBracket(false);
+        ykf3h2.setConstCasingMaterial(castIron25);
+        ykf3h2.setConstRotorGearMaterial(castIron40);
+        ykf3h2.setConstIdlerGearMaterial(castIron40);
+        ykf3h2.setConstShaftSupportMaterial(bronze);
+        ykf3h2.setConstShaftMaterial(heatTreated1050);
+        ykf3h2.setConstConnectionsType(flange);
+        ykf3h2.setConstDn(dn80);
+        ykf3h2.setConstMaxPressure(maxPressure10);
+        ykf3h2.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h2.setConstMaxTemperature(maxTemperature200);
+        ykf3h2.setRpmCoefficient(12.5);
+        ykf3h2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h2);
+
+        // YKUF-2.5
+        Pump ykuf2_5h2 = new Pump();
+        ykuf2_5h2.setProducer(dreampompa);
+        ykuf2_5h2.setModelName("YKUF-2½ with Heating Jacket on Casing");
+        ykuf2_5h2.setPrice(new BigDecimal("1080.00"));
+        ykuf2_5h2.setConstPumpType(internalGearPump);
+        ykuf2_5h2.setReliefValve(false);
+        ykuf2_5h2.setHeatingJacketOnCover(false);
+        ykuf2_5h2.setHeatingJacketOnCasing(true);
+        ykuf2_5h2.setHeatingJacketOnBracket(false);
+        ykuf2_5h2.setConstCasingMaterial(castIron25);
+        ykuf2_5h2.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h2.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h2.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h2.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h2.setConstConnectionsType(flange);
+        ykuf2_5h2.setConstDn(dn80);
+        ykuf2_5h2.setConstMaxPressure(maxPressure10);
+        ykuf2_5h2.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h2.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h2.setRpmCoefficient(12.5);
+        ykuf2_5h2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h2);
+////////////////////////////////////////////////////////////////////////////////////////// + H BRACKET
+        //YKF-3
+        Pump ykf3h3 = new Pump();
+        ykf3h3.setProducer(dreampompa);
+        ykf3h3.setModelName("YKF-3 with Heating Jacket on Bracket");
+        ykf3h3.setPrice(new BigDecimal("1110.00"));
+        ykf3h3.setConstPumpType(internalGearPump);
+        ykf3h3.setReliefValve(false);
+        ykf3h3.setHeatingJacketOnCover(false);
+        ykf3h3.setHeatingJacketOnCasing(false);
+        ykf3h3.setHeatingJacketOnBracket(true);
+        ykf3h3.setConstCasingMaterial(castIron25);
+        ykf3h3.setConstRotorGearMaterial(castIron40);
+        ykf3h3.setConstIdlerGearMaterial(castIron40);
+        ykf3h3.setConstShaftSupportMaterial(bronze);
+        ykf3h3.setConstShaftMaterial(heatTreated1050);
+        ykf3h3.setConstConnectionsType(flange);
+        ykf3h3.setConstDn(dn80);
+        ykf3h3.setConstMaxPressure(maxPressure10);
+        ykf3h3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h3.setConstMaxTemperature(maxTemperature200);
+        ykf3h3.setRpmCoefficient(12.5);
+        ykf3h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h3);
+        // YKYF-3
+        Pump ykyf3h3 = new Pump();
+        ykyf3h3.setProducer(dreampompa);
+        ykyf3h3.setModelName("YKYF-3 with Heating Jacket on Bracket");
+        ykyf3h3.setPrice(new BigDecimal("1110.00"));
+        ykyf3h3.setConstPumpType(internalGearPump);
+        ykyf3h3.setReliefValve(false);
+        ykyf3h3.setHeatingJacketOnCover(false);
+        ykyf3h3.setHeatingJacketOnCasing(false);
+        ykyf3h3.setHeatingJacketOnBracket(true);
+        ykyf3h3.setConstCasingMaterial(castIron25);
+        ykyf3h3.setConstRotorGearMaterial(castIron40);
+        ykyf3h3.setConstIdlerGearMaterial(castIron40);
+        ykyf3h3.setConstShaftSupportMaterial(bronze);
+        ykyf3h3.setConstShaftMaterial(heatTreated1050);
+        ykyf3h3.setConstConnectionsType(flange);
+        ykyf3h3.setConstDn(dn80);
+        ykyf3h3.setConstMaxPressure(maxPressure10);
+        ykyf3h3.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3h3.setConstMaxTemperature(maxTemperature200);
+        ykyf3h3.setRpmCoefficient(12.5);
+        ykyf3h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3h3);
+        // YKU-2.5
+        Pump yku2_5h3 = new Pump();
+        yku2_5h3.setProducer(dreampompa);
+        yku2_5h3.setModelName("YKF-2½ with Heating Jacket on Bracket");
+        yku2_5h3.setPrice(new BigDecimal("1050.00"));
+        yku2_5h3.setConstPumpType(internalGearPump);
+        yku2_5h3.setReliefValve(false);
+        yku2_5h3.setHeatingJacketOnCover(false);
+        yku2_5h3.setHeatingJacketOnCasing(false);
+        yku2_5h3.setHeatingJacketOnBracket(true);
+        yku2_5h3.setConstCasingMaterial(castIron25);
+        yku2_5h3.setConstRotorGearMaterial(castIron40);
+        yku2_5h3.setConstIdlerGearMaterial(castIron40);
+        yku2_5h3.setConstShaftSupportMaterial(bronze);
+        yku2_5h3.setConstShaftMaterial(heatTreated1050);
+        yku2_5h3.setConstConnectionsType(pipeToothed);
+        yku2_5h3.setConstDn(dn80);
+        yku2_5h3.setConstMaxPressure(maxPressure10);
+        yku2_5h3.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5h3.setConstMaxTemperature(maxTemperature200);
+        yku2_5h3.setRpmCoefficient(12.5);
+        yku2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5h3);
+        // YKUF-2.5
+        Pump ykuf2_5h3 = new Pump();
+        ykuf2_5h3.setProducer(dreampompa);
+        ykuf2_5h3.setModelName("YKUF-2½ with Heating Jacket on Bracket");
+        ykuf2_5h3.setPrice(new BigDecimal("1070.00"));
+        ykuf2_5h3.setConstPumpType(internalGearPump);
+        ykuf2_5h3.setReliefValve(false);
+        ykuf2_5h3.setHeatingJacketOnCover(false);
+        ykuf2_5h3.setHeatingJacketOnCasing(false);
+        ykuf2_5h3.setHeatingJacketOnBracket(true);
+        ykuf2_5h3.setConstCasingMaterial(castIron25);
+        ykuf2_5h3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h3.setConstConnectionsType(flange);
+        ykuf2_5h3.setConstDn(dn80);
+        ykuf2_5h3.setConstMaxPressure(maxPressure10);
+        ykuf2_5h3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h3.setRpmCoefficient(12.5);
+        ykuf2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h3);
+        // YKUYF-2.5
+        Pump ykuyf2_5h3 = new Pump();
+        ykuyf2_5h3.setProducer(dreampompa);
+        ykuyf2_5h3.setModelName("YKUYF-2½ with Heating Jacket on Bracket");
+        ykuyf2_5h3.setPrice(new BigDecimal("1070.00"));
+        ykuyf2_5h3.setConstPumpType(internalGearPump);
+        ykuyf2_5h3.setReliefValve(false);
+        ykuyf2_5h3.setHeatingJacketOnCover(false);
+        ykuyf2_5h3.setHeatingJacketOnCasing(false);
+        ykuyf2_5h3.setHeatingJacketOnBracket(true);
+        ykuyf2_5h3.setConstCasingMaterial(castIron25);
+        ykuyf2_5h3.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5h3.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5h3.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5h3.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5h3.setConstConnectionsType(flange);
+        ykuyf2_5h3.setConstDn(dn80);
+        ykuyf2_5h3.setConstMaxPressure(maxPressure10);
+        ykuyf2_5h3.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5h3.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5h3.setRpmCoefficient(12.5);
+        ykuyf2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5h3);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING
+        //YKF-3
+        Pump ykf3h1_2 = new Pump();
+        ykf3h1_2.setProducer(dreampompa);
+        ykf3h1_2.setModelName("YKF-3 with Heating Jacket on Cover and Casing");
+        ykf3h1_2.setPrice(new BigDecimal("1120.00"));
+        ykf3h1_2.setConstPumpType(internalGearPump);
+        ykf3h1_2.setReliefValve(false);
+        ykf3h1_2.setHeatingJacketOnCover(true);
+        ykf3h1_2.setHeatingJacketOnCasing(true);
+        ykf3h1_2.setHeatingJacketOnBracket(false);
+        ykf3h1_2.setConstCasingMaterial(castIron25);
+        ykf3h1_2.setConstRotorGearMaterial(castIron40);
+        ykf3h1_2.setConstIdlerGearMaterial(castIron40);
+        ykf3h1_2.setConstShaftSupportMaterial(bronze);
+        ykf3h1_2.setConstShaftMaterial(heatTreated1050);
+        ykf3h1_2.setConstConnectionsType(flange);
+        ykf3h1_2.setConstDn(dn80);
+        ykf3h1_2.setConstMaxPressure(maxPressure10);
+        ykf3h1_2.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h1_2.setConstMaxTemperature(maxTemperature200);
+        ykf3h1_2.setRpmCoefficient(12.5);
+        ykf3h1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h1_2);
+
+        // YKUF-2.5
+        Pump ykuf2_5h1_2 = new Pump();
+        ykuf2_5h1_2.setProducer(dreampompa);
+        ykuf2_5h1_2.setModelName("YKUF-2½ with Heating Jacket on Cover and Casing");
+        ykuf2_5h1_2.setPrice(new BigDecimal("1170.00"));
+        ykuf2_5h1_2.setConstPumpType(internalGearPump);
+        ykuf2_5h1_2.setReliefValve(false);
+        ykuf2_5h1_2.setHeatingJacketOnCover(true);
+        ykuf2_5h1_2.setHeatingJacketOnCasing(true);
+        ykuf2_5h1_2.setHeatingJacketOnBracket(false);
+        ykuf2_5h1_2.setConstCasingMaterial(castIron25);
+        ykuf2_5h1_2.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h1_2.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h1_2.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h1_2.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h1_2.setConstConnectionsType(flange);
+        ykuf2_5h1_2.setConstDn(dn80);
+        ykuf2_5h1_2.setConstMaxPressure(maxPressure10);
+        ykuf2_5h1_2.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h1_2.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h1_2.setRpmCoefficient(12.5);
+        ykuf2_5h1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h1_2);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + BRACKET
+        //YKF-3
+        Pump ykf3h1_3 = new Pump();
+        ykf3h1_3.setProducer(dreampompa);
+        ykf3h1_3.setModelName("YKF-3 with Heating Jacket on Cover and Bracket");
+        ykf3h1_3.setPrice(new BigDecimal("1160.00"));
+        ykf3h1_3.setConstPumpType(internalGearPump);
+        ykf3h1_3.setReliefValve(false);
+        ykf3h1_3.setHeatingJacketOnCover(true);
+        ykf3h1_3.setHeatingJacketOnCasing(false);
+        ykf3h1_3.setHeatingJacketOnBracket(true);
+        ykf3h1_3.setConstCasingMaterial(castIron25);
+        ykf3h1_3.setConstRotorGearMaterial(castIron40);
+        ykf3h1_3.setConstIdlerGearMaterial(castIron40);
+        ykf3h1_3.setConstShaftSupportMaterial(bronze);
+        ykf3h1_3.setConstShaftMaterial(heatTreated1050);
+        ykf3h1_3.setConstConnectionsType(flange);
+        ykf3h1_3.setConstDn(dn80);
+        ykf3h1_3.setConstMaxPressure(maxPressure10);
+        ykf3h1_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h1_3.setConstMaxTemperature(maxTemperature200);
+        ykf3h1_3.setRpmCoefficient(12.5);
+        ykf3h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h1_3);
+        // YKYF-3
+        Pump ykyf3h1_3 = new Pump();
+        ykyf3h1_3.setProducer(dreampompa);
+        ykyf3h1_3.setModelName("YKYF-3 with Heating Jacket on Cover and Bracket");
+        ykyf3h1_3.setPrice(new BigDecimal("1180.00"));
+        ykyf3h1_3.setConstPumpType(internalGearPump);
+        ykyf3h1_3.setReliefValve(false);
+        ykyf3h1_3.setHeatingJacketOnCover(true);
+        ykyf3h1_3.setHeatingJacketOnCasing(false);
+        ykyf3h1_3.setHeatingJacketOnBracket(true);
+        ykyf3h1_3.setConstCasingMaterial(castIron25);
+        ykyf3h1_3.setConstRotorGearMaterial(castIron40);
+        ykyf3h1_3.setConstIdlerGearMaterial(castIron40);
+        ykyf3h1_3.setConstShaftSupportMaterial(bronze);
+        ykyf3h1_3.setConstShaftMaterial(heatTreated1050);
+        ykyf3h1_3.setConstConnectionsType(flange);
+        ykyf3h1_3.setConstDn(dn80);
+        ykyf3h1_3.setConstMaxPressure(maxPressure10);
+        ykyf3h1_3.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3h1_3.setConstMaxTemperature(maxTemperature200);
+        ykyf3h1_3.setRpmCoefficient(12.5);
+        ykyf3h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3h1_3);
+        // YKU-2.5
+        Pump yku2_5h1_3 = new Pump();
+        yku2_5h1_3.setProducer(dreampompa);
+        yku2_5h1_3.setModelName("YKF-2½ with Heating Jacket on Cover and Bracket");
+        yku2_5h1_3.setPrice(new BigDecimal("1100.00"));
+        yku2_5h1_3.setConstPumpType(internalGearPump);
+        yku2_5h1_3.setReliefValve(false);
+        yku2_5h1_3.setHeatingJacketOnCover(true);
+        yku2_5h1_3.setHeatingJacketOnCasing(false);
+        yku2_5h1_3.setHeatingJacketOnBracket(true);
+        yku2_5h1_3.setConstCasingMaterial(castIron25);
+        yku2_5h1_3.setConstRotorGearMaterial(castIron40);
+        yku2_5h1_3.setConstIdlerGearMaterial(castIron40);
+        yku2_5h1_3.setConstShaftSupportMaterial(bronze);
+        yku2_5h1_3.setConstShaftMaterial(heatTreated1050);
+        yku2_5h1_3.setConstConnectionsType(pipeToothed);
+        yku2_5h1_3.setConstDn(dn80);
+        yku2_5h1_3.setConstMaxPressure(maxPressure10);
+        yku2_5h1_3.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5h1_3.setConstMaxTemperature(maxTemperature200);
+        yku2_5h1_3.setRpmCoefficient(12.5);
+        yku2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5h1_3);
+        // YKUF-2.5
+        Pump ykuf2_5h1_3 = new Pump();
+        ykuf2_5h1_3.setProducer(dreampompa);
+        ykuf2_5h1_3.setModelName("YKUF-2½ with Heating Jacket on Cover and Bracket");
+        ykuf2_5h1_3.setPrice(new BigDecimal("1120.00"));
+        ykuf2_5h1_3.setConstPumpType(internalGearPump);
+        ykuf2_5h1_3.setReliefValve(false);
+        ykuf2_5h1_3.setHeatingJacketOnCover(true);
+        ykuf2_5h1_3.setHeatingJacketOnCasing(false);
+        ykuf2_5h1_3.setHeatingJacketOnBracket(true);
+        ykuf2_5h1_3.setConstCasingMaterial(castIron25);
+        ykuf2_5h1_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h1_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h1_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h1_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h1_3.setConstConnectionsType(flange);
+        ykuf2_5h1_3.setConstDn(dn80);
+        ykuf2_5h1_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5h1_3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h1_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h1_3.setRpmCoefficient(12.5);
+        ykuf2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h1_3);
+        // YKUYF-2.5
+        Pump ykuyf2_5h1_3 = new Pump();
+        ykuyf2_5h1_3.setProducer(dreampompa);
+        ykuyf2_5h1_3.setModelName("YKUYF-2½ with Heating Jacket on Cover and Bracket");
+        ykuyf2_5h1_3.setPrice(new BigDecimal("1120.00"));
+        ykuyf2_5h1_3.setConstPumpType(internalGearPump);
+        ykuyf2_5h1_3.setReliefValve(false);
+        ykuyf2_5h1_3.setHeatingJacketOnCover(true);
+        ykuyf2_5h1_3.setHeatingJacketOnCasing(false);
+        ykuyf2_5h1_3.setHeatingJacketOnBracket(true);
+        ykuyf2_5h1_3.setConstCasingMaterial(castIron25);
+        ykuyf2_5h1_3.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5h1_3.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5h1_3.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5h1_3.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5h1_3.setConstConnectionsType(flange);
+        ykuyf2_5h1_3.setConstDn(dn80);
+        ykuyf2_5h1_3.setConstMaxPressure(maxPressure10);
+        ykuyf2_5h1_3.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5h1_3.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5h1_3.setRpmCoefficient(12.5);
+        ykuyf2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5h1_3);
+////////////////////////////////////////////////////////////////////////////////////////// + H CASING + BRACKET
+        //YKF-3
+        Pump ykf3h2_3 = new Pump();
+        ykf3h2_3.setProducer(dreampompa);
+        ykf3h2_3.setModelName("YKF-3 with Heating Jacket on Casing and Bracket");
+        ykf3h2_3.setPrice(new BigDecimal("1210.00"));
+        ykf3h2_3.setConstPumpType(internalGearPump);
+        ykf3h2_3.setReliefValve(false);
+        ykf3h2_3.setHeatingJacketOnCover(false);
+        ykf3h2_3.setHeatingJacketOnCasing(true);
+        ykf3h2_3.setHeatingJacketOnBracket(true);
+        ykf3h2_3.setConstCasingMaterial(castIron25);
+        ykf3h2_3.setConstRotorGearMaterial(castIron40);
+        ykf3h2_3.setConstIdlerGearMaterial(castIron40);
+        ykf3h2_3.setConstShaftSupportMaterial(bronze);
+        ykf3h2_3.setConstShaftMaterial(heatTreated1050);
+        ykf3h2_3.setConstConnectionsType(flange);
+        ykf3h2_3.setConstDn(dn80);
+        ykf3h2_3.setConstMaxPressure(maxPressure10);
+        ykf3h2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h2_3.setConstMaxTemperature(maxTemperature200);
+        ykf3h2_3.setRpmCoefficient(12.5);
+        ykf3h2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h2_3);
+
+        // YKUF-2.5
+        Pump ykuf2_5h2_3 = new Pump();
+        ykuf2_5h2_3.setProducer(dreampompa);
+        ykuf2_5h2_3.setModelName("YKUF-2½ with Heating Jacket on Casing and Bracket");
+        ykuf2_5h2_3.setPrice(new BigDecimal("1170.00"));
+        ykuf2_5h2_3.setConstPumpType(internalGearPump);
+        ykuf2_5h2_3.setReliefValve(false);
+        ykuf2_5h2_3.setHeatingJacketOnCover(false);
+        ykuf2_5h2_3.setHeatingJacketOnCasing(true);
+        ykuf2_5h2_3.setHeatingJacketOnBracket(true);
+        ykuf2_5h2_3.setConstCasingMaterial(castIron25);
+        ykuf2_5h2_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h2_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h2_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h2_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h2_3.setConstConnectionsType(flange);
+        ykuf2_5h2_3.setConstDn(dn80);
+        ykuf2_5h2_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5h2_3.setConstConnectionsAngle(connectionsAngle180);
+        ykuf2_5h2_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h2_3.setRpmCoefficient(12.5);
+        ykuf2_5h2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h2_3);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + BRACKET
+        //YKF-3
+        Pump ykf3h1_2_3 = new Pump();
+        ykf3h1_2_3.setProducer(dreampompa);
+        ykf3h1_2_3.setModelName("YKF-3 with Heating Jacket on Cover, Casing and Bracket");
+        ykf3h1_2_3.setPrice(new BigDecimal("1210.00"));
+        ykf3h1_2_3.setConstPumpType(internalGearPump);
+        ykf3h1_2_3.setReliefValve(false);
+        ykf3h1_2_3.setHeatingJacketOnCover(true);
+        ykf3h1_2_3.setHeatingJacketOnCasing(true);
+        ykf3h1_2_3.setHeatingJacketOnBracket(true);
+        ykf3h1_2_3.setConstCasingMaterial(castIron25);
+        ykf3h1_2_3.setConstRotorGearMaterial(castIron40);
+        ykf3h1_2_3.setConstIdlerGearMaterial(castIron40);
+        ykf3h1_2_3.setConstShaftSupportMaterial(bronze);
+        ykf3h1_2_3.setConstShaftMaterial(heatTreated1050);
+        ykf3h1_2_3.setConstConnectionsType(flange);
+        ykf3h1_2_3.setConstDn(dn80);
+        ykf3h1_2_3.setConstMaxPressure(maxPressure10);
+        ykf3h1_2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3h1_2_3.setConstMaxTemperature(maxTemperature200);
+        ykf3h1_2_3.setRpmCoefficient(12.5);
+        ykf3h1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3h1_2_3);
+
+        // YKUF-2.5
+        Pump ykuf2_5h1_2_3 = new Pump();
+        ykuf2_5h1_2_3.setProducer(dreampompa);
+        ykuf2_5h1_2_3.setModelName("YKUF-2½ with Heating Jacket on Cover, Casing and Bracket");
+        ykuf2_5h1_2_3.setPrice(new BigDecimal("1260.00"));
+        ykuf2_5h1_2_3.setConstPumpType(internalGearPump);
+        ykuf2_5h1_2_3.setReliefValve(false);
+        ykuf2_5h1_2_3.setHeatingJacketOnCover(true);
+        ykuf2_5h1_2_3.setHeatingJacketOnCasing(true);
+        ykuf2_5h1_2_3.setHeatingJacketOnBracket(true);
+        ykuf2_5h1_2_3.setConstCasingMaterial(castIron25);
+        ykuf2_5h1_2_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5h1_2_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5h1_2_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5h1_2_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5h1_2_3.setConstConnectionsType(flange);
+        ykuf2_5h1_2_3.setConstDn(dn80);
+        ykuf2_5h1_2_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5h1_2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5h1_2_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5h1_2_3.setRpmCoefficient(12.5);
+        ykuf2_5h1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5h1_2_3);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + VALVE
+        //YKF-3
+        Pump ykfv3h1 = new Pump();
+        ykfv3h1.setProducer(dreampompa);
+        ykfv3h1.setModelName("YKF-3 with Relief Valve and Heating Jacket on Cover");
+        ykfv3h1.setPrice(new BigDecimal("1230.00"));
+        ykfv3h1.setConstPumpType(internalGearPump);
+        ykfv3h1.setReliefValve(true);
+        ykfv3h1.setHeatingJacketOnCover(true);
+        ykfv3h1.setHeatingJacketOnCasing(false);
+        ykfv3h1.setHeatingJacketOnBracket(false);
+        ykfv3h1.setConstCasingMaterial(castIron25);
+        ykfv3h1.setConstRotorGearMaterial(castIron40);
+        ykfv3h1.setConstIdlerGearMaterial(castIron40);
+        ykfv3h1.setConstShaftSupportMaterial(bronze);
+        ykfv3h1.setConstShaftMaterial(heatTreated1050);
+        ykfv3h1.setConstConnectionsType(flange);
+        ykfv3h1.setConstDn(dn80);
+        ykfv3h1.setConstMaxPressure(maxPressure10);
+        ykfv3h1.setConstConnectionsAngle(connectionsAngle90);
+        ykfv3h1.setConstMaxTemperature(maxTemperature200);
+        ykfv3h1.setRpmCoefficient(12.5);
+        ykfv3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykfv3h1);
+        // YKYF-3
+        Pump ykyf3vh1 = new Pump();
+        ykyf3vh1.setProducer(dreampompa);
+        ykyf3vh1.setModelName("YKYF-3 with Relief Valve and Heating Jacket on Cover");
+        ykyf3vh1.setPrice(new BigDecimal("1250.00"));
+        ykyf3vh1.setConstPumpType(internalGearPump);
+        ykyf3vh1.setReliefValve(true);
+        ykyf3vh1.setHeatingJacketOnCover(true);
+        ykyf3vh1.setHeatingJacketOnCasing(false);
+        ykyf3vh1.setHeatingJacketOnBracket(false);
+        ykyf3vh1.setConstCasingMaterial(castIron25);
+        ykyf3vh1.setConstRotorGearMaterial(castIron40);
+        ykyf3vh1.setConstIdlerGearMaterial(castIron40);
+        ykyf3vh1.setConstShaftSupportMaterial(bronze);
+        ykyf3vh1.setConstShaftMaterial(heatTreated1050);
+        ykyf3vh1.setConstConnectionsType(flange);
+        ykyf3vh1.setConstDn(dn80);
+        ykyf3vh1.setConstMaxPressure(maxPressure10);
+        ykyf3vh1.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3vh1.setConstMaxTemperature(maxTemperature200);
+        ykyf3vh1.setRpmCoefficient(12.5);
+        ykyf3vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3vh1);
+        // YKU-2.5
+        Pump yku2_5vh1 = new Pump();
+        yku2_5vh1.setProducer(dreampompa);
+        yku2_5vh1.setModelName("YKF-2½ with Relief Valve and Heating Jacket on Cover");
+        yku2_5vh1.setPrice(new BigDecimal("1170.00"));
+        yku2_5vh1.setConstPumpType(internalGearPump);
+        yku2_5vh1.setReliefValve(true);
+        yku2_5vh1.setHeatingJacketOnCover(true);
+        yku2_5vh1.setHeatingJacketOnCasing(false);
+        yku2_5vh1.setHeatingJacketOnBracket(false);
+        yku2_5vh1.setConstCasingMaterial(castIron25);
+        yku2_5vh1.setConstRotorGearMaterial(castIron40);
+        yku2_5vh1.setConstIdlerGearMaterial(castIron40);
+        yku2_5vh1.setConstShaftSupportMaterial(bronze);
+        yku2_5vh1.setConstShaftMaterial(heatTreated1050);
+        yku2_5vh1.setConstConnectionsType(pipeToothed);
+        yku2_5vh1.setConstDn(dn80);
+        yku2_5vh1.setConstMaxPressure(maxPressure10);
+        yku2_5vh1.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5vh1.setConstMaxTemperature(maxTemperature200);
+        yku2_5vh1.setRpmCoefficient(12.5);
+        yku2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5vh1);
+        // YKUF-2.5
+        Pump ykuf2_5vh1 = new Pump();
+        ykuf2_5vh1.setProducer(dreampompa);
+        ykuf2_5vh1.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Cover");
+        ykuf2_5vh1.setPrice(new BigDecimal("1190.00"));
+        ykuf2_5vh1.setConstPumpType(internalGearPump);
+        ykuf2_5vh1.setReliefValve(true);
+        ykuf2_5vh1.setHeatingJacketOnCover(true);
+        ykuf2_5vh1.setHeatingJacketOnCasing(false);
+        ykuf2_5vh1.setHeatingJacketOnBracket(false);
+        ykuf2_5vh1.setConstCasingMaterial(castIron25);
+        ykuf2_5vh1.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh1.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh1.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh1.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh1.setConstConnectionsType(flange);
+        ykuf2_5vh1.setConstDn(dn80);
+        ykuf2_5vh1.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh1.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh1.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh1.setRpmCoefficient(12.5);
+        ykuf2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh1);
+        // YKUYF-2.5
+        Pump ykuyf2_5vh1 = new Pump();
+        ykuyf2_5vh1.setProducer(dreampompa);
+        ykuyf2_5vh1.setModelName("YKUYF-2½ with Relief Valve and Heating Jacket on Cover");
+        ykuyf2_5vh1.setPrice(new BigDecimal("1190.00"));
+        ykuyf2_5vh1.setConstPumpType(internalGearPump);
+        ykuyf2_5vh1.setReliefValve(true);
+        ykuyf2_5vh1.setHeatingJacketOnCover(true);
+        ykuyf2_5vh1.setHeatingJacketOnCasing(false);
+        ykuyf2_5vh1.setHeatingJacketOnBracket(false);
+        ykuyf2_5vh1.setConstCasingMaterial(castIron25);
+        ykuyf2_5vh1.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5vh1.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5vh1.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5vh1.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5vh1.setConstConnectionsType(flange);
+        ykuyf2_5vh1.setConstDn(dn80);
+        ykuyf2_5vh1.setConstMaxPressure(maxPressure10);
+        ykuyf2_5vh1.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5vh1.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5vh1.setRpmCoefficient(12.5);
+        ykuyf2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5vh1);
+////////////////////////////////////////////////////////////////////////////////////////// + H CASING + VALVE
+        //YKF-3
+        Pump ykf3vh2 = new Pump();
+        ykf3vh2.setProducer(dreampompa);
+        ykf3vh2.setModelName("YKF-3 with Relief Valve and Heating Jacket on Casing");
+        ykf3vh2.setPrice(new BigDecimal("1280.00"));
+        ykf3vh2.setConstPumpType(internalGearPump);
+        ykf3vh2.setReliefValve(true);
+        ykf3vh2.setHeatingJacketOnCover(false);
+        ykf3vh2.setHeatingJacketOnCasing(true);
+        ykf3vh2.setHeatingJacketOnBracket(false);
+        ykf3vh2.setConstCasingMaterial(castIron25);
+        ykf3vh2.setConstRotorGearMaterial(castIron40);
+        ykf3vh2.setConstIdlerGearMaterial(castIron40);
+        ykf3vh2.setConstShaftSupportMaterial(bronze);
+        ykf3vh2.setConstShaftMaterial(heatTreated1050);
+        ykf3vh2.setConstConnectionsType(flange);
+        ykf3vh2.setConstDn(dn80);
+        ykf3vh2.setConstMaxPressure(maxPressure10);
+        ykf3vh2.setConstConnectionsAngle(connectionsAngle90);
+        ykf3vh2.setConstMaxTemperature(maxTemperature200);
+        ykf3vh2.setRpmCoefficient(12.5);
+        ykf3vh2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3vh2);
+
+        // YKUF-2.5
+        Pump ykuf2_5vh2 = new Pump();
+        ykuf2_5vh2.setProducer(dreampompa);
+        ykuf2_5vh2.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Casing");
+        ykuf2_5vh2.setPrice(new BigDecimal("1240.00"));
+        ykuf2_5vh2.setConstPumpType(internalGearPump);
+        ykuf2_5vh2.setReliefValve(true);
+        ykuf2_5vh2.setHeatingJacketOnCover(false);
+        ykuf2_5vh2.setHeatingJacketOnCasing(true);
+        ykuf2_5vh2.setHeatingJacketOnBracket(false);
+        ykuf2_5vh2.setConstCasingMaterial(castIron25);
+        ykuf2_5vh2.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh2.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh2.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh2.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh2.setConstConnectionsType(flange);
+        ykuf2_5vh2.setConstDn(dn80);
+        ykuf2_5vh2.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh2.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh2.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh2.setRpmCoefficient(12.5);
+        ykuf2_5vh2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh2);
+////////////////////////////////////////////////////////////////////////////////////////// + H BRACKET + VALVE
+        //YKF-3
+        Pump ykf3vh3 = new Pump();
+        ykf3vh3.setProducer(dreampompa);
+        ykf3vh3.setModelName("YKF-3 with Relief Valve and Heating Jacket on Bracket");
+        ykf3vh3.setPrice(new BigDecimal("1270.00"));
+        ykf3vh3.setConstPumpType(internalGearPump);
+        ykf3vh3.setReliefValve(true);
+        ykf3vh3.setHeatingJacketOnCover(false);
+        ykf3vh3.setHeatingJacketOnCasing(false);
+        ykf3vh3.setHeatingJacketOnBracket(true);
+        ykf3vh3.setConstCasingMaterial(castIron25);
+        ykf3vh3.setConstRotorGearMaterial(castIron40);
+        ykf3vh3.setConstIdlerGearMaterial(castIron40);
+        ykf3vh3.setConstShaftSupportMaterial(bronze);
+        ykf3vh3.setConstShaftMaterial(heatTreated1050);
+        ykf3vh3.setConstConnectionsType(flange);
+        ykf3vh3.setConstDn(dn80);
+        ykf3vh3.setConstMaxPressure(maxPressure10);
+        ykf3vh3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3vh3.setConstMaxTemperature(maxTemperature200);
+        ykf3vh3.setRpmCoefficient(12.5);
+        ykf3vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3vh3);
+        // YKYF-3
+        Pump ykyf3vh3 = new Pump();
+        ykyf3vh3.setProducer(dreampompa);
+        ykyf3vh3.setModelName("YKYF-3 with Relief Valve and Heating Jacket on Bracket");
+        ykyf3vh3.setPrice(new BigDecimal("1270.00"));
+        ykyf3vh3.setConstPumpType(internalGearPump);
+        ykyf3vh3.setReliefValve(true);
+        ykyf3vh3.setHeatingJacketOnCover(false);
+        ykyf3vh3.setHeatingJacketOnCasing(false);
+        ykyf3vh3.setHeatingJacketOnBracket(true);
+        ykyf3vh3.setConstCasingMaterial(castIron25);
+        ykyf3vh3.setConstRotorGearMaterial(castIron40);
+        ykyf3vh3.setConstIdlerGearMaterial(castIron40);
+        ykyf3vh3.setConstShaftSupportMaterial(bronze);
+        ykyf3vh3.setConstShaftMaterial(heatTreated1050);
+        ykyf3vh3.setConstConnectionsType(flange);
+        ykyf3vh3.setConstDn(dn80);
+        ykyf3vh3.setConstMaxPressure(maxPressure10);
+        ykyf3vh3.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3vh3.setConstMaxTemperature(maxTemperature200);
+        ykyf3vh3.setRpmCoefficient(12.5);
+        ykyf3vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3vh3);
+        // YKU-2.5
+        Pump yku2_5vh3 = new Pump();
+        yku2_5vh3.setProducer(dreampompa);
+        yku2_5vh3.setModelName("YKF-2½ with Relief Valve and Heating Jacket on Bracket");
+        yku2_5vh3.setPrice(new BigDecimal("1210.00"));
+        yku2_5vh3.setConstPumpType(internalGearPump);
+        yku2_5vh3.setReliefValve(true);
+        yku2_5vh3.setHeatingJacketOnCover(false);
+        yku2_5vh3.setHeatingJacketOnCasing(false);
+        yku2_5vh3.setHeatingJacketOnBracket(true);
+        yku2_5vh3.setConstCasingMaterial(castIron25);
+        yku2_5vh3.setConstRotorGearMaterial(castIron40);
+        yku2_5vh3.setConstIdlerGearMaterial(castIron40);
+        yku2_5vh3.setConstShaftSupportMaterial(bronze);
+        yku2_5vh3.setConstShaftMaterial(heatTreated1050);
+        yku2_5vh3.setConstConnectionsType(pipeToothed);
+        yku2_5vh3.setConstDn(dn80);
+        yku2_5vh3.setConstMaxPressure(maxPressure10);
+        yku2_5vh3.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5vh3.setConstMaxTemperature(maxTemperature200);
+        yku2_5vh3.setRpmCoefficient(12.5);
+        yku2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5vh3);
+        // YKUF-2.5
+        Pump ykuf2_5vh3 = new Pump();
+        ykuf2_5vh3.setProducer(dreampompa);
+        ykuf2_5vh3.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Bracket");
+        ykuf2_5vh3.setPrice(new BigDecimal("1230.00"));
+        ykuf2_5vh3.setConstPumpType(internalGearPump);
+        ykuf2_5vh3.setReliefValve(true);
+        ykuf2_5vh3.setHeatingJacketOnCover(false);
+        ykuf2_5vh3.setHeatingJacketOnCasing(false);
+        ykuf2_5vh3.setHeatingJacketOnBracket(true);
+        ykuf2_5vh3.setConstCasingMaterial(castIron25);
+        ykuf2_5vh3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh3.setConstConnectionsType(flange);
+        ykuf2_5vh3.setConstDn(dn80);
+        ykuf2_5vh3.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh3.setRpmCoefficient(12.5);
+        ykuf2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh3);
+        // YKUYF-2.5
+        Pump ykuyf2_5vh3 = new Pump();
+        ykuyf2_5vh3.setProducer(dreampompa);
+        ykuyf2_5vh3.setModelName("YKUYF-2½ with Relief Valve and Heating Jacket on Bracket");
+        ykuyf2_5vh3.setPrice(new BigDecimal("1230.00"));
+        ykuyf2_5vh3.setConstPumpType(internalGearPump);
+        ykuyf2_5vh3.setReliefValve(true);
+        ykuyf2_5vh3.setHeatingJacketOnCover(false);
+        ykuyf2_5vh3.setHeatingJacketOnCasing(false);
+        ykuyf2_5vh3.setHeatingJacketOnBracket(true);
+        ykuyf2_5vh3.setConstCasingMaterial(castIron25);
+        ykuyf2_5vh3.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5vh3.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5vh3.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5vh3.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5vh3.setConstConnectionsType(flange);
+        ykuyf2_5vh3.setConstDn(dn80);
+        ykuyf2_5vh3.setConstMaxPressure(maxPressure10);
+        ykuyf2_5vh3.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5vh3.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5vh3.setRpmCoefficient(12.5);
+        ykuyf2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5vh3);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + VALVE
+        //YKF-3
+        Pump ykf3vh1_2 = new Pump();
+        ykf3vh1_2.setProducer(dreampompa);
+        ykf3vh1_2.setModelName("YKF-3 with Relief Valve and Heating Jacket on Cover and Casing");
+        ykf3vh1_2.setPrice(new BigDecimal("1280.00"));
+        ykf3vh1_2.setConstPumpType(internalGearPump);
+        ykf3vh1_2.setReliefValve(true);
+        ykf3vh1_2.setHeatingJacketOnCover(true);
+        ykf3vh1_2.setHeatingJacketOnCasing(true);
+        ykf3vh1_2.setHeatingJacketOnBracket(false);
+        ykf3vh1_2.setConstCasingMaterial(castIron25);
+        ykf3vh1_2.setConstRotorGearMaterial(castIron40);
+        ykf3vh1_2.setConstIdlerGearMaterial(castIron40);
+        ykf3vh1_2.setConstShaftSupportMaterial(bronze);
+        ykf3vh1_2.setConstShaftMaterial(heatTreated1050);
+        ykf3vh1_2.setConstConnectionsType(flange);
+        ykf3vh1_2.setConstDn(dn80);
+        ykf3vh1_2.setConstMaxPressure(maxPressure10);
+        ykf3vh1_2.setConstConnectionsAngle(connectionsAngle90);
+        ykf3vh1_2.setConstMaxTemperature(maxTemperature200);
+        ykf3vh1_2.setRpmCoefficient(12.5);
+        ykf3vh1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3vh1_2);
+
+        // YKUF-2.5
+        Pump ykuf2_5vh1_2 = new Pump();
+        ykuf2_5vh1_2.setProducer(dreampompa);
+        ykuf2_5vh1_2.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Cover and Casing");
+        ykuf2_5vh1_2.setPrice(new BigDecimal("1330.00"));
+        ykuf2_5vh1_2.setConstPumpType(internalGearPump);
+        ykuf2_5vh1_2.setReliefValve(true);
+        ykuf2_5vh1_2.setHeatingJacketOnCover(true);
+        ykuf2_5vh1_2.setHeatingJacketOnCasing(true);
+        ykuf2_5vh1_2.setHeatingJacketOnBracket(false);
+        ykuf2_5vh1_2.setConstCasingMaterial(castIron25);
+        ykuf2_5vh1_2.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh1_2.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh1_2.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh1_2.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh1_2.setConstConnectionsType(flange);
+        ykuf2_5vh1_2.setConstDn(dn80);
+        ykuf2_5vh1_2.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh1_2.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh1_2.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh1_2.setRpmCoefficient(12.5);
+        ykuf2_5vh1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh1_2);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + BRACKET + VALVE
+        //YKF-3
+        Pump ykf3vh1_3 = new Pump();
+        ykf3vh1_3.setProducer(dreampompa);
+        ykf3vh1_3.setModelName("YKF-3 with Relief Valve and Heating Jacket on Cover and Bracket");
+        ykf3vh1_3.setPrice(new BigDecimal("1320.00"));
+        ykf3vh1_3.setConstPumpType(internalGearPump);
+        ykf3vh1_3.setReliefValve(true);
+        ykf3vh1_3.setHeatingJacketOnCover(true);
+        ykf3vh1_3.setHeatingJacketOnCasing(false);
+        ykf3vh1_3.setHeatingJacketOnBracket(true);
+        ykf3vh1_3.setConstCasingMaterial(castIron25);
+        ykf3vh1_3.setConstRotorGearMaterial(castIron40);
+        ykf3vh1_3.setConstIdlerGearMaterial(castIron40);
+        ykf3vh1_3.setConstShaftSupportMaterial(bronze);
+        ykf3vh1_3.setConstShaftMaterial(heatTreated1050);
+        ykf3vh1_3.setConstConnectionsType(flange);
+        ykf3vh1_3.setConstDn(dn80);
+        ykf3vh1_3.setConstMaxPressure(maxPressure10);
+        ykf3vh1_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3vh1_3.setConstMaxTemperature(maxTemperature200);
+        ykf3vh1_3.setRpmCoefficient(12.5);
+        ykf3vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3vh1_3);
+        // YKYF-3
+        Pump ykyf3vh1_3 = new Pump();
+        ykyf3vh1_3.setProducer(dreampompa);
+        ykyf3vh1_3.setModelName("YKYF-3 with Relief Valve and Heating Jacket on Cover and Bracket");
+        ykyf3vh1_3.setPrice(new BigDecimal("1340.00"));
+        ykyf3vh1_3.setConstPumpType(internalGearPump);
+        ykyf3vh1_3.setReliefValve(true);
+        ykyf3vh1_3.setHeatingJacketOnCover(true);
+        ykyf3vh1_3.setHeatingJacketOnCasing(false);
+        ykyf3vh1_3.setHeatingJacketOnBracket(true);
+        ykyf3vh1_3.setConstCasingMaterial(castIron25);
+        ykyf3vh1_3.setConstRotorGearMaterial(castIron40);
+        ykyf3vh1_3.setConstIdlerGearMaterial(castIron40);
+        ykyf3vh1_3.setConstShaftSupportMaterial(bronze);
+        ykyf3vh1_3.setConstShaftMaterial(heatTreated1050);
+        ykyf3vh1_3.setConstConnectionsType(flange);
+        ykyf3vh1_3.setConstDn(dn80);
+        ykyf3vh1_3.setConstMaxPressure(maxPressure10);
+        ykyf3vh1_3.setConstConnectionsAngle(connectionsAngle180);
+        ykyf3vh1_3.setConstMaxTemperature(maxTemperature200);
+        ykyf3vh1_3.setRpmCoefficient(12.5);
+        ykyf3vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykyf3vh1_3);
+        // YKU-2.5
+        Pump yku2_5vh1_3 = new Pump();
+        yku2_5vh1_3.setProducer(dreampompa);
+        yku2_5vh1_3.setModelName("YKF-2½ with Relief Valve and Heating Jacket on Cover and Bracket");
+        yku2_5vh1_3.setPrice(new BigDecimal("1260.00"));
+        yku2_5vh1_3.setConstPumpType(internalGearPump);
+        yku2_5vh1_3.setReliefValve(true);
+        yku2_5vh1_3.setHeatingJacketOnCover(true);
+        yku2_5vh1_3.setHeatingJacketOnCasing(false);
+        yku2_5vh1_3.setHeatingJacketOnBracket(true);
+        yku2_5vh1_3.setConstCasingMaterial(castIron25);
+        yku2_5vh1_3.setConstRotorGearMaterial(castIron40);
+        yku2_5vh1_3.setConstIdlerGearMaterial(castIron40);
+        yku2_5vh1_3.setConstShaftSupportMaterial(bronze);
+        yku2_5vh1_3.setConstShaftMaterial(heatTreated1050);
+        yku2_5vh1_3.setConstConnectionsType(pipeToothed);
+        yku2_5vh1_3.setConstDn(dn80);
+        yku2_5vh1_3.setConstMaxPressure(maxPressure10);
+        yku2_5vh1_3.setConstConnectionsAngle(connectionsAngle90);
+        yku2_5vh1_3.setConstMaxTemperature(maxTemperature200);
+        yku2_5vh1_3.setRpmCoefficient(12.5);
+        yku2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(yku2_5vh1_3);
+        // YKUF-2.5
+        Pump ykuf2_5vh1_3 = new Pump();
+        ykuf2_5vh1_3.setProducer(dreampompa);
+        ykuf2_5vh1_3.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Cover and Bracket");
+        ykuf2_5vh1_3.setPrice(new BigDecimal("1280.00"));
+        ykuf2_5vh1_3.setConstPumpType(internalGearPump);
+        ykuf2_5vh1_3.setReliefValve(true);
+        ykuf2_5vh1_3.setHeatingJacketOnCover(true);
+        ykuf2_5vh1_3.setHeatingJacketOnCasing(false);
+        ykuf2_5vh1_3.setHeatingJacketOnBracket(true);
+        ykuf2_5vh1_3.setConstCasingMaterial(castIron25);
+        ykuf2_5vh1_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh1_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh1_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh1_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh1_3.setConstConnectionsType(flange);
+        ykuf2_5vh1_3.setConstDn(dn80);
+        ykuf2_5vh1_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh1_3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh1_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh1_3.setRpmCoefficient(12.5);
+        ykuf2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh1_3);
+        // YKUYF-2.5
+        Pump ykuyf2_5vh1_3 = new Pump();
+        ykuyf2_5vh1_3.setProducer(dreampompa);
+        ykuyf2_5vh1_3.setModelName("YKUYF-2½ with Relief Valve and Heating Jacket on Cover and Bracket");
+        ykuyf2_5vh1_3.setPrice(new BigDecimal("1280.00"));
+        ykuyf2_5vh1_3.setConstPumpType(internalGearPump);
+        ykuyf2_5vh1_3.setReliefValve(true);
+        ykuyf2_5vh1_3.setHeatingJacketOnCover(true);
+        ykuyf2_5vh1_3.setHeatingJacketOnCasing(false);
+        ykuyf2_5vh1_3.setHeatingJacketOnBracket(true);
+        ykuyf2_5vh1_3.setConstCasingMaterial(castIron25);
+        ykuyf2_5vh1_3.setConstRotorGearMaterial(castIron40);
+        ykuyf2_5vh1_3.setConstIdlerGearMaterial(castIron40);
+        ykuyf2_5vh1_3.setConstShaftSupportMaterial(bronze);
+        ykuyf2_5vh1_3.setConstShaftMaterial(heatTreated1050);
+        ykuyf2_5vh1_3.setConstConnectionsType(flange);
+        ykuyf2_5vh1_3.setConstDn(dn80);
+        ykuyf2_5vh1_3.setConstMaxPressure(maxPressure10);
+        ykuyf2_5vh1_3.setConstConnectionsAngle(connectionsAngle180);
+        ykuyf2_5vh1_3.setConstMaxTemperature(maxTemperature200);
+        ykuyf2_5vh1_3.setRpmCoefficient(12.5);
+        ykuyf2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuyf2_5vh1_3);
+////////////////////////////////////////////////////////////////////////////////////////// + H CASING + BRACKET + VALVE
+        //YKF-3
+        Pump ykf3hv2_3 = new Pump();
+        ykf3hv2_3.setProducer(dreampompa);
+        ykf3hv2_3.setModelName("YKF-3 with Relief Valve and Heating Jacket on Casing and Bracket");
+        ykf3hv2_3.setPrice(new BigDecimal("1370.00"));
+        ykf3hv2_3.setConstPumpType(internalGearPump);
+        ykf3hv2_3.setReliefValve(true);
+        ykf3hv2_3.setHeatingJacketOnCover(false);
+        ykf3hv2_3.setHeatingJacketOnCasing(true);
+        ykf3hv2_3.setHeatingJacketOnBracket(true);
+        ykf3hv2_3.setConstCasingMaterial(castIron25);
+        ykf3hv2_3.setConstRotorGearMaterial(castIron40);
+        ykf3hv2_3.setConstIdlerGearMaterial(castIron40);
+        ykf3hv2_3.setConstShaftSupportMaterial(bronze);
+        ykf3hv2_3.setConstShaftMaterial(heatTreated1050);
+        ykf3hv2_3.setConstConnectionsType(flange);
+        ykf3hv2_3.setConstDn(dn80);
+        ykf3hv2_3.setConstMaxPressure(maxPressure10);
+        ykf3hv2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3hv2_3.setConstMaxTemperature(maxTemperature200);
+        ykf3hv2_3.setRpmCoefficient(12.5);
+        ykf3hv2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3hv2_3);
+
+        // YKUF-2.5
+        Pump ykuf2_5vh2_3 = new Pump();
+        ykuf2_5vh2_3.setProducer(dreampompa);
+        ykuf2_5vh2_3.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Casing and Bracket");
+        ykuf2_5vh2_3.setPrice(new BigDecimal("1330.00"));
+        ykuf2_5vh2_3.setConstPumpType(internalGearPump);
+        ykuf2_5vh2_3.setReliefValve(true);
+        ykuf2_5vh2_3.setHeatingJacketOnCover(false);
+        ykuf2_5vh2_3.setHeatingJacketOnCasing(true);
+        ykuf2_5vh2_3.setHeatingJacketOnBracket(true);
+        ykuf2_5vh2_3.setConstCasingMaterial(castIron25);
+        ykuf2_5vh2_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh2_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh2_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh2_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh2_3.setConstConnectionsType(flange);
+        ykuf2_5vh2_3.setConstDn(dn80);
+        ykuf2_5vh2_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh2_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh2_3.setRpmCoefficient(12.5);
+        ykuf2_5vh2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh2_3);
+////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + BRACKET + VALVE
+        //YKF-3
+        Pump ykf3vh1_2_3 = new Pump();
+        ykf3vh1_2_3.setProducer(dreampompa);
+        ykf3vh1_2_3.setModelName("YKF-3 with Relief Valve and Heating Jacket on Cover, Casing and Bracket");
+        ykf3vh1_2_3.setPrice(new BigDecimal("1370.00"));
+        ykf3vh1_2_3.setConstPumpType(internalGearPump);
+        ykf3vh1_2_3.setReliefValve(true);
+        ykf3vh1_2_3.setHeatingJacketOnCover(true);
+        ykf3vh1_2_3.setHeatingJacketOnCasing(true);
+        ykf3vh1_2_3.setHeatingJacketOnBracket(true);
+        ykf3vh1_2_3.setConstCasingMaterial(castIron25);
+        ykf3vh1_2_3.setConstRotorGearMaterial(castIron40);
+        ykf3vh1_2_3.setConstIdlerGearMaterial(castIron40);
+        ykf3vh1_2_3.setConstShaftSupportMaterial(bronze);
+        ykf3vh1_2_3.setConstShaftMaterial(heatTreated1050);
+        ykf3vh1_2_3.setConstConnectionsType(flange);
+        ykf3vh1_2_3.setConstDn(dn80);
+        ykf3vh1_2_3.setConstMaxPressure(maxPressure10);
+        ykf3vh1_2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykf3vh1_2_3.setConstMaxTemperature(maxTemperature200);
+        ykf3vh1_2_3.setRpmCoefficient(12.5);
+        ykf3vh1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykf3vh1_2_3);
+
+        // YKUF-2.5
+        Pump ykuf2_5vh1_2_3 = new Pump();
+        ykuf2_5vh1_2_3.setProducer(dreampompa);
+        ykuf2_5vh1_2_3.setModelName("YKUF-2½ with Relief Valve and Heating Jacket on Cover, Casing and Bracket");
+        ykuf2_5vh1_2_3.setPrice(new BigDecimal("1420.00"));
+        ykuf2_5vh1_2_3.setConstPumpType(internalGearPump);
+        ykuf2_5vh1_2_3.setReliefValve(true);
+        ykuf2_5vh1_2_3.setHeatingJacketOnCover(true);
+        ykuf2_5vh1_2_3.setHeatingJacketOnCasing(true);
+        ykuf2_5vh1_2_3.setHeatingJacketOnBracket(true);
+        ykuf2_5vh1_2_3.setConstCasingMaterial(castIron25);
+        ykuf2_5vh1_2_3.setConstRotorGearMaterial(castIron40);
+        ykuf2_5vh1_2_3.setConstIdlerGearMaterial(castIron40);
+        ykuf2_5vh1_2_3.setConstShaftSupportMaterial(bronze);
+        ykuf2_5vh1_2_3.setConstShaftMaterial(heatTreated1050);
+        ykuf2_5vh1_2_3.setConstConnectionsType(flange);
+        ykuf2_5vh1_2_3.setConstDn(dn80);
+        ykuf2_5vh1_2_3.setConstMaxPressure(maxPressure10);
+        ykuf2_5vh1_2_3.setConstConnectionsAngle(connectionsAngle90);
+        ykuf2_5vh1_2_3.setConstMaxTemperature(maxTemperature200);
+        ykuf2_5vh1_2_3.setRpmCoefficient(12.5);
+        ykuf2_5vh1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
+        session.persist(ykuf2_5vh1_2_3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+         * PUMPS SET - YKF-3
+         */
+        Set<Pump> pumpsSetYKF = new HashSet<>();
+        pumpsSetYKF.add(ykf3);
+        pumpsSetYKF.add(ykyf3);
+        pumpsSetYKF.add(yku2_5);
+        pumpsSetYKF.add(ykuf2_5);
+        pumpsSetYKF.add(ykuyf2_5);
+        pumpsSetYKF.add(ykf3v);
+        pumpsSetYKF.add(ykyf3v);
+        pumpsSetYKF.add(yku2_5v);
+        pumpsSetYKF.add(ykuf2_5v);
+        pumpsSetYKF.add(ykuyf2_5v);
+        pumpsSetYKF.add(ykf3h1);
+        pumpsSetYKF.add(ykyf3h1);
+        pumpsSetYKF.add(yku2_5h1);
+        pumpsSetYKF.add(ykuf2_5h1);
+        pumpsSetYKF.add(ykuyf2_5h1);
+        pumpsSetYKF.add(ykf3h2);
+        pumpsSetYKF.add(ykuf2_5h2);
+        pumpsSetYKF.add(ykf3h3);
+        pumpsSetYKF.add(ykyf3h3);
+        pumpsSetYKF.add(yku2_5h3);
+        pumpsSetYKF.add(ykuf2_5h3);
+        pumpsSetYKF.add(ykuyf2_5h3);
+        pumpsSetYKF.add(ykf3h1_2);
+        pumpsSetYKF.add(ykuf2_5h1_2);
+        pumpsSetYKF.add(ykf3h1_3);
+        pumpsSetYKF.add(ykyf3h1_3);
+        pumpsSetYKF.add(yku2_5h1_3);
+        pumpsSetYKF.add(ykuf2_5h1_3);
+        pumpsSetYKF.add(ykuyf2_5h1_3);
+        pumpsSetYKF.add(ykf3h2_3);
+        pumpsSetYKF.add(ykuf2_5h2_3);
+        pumpsSetYKF.add(ykf3h1_2_3);
+        pumpsSetYKF.add(ykuf2_5h1_2_3);
+        pumpsSetYKF.add(ykfv3h1);
+        pumpsSetYKF.add(ykyf3vh1);
+        pumpsSetYKF.add(yku2_5vh1);
+        pumpsSetYKF.add(ykuf2_5vh1);
+        pumpsSetYKF.add(ykuyf2_5vh1);
+        pumpsSetYKF.add(ykf3vh2);
+        pumpsSetYKF.add(ykuf2_5vh2);
+        pumpsSetYKF.add(ykf3vh3);
+        pumpsSetYKF.add(ykyf3vh3);
+        pumpsSetYKF.add(yku2_5vh3);
+        pumpsSetYKF.add(ykuf2_5vh3);
+        pumpsSetYKF.add(ykuyf2_5vh3);
+        pumpsSetYKF.add(ykf3vh1_2);
+        pumpsSetYKF.add(ykuf2_5vh1_2);
+        pumpsSetYKF.add(ykf3vh1_3);
+        pumpsSetYKF.add(ykyf3vh1_3);
+        pumpsSetYKF.add(yku2_5vh1_3);
+        pumpsSetYKF.add(ykuf2_5vh1_3);
+        pumpsSetYKF.add(ykuyf2_5vh1_3);
+        pumpsSetYKF.add(ykf3hv2_3);
+        pumpsSetYKF.add(ykuf2_5vh2_3);
+        pumpsSetYKF.add(ykf3vh1_2_3);
+        pumpsSetYKF.add(ykuf2_5vh1_2_3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+         * SEALS - YKF-3
+         */
+        Seal seaYkf3Packing = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSetYKF);
+        session.persist(seaYkf3Packing);
+        Seal seaYkf3Lip = new Seal(dreampompa, "YKF-3 lip seal", new BigDecimal("0"), sealTypeLip, oRingMaterialNone, pumpsSetYKF);
+        session.persist(seaYkf3Packing);
+        Seal seaYkf3MechanicalDreampompa = new Seal(dreampompa, "YKF-3 mechanical seal", new BigDecimal("200"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
+        session.persist(seaYkf3MechanicalDreampompa);
+        Seal seaYkf3MechanicalBurgmann = new Seal(eagleBurgmann, "YKF-3 mechanical seal", new BigDecimal("360"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
+        session.persist(seaYkf3MechanicalBurgmann);
+        Seal seaYkf3Crtex = new Seal(dreampompa, "YKF-3 cartex mechanical seal", new BigDecimal("900.2"), sealTypeCartexMechanical, oRingMaterialViton, pumpsSetYKF);
+        session.persist(seaYkf3Crtex);
+
+        /**
+         * DRIVER ASSEMBLY TYPES
+         */
+        Constant adder = new Constant("driver assembly type", "Pump Adder");
+        session.persist(adder);
+        Constant coupling = new Constant("driver assembly type", "Coupling");
+        session.persist(coupling);
+        Constant exProofCoupling = new Constant("driver assembly type", "Ex.Proof Coupling");
+        session.persist(exProofCoupling);
+        Constant belt = new Constant("driver assembly type", "Belt and Pulley");
+        session.persist(belt);
+        Constant flex = new Constant("driver assembly type", "Flexible Coupling");
+        session.persist(flex);
+
+        /**
+         * EX PROOF TYPES
+         */
+        Constant atex = new Constant("explosion proof", "ATEX");
+        session.persist(atex);
+        Constant none = new Constant("explosion proof", "none");
+        session.persist(none);
+
+        /**
+         * DRIVER ASSEMBLIES
+         */
+        DriverAssembly ykf3assembly01 = new DriverAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
+                adder, atex, pumpsSetYKF);
+        session.persist(ykf3assembly01);
+        DriverAssembly ykf3assembly02 = new DriverAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
+                coupling, atex, pumpsSetYKF);
+        session.persist(ykf3assembly02);
+        DriverAssembly ykf3assembly03 = new DriverAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
+                belt, none, pumpsSetYKF);
+        session.persist(ykf3assembly03);
+        DriverAssembly ykf3assembly04 = new DriverAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
+                flex, none, pumpsSetYKF);
+        session.persist(ykf3assembly04);
+        DriverAssembly ykf3assembly05 = new DriverAssembly(dreampompa, "ykf-3 coupling", new BigDecimal("0"),
+                flex, none, pumpsSetYKF);
+        session.persist(ykf3assembly05);
+
+
+        /**
+         * FRAMES
+         */
+        Frame frame01 = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSetYKF);
+        session.persist(frame01);
+
+        /**
+         * MOTOR POWERS
+         */
+        Constant motorPower5_5 = new Constant("motor power", "5.5");
+        session.persist(motorPower5_5);
+        Constant motorPower7_5 = new Constant("motor power", "7.5");
+        session.persist(motorPower7_5);
+        Constant motorPower10 = new Constant("motor power", "10");
+        session.persist(motorPower10);
+        Constant motorPower15 = new Constant("motor power", "15");
+        session.persist(motorPower15);
+        Constant motorPower20 = new Constant("motor power", "20");
+        session.persist(motorPower20);
+
+        /**
+         * MOTOR FRAME SIZES
+         */
+        Constant motorFrame112 = new Constant("motor frame size", "112");
+        session.persist(motorFrame112);
+        Constant motorFrame132 = new Constant("motor frame size", "132");
+        session.persist(motorFrame132);
+        Constant motorFrame160 = new Constant("motor frame size", "160");
+        session.persist(motorFrame160);
+
+        /**
+         * REDUCERS
+         */
+        Reducer reducer01 = new Reducer(iMak, "IRAM62/112M", new BigDecimal("660"), dreampompa, 87, 480,
+                none, motorPower5_5, motorFrame112);
+        session.persist(reducer01);
+        Reducer reducer02 = new Reducer(iMak, "IRAM62/C112M", new BigDecimal("730"), dreampompa, 210, 450,
+                none, motorPower7_5, motorFrame112);
+        session.persist(reducer02);
+        Reducer reducer03 = new Reducer(iMak, "IRAM72/132S", new BigDecimal("990"), dreampompa, 75, 210,
+                none, motorPower7_5, motorFrame132);
+        session.persist(reducer03);
+        Reducer reducer04 = new Reducer(iMak, "IRAM72/132M", new BigDecimal("1070"), dreampompa, 93, 450,
+                none, motorPower10, motorFrame132);
+        session.persist(reducer04);
+        Reducer reducer05 = new Reducer(iMak, "IRAM72/C132M", new BigDecimal("1190"), dreampompa, 200, 450,
+                none, motorPower15, motorFrame132);
+        session.persist(reducer05);
+        Reducer reducer06 = new Reducer(iMak, "IRAM82/160L", new BigDecimal("1910"), dreampompa, 130, 450,
+                none, motorPower20, motorFrame160);
+        session.persist(reducer06);
+
+        /**
+         * MOTOR SPEED TYPES
+         */
+        Constant motorSpeed1500 = new Constant("motor speed", "1500");
+        session.persist(motorSpeed1500);
+
+        /**
+         * MOTORS
+         */
+        Motor motor01 = new Motor(turkishMotor, "turkish motor 5.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower5_5, motorFrame112);
+        session.persist(motor01);
+        Motor motor02 = new Motor(turkishMotor, "turkish motor 7.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower7_5, motorFrame112);
+        session.persist(motor02);
+        Motor motor02a = new Motor(turkishMotor, "turkish motor 7.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower7_5, motorFrame132);
+        session.persist(motor02a);
+        Motor motor03 = new Motor(turkishMotor, "turkish motor 10 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower10, motorFrame132);
+        session.persist(motor03);
+        Motor motor04 = new Motor(turkishMotor, "turkish motor 15 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower15, motorFrame132);
+        session.persist(motor04);
+        Motor motor05 = new Motor(turkishMotor, "turkish motor 20 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
+                none, motorPower20, motorFrame160);
+        session.persist(motor05);
+        // ABB
+        Motor motor01abb = new Motor(abb, "ABB motor 5.5 HP", new BigDecimal("160"), dreampompa, motorSpeed1500,
+                none, motorPower5_5, motorFrame112);
+        session.persist(motor01abb);
+        Motor motor02abb = new Motor(abb, "ABB motor 7.5 HP", new BigDecimal("200"), dreampompa, motorSpeed1500,
+                none, motorPower7_5, motorFrame132);
+        session.persist(motor02abb);
+        Motor motor03abb = new Motor(abb, "ABB motor 10 HP", new BigDecimal("290"), dreampompa, motorSpeed1500,
+                none, motorPower10, motorFrame132);
+        session.persist(motor03abb);
+        Motor motor05abb = new Motor(abb, "ABB motor 20 HP", new BigDecimal("430"), dreampompa, motorSpeed1500,
+                none, motorPower20, motorFrame160);
+        session.persist(motor05abb);
+        // ATEX ABB
+        Motor motor01abbAtex = new Motor(abb, "ABB motor 5.5 HP, ATEX", new BigDecimal("1000"), dreampompa, motorSpeed1500,
+                atex, motorPower5_5, motorFrame112);
+        session.persist(motor01abbAtex);
+        Motor motor02abbAtex = new Motor(abb, "ABB motor 7.5 HP, ATEX", new BigDecimal("1140"), dreampompa, motorSpeed1500,
+                atex, motorPower7_5, motorFrame132);
+        session.persist(motor02abbAtex);
+        Motor motor03abbAtex = new Motor(abb, "ABB motor 10 HP, ATEX", new BigDecimal("1380"), dreampompa, motorSpeed1500,
+                atex, motorPower10, motorFrame132);
+        session.persist(motor03abbAtex);
+        Motor motor05abbAtex = new Motor(abb, "ABB motor 20 HP, ATEX", new BigDecimal("1910"), dreampompa, motorSpeed1500,
+                atex, motorPower20, motorFrame160);
+        session.persist(motor05abbAtex);
+
+        session.flush();
+        session.clear();
+
+        transaction.commit();
+
+
+        return "OK";
+    }
 
 }
 

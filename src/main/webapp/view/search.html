@@ -99,17 +99,17 @@
                     class="form-control"/>
         </div>
     </div>
-    <!--CASTING MATERIAL-->
+    <!--CASING MATERIAL-->
     <div class="form-group row">
         <div id="material" class="col-xs-12 col-sm-12 col-md-12">
-            <label for="material">Casting Material</label>
+            <label for="material">Casing Material</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="search.castingMaterial" btn-radio="'Cast Iron'">Cast
+                    <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Cast Iron'">Cast
                         Iron</label>
-                    <label class="btn btn-default" ng-model="search.castingMaterial" btn-radio="'Cast Steel'">Cast
+                    <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Cast Steel'">Cast
                         Steel</label>
-                    <label class="btn btn-default" ng-model="search.castingMaterial" btn-radio="'Stainless Steel'">Stainless
+                    <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Stainless Steel'">Stainless
                         Steel</label>
                 </div>
             </div>
@@ -141,12 +141,14 @@
                 <div class="btn-group">
                     <label class="btn btn-default" ng-model="search.driverAssemblyType"
                            btn-radio="'Coupling'">Coupling</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType" btn-radio="'Pump Adder'">Pump
-                        Adder</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType" btn-radio="'Flexible Coupling'">Flexible
-                        Coupling</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType" btn-radio="'Belt and Pulley'">Belt
-                        and Pulley</label>
+                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
+                           btn-radio="'Ex.Proof Coupling'">Ex.Proof Coupling</label>
+                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
+                           btn-radio="'Pump Adder'">Pump Adder</label>
+                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
+                           btn-radio="'Flexible Coupling'">Flexible Coupling</label>
+                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
+                           btn-radio="'Belt and Pulley'">Belt and Pulley</label>
                 </div>
             </div>
         </div>
@@ -164,7 +166,7 @@
                 <input type="button" class="btn btn-default" ng-model="search.heatingJacket" btn-radio="false"
                        value="Heating Jacket">
                 <input type="button" class="btn btn-default" ng-model="search.explosionProof" btn-radio="false"
-                       value="Explosion Proof">
+                       value="Ex. Proof Motor">
                 <!--<input type="button" data-toggle="buttons-radio" class="btn btn-default active" value="Button">-->
             </div>
         </div>
@@ -187,7 +189,7 @@
     <table class="table table-hover" ng-if="result.list.length > 0">
         <thead>
         <tr>
-            <th>Pump</th>
+            <th>Pump&#189;</th>
             <th>Materials</th>
             <th>Reducer</th>
             <th>Motor</th>
@@ -205,7 +207,7 @@
             <td>
                 <!--MATERIALS-->
                 <div>
-                    Casting: {{item.pump.constCastingMaterial.value}}<br>
+                    Casing: {{item.pump.constCasingMaterial.value}}<br>
                     Rotor Gear: {{item.pump.constRotorGearMaterial.value}}<br>
                     Idler Gear: {{item.pump.constIdlerGearMaterial.value}}<br>
                     Shaft: {{item.pump.constShaftMaterial.value}}<br>
@@ -233,59 +235,8 @@
                 </div>
             </td>
             <td>
-                <div>Pump assembly with {{item.motor.driverAssembly.driverAssemblyType.value}},
-                    {{item.motor.driverAssembly.driverAssemblyType.value}} protection, motor-reducer and the
-                    mounting frame.
-                </div>
-            </td>
-            <td>
-                <div>
-                    <button class="btn btn-success disabled">&#8364{{item.price}}</button>
-                </div>
-            </td>
-        </tr>
-
-
-
-        <tr ng-repeat="item in result.list">
-            <td>
-                <!--PUMP-->
-                <div><b>{{item.pump.constPumpType.value}} {{item.pump.modelName}}<br>
-                    {{item.pump.producer.producerName}} ({{item.pump.producer.producerCountry.value}})</b></div>
-            </td>
-            <td>
-                <!--MATERIALS-->
-                <div>
-                    Casting: {{item.pump.constCastingMaterial.value}}<br>
-                    Rotor Gear: {{item.pump.constRotorGearMaterial.value}}<br>
-                    Idler Gear: {{item.pump.constIdlerGearMaterial.value}}<br>
-                    Shaft: {{item.pump.constShaftMaterial.value}}<br>
-                    Shaft support: {{item.pump.constShaftSupportMaterial.value}}<br>
-                    Seal: {{item.seal.sealType.value}}<br>
-                    Connections: {{item.pump.constConnectionsType.value}} DN{{item.pump.constDn.value}},
-                    {{item.pump.constConnectionsAngle.value}}&deg;</div>
-            </td>
-            <td>
-                <!--REDUCER-->
-                <div>
-                    {{item.reducer.modelName}}<br>
-                    {{item.reducer.producer.producerName}} ({{item.reducer.producer.producerCountry.value}})<br>
-                    Speed to shaft: {{item.shaftSpeed}} rpm
-                </div>
-            </td>
-            <td>
-                <!--MOTOR-->
-                <div>
-                    {{item.motor.producer.producerName}} ({{item.motor.producer.producerCountry.value}})<br>
-                    Voltage: 400 V<br>
-                    Speed: {{item.motor.constSpeed.value}} rpm<br>
-                    Power: {{item.motor.constPowerHp.value}} HP<br>
-                    Explosion Proof: {{item.motor.constExplosionProof.value}}
-                </div>
-            </td>
-            <td>
-                <div>Pump assembly with {{item.motor.driverAssembly.driverAssemblyType.value}},
-                    {{item.motor.driverAssembly.driverAssemblyType.value}} protection, motor-reducer and the
+                <div>Pump assembly with {{item.driverAssembly.driverAssemblyType.value}},
+                    {{item.driverAssembly.driverAssemblyType.value}} protection, motor-reducer and the
                     mounting frame.
                 </div>
             </td>
@@ -351,7 +302,7 @@
 <!--S.G.:<br>-->
 <!--</div>-->
 <!--<div><b>Materials:</b><br>-->
-<!--Casting: {{item.pump.constCastingMaterial.value}}<br>-->
+<!--Casing: {{item.pump.constCasingMaterial.value}}<br>-->
 <!--Rotor Gear: {{item.pump.constRotorGearMaterial.value}}<br>-->
 <!--Idler Gear: {{item.pump.constIdlerGearMaterial.value}}<br>-->
 <!--Shaft: {{item.pump.constShaftMaterial.value}}<br>-->

@@ -21,7 +21,7 @@ import java.util.Set;
  * constPumpType             name:   "pump type";
  * value:  "Modular Gear Pump" | "Internal Eccentric Gear Pump" | "Helical Gear Pump" | "Lobe Pump" | "Food Pump";
  * <p>
- * constCastingMaterial      name:   "material";
+ * constCasingMaterial      name:   "material";
  * value:  "GG 25 Cast Iron" | "GS 45 Cast Steel" | "AISI 304 CrNi Stainless Steel" | "AISI 316 CrNi Stainless Steel";
  * <p>
  * constRotorGearMaterial    name:   "material";
@@ -40,7 +40,7 @@ import java.util.Set;
  *         "8620 Steel, Heat Treated";
  * <p>
  * constConnectionsType      name:   "connections type";
- * value:  "Thread" | "Flange";
+ * value:  "Thread" | "Flange" | "Pipe Toothed";
  * <p>
  * constDn                   name:   "DN";
  * value:  "20" | "25" | "40" | "50"  | "65" | "80" | "100" | "125" | "200";
@@ -60,18 +60,18 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "const_Pump_Type",
-        "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasting", "HeatingJacketOnBracket",
-        "const_Casting_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
+        "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasing", "HeatingJacketOnBracket",
+        "const_Casing_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
         "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
 @XmlRootElement
 public class Pump extends Equipment {
     private Constant constPumpType;
     private Boolean isReliefValve;
     private Boolean isHeatingJacketOnCover;
-    private Boolean isHeatingJacketOnCasting;
+    private Boolean isHeatingJacketOnCasing;
     private Boolean isHeatingJacketOnBracket;
 
-    private Constant constCastingMaterial;
+    private Constant constCasingMaterial;
     private Constant constRotorGearMaterial;
     private Constant constIdlerGearMaterial;
     private Constant constShaftSupportMaterial;
@@ -114,12 +114,12 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
-    public Boolean getHeatingJacketOnCasting() {
-        return isHeatingJacketOnCasting;
+    public Boolean getHeatingJacketOnCasing() {
+        return isHeatingJacketOnCasing;
     }
 
-    public void setHeatingJacketOnCasting(Boolean heatingJacketOnCasting) {
-        isHeatingJacketOnCasting = heatingJacketOnCasting;
+    public void setHeatingJacketOnCasing(Boolean heatingJacketOnCasing) {
+        isHeatingJacketOnCasing = heatingJacketOnCasing;
     }
 
     @Basic(optional = false)
@@ -132,12 +132,12 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
-    public Constant getConstCastingMaterial() {
-        return constCastingMaterial;
+    public Constant getConstCasingMaterial() {
+        return constCasingMaterial;
     }
 
-    public void setConstCastingMaterial(Constant constCastingMaterial) {
-        this.constCastingMaterial = constCastingMaterial;
+    public void setConstCasingMaterial(Constant constCasingMaterial) {
+        this.constCasingMaterial = constCasingMaterial;
     }
 
     @ManyToOne(optional = false)

@@ -14,7 +14,7 @@ public class Parameters {
     private int viscosity;
     private double sg;
     private int temperature;
-    private String castingMaterial;
+    private String casingMaterial;
     private String sealType;
     private String driverAssemblyType;
     private boolean isReliefValve;
@@ -77,12 +77,12 @@ public class Parameters {
         this.temperature = temperature;
     }
 
-    public String getCastingMaterial() {
-        return castingMaterial;
+    public String getCasingMaterial() {
+        return casingMaterial;
     }
 
-    public void setCastingMaterial(String castingMaterial) {
-        this.castingMaterial = castingMaterial;
+    public void setCasingMaterial(String casingMaterial) {
+        this.casingMaterial = casingMaterial;
     }
 
     public String getSealType() {

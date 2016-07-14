@@ -28,12 +28,14 @@ public class Reducer extends Equipment {
     private Integer maxRpm;
     private Constant constExplosionProof;
     private Constant constRequiredMotorPowerHp;
+    private Constant constMotorFrameSize;
 
     public Reducer() {
     }
 
     public Reducer(Producer producer, String modelName, BigDecimal price, Producer vendor, Integer minRpm,
-                   Integer maxRpm, Constant constExplosionProof, Constant constRequiredMotorPowerHp) {
+                   Integer maxRpm, Constant constExplosionProof, Constant constRequiredMotorPowerHp,
+                   Constant constMotorFrameSize) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
@@ -42,6 +44,7 @@ public class Reducer extends Equipment {
         this.maxRpm = maxRpm;
         this.constExplosionProof = constExplosionProof;
         this.constRequiredMotorPowerHp = constRequiredMotorPowerHp;
+        this.constMotorFrameSize = constMotorFrameSize;
     }
 
     @ManyToOne(optional = false)
@@ -87,5 +90,14 @@ public class Reducer extends Equipment {
 
     public void setConstRequiredMotorPowerHp(Constant constRequiredMotorPowerHp) {
         this.constRequiredMotorPowerHp = constRequiredMotorPowerHp;
+    }
+
+    @ManyToOne(optional = false)
+    public Constant getConstMotorFrameSize() {
+        return constMotorFrameSize;
+    }
+
+    public void setConstMotorFrameSize(Constant constMotorFrameSize) {
+        this.constMotorFrameSize = constMotorFrameSize;
     }
 }
