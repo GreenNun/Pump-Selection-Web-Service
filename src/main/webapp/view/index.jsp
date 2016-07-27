@@ -47,16 +47,19 @@
 
 <body ng-app="pump.modules.route" ng-cloak>
 
-    <div ng-if="state.viewReload" class="progress-striped active progress" style="z-index: 8900; margin-top: 20%; width: 60%; margin-left: 20%;">
-        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div>
-    </div>
+<div ng-if="state.viewReload" class="progress-striped active progress" style="z-index: 8900; margin-top: 20%;
+    width: 60%; margin-left: 20%;">
+    <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div>
+</div>
 
-    <alert ng-if="state.notification"
-           type="{{state.notification.type}}"
-           close="cleanUpNotification()"
-           class="crimtan-alert">{{state.notification.message}}</alert>
+<alert ng-if="state.notification"
+       type="{{state.notification.type}}"
+       close="cleanUpNotification()"
+       class="crimtan-alert">{{state.notification.message}}
+</alert>
 
-    <div ng-if="!state.viewReload && !state.notification.hideView" ng-view class="container-fluid col-xs-12 col-sm-12 col-md-12"></div>
+<div ng-if="!state.viewReload && !state.notification.hideView"
+     ng-view class="container-fluid col-xs-12 col-sm-12 col-md-12"></div>
 </body>
 </html>
 

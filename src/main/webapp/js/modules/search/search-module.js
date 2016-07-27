@@ -1,6 +1,7 @@
 angular.module('pump.modules.search')
     .controller('searchCtrl', function($rootScope, $scope, $http) {
-        
+
+        // some default values
         $scope.search = {
             pumpType: 'Internal Eccentric Gear Pump',
             casingMaterial: 'Cast Iron',

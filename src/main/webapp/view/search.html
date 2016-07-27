@@ -174,14 +174,16 @@
 
     <button ng-click="doSearch()" class="btn btn-lg btn-block btn-primary" type="submit">Search</button>
 
+    <div ng-if="result.list.length == 0" class="alert alert-warning" role="alert">WARNING</div>
+
     <div ng-if="result.list.length == 0"
          style="border: 2px groove #f2f2f2 !important; border-radius: 5px; margin-top: 15px">
-        <div><h4> {{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
+        <div><h4>{{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
     </div>
 
     <div ng-if="result.list.length > 0"
          style="border: 2px groove #f2f2f2 !important; border-radius: 5px; margin-top: 15px">
-        <div><h4> {{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
+        <div><h4>{{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
         <div ng-repeat="item in result.list" style="margin-bottom: 0.3em">
         </div>
     </div>
@@ -189,7 +191,7 @@
     <table class="table table-hover" ng-if="result.list.length > 0">
         <thead>
         <tr>
-            <th>Pump&#189;</th>
+            <th>Pump</th>
             <th>Materials</th>
             <th>Reducer</th>
             <th>Motor</th>
