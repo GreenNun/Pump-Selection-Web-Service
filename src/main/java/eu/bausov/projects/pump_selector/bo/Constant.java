@@ -2,6 +2,7 @@ package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "value" }) })
@@ -18,6 +19,7 @@ public class Constant extends JPA {
         this.value = value;
     }
 
+    @XmlTransient
     @Basic(optional = false)
     public String getName() {
         return name;
@@ -42,6 +44,7 @@ public class Constant extends JPA {
      * @return int value
      */
     @Transient
+    @XmlTransient
     public int getIntegerValue(){
         return Integer.parseInt(value);
     }
@@ -52,6 +55,7 @@ public class Constant extends JPA {
      * @return double value
      */
     @Transient
+    @XmlTransient
     public double getDoubleValue(){
         return Double.parseDouble(value);
     }

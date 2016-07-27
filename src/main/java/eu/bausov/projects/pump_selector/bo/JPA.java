@@ -1,6 +1,7 @@
 package eu.bausov.projects.pump_selector.bo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @MappedSuperclass
@@ -9,6 +10,7 @@ public abstract class JPA {
     private Long id;
     private Date version;
 
+    @XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long getId() {
@@ -19,6 +21,7 @@ public abstract class JPA {
         this.id = id;
     }
 
+    @XmlTransient
     @Version
     @Temporal(TemporalType.TIMESTAMP)
     public Date getVersion() {

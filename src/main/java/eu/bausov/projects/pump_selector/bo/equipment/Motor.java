@@ -5,22 +5,25 @@ import eu.bausov.projects.pump_selector.bo.Producer;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor"})})
+@Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor",
+        "const_Speed", "const_Explosion_Proof", "const_Power_Hp", "const_Motor_Frame_Size"})})
 @XmlRootElement
 public class Motor extends Equipment {
     private Producer vendor;
     private Constant constSpeed;
     private Constant constExplosionProof;
     private Constant constPowerHp;
+    private Constant constMotorFrameSize;
 
     public Motor() {
     }
 
     public Motor(Producer producer, String modelName, BigDecimal price, Producer vendor, Constant constSpeed,
-                 Constant constExplosionProof, Constant constPowerHp) {
+                 Constant constExplosionProof, Constant constPowerHp, Constant constMotorFrameSize) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
@@ -28,6 +31,7 @@ public class Motor extends Equipment {
         this.constSpeed = constSpeed;
         this.constExplosionProof = constExplosionProof;
         this.constPowerHp = constPowerHp;
+        this.constMotorFrameSize = constMotorFrameSize;
     }
 
     @ManyToOne(optional = false)
@@ -66,8 +70,19 @@ public class Motor extends Equipment {
         this.constPowerHp = constPowerHp;
     }
 
+    @ManyToOne(optional = false)
+    public Constant getConstMotorFrameSize() {
+        return constMotorFrameSize;
+    }
+
+    public void setConstMotorFrameSize(Constant constMotorFrameSize) {
+        this.constMotorFrameSize = constMotorFrameSize;
+    }
+
+    // TODO: 14.07.2016
     public boolean isMotorValid(Reducer reducer) {
-        return constPowerHp.getDoubleValue() == reducer.getConstRequiredMotorPowerHp().getDoubleValue();
+        return constPowerHp.getDoubleValue() == reducer.getConstRequiredMotorPowerHp().getDoubleValue() &&
+                getConstMotorFrameSize().getValue().equals(reducer.getConstMotorFrameSize().getValue());
     }
 
     @Transient

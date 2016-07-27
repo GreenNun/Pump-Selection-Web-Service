@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -61,6 +62,7 @@ public class Seal extends Equipment {
         this.oRingMaterial = oRingMaterial;
     }
 
+    @XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Pump> getSuitablePumps() {

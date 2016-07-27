@@ -94,7 +94,7 @@ public class PumpAggregate extends Equipment {
 
     @Transient
     @XmlTransient
-    public BigDecimal getTotalPrice() {
+    public void setTotalPrice(double coefficient) {
         BigDecimal totalPrice = new BigDecimal(BigDecimal.ROUND_UNNECESSARY);
         totalPrice = totalPrice.add(pump.getPrice());
         totalPrice = totalPrice.add(reducer.getPrice());
@@ -102,6 +102,6 @@ public class PumpAggregate extends Equipment {
         totalPrice = totalPrice.add(driverAssembly.getPrice());
 
         // Price * 2
-        return totalPrice.multiply(new BigDecimal(2));
+        this.setPrice(totalPrice.multiply(new BigDecimal(coefficient)));
     }
 }

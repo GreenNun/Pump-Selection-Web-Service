@@ -21,6 +21,8 @@ angular.module('pump.modules.route')
                 controller: 'searchCtrl'
             })
 
+           
+
             .otherwise({
                 redirectTo: '/search'
             });

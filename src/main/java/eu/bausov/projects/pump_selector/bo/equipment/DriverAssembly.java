@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import java.util.Set;
  * Constants:
  * <p>
  * driverAssemblyType       name:   "driver assembly type";
- * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley";
+ * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley" | "Ex.Proof Coupling";
  * <p>
  * constExplosionProof      name:   "explosion proof";
  * value:  "none" | "ATEX";
@@ -63,6 +64,7 @@ public class DriverAssembly extends Equipment {
         this.constExplosionProof = constExplosionProof;
     }
 
+    @XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Pump> getSuitablePumps() {
