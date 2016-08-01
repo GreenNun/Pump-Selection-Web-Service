@@ -1698,7 +1698,7 @@ public class PumpSelectionService {
 //        Seal seaYkf3Packing = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSetYKF);
 //        session.persist(seaYkf3Packing);
 //        Seal seaYkf3Lip = new Seal(dreampompa, "YKF-3 lip seal", new BigDecimal("0"), sealTypeLip, oRingMaterialNone, pumpsSetYKF);
-//        session.persist(seaYkf3Packing);
+//        session.persist(seaYkf3Lip);
 //        Seal seaYkf3MechanicalDreampompa = new Seal(dreampompa, "YKF-3 mechanical seal", new BigDecimal("200"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
 //        session.persist(seaYkf3MechanicalDreampompa);
 //        Seal seaYkf3MechanicalBurgmann = new Seal(eagleBurgmann, "YKF-3 mechanical seal", new BigDecimal("360"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
