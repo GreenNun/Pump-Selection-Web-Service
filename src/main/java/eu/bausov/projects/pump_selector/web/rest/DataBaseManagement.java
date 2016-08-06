@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/PumpService")
-public class PumpService {
+@RequestMapping(value = "/DataBaseManagement")
+public class DataBaseManagement {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -39,23 +39,23 @@ public class PumpService {
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Pump createPump(@RequestBody Pump pupm) {
+    public Pump createPump(@RequestBody Pump pump) {
 
         Session session = sessionFactory.getCurrentSession();
-        session.persist(pupm);
+        session.persist(pump);
 
-        return pupm;
+        return pump;
 
     }
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Pump updatePump(@RequestBody Pump pupm) {
+    public Pump updatePump(@RequestBody Pump pump) {
 
         Session session = sessionFactory.getCurrentSession();
-        session.persist(pupm);
+        session.persist(pump);
 
-        return pupm;
+        return pump;
 
     }
 }

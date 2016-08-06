@@ -7,9 +7,13 @@ angular.module('pump.modules.search')
             casingMaterial: 'Cast Iron',
             sealType:'Packing',
             driverAssemblyType: 'Coupling',
-            reliefValve: true,
-            heatingJacket: false,
-            explosionProof: false
+            reliefValve: "true",
+            heatingJacket: "false",
+            explosionProof: "false"
+        };
+        
+        $scope.units = {
+            capacity: "1"
         };
 
         $scope.doSearch = function() {

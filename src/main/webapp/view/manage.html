@@ -1,0 +1,87 @@
+<div ng-controller="manageCtrl" class="col-xs-12 col-sm-12 col-md-12" style="background-color: whitesmoke">
+
+    <!--<button ng-click="doManage()" class="btn btn-lg btn-block btn-primary" type="submit">Manage</button>-->
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Producer
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+            <li ng-repeat="item in result.list" role="presentation"><a role="menuitem" tabindex="-1" href="#">{{item.producer.producerName}}</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+        </ul>
+    </div>
+
+    <div ng-if="result.list.length > 0"
+         style="border: 2px groove #f2f2f2 !important; border-radius: 5px; margin-top: 15px">
+        <div><h4>{{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
+        <div ng-repeat="item in result.list" style="margin-bottom: 0.3em">
+        </div>
+    </div>
+
+    <table class="table table-hover" ng-if="result.list.length > 0">
+        <thead>
+        <tr>
+            <th>Pump</th>
+            <th>Materials</th>
+            <th>Reducer</th>
+            <th>Motor</th>
+            <th style="width: 20%"></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in result.list">
+            <td>
+                <!--PUMP-->
+                <div><b>{{item.pump.constPumpType.value}} {{item.pump.modelName}}<br>
+                    {{item.pump.producer.producerName}} ({{item.pump.producer.producerCountry.value}})</b></div>
+            </td>
+            <td>
+                <!--MATERIALS-->
+                <div>
+                    Casing: {{item.pump.constCasingMaterial.value}}<br>
+                    Rotor Gear: {{item.pump.constRotorGearMaterial.value}}<br>
+                    Idler Gear: {{item.pump.constIdlerGearMaterial.value}}<br>
+                    Shaft: {{item.pump.constShaftMaterial.value}}<br>
+                    Shaft support: {{item.pump.constShaftSupportMaterial.value}}<br>
+                    Seal: {{item.seal.sealType.value}}<br>
+                    Connections: {{item.pump.constConnectionsType.value}} DN{{item.pump.constDn.value}},
+                    {{item.pump.constConnectionsAngle.value}}&deg;</div>
+            </td>
+            <td>
+                <!--REDUCER-->
+                <div>
+                    {{item.reducer.modelName}}<br>
+                    {{item.reducer.producer.producerName}} ({{item.reducer.producer.producerCountry.value}})<br>
+                    Speed to shaft: {{item.shaftSpeed}} rpm
+                </div>
+            </td>
+            <td>
+                <!--MOTOR-->
+                <div>
+                    {{item.motor.producer.producerName}} ({{item.motor.producer.producerCountry.value}})<br>
+                    Voltage: 400 V<br>
+                    Speed: {{item.motor.constSpeed.value}} rpm<br>
+                    Power: {{item.motor.constPowerHp.value}} HP<br>
+                    Explosion Proof: {{item.motor.constExplosionProof.value}}
+                </div>
+            </td>
+            <td>
+                <div>Pump assembly with {{item.driverAssembly.driverAssemblyType.value}},
+                    {{item.driverAssembly.driverAssemblyType.value}} protection, motor-reducer and the
+                    mounting frame.
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button class="btn btn-success disabled">&#8364{{item.price}}</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    {{result.list}}
+
+</div>

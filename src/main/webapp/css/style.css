@@ -1,3 +1,10 @@
 .container {
     width: 100%;
 }
+
+.btn-group.btn-block {
+    display: table;
+}
+.btn-group.btn-block > .btn {
+    display: table-cell;
+}

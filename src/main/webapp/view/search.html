@@ -1,5 +1,6 @@
 <div class="col-xs-12 col-sm-12 col-md-12" style="background-color: whitesmoke">
-    <!--{{search}}-->
+    {{search}}
+    {{units}}
     <!--MEDIUM-->
     <div class="form-group row">
         <div id="medium" class="col-xs-12 col-sm-12 col-md-12">
@@ -11,7 +12,7 @@
     <div class="form-group row">
         <div id="capacity" class="col-xs-12 col-sm-4 col-md-4">
             <label for="capacity">Capacity</label>
-            <div class="input-group input-group-sm">
+            <div class="input-group">
                 <input
                         placeholder="m&sup3;/h"
                         ng-model="search.capacity"
@@ -19,11 +20,11 @@
                         min="0"
                         step="0.1"
                         class="form-control"/>
-            <span class="input-group-btn">
-                <label class="btn btn-default" btn-radio="'1111'">m&sup3;/h</label>
-                <label class="btn btn-default" btn-radio="'2222'">l/h</label>
-                <label class="btn btn-default" btn-radio="'3333'">l/m</label>
-            </span>
+                <div class="input-group-btn">
+                    <label class="btn btn-default" btn-radio="'1'" ng-model="units.capacity">m&sup3;/h</label>
+                    <label class="btn btn-default" btn-radio="'2'" ng-model="units.capacity">l/h</label>
+                    <label class="btn btn-default" btn-radio="'3'" ng-model="units.capacity">l/m</label>
+                </div>
             </div>
         </div>
     </div>
@@ -167,6 +168,23 @@
                        value="Ex. Proof Motor">
                 <!--<input type="button" data-toggle="buttons-radio" class="btn btn-default active" value="Button">-->
             </div>
+            <div class="btn-toolbar" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="checkbox" ng-model="search.reliefValve">Relief Valve</label>
+                <label class="btn btn-default">
+                    <input type="checkbox" ng-model="search.heatingJacket" btn-radio="true">Heating Jacket</label>
+                <label class="btn btn-default">
+                    <input type="checkbox" ng-model="search.explosionProof" ng-true-value="true" ng-false-value="false">Ex.
+                    Proof Motor</label>
+            </div>
+            <div class="checkbox">
+                <input type="checkbox" ng-model="search.reliefValve" ng-true-value="true" ng-false-value="false">Relief
+                Valve
+                <input type="checkbox" ng-model="search.heatingJacket" ng-true-value="true" ng-false-value="false">Heating
+                Jacket
+                <input type="checkbox" ng-model="search.explosionProof" ng-true-value="true" ng-false-value="false">Ex.
+                Proof Motor
+            </div>
         </div>
     </div>
 
@@ -179,7 +197,7 @@
         </div>
     </div>
 
-    <!--{{result.list}}-->
+    {{result.list}}
 
     <table class="table table-hover" ng-if="result.list.length > 0">
         <thead>

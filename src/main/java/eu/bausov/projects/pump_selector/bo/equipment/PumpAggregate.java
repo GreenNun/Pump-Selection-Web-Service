@@ -1,5 +1,7 @@
 package eu.bausov.projects.pump_selector.bo.equipment;
 
+import eu.bausov.projects.pump_selector.bo.JPA;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -8,10 +10,11 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "TB_PUMP_AGGREGATES")
 @XmlRootElement
-public class PumpAggregate extends Equipment {
+public class PumpAggregate extends JPA {
 
     private String parameters;
     private Integer shaftSpeed;
+    private BigDecimal price;
 
     private Pump pump;
     private Seal seal;
@@ -36,6 +39,15 @@ public class PumpAggregate extends Equipment {
 
     public void setShaftSpeed(Integer shaftSpeed) {
         this.shaftSpeed = shaftSpeed;
+    }
+
+    @Basic(optional = false)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @ManyToOne(optional = false)
@@ -100,8 +112,9 @@ public class PumpAggregate extends Equipment {
         totalPrice = totalPrice.add(reducer.getPrice());
         totalPrice = totalPrice.add(motor.getPrice());
         totalPrice = totalPrice.add(driverAssembly.getPrice());
+        totalPrice = totalPrice.add(frame.getPrice());
 
-        // Price * 2
+        // Example, Price * 2
         this.setPrice(totalPrice.multiply(new BigDecimal(coefficient)));
     }
 }
