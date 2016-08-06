@@ -17,7 +17,7 @@ import java.util.Set;
  * Constants;
  * <p>
  * sealType              name:   "seal type";
- * value:  "Packing" | "Rotatherm Seal" | "Mechanical Seal" | "Lip Seal" | "Cartex Mechanical Seal";
+ * value:  "Packing" | "Rotatherm Seal" | "Mechanical Seal" | "Lip Seal" | "Cartridge Mechanical Seal";
  * <p>
  * oRingMaterial         name:   "material";
  * value:  "none" | "Viton&reg;";

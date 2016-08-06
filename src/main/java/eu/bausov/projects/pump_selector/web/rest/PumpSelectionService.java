@@ -177,8 +177,8 @@ public class PumpSelectionService {
 //        session.persist(sealTypeLip);
 //        Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
 //        session.persist(sealTypeMechanical);
-//        Constant sealTypeCartexMechanical = new Constant("sealType", "Cartex Mechanical Seal");
-//        session.persist(sealTypeCartexMechanical);
+//        Constant sealTypeCartridgeMechanical = new Constant("sealType", "Cartridge Mechanical Seal");
+//        session.persist(sealTypeCartridgeMechanical);
 //
 //        /**
 //         * MATERIALS
@@ -1703,7 +1703,7 @@ public class PumpSelectionService {
 //        session.persist(seaYkf3MechanicalDreampompa);
 //        Seal seaYkf3MechanicalBurgmann = new Seal(eagleBurgmann, "YKF-3 mechanical seal", new BigDecimal("360"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
 //        session.persist(seaYkf3MechanicalBurgmann);
-//        Seal seaYkf3Crtex = new Seal(dreampompa, "YKF-3 cartex mechanical seal", new BigDecimal("900.2"), sealTypeCartexMechanical, oRingMaterialViton, pumpsSetYKF);
+//        Seal seaYkf3Crtex = new Seal(dreampompa, "YKF-3 Cartridge mechanical seal", new BigDecimal("900.2"), sealTypeCartridgeMechanical, oRingMaterialViton, pumpsSetYKF);
 //        session.persist(seaYkf3Crtex);
 //
 //        /**
