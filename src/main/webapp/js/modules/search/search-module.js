@@ -1,22 +1,22 @@
 angular.module('pump.modules.search')
-    .controller('searchCtrl', function($rootScope, $scope, $http) {
+    .controller('searchCtrl', function ($rootScope, $scope, $http) {
 
-        // some default values
+        // default values
         $scope.search = {
             pumpType: 'Internal Eccentric Gear Pump',
             casingMaterial: 'Cast Iron',
-            sealType:'Packing',
+            sealType: 'Packing',
             driverAssemblyType: 'Coupling',
             reliefValve: "true",
             heatingJacket: "false",
             explosionProof: "false"
         };
-        
+
         $scope.units = {
             capacity: "1"
         };
 
-        $scope.doSearch = function() {
+        $scope.doSearch = function () {
 
             $scope.result = {
                 list: []
@@ -36,7 +36,4 @@ angular.module('pump.modules.search')
                     $rootScope.addNotification('danger', data);
                 });
         };
-
-      
-
     });

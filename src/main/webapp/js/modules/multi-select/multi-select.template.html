@@ -1,0 +1,44 @@
+<div class="row">
+
+    <div class="col-xs-6">
+        <input type="text" id="search_left" class="form-control" placeholder="Search..." ng-model="query1"/>
+        <select class="form-control" size="8" multiple="multiple"
+                ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
+                for item in available | filter: query1 | orderBy: orderProp"
+                ng-model="perSelectedFrom">
+        </select>
+    </div>
+
+    <div class="col-xs-1">
+        <button ng-click="moveAll(available, selectedFrom)"
+                class="btn btn-block btn-warning"
+                type="submit"
+        ><i class="glyphicon glyphicon-forward"></i>
+        </button>
+        <button ng-click="move(available, perSelectedFrom, selectedFrom)"
+                class="btn btn-block btn-success"
+                type="submit"
+        ><i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+        <button ng-click="move(selectedFrom, selectedTo, available)"
+                class="btn btn-block btn-success"
+                type="submit"
+        ><i class="glyphicon glyphicon-chevron-left"></i>
+        </button>
+        <button ng-click="moveAll(selectedFrom, available)"
+                class="btn btn-block btn-warning"
+                type="submit"
+        ><i class="glyphicon glyphicon-backward"></i>
+        </button>
+    </div>
+
+    <div class="col-xs-5">
+        <input type="text" id="search_right" class="form-control" placeholder="Search..." ng-model="query2"/>
+        <select class="form-control" size="8" multiple="multiple"
+                ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
+                for item in selectedFrom | filter: query2 | orderBy: orderProp"
+                ng-model="selectedTo">
+        </select>
+    </div>
+
+</div>

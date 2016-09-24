@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-12 col-md-12" style="background-color: whitesmoke">
+<div class="col-xs-12 col-sm-12 col-md-12">
     {{search}}
     {{units}}
     <!--MEDIUM-->
@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    {{result.list}}
+    <!--{{result.list}}-->
 
     <table class="table table-hover" ng-if="result.list.length > 0">
         <thead>
@@ -255,7 +255,8 @@
             </td>
             <td>
                 <div>
-                    <button class="btn btn-success disabled">&#8364{{item.price}}</button>
+                    <!--<button class="btn btn-success disabled">&#8364{{item.price}}</button>-->
+                    <button class="btn btn-success ">&#8364{{item.price}}</button>
                 </div>
             </td>
         </tr>

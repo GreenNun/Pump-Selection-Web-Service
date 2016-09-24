@@ -1,6 +1,8 @@
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Pump Service</title>
+    <link rel="icon" href="../img/icon.png">
 
     <%!
         static final String VERSION = "v1";
@@ -13,12 +15,10 @@
                 "../js/libs/angular-sanitize.js",
                 "../js/libs/angular-route.js",
                 "../js/libs/angular-bootstrap.js",
-                "../js/libs/ui-utils.min.js",
-                "../js/libs/select2.js",
-                "../js/libs/select/select2.js",
-                "../js/libs/checklist-model.js",
-                "../js/libs/angular-file-upload.min.js",
                 "../js/libs/es5-shim.min.js",
+
+                "../js/modules/multi-select/multi-select.module.js",
+                "../js/modules/multi-select/multi-select.component.js",
 
                 "../js/app.js",
                 "../js/modules/search/search-module.js",
