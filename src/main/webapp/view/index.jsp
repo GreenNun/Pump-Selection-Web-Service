@@ -21,7 +21,8 @@
                 "../js/libs/es5-shim.min.js",
 
                 "../js/app.js",
-                "../js/modules/search/search-module.js"
+                "../js/modules/search/search-module.js",
+                "../js/modules/manage/manage-module.js"
         };
 
         static final String[] CSS = {

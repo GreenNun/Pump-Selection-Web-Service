@@ -10,7 +10,7 @@ public abstract class JPA {
     private Long id;
     private Date version;
 
-    @XmlTransient
+    //@XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long getId() {

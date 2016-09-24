@@ -230,7 +230,7 @@ public class Pump extends Equipment {
         this.rpmCoefficient = rpmCoefficient;
     }
 
-    @XmlTransient
+    //@XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
@@ -306,9 +306,10 @@ public class Pump extends Equipment {
     }
 
     /**
-     * // TODO: 13.07.2016  
-     * @param parameters
-     * @return
+     * Checks that fluid viscosity in parameters does'n increase maximum viscosity pump can transfer.
+     *
+     * @param parameters Parameters instance.
+     * @return Returns true if viscosity is valid for pump.
      */
     public boolean isViscosityValid(Parameters parameters) {
         Optional<SpeedCorrectionCoefficient> max = getSpeedCorrectionCoefficients().stream()
