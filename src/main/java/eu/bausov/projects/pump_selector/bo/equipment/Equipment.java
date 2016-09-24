@@ -34,7 +34,7 @@ public abstract class Equipment extends JPA {
         this.modelName = modelName;
     }
 
-    @XmlTransient // commented to show price
+    @XmlTransient // comment to show price
     @Basic(optional = false)
     public BigDecimal getPrice() {
         return price;

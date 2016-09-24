@@ -65,6 +65,7 @@ public class PumpSelectionService {
                                 // Seal
                                 for (Seal seal : seals) {                                                   // seal
                                     // TODO: 11.07.2016 oRing check
+                                    // TODO: 07.08.2016 Connections placement angle check
                                     if (seal.getSealType().getValue().equals(parameters.getSealType()) &&   // seal type
                                             pump.isValidTo(seal.getSuitablePumps())) {
                                         // DriverAssembly

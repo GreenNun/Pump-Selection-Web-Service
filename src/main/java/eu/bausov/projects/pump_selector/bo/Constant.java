@@ -19,7 +19,7 @@ public class Constant extends JPA {
         this.value = value;
     }
 
-    @XmlTransient
+    //@XmlTransient
     @Basic(optional = false)
     public String getName() {
         return name;

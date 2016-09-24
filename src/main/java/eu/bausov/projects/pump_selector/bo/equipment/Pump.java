@@ -230,7 +230,7 @@ public class Pump extends Equipment {
         this.rpmCoefficient = rpmCoefficient;
     }
 
-    @XmlTransient
+    //@XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
