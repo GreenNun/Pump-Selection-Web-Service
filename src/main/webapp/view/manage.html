@@ -21,7 +21,7 @@
                     class="form-control"/>
         </div>
 
-        <div class="form-group" ng-init="getProducers()">
+        <div class="form-group">
             <label for="producer">Producer:</label>
             <select class="form-control" id="producer" ng-model="pump.producer.id">
                 <option></option>
@@ -35,7 +35,8 @@
             <label for="pumpType">Pump type:</label>
             <select class="form-control" id="pumpType" ng-model="result.newPump.pumpType.value">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'pump type'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'pump type'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -43,7 +44,8 @@
             <label for="casingMaterial">Casing material:</label>
             <select class="form-control" id="casingMaterial" ng-model="result.newPump.material">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'material'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'material'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -51,7 +53,8 @@
             <label for="rotorGearMaterial">Rotor Gear material:</label>
             <select class="form-control" id="rotorGearMaterial" ng-model="result.newPump.material2">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'material'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'material'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -59,7 +62,8 @@
             <label for="idlerGearMaterial">Idler Gear material:</label>
             <select class="form-control" id="idlerGearMaterial" ng-model="result.newPump.material3">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'material'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'material'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -67,7 +71,8 @@
             <label for="shaftSupportMaterial">Shaft Support material:</label>
             <select class="form-control" id="shaftSupportMaterial" ng-model="result.newPump.material4">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'material'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'material'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -75,7 +80,8 @@
             <label for="shaftMaterial">Shaft material:</label>
             <select class="form-control" id="shaftMaterial" ng-model="result.newPump.material5">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'material'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'material'">{{item.value}}
+                </option>
             </select>
         </div>
 
@@ -83,7 +89,8 @@
             <label for="connectionType">Connections type:</label>
             <select class="form-control" id="connectionType" ng-model="result.newPump.connectionType">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'connections type'">{{item.value}}
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'connections type'">
+                    {{item.value}}
                 </option>
             </select>
         </div>
@@ -92,7 +99,7 @@
             <label for="dn">DN:</label>
             <select class="form-control" id="dn" ng-model="result.newPump.dn">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'DN'">{{item.value}}</option>
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'DN'">{{item.value}}</option>
             </select>
         </div>
 
@@ -100,7 +107,7 @@
             <label for="connectionsAngle">Connections placement angle [&#176;]:</label>
             <select class="form-control" id="connectionsAngle" ng-model="result.newPump.connectionsAngle">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'connections angle'">
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'connections angle'">
                     {{item.value}}
                 </option>
             </select>
@@ -110,7 +117,7 @@
             <label for="maxPressure">Max. Pressure [bar]:</label>
             <select class="form-control" id="maxPressure" ng-model="result.newPump.maxPressure">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'max. pressure'">{{item.value}}
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'max. pressure'">{{item.value}}
                 </option>
             </select>
         </div>
@@ -119,7 +126,8 @@
             <label for="maxTemperature">Max. Temperature [&#8451;]:</label>
             <select class="form-control" id="maxTemperature" ng-model="result.newPump.maxTemperature">
                 <option></option>
-                <option ng-repeat="item in result.list | orderBy: 'value' | filter: 'max. temperature'">{{item.value}}
+                <option ng-repeat="item in constants.list | orderBy: 'value' | filter: 'max. temperature'">
+                    {{item.value}}
                 </option>
             </select>
         </div>
@@ -135,34 +143,16 @@
                     class="form-control"/>
         </div>
 
-
         <div class="form-group">
             <label>Viscosity Correction Coefficients:</label>
-            <div ng-repeat="item in seals.list"><input
-                    placeholder="viscosity"
-                    ng-model="result.newPump.speedCorrectionCoefficient1"
-                    type="number"
-                    min="0"
-                    step="1"
-                    class="form-control"/>
-                <input
-                        placeholder="coefficient"
-                        ng-model="result.newPump.speedCorrectionCoefficient2"
-                        type="number"
-                        min="0"
-                        step="1"
-                        class="form-control"/></div>
+            <parameters-appender></parameters-appender>
         </div>
 
-
-        <div class="form-group" ng-init="getSeals()">
-            <label>Suitable Seals:</label>
-            <multi-select></multi-select>
+        <div ng-controller="dualListBoxMultiSelectController" class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <label>Suitable Seals:</label>
+                <dual-list-box-select></dual-list-box-select>
+            </div>
         </div>
-
     </div>
-
-
-    {{result}}
-
 </div>

@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row" ng-controller="dualListBoxMultiSelectController">
 
     <div class="col-xs-6">
         <input type="text" id="search_left" class="form-control" placeholder="Search..." ng-model="query1"/>
         <select class="form-control" size="8" multiple="multiple"
                 ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
-                for item in available | filter: query1 | orderBy: orderProp"
+                 for item in available | filter: query1 | orderBy: orderProp"
                 ng-model="perSelectedFrom">
         </select>
     </div>
@@ -36,7 +36,7 @@
         <input type="text" id="search_right" class="form-control" placeholder="Search..." ng-model="query2"/>
         <select class="form-control" size="8" multiple="multiple"
                 ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
-                for item in selectedFrom | filter: query2 | orderBy: orderProp"
+                 for item in selectedFrom | filter: query2"
                 ng-model="selectedTo">
         </select>
     </div>

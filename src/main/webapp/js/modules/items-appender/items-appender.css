@@ -1,0 +1,9 @@
+#input1, #input2, #delete-button, #add-button #elements {
+    margin-bottom: 5px;
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+#add-button {
+    float:right;
+}

@@ -17,8 +17,8 @@
                 "../js/libs/angular-bootstrap.js",
                 "../js/libs/es5-shim.min.js",
 
-                "../js/modules/multi-select/multi-select.module.js",
-                "../js/modules/multi-select/multi-select.component.js",
+                "../js/modules/dual-listbox-multiselect/dual-listbox-multiselect.module.js",
+                "../js/modules/items-appender/items-appender.module.js",
 
                 "../js/app.js",
                 "../js/modules/search/search-module.js",
@@ -29,7 +29,11 @@
                 "../css/bootstrap.min.css",
                 "../css/bootstrap-theme.min.css",
                 "../css/bootstrap-ng.min.css",
-                "../css/style.css"
+
+                "../css/style.css",
+
+                "../js/modules/dual-listbox-multiselect/dual-listbox-multiselect.css",
+                "../js/modules/items-appender/items-appender.css"
         };
     %>
 

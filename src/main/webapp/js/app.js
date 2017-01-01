@@ -4,7 +4,8 @@ angular.module('pump.modules.search',
 
 angular.module('pump.modules.manage',
     [
-        'multiSelect'
+        'dualListBoxMultiSelect',
+        'itemsAppender'
     ]
 );
 
