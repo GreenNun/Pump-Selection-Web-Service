@@ -14,7 +14,7 @@
 
     <context:property-placeholder location="classpath:service.properties" />
 
-    <context:component-scan base-package="eu.bausov.projects.pump_selector.web.rest"/>
+    <context:component-scan base-package="eu.bausov.projects.srvpumpselection.web.rest"/>
 
     <bean id="jacksonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="objectMapper" ref="jacksonHibernateObjectMapper"/>
@@ -40,13 +40,13 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="jacksonHibernateObjectMapper" class="eu.bausov.projects.pump_selector.web.rest.HibernateAwareObjectMapper"/>
+    <bean id="jacksonHibernateObjectMapper" class="eu.bausov.projects.srvpumpselection.web.rest.HibernateAwareObjectMapper"/>
 
-    <bean id="jaxb2marshaller" class="eu.bausov.projects.pump_selector.web.rest.HibernateJaxb2Marshaller">
+    <bean id="jaxb2marshaller" class="eu.bausov.projects.srvpumpselection.web.rest.HibernateJaxb2Marshaller">
         <property name="packagesToScan">
             <list>
-                <value>eu.bausov.projects.pump_selector.bo.equipment</value>
-                <value>eu.bausov.projects.pump_selector.bo.equipment.*</value>
+                <value>eu.bausov.projects.srvpumpselection.bo.equipment</value>
+                <value>eu.bausov.projects.srvpumpselection.bo.equipment.*</value>
             </list>
         </property>
     </bean>

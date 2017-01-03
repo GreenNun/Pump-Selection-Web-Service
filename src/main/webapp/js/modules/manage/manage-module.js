@@ -1,6 +1,9 @@
 angular.module('pump.modules.manage')
     .controller('manageCtrl', function ($rootScope, $scope, $http) {
-        
+
+        // used coeff box
+        $scope.pump = {};
+
         $http({
             method: 'GET',
             url: '/pump/api/DataBaseManagement/constants'
@@ -45,7 +48,7 @@ angular.module('pump.modules.manage')
             angular.forEach(selected, function (item) {
                 to.push(item);
                 var index = from.indexOf(item);
-                from.splice(index, 1)
+                from.splice(index, 1);
             });
         };
 
@@ -58,23 +61,24 @@ angular.module('pump.modules.manage')
 
 
         /*coefficients box*/
-        $scope.pump = {};
         $scope.pump.speedCorrectionCoefficients = [];
-        
+
         $scope.add = function () {
             $scope.pump.speedCorrectionCoefficients.push({});
         };
-        
+
         $scope.delete = function ($index) {
             $scope.pump.speedCorrectionCoefficients.splice($index, 1);
         };
 
-        // Add Button
-        $scope.doCreate = function () {
+        // Create Button
+        $scope.pump.seals = [];
 
-            $scope.pumpId = {
-                list: []
-            };
+        $scope.doCreate = function () {
+            // copy seals id's to request
+            angular.forEach($scope.selectedFrom, function (item) {
+                $scope.pump.seals.push(item.id);
+            });
 
             $http({
                 method: 'POST',
@@ -82,12 +86,14 @@ angular.module('pump.modules.manage')
                 data: $scope.pump
             })
                 .success(function (data) {
-                    $scope.pumpId = data;
-                    // LOOKUP
                     $rootScope.addNotification('success', data);
                 })
                 .error(function (data) {
                     $rootScope.addNotification('warning', data);
+                })
+                .then(function () {
+                    // empty array after request sent
+                    $scope.pump.seals.length = 0;
                 });
         };
     });

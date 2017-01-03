@@ -39,7 +39,7 @@
         <property name="dataSource" ref="serviceDataSource"/>
         <property name="namingStrategy" ref="namingStrategy"/>
         <property name="configLocation" value="classpath:/hibernate.cfg.xml"/>
-        <property name="annotatedPackages" value="eu.bausov.projects.pump_selector.bo.equipment"/>
+        <property name="annotatedPackages" value="eu.bausov.projects.srvpumpselection.bo.equipment"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
