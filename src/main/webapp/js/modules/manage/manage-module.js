@@ -1,71 +1,93 @@
 angular.module('pump.modules.manage')
     .controller('manageCtrl', function ($rootScope, $scope, $http) {
-
-        // default values
         
-
-        // $scope.doManage = function() {
-
-        $scope.result = {
-            list: []
-        };
-
         $http({
             method: 'GET',
             url: '/pump/api/DataBaseManagement/constants'
-            // url: '/pump/api/DataBaseManagement/list'
-            // ,
-            // data: $scope.manage
         })
             .success(function (data) {
-                $scope.result = {
-                    list: data
-                };
+                $scope.constants = data;
             })
             .error(function (data) {
                 $rootScope.addNotification('danger', data);
             });
-        // };
 
-        $scope.getProducers = function () {
+        $http({
+            method: 'GET',
+            url: '/pump/api/DataBaseManagement/producers'
+        })
+            .success(function (data) {
+                $scope.producers = data;
+            })
+            .error(function (data) {
+                $rootScope.addNotification('danger', data);
+            });
 
-            $scope.producers = {
+
+        /*seals box*/
+        $scope.orderProp = 'id';
+        $scope.selectedFrom = [];
+        $scope.perSelectedFrom = [];
+        $scope.selectedTo = [];
+
+        $http({
+            method: 'GET',
+            url: '/pump/api/DataBaseManagement/seals'
+        })
+            .success(function (data) {
+                $scope.available = data;
+            })
+            .error(function (data) {
+                $rootScope.addNotification('danger', data);
+            });
+
+        $scope.move = function (from, selected, to) {
+            angular.forEach(selected, function (item) {
+                to.push(item);
+                var index = from.indexOf(item);
+                from.splice(index, 1)
+            });
+        };
+
+        $scope.moveAll = function (from, to) {
+            angular.forEach(from, function (item) {
+                to.push(item);
+            });
+            from.length = 0;
+        };
+
+
+        /*coefficients box*/
+        $scope.pump = {};
+        $scope.pump.speedCorrectionCoefficients = [];
+        
+        $scope.add = function () {
+            $scope.pump.speedCorrectionCoefficients.push({});
+        };
+        
+        $scope.delete = function ($index) {
+            $scope.pump.speedCorrectionCoefficients.splice($index, 1);
+        };
+
+        // Add Button
+        $scope.doCreate = function () {
+
+            $scope.pumpId = {
                 list: []
             };
 
             $http({
-                method: 'GET',
-                url: '/pump/api/DataBaseManagement/producers'
+                method: 'POST',
+                url: '/pump/api/DataBaseManagement/create',
+                data: $scope.pump
             })
                 .success(function (data) {
-                    $scope.producers = {
-                        list: data
-                    };
+                    $scope.pumpId = data;
+                    // LOOKUP
+                    $rootScope.addNotification('success', data);
                 })
                 .error(function (data) {
-                    $rootScope.addNotification('danger', data);
+                    $rootScope.addNotification('warning', data);
                 });
         };
-
-        $scope.getSeals = function () {
-
-            $scope.seals = {
-                list: []
-            };
-
-            $http({
-                method: 'GET',
-                url: '/pump/api/DataBaseManagement/seals'
-            })
-                .success(function (data) {
-                    $scope.seals = {
-                        list: data
-                    };
-                })
-                .error(function (data) {
-                    $rootScope.addNotification('danger', data);
-                });
-        };
-
-
     });

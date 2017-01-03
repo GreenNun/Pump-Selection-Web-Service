@@ -3,9 +3,7 @@ angular.module('pump.modules.search',
 );
 
 angular.module('pump.modules.manage',
-    [
-        'multiSelect'
-    ]
+    []
 );
 
 angular.module('pump.modules.route',

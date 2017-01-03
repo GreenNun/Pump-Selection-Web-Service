@@ -3,15 +3,14 @@ package eu.bausov.projects.pump_selector.web.rest;
 import eu.bausov.projects.pump_selector.bo.Constant;
 import eu.bausov.projects.pump_selector.bo.Producer;
 import eu.bausov.projects.pump_selector.bo.equipment.Pump;
+import eu.bausov.projects.pump_selector.bo.equipment.requests.PumpCreateRequest;
 import eu.bausov.projects.pump_selector.bo.equipment.Seal;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -64,15 +63,25 @@ public class DataBaseManagement {
 
     }
 
+//    @ResponseBody
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    public Pump createPump(@RequestBody Pump pump) {
+//
+//        Session session = sessionFactory.getCurrentSession();
+//        session.persist(pump);
+//
+//        return pump;
+//
+//    }
+
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Pump createPump(@RequestBody Pump pump) {
+    public PumpCreateRequest createPump(@RequestBody PumpCreateRequest pumpCreateRequest) {
+        System.out.println("********************* OBJ: " + pumpCreateRequest.toString());
+        System.out.println("********************* PRICE; " + pumpCreateRequest.getPrice());
+        System.out.println("********************* MODEL: " + pumpCreateRequest.getModelName());
 
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(pump);
-
-        return pump;
-
+        return pumpCreateRequest;
     }
 
     @ResponseBody

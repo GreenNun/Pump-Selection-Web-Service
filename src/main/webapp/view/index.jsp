@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -16,9 +17,6 @@
                 "../js/libs/angular-route.js",
                 "../js/libs/angular-bootstrap.js",
                 "../js/libs/es5-shim.min.js",
-
-                "../js/modules/multi-select/multi-select.module.js",
-                "../js/modules/multi-select/multi-select.component.js",
 
                 "../js/app.js",
                 "../js/modules/search/search-module.js",

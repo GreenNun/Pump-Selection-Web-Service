@@ -1,3 +1,69 @@
 body {
     background-color: whitesmoke;
 }
+
+/*checkboxes*/
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+}
+
+/*coefficients box*/
+#input1 {
+    margin-bottom: 5px;
+    padding-right: 5px;
+}
+
+#input2 {
+    margin-bottom: 5px;
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+#delete-button {
+    margin-bottom: 5px;
+    padding-left: 0;
+}
+
+#add-button {
+    padding-right: 0;
+}
+
+/*seals box*/
+#search_left {
+    margin-bottom: 5px;
+}
+
+#seals_box_left_column{
+    padding-right: 5px;
+}
+
+#seals_box_buttons_column{
+    padding-right: 5px;
+    padding-left: 0;
+}
+
+#search_right {
+    margin-bottom: 5px;
+}
+
+#seals_box_right_column{
+    padding-left: 0;
+}
