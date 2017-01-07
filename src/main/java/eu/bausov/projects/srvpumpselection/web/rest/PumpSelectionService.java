@@ -73,7 +73,7 @@ public class PumpSelectionService {
                                                     (parameters.getDriverAssemblyType()) &&
                                                     pump.isValidTo(driverAssembly.getSuitablePumps())) {
                                                 // Frame
-                                                for (Frame frame : frames) {
+                                                for (Frame frame : frames) {                                // frame
                                                     if (pump.isValidTo(frame.getSuitablePumps())) {
                                                         PumpAggregate aggregate = new PumpAggregate();
                                                         aggregate.setPump(pump);

@@ -14,6 +14,7 @@ body {
 .form-group input[type="checkbox"] + .btn-group > label span:first-child {
     display: none;
 }
+
 .form-group input[type="checkbox"] + .btn-group > label span:last-child {
     display: inline-block;
 }
@@ -21,6 +22,7 @@ body {
 .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
     display: inline-block;
 }
+
 .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
     display: none;
 }
@@ -46,24 +48,56 @@ body {
     padding-right: 0;
 }
 
-/*seals box*/
-#search_left {
+/*seals box $ frames box*/
+#seals_box_search_left,
+#frames_box_search_left,
+#driver_assemblies_box_search_left {
     margin-bottom: 5px;
 }
 
-#seals_box_left_column{
+#seals_box_left_column,
+#frames_box_left_column,
+#driver_assemblies_box_left_column {
     padding-right: 5px;
 }
 
-#seals_box_buttons_column{
+#seals_box_buttons_column,
+#frames_box_buttons_column,
+#driver_assemblies_box_buttons_column {
     padding-right: 5px;
     padding-left: 0;
 }
 
-#search_right {
+#seals_box_search_right,
+#frames_box_search_right,
+#driver_assemblies_box_search_right {
     margin-bottom: 5px;
 }
 
-#seals_box_right_column{
+#seals_box_right_column,
+#frames_box_right_column,
+#driver_assemblies_box_right_column {
     padding-left: 0;
 }
+
+/*frames box*/
+/*#frames_box_search_left {*/
+    /*margin-bottom: 5px;*/
+/*}*/
+
+/*#frames_box_left_column {*/
+    /*padding-right: 5px;*/
+/*}*/
+
+/*#frames_box_buttons_column {*/
+    /*padding-right: 5px;*/
+    /*padding-left: 0;*/
+/*}*/
+
+/*#frames_box_search_right {*/
+    /*margin-bottom: 5px;*/
+/*}*/
+
+/*#frames_box_right_column {*/
+    /*padding-left: 0;*/
+/*}*/

@@ -3,26 +3,27 @@
     <div id="container" class="col-xs-8 col-sm-8 col-md-8">
 
         <div class="form-group">
-            <label>Model Name:</label>
-            <input
-                    placeholder="Model"
-                    ng-model="pump.modelName"
-                    class="form-control"/>
+            <label for="modelName">Model Name:</label>
+            <input type="text"
+                   id="modelName"
+                   placeholder="Model"
+                   ng-model="pump.modelName"
+                   class="form-control"/>
         </div>
 
         <div class="form-group">
-            <label>Price:</label>
-            <input
-                    placeholder="Price"
-                    ng-model="pump.price"
-                    type="number"
-                    min="0"
-                    step="1"
-                    class="form-control"/>
+            <label for="price">Price:</label>
+            <input id="price"
+                   placeholder="Price"
+                   ng-model="pump.price"
+                   type="number"
+                   min="0"
+                   step="1"
+                   class="form-control"/>
         </div>
 
         <div class="form-group">
-            <label for="producer">Producer:</label>
+            <label for="producer" class="control-label">Producer:</label>
             <select class="form-control" id="producer" ng-model="pump.producer">
                 <option></option>
                 <option ng-repeat="item in producers | orderBy: 'producerName'" value="{{item.id}}">
@@ -65,7 +66,8 @@
                     <label for="option2-checkbox" class="btn btn-default open">Heating Jacket On Cover</label>
                 </div>
 
-                <input type="checkbox" id="option3-checkbox" autocomplete="off" ng-model="pump.heatingJacketOnCasing"
+                <input type="checkbox" id="option3-checkbox" autocomplete="off"
+                       ng-model="pump.heatingJacketOnCasing"
                        ng-true-value="true" ng-false-value="false"/>
                 <div class="btn-group">
                     <label for="option3-checkbox" class="btn btn-default">
@@ -75,7 +77,8 @@
                     <label for="option3-checkbox" class="btn btn-default open">Heating Jacket On Casing</label>
                 </div>
 
-                <input type="checkbox" id="option4-checkbox" autocomplete="off" ng-model="pump.heatingJacketOnBracket"
+                <input type="checkbox" id="option4-checkbox" autocomplete="off"
+                       ng-model="pump.heatingJacketOnBracket"
                        ng-true-value="true" ng-false-value="false"/>
                 <div class="btn-group">
                     <label for="option4-checkbox" class="btn btn-default">
@@ -247,42 +250,132 @@
             <label for="seals_box">Suitable Seals:</label>
             <div class="row" id="seals_box">
                 <div class="col-xs-6" id="seals_box_left_column">
-                    <input type="text" id="search_left" class="form-control" placeholder="Search..." ng-model="query1"/>
+                    <input type="text" id="seals_box_search_left" class="form-control" placeholder="Search..."
+                           ng-model="query1"/>
                     <select class="form-control" size="8" multiple="multiple"
                             ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
-                            for item in available | filter: query1 | orderBy: orderProp" ng-model="perSelectedFrom">
+                            for item in sealsBoxAvailable | filter: query1 | orderBy: orderProp"
+                            ng-model="sealsBoxPerSelectedFrom">
                     </select>
                 </div>
 
                 <div class="col-xs-1" id="seals_box_buttons_column">
-                    <button ng-click="moveAll(available, selectedFrom)"
+                    <button ng-click="moveAll(sealsBoxAvailable, sealsBoxSelectedFrom)"
                             class="btn btn-block btn-warning"
                             type="submit"
-                    ><i class="glyphicon glyphicon-forward"></i>
-                    </button>
-                    <button ng-click="move(available, perSelectedFrom, selectedFrom)"
+                    ><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(sealsBoxAvailable, sealsBoxPerSelectedFrom, sealsBoxSelectedFrom)"
                             class="btn btn-block btn-success"
                             type="submit"
-                    ><i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
-                    <button ng-click="move(selectedFrom, selectedTo, available)"
+                    ><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(sealsBoxSelectedFrom, sealsBoxSelectedTo, sealsBoxAvailable)"
                             class="btn btn-block btn-success"
                             type="submit"
-                    ><i class="glyphicon glyphicon-chevron-left"></i>
-                    </button>
-                    <button ng-click="moveAll(selectedFrom, available)"
+                    ><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(sealsBoxSelectedFrom, sealsBoxAvailable)"
                             class="btn btn-block btn-warning"
                             type="submit"
-                    ><i class="glyphicon glyphicon-backward"></i>
-                    </button>
+                    ><i class="glyphicon glyphicon-backward"></i></button>
                 </div>
 
                 <div class="col-xs-5" id="seals_box_right_column">
-                    <input type="text" id="search_right" class="form-control" placeholder="Search..."
+                    <input type="text" id="seals_box_search_right" class="form-control" placeholder="Search..."
                            ng-model="query2"/>
                     <select class="form-control" size="8" multiple="multiple"
                             ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
-                            for item in selectedFrom | filter: query2" ng-model="selectedTo">
+                            for item in sealsBoxSelectedFrom | filter: query2" ng-model="sealsBoxSelectedTo">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="frames_box">Suitable Frames:</label>
+            <div class="row" id="frames_box">
+                <div class="col-xs-6" id="frames_box_left_column">
+                    <input type="text" id="frames_box_search_left" class="form-control" placeholder="Search..."
+                           ng-model="query3"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in framesBoxAvailable | filter: query3 | orderBy: orderProp"
+                            ng-model="framesBoxPerSelectedFrom">
+                    </select>
+                </div>
+
+                <div class="col-xs-1" id="frames_box_buttons_column">
+                    <button ng-click="moveAll(framesBoxAvailable, framesBoxSelectedFrom)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(framesBoxAvailable, framesBoxPerSelectedFrom, framesBoxSelectedFrom)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(framesBoxSelectedFrom, framesBoxSelectedTo, framesBoxAvailable)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(framesBoxSelectedFrom, framesBoxAvailable)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-backward"></i></button>
+                    <button ng-click="moveAll(framesBoxSelectedFrom, framesBoxAvailable)"
+                            class="btn btn-block btn-info"
+                            type="submit">Manage
+                    </button>
+                </div>
+
+                <div class="col-xs-5" id="frames_box_right_column">
+                    <input type="text" id="frames_box_search_right" class="form-control" placeholder="Search..."
+                           ng-model="query4"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in framesBoxSelectedFrom | filter: query4" ng-model="framesBoxSelectedTo">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="driver_assemblies_box">Suitable Driver Assemblies:</label>
+            <div class="row" id="driver_assemblies_box">
+                <div class="col-xs-6" id="driver_assemblies_box_left_column">
+                    <input type="text" id="driver_assemblies_box_search_left" class="form-control"
+                           placeholder="Search..."
+                           ng-model="query5"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in driverAssembliesBoxAvailable | filter: query5 | orderBy: orderProp"
+                            ng-model="driverAssembliesBoxPerSelectedFrom">
+                    </select>
+                </div>
+
+                <div class="col-xs-1" id="driver_assemblies_box_buttons_column">
+                    <button ng-click="moveAll(driverAssembliesBoxAvailable, driverAssembliesBoxSelectedFrom)"
+                            class="btn btn-block btn-warning"
+                            type="submit"><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(driverAssembliesBoxAvailable, driverAssembliesBoxPerSelectedFrom, driverAssembliesBoxSelectedFrom)"
+                            class="btn btn-block btn-success"
+                            type="submit"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(driverAssembliesBoxSelectedFrom, driverAssembliesBoxSelectedTo, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-success"
+                            type="submit"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-warning"
+                            type="submit"><i class="glyphicon glyphicon-backward"></i></button>
+                    <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-info"
+                            type="submit"><i class="glyphicon glyphicon-edit"></i></button>
+                </div>
+
+                <div class="col-xs-5" id="driver_assemblies_box_right_column">
+                    <input type="text" id="driver_assemblies_box_search_right" class="form-control"
+                           placeholder="Search..."
+                           ng-model="query6"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in driverAssembliesBoxSelectedFrom | filter: query6"
+                            ng-model="driverAssembliesBoxSelectedTo">
                     </select>
                 </div>
             </div>
@@ -291,5 +384,4 @@
         <button ng-click="doCreate()" class="btn btn-lg btn-block btn-primary" type="submit">Create</button>
 
     </div>
-
 </div>

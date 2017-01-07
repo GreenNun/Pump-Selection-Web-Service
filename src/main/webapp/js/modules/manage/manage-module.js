@@ -1,7 +1,7 @@
 angular.module('pump.modules.manage')
     .controller('manageCtrl', function ($rootScope, $scope, $http) {
 
-        // used coeff box
+        // used by coeff box
         $scope.pump = {};
 
         $http({
@@ -26,19 +26,29 @@ angular.module('pump.modules.manage')
                 $rootScope.addNotification('danger', data);
             });
 
+        /*coefficients box*/
+        $scope.pump.speedCorrectionCoefficients = [];
+
+        $scope.add = function () {
+            $scope.pump.speedCorrectionCoefficients.push({});
+        };
+
+        $scope.delete = function ($index) {
+            $scope.pump.speedCorrectionCoefficients.splice($index, 1);
+        };
 
         /*seals box*/
-        $scope.orderProp = 'id';
-        $scope.selectedFrom = [];
-        $scope.perSelectedFrom = [];
-        $scope.selectedTo = [];
+        $scope.sealsBoxOrderProp = 'id';
+        $scope.sealsBoxSelectedFrom = [];
+        $scope.sealsBoxPerSelectedFrom = [];
+        $scope.sealsBoxSelectedTo = [];
 
         $http({
             method: 'GET',
             url: '/pump/api/DataBaseManagement/seals'
         })
             .success(function (data) {
-                $scope.available = data;
+                $scope.sealsBoxAvailable = data;
             })
             .error(function (data) {
                 $rootScope.addNotification('danger', data);
@@ -59,16 +69,68 @@ angular.module('pump.modules.manage')
             from.length = 0;
         };
 
+        /*frames box*/
+        $scope.framesBoxOrderProp = 'id';
+        $scope.framesBoxSelectedFrom = [];
+        $scope.framesBoxPerSelectedFrom = [];
+        $scope.framesBoxSelectedTo = [];
 
-        /*coefficients box*/
-        $scope.pump.speedCorrectionCoefficients = [];
+        $http({
+            method: 'GET',
+            url: '/pump/api/DataBaseManagement/frames'
+        })
+            .success(function (data) {
+                $scope.framesBoxAvailable = data;
+            })
+            .error(function (data) {
+                $rootScope.addNotification('danger', data);
+            });
 
-        $scope.add = function () {
-            $scope.pump.speedCorrectionCoefficients.push({});
+        $scope.move = function (from, selected, to) {
+            angular.forEach(selected, function (item) {
+                to.push(item);
+                var index = from.indexOf(item);
+                from.splice(index, 1);
+            });
         };
 
-        $scope.delete = function ($index) {
-            $scope.pump.speedCorrectionCoefficients.splice($index, 1);
+        $scope.moveAll = function (from, to) {
+            angular.forEach(from, function (item) {
+                to.push(item);
+            });
+            from.length = 0;
+        };
+
+        /*driverAssemblies box*/
+        $scope.driverAssembliesBoxOrderProp = 'id';
+        $scope.driverAssembliesBoxSelectedFrom = [];
+        $scope.driverAssembliesBoxPerSelectedFrom = [];
+        $scope.driverAssembliesBoxSelectedTo = [];
+
+        $http({
+            method: 'GET',
+            url: '/pump/api/DataBaseManagement/assemblies'
+        })
+            .success(function (data) {
+                $scope.driverAssembliesBoxAvailable = data;
+            })
+            .error(function (data) {
+                $rootScope.addNotification('danger', data);
+            });
+
+        $scope.move = function (from, selected, to) {
+            angular.forEach(selected, function (item) {
+                to.push(item);
+                var index = from.indexOf(item);
+                from.splice(index, 1);
+            });
+        };
+
+        $scope.moveAll = function (from, to) {
+            angular.forEach(from, function (item) {
+                to.push(item);
+            });
+            from.length = 0;
         };
 
         // Create Button
@@ -76,7 +138,7 @@ angular.module('pump.modules.manage')
 
         $scope.doCreate = function () {
             // copy seals id's to request
-            angular.forEach($scope.selectedFrom, function (item) {
+            angular.forEach($scope.sealsBoxSelectedFrom, function (item) {
                 $scope.pump.seals.push(item.id);
             });
 

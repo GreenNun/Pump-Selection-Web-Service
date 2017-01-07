@@ -2,6 +2,7 @@ package eu.bausov.projects.srvpumpselection.bo.equipment.requests;
 
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -9,30 +10,30 @@ import java.util.Set;
 @XmlRootElement
 public class PumpCreateRequest {
     private String modelName;
-    private Long producer;
+    private long producer;
     private BigDecimal price;
 
-    private Long constPumpType;
-    private Boolean isReliefValve;
-    private Boolean isHeatingJacketOnCover;
-    private Boolean isHeatingJacketOnCasing;
-    private Boolean isHeatingJacketOnBracket;
+    private long constPumpType;
+    private boolean isReliefValve;
+    private boolean isHeatingJacketOnCover;
+    private boolean isHeatingJacketOnCasing;
+    private boolean isHeatingJacketOnBracket;
 
-    private Long constCasingMaterial;
-    private Long constRotorGearMaterial;
-    private Long constIdlerGearMaterial;
-    private Long constShaftSupportMaterial;
-    private Long constShaftMaterial;
+    private long constCasingMaterial;
+    private long constRotorGearMaterial;
+    private long constIdlerGearMaterial;
+    private long constShaftSupportMaterial;
+    private long constShaftMaterial;
 
-    private Long constConnectionsType;
-    private Long constDn;
-    private Long constMaxPressure;
-    private Long constConnectionsAngle;
-    private Long constMaxTemperature;
+    private long constConnectionsType;
+    private long constDn;
+    private long constMaxPressure;
+    private long constConnectionsAngle;
+    private long constMaxTemperature;
 
-    private Double rpmCoefficient;
+    private double rpmCoefficient;
     private Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients;
-    private Long[] seals;
+    private long[] seals;
 
     public String getModelName() {
         return modelName;
@@ -42,11 +43,11 @@ public class PumpCreateRequest {
         this.modelName = modelName;
     }
 
-    public Long getProducer() {
+    public long getProducer() {
         return producer;
     }
 
-    public void setProducer(Long producer) {
+    public void setProducer(long producer) {
         this.producer = producer;
     }
 
@@ -58,131 +59,131 @@ public class PumpCreateRequest {
         this.price = price;
     }
 
-    public Long getConstPumpType() {
+    public long getConstPumpType() {
         return constPumpType;
     }
 
-    public void setConstPumpType(Long constPumpType) {
+    public void setConstPumpType(long constPumpType) {
         this.constPumpType = constPumpType;
     }
 
-    public Boolean getReliefValve() {
+    public boolean isReliefValve() {
         return isReliefValve;
     }
 
-    public void setReliefValve(Boolean reliefValve) {
+    public void setReliefValve(boolean reliefValve) {
         isReliefValve = reliefValve;
     }
 
-    public Boolean getHeatingJacketOnCover() {
+    public boolean isHeatingJacketOnCover() {
         return isHeatingJacketOnCover;
     }
 
-    public void setHeatingJacketOnCover(Boolean heatingJacketOnCover) {
+    public void setHeatingJacketOnCover(boolean heatingJacketOnCover) {
         isHeatingJacketOnCover = heatingJacketOnCover;
     }
 
-    public Boolean getHeatingJacketOnCasing() {
+    public boolean isHeatingJacketOnCasing() {
         return isHeatingJacketOnCasing;
     }
 
-    public void setHeatingJacketOnCasing(Boolean heatingJacketOnCasing) {
+    public void setHeatingJacketOnCasing(boolean heatingJacketOnCasing) {
         isHeatingJacketOnCasing = heatingJacketOnCasing;
     }
 
-    public Boolean getHeatingJacketOnBracket() {
+    public boolean isHeatingJacketOnBracket() {
         return isHeatingJacketOnBracket;
     }
 
-    public void setHeatingJacketOnBracket(Boolean heatingJacketOnBracket) {
+    public void setHeatingJacketOnBracket(boolean heatingJacketOnBracket) {
         isHeatingJacketOnBracket = heatingJacketOnBracket;
     }
 
-    public Long getConstCasingMaterial() {
+    public long getConstCasingMaterial() {
         return constCasingMaterial;
     }
 
-    public void setConstCasingMaterial(Long constCasingMaterial) {
+    public void setConstCasingMaterial(long constCasingMaterial) {
         this.constCasingMaterial = constCasingMaterial;
     }
 
-    public Long getConstRotorGearMaterial() {
+    public long getConstRotorGearMaterial() {
         return constRotorGearMaterial;
     }
 
-    public void setConstRotorGearMaterial(Long constRotorGearMaterial) {
+    public void setConstRotorGearMaterial(long constRotorGearMaterial) {
         this.constRotorGearMaterial = constRotorGearMaterial;
     }
 
-    public Long getConstIdlerGearMaterial() {
+    public long getConstIdlerGearMaterial() {
         return constIdlerGearMaterial;
     }
 
-    public void setConstIdlerGearMaterial(Long constIdlerGearMaterial) {
+    public void setConstIdlerGearMaterial(long constIdlerGearMaterial) {
         this.constIdlerGearMaterial = constIdlerGearMaterial;
     }
 
-    public Long getConstShaftSupportMaterial() {
+    public long getConstShaftSupportMaterial() {
         return constShaftSupportMaterial;
     }
 
-    public void setConstShaftSupportMaterial(Long constShaftSupportMaterial) {
+    public void setConstShaftSupportMaterial(long constShaftSupportMaterial) {
         this.constShaftSupportMaterial = constShaftSupportMaterial;
     }
 
-    public Long getConstShaftMaterial() {
+    public long getConstShaftMaterial() {
         return constShaftMaterial;
     }
 
-    public void setConstShaftMaterial(Long constShaftMaterial) {
+    public void setConstShaftMaterial(long constShaftMaterial) {
         this.constShaftMaterial = constShaftMaterial;
     }
 
-    public Long getConstConnectionsType() {
+    public long getConstConnectionsType() {
         return constConnectionsType;
     }
 
-    public void setConstConnectionsType(Long constConnectionsType) {
+    public void setConstConnectionsType(long constConnectionsType) {
         this.constConnectionsType = constConnectionsType;
     }
 
-    public Long getConstDn() {
+    public long getConstDn() {
         return constDn;
     }
 
-    public void setConstDn(Long constDn) {
+    public void setConstDn(long constDn) {
         this.constDn = constDn;
     }
 
-    public Long getConstMaxPressure() {
+    public long getConstMaxPressure() {
         return constMaxPressure;
     }
 
-    public void setConstMaxPressure(Long constMaxPressure) {
+    public void setConstMaxPressure(long constMaxPressure) {
         this.constMaxPressure = constMaxPressure;
     }
 
-    public Long getConstConnectionsAngle() {
+    public long getConstConnectionsAngle() {
         return constConnectionsAngle;
     }
 
-    public void setConstConnectionsAngle(Long constConnectionsAngle) {
+    public void setConstConnectionsAngle(long constConnectionsAngle) {
         this.constConnectionsAngle = constConnectionsAngle;
     }
 
-    public Long getConstMaxTemperature() {
+    public long getConstMaxTemperature() {
         return constMaxTemperature;
     }
 
-    public void setConstMaxTemperature(Long constMaxTemperature) {
+    public void setConstMaxTemperature(long constMaxTemperature) {
         this.constMaxTemperature = constMaxTemperature;
     }
 
-    public Double getRpmCoefficient() {
+    public double getRpmCoefficient() {
         return rpmCoefficient;
     }
 
-    public void setRpmCoefficient(Double rpmCoefficient) {
+    public void setRpmCoefficient(double rpmCoefficient) {
         this.rpmCoefficient = rpmCoefficient;
     }
 
@@ -194,11 +195,11 @@ public class PumpCreateRequest {
         this.speedCorrectionCoefficients = speedCorrectionCoefficients;
     }
 
-    public Long[] getSeals() {
+    public long[] getSeals() {
         return seals;
     }
 
-    public void setSeals(Long[] seals) {
+    public void setSeals(long[] seals) {
         this.seals = seals;
     }
 }
