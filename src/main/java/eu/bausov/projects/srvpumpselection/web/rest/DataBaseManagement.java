@@ -129,7 +129,10 @@ public class DataBaseManagement {
             pump.setSpeedCorrectionCoefficients(persistOrCreate(session, request.getSpeedCorrectionCoefficients()));
             session.persist(pump);
 
+            // update in parts lists
             partsListUpdate(session, pump, Seal.class, request.getSeals());
+            partsListUpdate(session, pump, Frame.class, request.getFrames());
+            partsListUpdate(session, pump, DriverAssembly.class, request.getDriverAssemblies());
 
             session.flush();
             session.clear();
@@ -137,6 +140,8 @@ public class DataBaseManagement {
         } catch (RuntimeException e) {
             session.getTransaction().rollback();
             e.printStackTrace();
+
+            LOGGER.warn("Transaction ROLLBACK");
             return e.getMessage() + "\n" + e.toString();
         }
 
@@ -196,7 +201,6 @@ public class DataBaseManagement {
 
     private <T extends Equipment> void partsListUpdate(Session session, Pump pump, Class<T> clazz, long[] identifiers) {
         for (long identifier : identifiers) {
-//            T equipment = (T) session.load(clazz, identifier);
             SuitablePumpsList equipment = (SuitablePumpsList) session.load(clazz, identifier);
             equipment.getSuitablePumps().add(pump);
 
