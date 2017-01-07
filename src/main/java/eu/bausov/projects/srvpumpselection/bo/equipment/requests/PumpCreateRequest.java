@@ -34,6 +34,8 @@ public class PumpCreateRequest {
     private double rpmCoefficient;
     private Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients;
     private long[] seals;
+    private long[] frames;
+    private long[] driverAssemblies;
 
     public String getModelName() {
         return modelName;
@@ -201,5 +203,21 @@ public class PumpCreateRequest {
 
     public void setSeals(long[] seals) {
         this.seals = seals;
+    }
+
+    public long[] getFrames() {
+        return frames;
+    }
+
+    public void setFrames(long[] frames) {
+        this.frames = frames;
+    }
+
+    public long[] getDriverAssemblies() {
+        return driverAssemblies;
+    }
+
+    public void setDriverAssemblies(long[] driverAssemblies) {
+        this.driverAssemblies = driverAssemblies;
     }
 }

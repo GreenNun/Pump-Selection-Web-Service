@@ -135,11 +135,19 @@ angular.module('pump.modules.manage')
 
         // Create Button
         $scope.pump.seals = [];
+        $scope.pump.frames = [];
+        $scope.pump.driverAssemblies = [];
 
         $scope.doCreate = function () {
-            // copy seals id's to request
+            // copy seals. frames and assemblies id's to request
             angular.forEach($scope.sealsBoxSelectedFrom, function (item) {
                 $scope.pump.seals.push(item.id);
+            });
+            angular.forEach($scope.framesBoxSelectedFrom, function (item) {
+                $scope.pump.frames.push(item.id);
+            });
+            angular.forEach($scope.driverAssembliesBoxSelectedFrom, function (item) {
+                $scope.pump.driverAssemblies.push(item.id);
             });
 
             $http({
@@ -156,6 +164,8 @@ angular.module('pump.modules.manage')
                 .then(function () {
                     // empty array after request sent
                     $scope.pump.seals.length = 0;
+                    $scope.pump.frames.length = 0;
+                    $scope.pump.driverAssemblies.length = 0;
                 });
         };
     });

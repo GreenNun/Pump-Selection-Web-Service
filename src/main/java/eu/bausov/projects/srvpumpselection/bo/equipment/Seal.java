@@ -26,7 +26,7 @@ import java.util.Set;
 @Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "seal_Type",
         "oRing_Material"})})
 @XmlRootElement
-public class Seal extends Equipment {
+public class Seal extends Equipment implements SuitablePumps {
     private Constant sealType;
     private Constant oRingMaterial;
     private Set<Pump> suitablePumps;
