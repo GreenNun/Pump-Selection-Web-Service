@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_FRAMES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
 @XmlRootElement
-public class Frame extends Equipment implements SuitablePumpsList {
+public class Frame extends Equipment implements SuitablePumps {
     private Set<Pump> suitablePumps;
 
     public Frame() {

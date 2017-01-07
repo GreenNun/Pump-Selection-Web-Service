@@ -3,7 +3,6 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
-import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.bo.equipment.requests.PumpCreateRequest;
 import org.hibernate.Criteria;
@@ -201,7 +200,7 @@ public class DataBaseManagement {
 
     private <T extends Equipment> void partsListUpdate(Session session, Pump pump, Class<T> clazz, long[] identifiers) {
         for (long identifier : identifiers) {
-            SuitablePumpsList equipment = (SuitablePumpsList) session.load(clazz, identifier);
+            SuitablePumps equipment = (SuitablePumps) session.load(clazz, identifier);
             equipment.getSuitablePumps().add(pump);
 
             LOGGER.info("{}.class parts list UPDATED with pump id: {}", clazz.getSimpleName(), pump.getId());
