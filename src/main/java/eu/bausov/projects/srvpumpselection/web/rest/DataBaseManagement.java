@@ -129,6 +129,8 @@ public class DataBaseManagement {
             pump.setSpeedCorrectionCoefficients(persistOrCreate(session, request.getSpeedCorrectionCoefficients()));
             session.persist(pump);
 
+            partsListUpdate(session, pump, Seal.class, request.getSeals());
+
             session.flush();
             session.clear();
             transaction.commit();
@@ -138,7 +140,14 @@ public class DataBaseManagement {
             return e.getMessage() + "\n" + e.toString();
         }
 
-        LOGGER.debug("Pump with id {} has been created", pump.getId());
+        LOGGER.info("Pump with id {} has been created", pump.getId());
+
+//        session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.flush();
+        session.clear();
+        transaction.commit();
 
         return "CREATED pump with id: " + pump.getId();
     }
@@ -176,12 +185,22 @@ public class DataBaseManagement {
             if (object1 == null) {
                 session.persist(object);
                 result.add(object);
-                LOGGER.debug("JPA object persisted and added to Set");
+                LOGGER.info("JPA object persisted and added to Set");
             } else {
                 result.add(object1);
-                LOGGER.debug("JPA object loaded from db and added to Set");
+                LOGGER.info("JPA object loaded from database and added to Set");
             }
         }
         return result;
+    }
+
+    private <T extends Equipment> void partsListUpdate(Session session, Pump pump, Class<T> clazz, long[] identifiers) {
+        for (long identifier : identifiers) {
+//            T equipment = (T) session.load(clazz, identifier);
+            SuitablePumpsList equipment = (SuitablePumpsList) session.load(clazz, identifier);
+            equipment.getSuitablePumps().add(pump);
+
+            LOGGER.info("{}.class parts list UPDATED with pump id: {}", clazz.getSimpleName(), pump.getId());
+        }
     }
 }
