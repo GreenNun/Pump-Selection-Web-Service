@@ -20,7 +20,7 @@
     <import resource="classpath:webServicesContext.xml"/>
     <!--<mvc:resources mapping="" location=""-->
 
-    <bean id="exceptionResolver" class="eu.bausov.projects.pump_selector.web.rest.HandlerExceptionResolver">
+    <bean id="exceptionResolver" class="eu.bausov.projects.srvpumpselection.web.rest.HandlerExceptionResolver">
         <property name="order" value="1"/>
     </bean>
 

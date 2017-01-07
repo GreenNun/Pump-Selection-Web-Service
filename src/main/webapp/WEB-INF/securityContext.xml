@@ -13,11 +13,11 @@
 
     <bean id="forbiddenEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
 
-    <bean id="siteminderFilter" class="eu.bausov.projects.pump_selector.web.security.AuthenticationFilter">
+    <bean id="siteminderFilter" class="eu.bausov.projects.srvpumpselection.web.security.AuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
 
-    <bean id="userRoleService" class="eu.bausov.projects.pump_selector.web.security.UserRoleService"/>
+    <bean id="userRoleService" class="eu.bausov.projects.srvpumpselection.web.security.UserRoleService"/>
 
     <bean id="preauthAuthProvider"
           class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">

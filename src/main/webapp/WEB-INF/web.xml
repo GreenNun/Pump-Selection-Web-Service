@@ -25,7 +25,7 @@
     </context-param>
 
     <listener>
-        <listener-class>eu.bausov.projects.pump_selector.web.ContextListener</listener-class>
+        <listener-class>eu.bausov.projects.srvpumpselection.web.ContextListener</listener-class>
     </listener>
 
     <filter>

@@ -1,87 +1,387 @@
-<div ng-controller="manageCtrl" class="col-xs-12 col-sm-12 col-md-12" style="background-color: whitesmoke">
+<div ng-controller="manageCtrl" class="col-xs-12 col-sm-12 col-md-12">
 
-    <!--<button ng-click="doManage()" class="btn btn-lg btn-block btn-primary" type="submit">Manage</button>-->
+    <div id="container" class="col-xs-8 col-sm-8 col-md-8">
 
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Producer
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li ng-repeat="item in result.list" role="presentation"><a role="menuitem" tabindex="-1" href="#">{{item.producer.producerName}}</a></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
-        </ul>
-    </div>
-
-    <div ng-if="result.list.length > 0"
-         style="border: 2px groove #f2f2f2 !important; border-radius: 5px; margin-top: 15px">
-        <div><h4>{{result.list.length}} {{result.list.length == 1 ? "item" : "items"}} found.</h4></div>
-        <div ng-repeat="item in result.list" style="margin-bottom: 0.3em">
+        <div class="form-group">
+            <label for="modelName">Model Name:</label>
+            <input type="text"
+                   id="modelName"
+                   placeholder="Model"
+                   ng-model="pump.modelName"
+                   class="form-control"/>
         </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input id="price"
+                   placeholder="Price"
+                   ng-model="pump.price"
+                   type="number"
+                   min="0"
+                   step="1"
+                   class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <label for="producer" class="control-label">Producer:</label>
+            <select class="form-control" id="producer" ng-model="pump.producer">
+                <option></option>
+                <option ng-repeat="item in producers | orderBy: 'producerName'" value="{{item.id}}">
+                    {{item.producerName}}, {{item.producerCountry.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pumpType">Pump type:</label>
+            <select class="form-control" id="pumpType" ng-model="pump.constPumpType">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump type'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="options">Options:</label>
+            <div class="form-group" id="options">
+
+                <input type="checkbox" id="option1-checkbox" autocomplete="off" ng-model="pump.reliefValve"
+                       ng-true-value="true" ng-false-value="false"/>
+                <div class="btn-group">
+                    <label for="option1-checkbox" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <span> </span>
+                    </label>
+                    <label for="option1-checkbox" class="btn btn-default open">Relief Valve</label>
+                </div>
+
+                <input type="checkbox" id="option2-checkbox" autocomplete="off" ng-model="pump.heatingJacketOnCover"
+                       ng-true-value="true" ng-false-value="false"/>
+                <div class="btn-group">
+                    <label for="option2-checkbox" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <span> </span>
+                    </label>
+                    <label for="option2-checkbox" class="btn btn-default open">Heating Jacket On Cover</label>
+                </div>
+
+                <input type="checkbox" id="option3-checkbox" autocomplete="off"
+                       ng-model="pump.heatingJacketOnCasing"
+                       ng-true-value="true" ng-false-value="false"/>
+                <div class="btn-group">
+                    <label for="option3-checkbox" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <span> </span>
+                    </label>
+                    <label for="option3-checkbox" class="btn btn-default open">Heating Jacket On Casing</label>
+                </div>
+
+                <input type="checkbox" id="option4-checkbox" autocomplete="off"
+                       ng-model="pump.heatingJacketOnBracket"
+                       ng-true-value="true" ng-false-value="false"/>
+                <div class="btn-group">
+                    <label for="option4-checkbox" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <span> </span>
+                    </label>
+                    <label for="option4-checkbox" class="btn btn-default open">Heating Jacket On Bracket</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="casingMaterial">Casing material:</label>
+            <select class="form-control" id="casingMaterial" ng-model="pump.constCasingMaterial">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="rotorGearMaterial">Rotor Gear material:</label>
+            <select class="form-control" id="rotorGearMaterial" ng-model="pump.constRotorGearMaterial">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="idlerGearMaterial">Idler Gear material:</label>
+            <select class="form-control" id="idlerGearMaterial" ng-model="pump.constIdlerGearMaterial">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="shaftSupportMaterial">Shaft Support material:</label>
+            <select class="form-control" id="shaftSupportMaterial" ng-model="pump.constShaftSupportMaterial">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="shaftMaterial">Shaft material:</label>
+            <select class="form-control" id="shaftMaterial" ng-model="pump.constShaftMaterial">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="connectionType">Connections type:</label>
+            <select class="form-control" id="connectionType" ng-model="pump.constConnectionsType">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connections type'"
+                        value="{{item.id}}">{{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="dn">DN:</label>
+            <select class="form-control" id="dn" ng-model="pump.constDn">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'DN'" value="{{item.id}}">
+                    {{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="connectionsAngle">Connections placement angle [&#176;]:</label>
+            <select class="form-control" id="connectionsAngle" ng-model="pump.constConnectionsAngle">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connections angle'"
+                        value="{{item.id}}">{{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="maxPressure">Max. Pressure [bar]:</label>
+            <select class="form-control" id="maxPressure" ng-model="pump.constMaxPressure">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'max. pressure'"
+                        value="{{item.id}}">{{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="maxTemperature">Max. Temperature [&#8451;]:</label>
+            <select class="form-control" id="maxTemperature" ng-model="pump.constMaxTemperature">
+                <option></option>
+                <option ng-repeat="item in constants | orderBy: 'value' | filter: 'max. temperature'"
+                        value="{{item.id}}">{{item.value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Speed Correction Coefficient:</label>
+            <input
+                    placeholder="coefficient"
+                    ng-model="pump.rpmCoefficient"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    class="form-control"/>
+        </div>
+
+
+        <div class="form-group">
+            <label for="viscosity_coefficients_box">Viscosity Correction Coefficients:</label>
+            <div class="row" id="viscosity_coefficients_box">
+                <div ng-repeat="item in pump.speedCorrectionCoefficients">
+                    <div id="input1" class="col-xs-6">
+                        <input
+                                placeholder="{{$index}} - Viscosity"
+                                ng-model="pump.speedCorrectionCoefficients[$index].viscosity"
+                                type="number"
+                                min="0"
+                                step="1"
+                                class="form-control"/>
+                    </div>
+                    <div id="input2" class="col-xs-5">
+                        <input
+                                placeholder="Coefficient"
+                                ng-model="pump.speedCorrectionCoefficients[$index].coefficient"
+                                type="number"
+                                min="0"
+                                step="1"
+                                class="form-control"/>
+                    </div>
+                    <div id="delete-button" class="col-xs-1">
+                        <button ng-click="delete($index)"
+                                class="btn btn-block btn-default"
+                                type="submit"
+                        ><i class="glyphicon glyphicon-remove text-danger"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-1" id="add-button">
+                    <button ng-click="add()"
+                            class="btn btn-block btn-default"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-plus text-success"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="seals_box">Suitable Seals:</label>
+            <div class="row" id="seals_box">
+                <div class="col-xs-6" id="seals_box_left_column">
+                    <input type="text" id="seals_box_search_left" class="form-control" placeholder="Search..."
+                           ng-model="query1"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
+                            for item in sealsBoxAvailable | filter: query1 | orderBy: orderProp"
+                            ng-model="sealsBoxPerSelectedFrom">
+                    </select>
+                </div>
+
+                <div class="col-xs-1" id="seals_box_buttons_column">
+                    <button ng-click="moveAll(sealsBoxAvailable, sealsBoxSelectedFrom)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(sealsBoxAvailable, sealsBoxPerSelectedFrom, sealsBoxSelectedFrom)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(sealsBoxSelectedFrom, sealsBoxSelectedTo, sealsBoxAvailable)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(sealsBoxSelectedFrom, sealsBoxAvailable)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-backward"></i></button>
+                </div>
+
+                <div class="col-xs-5" id="seals_box_right_column">
+                    <input type="text" id="seals_box_search_right" class="form-control" placeholder="Search..."
+                           ng-model="query2"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName + ', ' + item.oringMaterial.value
+                            for item in sealsBoxSelectedFrom | filter: query2" ng-model="sealsBoxSelectedTo">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="frames_box">Suitable Frames:</label>
+            <div class="row" id="frames_box">
+                <div class="col-xs-6" id="frames_box_left_column">
+                    <input type="text" id="frames_box_search_left" class="form-control" placeholder="Search..."
+                           ng-model="query3"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in framesBoxAvailable | filter: query3 | orderBy: orderProp"
+                            ng-model="framesBoxPerSelectedFrom">
+                    </select>
+                </div>
+
+                <div class="col-xs-1" id="frames_box_buttons_column">
+                    <button ng-click="moveAll(framesBoxAvailable, framesBoxSelectedFrom)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(framesBoxAvailable, framesBoxPerSelectedFrom, framesBoxSelectedFrom)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(framesBoxSelectedFrom, framesBoxSelectedTo, framesBoxAvailable)"
+                            class="btn btn-block btn-success"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(framesBoxSelectedFrom, framesBoxAvailable)"
+                            class="btn btn-block btn-warning"
+                            type="submit"
+                    ><i class="glyphicon glyphicon-backward"></i></button>
+                    <button ng-click="moveAll(framesBoxSelectedFrom, framesBoxAvailable)"
+                            class="btn btn-block btn-info"
+                            type="submit">Manage
+                    </button>
+                </div>
+
+                <div class="col-xs-5" id="frames_box_right_column">
+                    <input type="text" id="frames_box_search_right" class="form-control" placeholder="Search..."
+                           ng-model="query4"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in framesBoxSelectedFrom | filter: query4" ng-model="framesBoxSelectedTo">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="driver_assemblies_box">Suitable Driver Assemblies:</label>
+            <div class="row" id="driver_assemblies_box">
+                <div class="col-xs-6" id="driver_assemblies_box_left_column">
+                    <input type="text" id="driver_assemblies_box_search_left" class="form-control"
+                           placeholder="Search..."
+                           ng-model="query5"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in driverAssembliesBoxAvailable | filter: query5 | orderBy: orderProp"
+                            ng-model="driverAssembliesBoxPerSelectedFrom">
+                    </select>
+                </div>
+
+                <div class="col-xs-1" id="driver_assemblies_box_buttons_column">
+                    <button ng-click="moveAll(driverAssembliesBoxAvailable, driverAssembliesBoxSelectedFrom)"
+                            class="btn btn-block btn-warning"
+                            type="submit"><i class="glyphicon glyphicon-forward"></i></button>
+                    <button ng-click="move(driverAssembliesBoxAvailable, driverAssembliesBoxPerSelectedFrom, driverAssembliesBoxSelectedFrom)"
+                            class="btn btn-block btn-success"
+                            type="submit"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    <button ng-click="move(driverAssembliesBoxSelectedFrom, driverAssembliesBoxSelectedTo, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-success"
+                            type="submit"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                    <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-warning"
+                            type="submit"><i class="glyphicon glyphicon-backward"></i></button>
+                    <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+                            class="btn btn-block btn-info"
+                            type="submit"><i class="glyphicon glyphicon-edit"></i></button>
+                </div>
+
+                <div class="col-xs-5" id="driver_assemblies_box_right_column">
+                    <input type="text" id="driver_assemblies_box_search_right" class="form-control"
+                           placeholder="Search..."
+                           ng-model="query6"/>
+                    <select class="form-control" size="8" multiple="multiple"
+                            ng-options="item as item.modelName + ', ' + item.producer.producerName
+                            for item in driverAssembliesBoxSelectedFrom | filter: query6"
+                            ng-model="driverAssembliesBoxSelectedTo">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button ng-click="doCreate()" class="btn btn-lg btn-block btn-primary" type="submit">Create</button>
+
     </div>
-
-    <table class="table table-hover" ng-if="result.list.length > 0">
-        <thead>
-        <tr>
-            <th>Pump</th>
-            <th>Materials</th>
-            <th>Reducer</th>
-            <th>Motor</th>
-            <th style="width: 20%"></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="item in result.list">
-            <td>
-                <!--PUMP-->
-                <div><b>{{item.pump.constPumpType.value}} {{item.pump.modelName}}<br>
-                    {{item.pump.producer.producerName}} ({{item.pump.producer.producerCountry.value}})</b></div>
-            </td>
-            <td>
-                <!--MATERIALS-->
-                <div>
-                    Casing: {{item.pump.constCasingMaterial.value}}<br>
-                    Rotor Gear: {{item.pump.constRotorGearMaterial.value}}<br>
-                    Idler Gear: {{item.pump.constIdlerGearMaterial.value}}<br>
-                    Shaft: {{item.pump.constShaftMaterial.value}}<br>
-                    Shaft support: {{item.pump.constShaftSupportMaterial.value}}<br>
-                    Seal: {{item.seal.sealType.value}}<br>
-                    Connections: {{item.pump.constConnectionsType.value}} DN{{item.pump.constDn.value}},
-                    {{item.pump.constConnectionsAngle.value}}&deg;</div>
-            </td>
-            <td>
-                <!--REDUCER-->
-                <div>
-                    {{item.reducer.modelName}}<br>
-                    {{item.reducer.producer.producerName}} ({{item.reducer.producer.producerCountry.value}})<br>
-                    Speed to shaft: {{item.shaftSpeed}} rpm
-                </div>
-            </td>
-            <td>
-                <!--MOTOR-->
-                <div>
-                    {{item.motor.producer.producerName}} ({{item.motor.producer.producerCountry.value}})<br>
-                    Voltage: 400 V<br>
-                    Speed: {{item.motor.constSpeed.value}} rpm<br>
-                    Power: {{item.motor.constPowerHp.value}} HP<br>
-                    Explosion Proof: {{item.motor.constExplosionProof.value}}
-                </div>
-            </td>
-            <td>
-                <div>Pump assembly with {{item.driverAssembly.driverAssemblyType.value}},
-                    {{item.driverAssembly.driverAssemblyType.value}} protection, motor-reducer and the
-                    mounting frame.
-                </div>
-            </td>
-            <td>
-                <div>
-                    <button class="btn btn-success disabled">&#8364{{item.price}}</button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    {{result.list}}
-
 </div>

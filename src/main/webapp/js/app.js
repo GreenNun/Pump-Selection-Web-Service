@@ -1,10 +1,16 @@
-angular.module('pump.modules.search', ['ui.bootstrap', 'ui.select2', 'ngSanitize']);
-angular.module('pump.modules.manage', ['ui.bootstrap', 'ui.select2', 'ngSanitize']);
+angular.module('pump.modules.search',
+    []
+);
+
+angular.module('pump.modules.manage',
+    []
+);
 
 angular.module('pump.modules.route',
     [
         'ngRoute',
         'ui.bootstrap',
+        'ngSanitize',
         'pump.modules.search',
         'pump.modules.manage'
     ]

@@ -1,10 +1,103 @@
-.container {
-    width: 100%;
+body {
+    background-color: whitesmoke;
 }
 
-.btn-group.btn-block {
-    display: table;
+/*checkboxes*/
+.form-group input[type="checkbox"] {
+    display: none;
 }
-.btn-group.btn-block > .btn {
-    display: table-cell;
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
 }
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+}
+
+/*coefficients box*/
+#input1 {
+    margin-bottom: 5px;
+    padding-right: 5px;
+}
+
+#input2 {
+    margin-bottom: 5px;
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+#delete-button {
+    margin-bottom: 5px;
+    padding-left: 0;
+}
+
+#add-button {
+    padding-right: 0;
+}
+
+/*seals box $ frames box*/
+#seals_box_search_left,
+#frames_box_search_left,
+#driver_assemblies_box_search_left {
+    margin-bottom: 5px;
+}
+
+#seals_box_left_column,
+#frames_box_left_column,
+#driver_assemblies_box_left_column {
+    padding-right: 5px;
+}
+
+#seals_box_buttons_column,
+#frames_box_buttons_column,
+#driver_assemblies_box_buttons_column {
+    padding-right: 5px;
+    padding-left: 0;
+}
+
+#seals_box_search_right,
+#frames_box_search_right,
+#driver_assemblies_box_search_right {
+    margin-bottom: 5px;
+}
+
+#seals_box_right_column,
+#frames_box_right_column,
+#driver_assemblies_box_right_column {
+    padding-left: 0;
+}
+
+/*frames box*/
+/*#frames_box_search_left {*/
+    /*margin-bottom: 5px;*/
+/*}*/
+
+/*#frames_box_left_column {*/
+    /*padding-right: 5px;*/
+/*}*/
+
+/*#frames_box_buttons_column {*/
+    /*padding-right: 5px;*/
+    /*padding-left: 0;*/
+/*}*/
+
+/*#frames_box_search_right {*/
+    /*margin-bottom: 5px;*/
+/*}*/
+
+/*#frames_box_right_column {*/
+    /*padding-left: 0;*/
+/*}*/
