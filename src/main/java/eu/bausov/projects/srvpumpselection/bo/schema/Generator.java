@@ -1,7 +1,6 @@
 package eu.bausov.projects.srvpumpselection.bo.schema;
 
-import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.ImprovedNamingStrategy;
+import org.hibernate.cfg.*;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;

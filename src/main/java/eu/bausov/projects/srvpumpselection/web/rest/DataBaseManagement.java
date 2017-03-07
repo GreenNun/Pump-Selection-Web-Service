@@ -200,7 +200,7 @@ public class DataBaseManagement {
 
     private <T extends Equipment> void partsListUpdate(Session session, Pump pump, Class<T> clazz, long[] identifiers) {
         for (long identifier : identifiers) {
-            SuitablePumps equipment = (SuitablePumps) session.load(clazz, identifier);
+            PumpPart equipment = (PumpPart) session.load(clazz, identifier);
             equipment.getSuitablePumps().add(pump);
 
             LOGGER.info("{}.class parts list UPDATED with pump id: {}", clazz.getSimpleName(), pump.getId());

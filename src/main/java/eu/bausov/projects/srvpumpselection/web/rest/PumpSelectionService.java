@@ -49,7 +49,7 @@ public class PumpSelectionService {
                     pump.getReliefValve() == parameters.isReliefValve() &&                                  // reliefValve
                     (pump.getHeatingJacketOnCover() || pump.getHeatingJacketOnCasing() ||
                             pump.getHeatingJacketOnBracket()) == parameters.isHeatingJacket() &&            // heatingJacket
-                    pump.getConstCasingMaterial().getValue().contains(parameters.getCasingMaterial()) &&  // casingMaterial
+                    pump.getConstCasingMaterial().getValue().contains(parameters.getCasingMaterial()) &&    // casingMaterial
                     pump.isPressureValid(parameters) &&                                                     // pressure
                     pump.isTemperatureValid(parameters)) {                                                  // temperature
                 // Reducer
