@@ -4,6 +4,7 @@ import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlTransient;

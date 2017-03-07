@@ -135,12 +135,10 @@
             <version>4.3.7.Final</version>
         </dependency>
 
-
-
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.1-901.jdbc4</version>
+            <version>42.0.0.jre7</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -196,6 +194,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -207,6 +206,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.26</version>
             </plugin>
+
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
@@ -223,8 +223,6 @@
 
         <finalName>pump</finalName>
 
-
     </build>
-
 
 </project>

@@ -28,7 +28,7 @@ import java.util.Set;
 @Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer",
         "driver_Assembly_Type", "const_Explosion_Proof"})})
 @XmlRootElement
-public class DriverAssembly extends Equipment implements SuitablePumps {
+public class DriverAssembly extends Equipment implements PumpPart {
     private Constant driverAssemblyType;
     private Constant constExplosionProof;
     private Set<Pump> suitablePumps;
