@@ -8,24 +8,26 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http pattern="/api/**" entry-point-ref="forbiddenEntryPoint" create-session="stateless">
-        <security:custom-filter position="PRE_AUTH_FILTER" ref="siteminderFilter" />
+        <security:custom-filter position="PRE_AUTH_FILTER" ref="siteminderFilter"/>
+        <security:csrf disabled="true"/>
     </security:http>
 
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="preauthAuthProvider" />
+        <security:authentication-provider ref="preauthAuthProvider"/>
     </security:authentication-manager>
 
     <bean id="forbiddenEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
 
     <bean id="siteminderFilter" class="eu.bausov.projects.srvpumpselection.web.security.AuthenticationFilter">
-        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationManager" ref="authenticationManager"/>
     </bean>
 
     <bean id="userRoleService" class="eu.bausov.projects.srvpumpselection.web.security.UserRoleService"/>
 
-    <bean id="preauthAuthProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+    <bean id="preauthAuthProvider"
+          class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
         <property name="preAuthenticatedUserDetailsService">
-            <bean id="userDetailsServiceWrapper" class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+            <bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
                 <property name="userDetailsService" ref="userRoleService"/>
             </bean>
         </property>

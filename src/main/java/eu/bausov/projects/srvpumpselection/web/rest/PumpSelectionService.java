@@ -26,12 +26,16 @@ import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/PumpSelectionService")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 public class PumpSelectionService {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public PumpSelectionService(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.POST)

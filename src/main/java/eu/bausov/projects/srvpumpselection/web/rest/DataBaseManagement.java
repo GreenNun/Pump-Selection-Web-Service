@@ -24,10 +24,14 @@ import java.util.Set;
 @Controller
 @RequestMapping(value = "/DataBaseManagement")
 public class DataBaseManagement {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(DataBaseManagement.class);
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    public DataBaseManagement(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/constants", method = RequestMethod.GET)
