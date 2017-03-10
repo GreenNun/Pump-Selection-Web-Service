@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_FRAMES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer"})})
+@Table(name = "TB_FRAMES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer"})})
 @XmlRootElement
 public class Frame extends Equipment implements PumpPart {
     private Set<Pump> suitablePumps;

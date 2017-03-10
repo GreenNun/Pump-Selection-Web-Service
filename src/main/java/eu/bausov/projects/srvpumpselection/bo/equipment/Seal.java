@@ -23,8 +23,8 @@ import java.util.Set;
  * value:  "none" | "Viton&reg;";
  */
 @Entity
-@Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "seal_Type",
-        "oRing_Material"})})
+@Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "seal_type",
+        "oring_material"})})
 @XmlRootElement
 public class Seal extends Equipment implements PumpPart {
     private Constant sealType;
@@ -45,6 +45,7 @@ public class Seal extends Equipment implements PumpPart {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "seal_type")
     public Constant getSealType() {
         return sealType;
     }
@@ -54,6 +55,7 @@ public class Seal extends Equipment implements PumpPart {
     }
 
     @ManyToOne
+    @JoinColumn(name = "oring_material")
     public Constant getORingMaterial() {
         return oRingMaterial;
     }

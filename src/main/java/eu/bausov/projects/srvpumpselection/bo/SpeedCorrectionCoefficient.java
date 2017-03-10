@@ -1,9 +1,6 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -22,6 +19,7 @@ public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedC
     }
 
     @Basic(optional = false)
+    @Column(name = "viscosity")
     public Integer getViscosity() {
         return viscosity;
     }
@@ -31,6 +29,7 @@ public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedC
     }
 
     @Basic(optional = false)
+    @Column(name = "coefficient")
     public Integer getCoefficient() {
         return coefficient;
     }

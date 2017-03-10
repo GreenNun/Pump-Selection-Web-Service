@@ -21,6 +21,7 @@ public class Constant extends JPA {
 
     //@XmlTransient
     @Basic(optional = false)
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -30,6 +31,7 @@ public class Constant extends JPA {
     }
 
     @Basic(optional = false)
+    @Column(name = "value")
     public String getValue() {
         return value;
     }

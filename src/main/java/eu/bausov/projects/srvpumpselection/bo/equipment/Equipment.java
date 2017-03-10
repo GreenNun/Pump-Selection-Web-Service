@@ -3,10 +3,7 @@ package eu.bausov.projects.srvpumpselection.bo.equipment;
 import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
@@ -18,6 +15,7 @@ public abstract class Equipment extends JPA {
     private BigDecimal price;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "producer")
     public Producer getProducer() {
         return producer;
     }
@@ -27,6 +25,7 @@ public abstract class Equipment extends JPA {
     }
 
     @Basic(optional = false)
+    @Column(name = "model_name")
     public String getModelName() {
         return modelName;
     }
@@ -37,6 +36,7 @@ public abstract class Equipment extends JPA {
 
     @XmlTransient // comment to show price
     @Basic(optional = false)
+    @Column(name = "price")
     public BigDecimal getPrice() {
         return price;
     }

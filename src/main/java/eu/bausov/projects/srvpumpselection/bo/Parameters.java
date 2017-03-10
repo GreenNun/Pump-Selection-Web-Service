@@ -1,7 +1,6 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -132,9 +131,9 @@ public class Parameters {
      */
     //@Transient
     public double getRequiredMotorStandardPowerHP() {
-        Stream<Double> stream = Arrays.asList(0.16, 0.25, 0.34, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.5,
+        Stream<Double> stream = Stream.of(0.16, 0.25, 0.34, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.5,
                 7.5, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0, 60.0, 75.0,
-                100.0, 120.0, 150.0, 180.0, 220.0, 250.0).stream();
+                100.0, 120.0, 150.0, 180.0, 220.0, 250.0);
         Optional<Double> optional = stream.sorted().filter((d) -> d >= gerPowerHp()).findFirst();
         return optional.isPresent() ? optional.get() : -1;
     }

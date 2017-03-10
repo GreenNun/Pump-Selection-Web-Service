@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "TB_PRODUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"producerName", "producer_country"})})
+@Table(name = "TB_PRODUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"producer_name", "producer_country"})})
 @XmlRootElement
 public class Producer extends JPA {
 
@@ -20,6 +20,7 @@ public class Producer extends JPA {
     }
 
     @Basic(optional = false)
+    @Column(name = "producer_name")
     public String getProducerName() {
         return producerName;
     }
@@ -29,6 +30,7 @@ public class Producer extends JPA {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "producer_country")
     public Constant getProducerCountry() {
         return producerCountry;
     }
