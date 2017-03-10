@@ -1,25 +1,47 @@
 package eu.bausov.projects.srvpumpselection.bo.schema;
 
-import org.hibernate.cfg.*;
+import eu.bausov.projects.srvpumpselection.bo.Constant;
+import eu.bausov.projects.srvpumpselection.bo.Producer;
+import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
+import eu.bausov.projects.srvpumpselection.bo.equipment.*;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
+import org.hibernate.tool.schema.TargetType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.EnumSet;
 
 public class Generator {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Generator.class);
+
     public static void main(String[] args) {
-        try {
-            Resource resource = new FileSystemResource("src/main/resources/hibernate.cfg.xml");
+        MetadataSources metadata = new MetadataSources(
+                new StandardServiceRegistryBuilder()
+                        .applySetting("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect")
+//                        .applySetting("javax.persistence.schema-generation-connection", "jdbc:postgresql://localhost:5432/postgres")
+//                        .applySetting("hibernate.connection.URL", "jdbc:postgresql://localhost:5432/postgres")
+                        .build()
+        );
 
-            Configuration configuration = new Configuration().configure(resource.getURL());
-            configuration.setNamingStrategy(ImprovedNamingStrategy.INSTANCE);
+        metadata.addAnnotatedClass(Constant.class);
+        metadata.addAnnotatedClass(Producer.class);
+        metadata.addAnnotatedClass(SpeedCorrectionCoefficient.class);
+        metadata.addAnnotatedClass(DriverAssembly.class);
+        metadata.addAnnotatedClass(Equipment.class);
+        metadata.addAnnotatedClass(Frame.class);
+        metadata.addAnnotatedClass(Pump.class);
+        metadata.addAnnotatedClass(Motor.class);
+        metadata.addAnnotatedClass(PumpAggregate.class);
+        metadata.addAnnotatedClass(Reducer.class);
+        metadata.addAnnotatedClass(Seal.class);
 
-            SchemaExport schema = new SchemaExport(configuration);
-            schema.setOutputFile("schema_ddl.sql");
-            schema.setDelimiter(";\n");
-            schema.create(true, false);
+        SchemaExport export = new SchemaExport();
+        export.setOutputFile("schema_ddl.sql");
+        export.setDelimiter(";");
+        export.create(EnumSet.of(TargetType.SCRIPT), metadata.buildMetadata());
 
-        } catch (Exception ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
+        LOGGER.info("Schema export finished");
     }
 }

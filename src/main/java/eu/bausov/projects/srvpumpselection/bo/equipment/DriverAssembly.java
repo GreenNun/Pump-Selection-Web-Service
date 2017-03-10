@@ -25,8 +25,8 @@ import java.util.Set;
  * value:  "none" | "ATEX";
  */
 @Entity
-@Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer",
-        "driver_Assembly_Type", "const_Explosion_Proof"})})
+@Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer",
+        "driver_assembly_type", "const_explosion_proof"})})
 @XmlRootElement
 public class DriverAssembly extends Equipment implements PumpPart {
     private Constant driverAssemblyType;
@@ -47,6 +47,7 @@ public class DriverAssembly extends Equipment implements PumpPart {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "driver_assembly_type")
     public Constant getDriverAssemblyType() {
         return driverAssemblyType;
     }
@@ -56,6 +57,7 @@ public class DriverAssembly extends Equipment implements PumpPart {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_explosion_proof")
     public Constant getConstExplosionProof() {
         return constExplosionProof;
     }
@@ -82,9 +84,7 @@ public class DriverAssembly extends Equipment implements PumpPart {
 
         DriverAssembly that = (DriverAssembly) o;
 
-        if (!driverAssemblyType.equals(that.driverAssemblyType)) return false;
-        return constExplosionProof.equals(that.constExplosionProof);
-
+        return driverAssemblyType.equals(that.driverAssemblyType) && constExplosionProof.equals(that.constExplosionProof);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package eu.bausov.projects.srvpumpselection.web.rest;
 
-import eu.bausov.projects.srvpumpselection.bo.*;
+import eu.bausov.projects.srvpumpselection.bo.Constant;
+import eu.bausov.projects.srvpumpselection.bo.Parameters;
+import eu.bausov.projects.srvpumpselection.bo.Producer;
+import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,17 +13,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/PumpSelectionService")
 @PreAuthorize("hasRole('ADMIN')")
 public class PumpSelectionService {
-
-    private Logger logger = LoggerFactory.getLogger(PumpSelectionService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -31,7 +39,7 @@ public class PumpSelectionService {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-        logger.info("Current session received '{}'", currentSession.getClass());
+        LOGGER.info("Current session received '{}'", currentSession.getClass());
 
         // Get all equipment lists from DB
         List<Pump> pumps = currentSession.createCriteria(Pump.class).list();
@@ -110,6 +118,7 @@ public class PumpSelectionService {
     @ResponseBody
     @RequestMapping(value = "/filldatabase", method = RequestMethod.GET)
     public String test() {
+        LOGGER.info("Filling database...");
 
         //http://127.0.0.1:8080/pump/api/PumpSelectionService/filldatabase
 
@@ -123,7 +132,7 @@ public class PumpSelectionService {
         session.persist(wonderland);
         Constant germany = new Constant("country", "Germany");
         session.persist(germany);
-        Constant turkey =  new Constant("country", "Turkey");
+        Constant turkey = new Constant("country", "Turkey");
         session.persist(turkey);
 
         /**
@@ -1591,30 +1600,6 @@ public class PumpSelectionService {
         session.persist(ykuf2_5vh1_2_3);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /**
          * PUMPS SET - YKF-3
          */
@@ -1675,21 +1660,6 @@ public class PumpSelectionService {
         pumpsSetYKF.add(ykuf2_5vh2_3);
         pumpsSetYKF.add(ykf3vh1_2_3);
         pumpsSetYKF.add(ykuf2_5vh1_2_3);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /**

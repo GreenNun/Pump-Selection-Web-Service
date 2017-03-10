@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-    <context:property-placeholder location="classpath:service.properties" />
+    <!--<context:property-placeholder location="classpath:service.properties" />-->
 
     <context:component-scan base-package="eu.bausov.projects.srvpumpselection.web.rest"/>
 

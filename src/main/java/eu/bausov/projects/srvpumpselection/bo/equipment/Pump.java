@@ -57,10 +57,10 @@ import java.util.Set;
  * speedCorrectionCoefficients is pumps of coefficients correcting shaft speed according viscosity grades.
  */
 @Entity
-@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "const_Pump_Type",
-        "ReliefValve", "HeatingJacketOnCover", "HeatingJacketOnCasing", "HeatingJacketOnBracket",
-        "const_Casing_Material", "const_Rotor_Gear_Material", "const_Idler_Gear_Material", "const_Shaft_Support_Material",
-        "const_Shaft_Material", "const_Connections_Type", "const_Dn", "const_Max_Pressure", "const_Connections_Angle"})})
+@Table(name = "TB_PUMPS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "const_pump_type",
+        "relief_valve", "heating_jacket_on_cover", "heating_jacket_on_casing", "heating_jacket_on_bracket",
+        "const_casing_material", "const_rotor_gear_material", "const_idler_gear_material", "const_shaft_support_material",
+        "const_shaft_material", "const_connections_type", "const_dn", "const_max_pressure", "const_connections_angle"})})
 @XmlRootElement
 public class Pump extends Equipment {
     private Constant constPumpType;
@@ -85,6 +85,7 @@ public class Pump extends Equipment {
     private Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_pump_type")
     public Constant getConstPumpType() {
         return constPumpType;
     }
@@ -94,6 +95,7 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "relief_valve")
     public Boolean getReliefValve() {
         return isReliefValve;
     }
@@ -103,6 +105,7 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "heating_jacket_on_cover")
     public Boolean getHeatingJacketOnCover() {
         return isHeatingJacketOnCover;
     }
@@ -112,6 +115,7 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "heating_jacket_on_casing")
     public Boolean getHeatingJacketOnCasing() {
         return isHeatingJacketOnCasing;
     }
@@ -121,6 +125,7 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "heating_jacket_on_bracket")
     public Boolean getHeatingJacketOnBracket() {
         return isHeatingJacketOnBracket;
     }
@@ -130,6 +135,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_casing_material")
     public Constant getConstCasingMaterial() {
         return constCasingMaterial;
     }
@@ -139,6 +145,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_rotor_gear_material")
     public Constant getConstRotorGearMaterial() {
         return constRotorGearMaterial;
     }
@@ -148,6 +155,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_idler_gear_material")
     public Constant getConstIdlerGearMaterial() {
         return constIdlerGearMaterial;
     }
@@ -157,6 +165,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_shaft_material")
     public Constant getConstShaftSupportMaterial() {
         return constShaftSupportMaterial;
     }
@@ -166,6 +175,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_shaft_support_material")
     public Constant getConstShaftMaterial() {
         return constShaftMaterial;
     }
@@ -175,6 +185,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_connections_type")
     public Constant getConstConnectionsType() {
         return constConnectionsType;
     }
@@ -184,6 +195,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_dn")
     public Constant getConstDn() {
         return constDn;
     }
@@ -193,6 +205,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_max_pressure")
     public Constant getConstMaxPressure() {
         return constMaxPressure;
     }
@@ -202,6 +215,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_connections_angle")
     public Constant getConstConnectionsAngle() {
         return constConnectionsAngle;
     }
@@ -211,6 +225,7 @@ public class Pump extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_max_temperature")
     public Constant getConstMaxTemperature() {
         return constMaxTemperature;
     }
@@ -220,6 +235,7 @@ public class Pump extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "rpm_coefficient")
     public Double getRpmCoefficient() {
         return rpmCoefficient;
     }

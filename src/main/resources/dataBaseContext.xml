@@ -28,16 +28,8 @@
         <property name="accessToUnderlyingConnectionAllowed" value="true"/>
     </bean>
 
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-        <!--<property name="dataSource" ref="serviceDataSource" />-->
-        <!--<property name="fetchSize" value="1000" />-->
-    <!--</bean>-->
-
-    <bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy"/>
-
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" destroy-method="destroy">
         <property name="dataSource" ref="serviceDataSource"/>
-        <property name="namingStrategy" ref="namingStrategy"/>
         <property name="configLocation" value="classpath:/hibernate.cfg.xml"/>
         <property name="annotatedPackages" value="eu.bausov.projects.srvpumpselection.bo.equipment"/>
     </bean>
