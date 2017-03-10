@@ -19,8 +19,8 @@ import java.math.BigDecimal;
  * value:  "5" | "7.5" | "10" | "15" | "20";
  */
 @Entity
-@Table(name = "TB_REDUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"modelName", "producer", "vendor",
-        "minRpm", "maxRpm", "const_Explosion_Proof", "const_Required_Motor_Power_Hp"})})
+@Table(name = "TB_REDUCERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "vendor",
+        "min_rpm", "max_rpm", "const_explosion_proof", "const_required_motor_power_hp"})})
 @XmlRootElement
 public class Reducer extends Equipment {
     private Producer vendor;
@@ -48,6 +48,7 @@ public class Reducer extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "vendor")
     public Producer getVendor() {
         return vendor;
     }
@@ -57,6 +58,7 @@ public class Reducer extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "min_rpm")
     public Integer getMinRpm() {
         return minRpm;
     }
@@ -66,6 +68,7 @@ public class Reducer extends Equipment {
     }
 
     @Basic(optional = false)
+    @Column(name = "max_rpm")
     public Integer getMaxRpm() {
         return maxRpm;
     }
@@ -75,6 +78,7 @@ public class Reducer extends Equipment {
     }
 
     @ManyToOne
+    @JoinColumn(name = "const_explosion_proof")
     public Constant getConstExplosionProof() {
         return constExplosionProof;
     }
@@ -84,6 +88,7 @@ public class Reducer extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_required_motor_power_hp")
     public Constant getConstRequiredMotorPowerHp() {
         return constRequiredMotorPowerHp;
     }
@@ -93,6 +98,7 @@ public class Reducer extends Equipment {
     }
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "const_motor_frame_size")
     public Constant getConstMotorFrameSize() {
         return constMotorFrameSize;
     }
