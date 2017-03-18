@@ -117,32 +117,3 @@ public class PumpSelectionService {
         return pumpAggregates;
     }
 }
-
-//@ResponseBody
-    /*@RequestMapping(value = "/pumps", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ADMIN')")
-    public void getSuitablePumps(@RequestBody PumpAggregate aggregate) {
-    }*/
-
-//    @ResponseBody
-//    @RequestMapping(value = "/pumps", method = RequestMethod.POST)
-//    public String getSuitablePumps(@RequestBody Parameters params
-//    ) {
-//
-//
-//        return params.toString();
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
-//    @PreAuthorize("hasRole('ADMIN')")
-//    //public List<String> getSuitablePumps(
-//    public List<PumpAggregate> getSuitablePumps(
-//            @RequestParam(required = false, value = "queryParam1") Integer p1,
-//            @RequestParam(required = true, value = "queryParam2") String p2,
-//            HttpSession httpSession
-//    )
-
-//    Constant res = (Constant) session.createCriteria(Constant.class)
-//            .add(Restrictions.eq("name", "country"))
-//            .add(Restrictions.eq("value", "Germany")).uniqueResult();
