@@ -5,10 +5,9 @@ import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.bo.equipment.requests.PumpCreateRequest;
+import eu.bausov.projects.srvpumpselection.dao.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +25,27 @@ import java.util.Set;
 public class DataBaseManagement {
     private final Logger LOGGER = LoggerFactory.getLogger(DataBaseManagement.class);
 
-    private final SessionFactory sessionFactory;
+    private final PumpDAO pumpDAO;
+    private final ReducerDAO reducerDAO;
+    private final MotorDAO motorDAO;
+    private final SealDAO sealDAO;
+    private final DriverAssemblyDAO driverAssemblyDAO;
+    private final FrameDAO frameDAO;
+    private final ConstantDAO constantDAO;
+    private final ProducerDAO producerDAO;
+    private final SpeedCorrectionCoefficientDAO speedCorrectionCoefficientDAO;
 
     @Autowired
-    public DataBaseManagement(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public DataBaseManagement(PumpDAO pumpDAO, ReducerDAO reducerDAO, MotorDAO motorDAO, SealDAO sealDAO, DriverAssemblyDAO driverAssemblyDAO, FrameDAO frameDAO, ConstantDAO constantDAO, ProducerDAO producerDAO, SpeedCorrectionCoefficientDAO speedCorrectionCoefficientDAO) {
+        this.pumpDAO = pumpDAO;
+        this.reducerDAO = reducerDAO;
+        this.motorDAO = motorDAO;
+        this.sealDAO = sealDAO;
+        this.driverAssemblyDAO = driverAssemblyDAO;
+        this.frameDAO = frameDAO;
+        this.constantDAO = constantDAO;
+        this.producerDAO = producerDAO;
+        this.speedCorrectionCoefficientDAO = speedCorrectionCoefficientDAO;
     }
 
     @ResponseBody
@@ -38,8 +53,7 @@ public class DataBaseManagement {
     public List<Constant> getConstantsList() {
         LOGGER.info("Constants list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Constant>) session.createCriteria(Constant.class).list();
+        return constantDAO.findAll();
     }
 
     @ResponseBody
@@ -47,8 +61,7 @@ public class DataBaseManagement {
     public List<Producer> getProducersList() {
         LOGGER.info("Producers list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Producer>) session.createCriteria(Producer.class).list();
+        return producerDAO.findAll();
     }
 
     @ResponseBody
@@ -56,8 +69,7 @@ public class DataBaseManagement {
     public List<Seal> getSealsList() {
         LOGGER.info("Seals list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Seal>) session.createCriteria(Seal.class).list();
+        return sealDAO.findAll();
     }
 
     @ResponseBody
@@ -65,8 +77,7 @@ public class DataBaseManagement {
     public List<Frame> getFramesList() {
         LOGGER.info("Frames list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Frame>) session.createCriteria(Frame.class).list();
+        return frameDAO.findAll();
     }
 
     @ResponseBody
@@ -74,8 +85,7 @@ public class DataBaseManagement {
     public List<DriverAssembly> getAssembliesList() {
         LOGGER.info("Driver Assemblies list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<DriverAssembly>) session.createCriteria(DriverAssembly.class).list();
+        return driverAssemblyDAO.findAll();
     }
 
     @SuppressWarnings("unchecked")
@@ -83,18 +93,14 @@ public class DataBaseManagement {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Pump> getList() {
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Pump>) session.createCriteria(Pump.class).list();
-
+        return pumpDAO.findAll();
     }
 
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Pump getPump(@PathVariable("id") Long id) {
 
-        Session session = sessionFactory.getCurrentSession();
-        return (Pump) session.load(Pump.class, id);
-
+        return pumpDAO.findOne(id);
     }
 
     @ResponseBody
@@ -102,73 +108,70 @@ public class DataBaseManagement {
     public String createPump(@RequestBody PumpCreateRequest request) throws IllegalAccessException {
         LOGGER.info("createPump() invoked, model: {}", request.getModelName());
 
-        Session session = sessionFactory.getCurrentSession();
-
-        Pump pump = new Pump();
-        pump.setModelName(request.getModelName());
-        pump.setPrice(request.getPrice());
-        pump.setProducer((Producer) session.load(Producer.class, request.getProducer()));
-        pump.setConstPumpType((Constant) session.load(Constant.class, request.getConstPumpType()));
-        pump.setReliefValve(request.isReliefValve());
-        pump.setHeatingJacketOnCover(request.isHeatingJacketOnCover());
-        pump.setHeatingJacketOnCasing(request.isHeatingJacketOnBracket());
-        pump.setHeatingJacketOnBracket(request.isHeatingJacketOnBracket());
-        pump.setConstCasingMaterial((Constant) session.load(Constant.class, request.getConstCasingMaterial()));
-        pump.setConstRotorGearMaterial((Constant) session.load(Constant.class, request.getConstRotorGearMaterial()));
-        pump.setConstIdlerGearMaterial((Constant) session.load(Constant.class, request.getConstIdlerGearMaterial()));
-        pump.setConstShaftSupportMaterial((Constant) session.load(Constant.class, request.getConstShaftSupportMaterial()));
-        pump.setConstShaftMaterial((Constant) session.load(Constant.class, request.getConstShaftMaterial()));
-        pump.setConstConnectionsType((Constant) session.load(Constant.class, request.getConstConnectionsType()));
-        pump.setConstDn((Constant) session.load(Constant.class, request.getConstDn()));
-        pump.setConstConnectionsAngle((Constant) session.load(Constant.class, request.getConstConnectionsAngle()));
-        pump.setConstMaxPressure((Constant) session.load(Constant.class, request.getConstMaxPressure()));
-        pump.setConstMaxTemperature((Constant) session.load(Constant.class, request.getConstMaxTemperature()));
-        pump.setRpmCoefficient(request.getRpmCoefficient());
-
-        // transaction starts here
-        try {
-            Transaction transaction = session.beginTransaction();
-
-            pump.setSpeedCorrectionCoefficients(persistOrCreate(session, request.getSpeedCorrectionCoefficients()));
-            session.persist(pump);
-
-            // update in parts lists
-            partsListUpdate(session, pump, Seal.class, request.getSeals());
-            partsListUpdate(session, pump, Frame.class, request.getFrames());
-            partsListUpdate(session, pump, DriverAssembly.class, request.getDriverAssemblies());
-
-            session.flush();
-            session.clear();
-            transaction.commit();
-        } catch (RuntimeException e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-
-            LOGGER.warn("Transaction ROLLBACK");
-            return e.getMessage() + "\n" + e.toString();
-        }
-
-        LOGGER.info("Pump with id {} has been created", pump.getId());
-
-//        session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        session.flush();
-        session.clear();
-        transaction.commit();
-
-        return "CREATED pump with id: " + pump.getId();
+//        Session session = sessionFactory.getCurrentSession();
+//
+//        Pump pump = new Pump();
+//        pump.setModelName(request.getModelName());
+//        pump.setPrice(request.getPrice());
+//        pump.setProducer((Producer) session.load(Producer.class, request.getProducer()));
+//        pump.setConstPumpType((Constant) session.load(Constant.class, request.getConstPumpType()));
+//        pump.setReliefValve(request.isReliefValve());
+//        pump.setHeatingJacketOnCover(request.isHeatingJacketOnCover());
+//        pump.setHeatingJacketOnCasing(request.isHeatingJacketOnBracket());
+//        pump.setHeatingJacketOnBracket(request.isHeatingJacketOnBracket());
+//        pump.setConstCasingMaterial((Constant) session.load(Constant.class, request.getConstCasingMaterial()));
+//        pump.setConstRotorGearMaterial((Constant) session.load(Constant.class, request.getConstRotorGearMaterial()));
+//        pump.setConstIdlerGearMaterial((Constant) session.load(Constant.class, request.getConstIdlerGearMaterial()));
+//        pump.setConstShaftSupportMaterial((Constant) session.load(Constant.class, request.getConstShaftSupportMaterial()));
+//        pump.setConstShaftMaterial((Constant) session.load(Constant.class, request.getConstShaftMaterial()));
+//        pump.setConstConnectionsType((Constant) session.load(Constant.class, request.getConstConnectionsType()));
+//        pump.setConstDn((Constant) session.load(Constant.class, request.getConstDn()));
+//        pump.setConstConnectionsAngle((Constant) session.load(Constant.class, request.getConstConnectionsAngle()));
+//        pump.setConstMaxPressure((Constant) session.load(Constant.class, request.getConstMaxPressure()));
+//        pump.setConstMaxTemperature((Constant) session.load(Constant.class, request.getConstMaxTemperature()));
+//        pump.setRpmCoefficient(request.getRpmCoefficient());
+//
+//        // transaction starts here
+//        try {
+//            Transaction transaction = session.beginTransaction();
+//
+//            pump.setSpeedCorrectionCoefficients(persistOrCreate(session, request.getSpeedCorrectionCoefficients()));
+//            session.persist(pump);
+//
+//            // update in parts lists
+//            partsListUpdate(session, pump, Seal.class, request.getSeals());
+//            partsListUpdate(session, pump, Frame.class, request.getFrames());
+//            partsListUpdate(session, pump, DriverAssembly.class, request.getDriverAssemblies());
+//
+//            session.flush();
+//            session.clear();
+//            transaction.commit();
+//        } catch (RuntimeException e) {
+//            session.getTransaction().rollback();
+//            e.printStackTrace();
+//
+//            LOGGER.warn("Transaction ROLLBACK");
+//            return e.getMessage() + "\n" + e.toString();
+//        }
+//
+//        LOGGER.info("Pump with id {} has been created", pump.getId());
+//
+////        session = sessionFactory.getCurrentSession();
+//        Transaction transaction = session.beginTransaction();
+//
+//        session.flush();
+//        session.clear();
+//        transaction.commit();
+//
+//        return "CREATED pump with id: " + pump.getId();
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Pump updatePump(@RequestBody Pump pump) {
 
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(pump);
-
-        return pump;
-
+        return pumpDAO.save(pump);
     }
 
     /**
