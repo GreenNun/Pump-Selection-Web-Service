@@ -2,7 +2,6 @@ package eu.bausov.projects.srvpumpselection.bo.equipment.requests;
 
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Set;

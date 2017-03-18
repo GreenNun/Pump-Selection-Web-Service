@@ -3,6 +3,7 @@ package eu.bausov.projects.srvpumpselection.bo.schema;
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
+import eu.bausov.projects.srvpumpselection.bo.User;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -36,6 +37,7 @@ public class Generator {
         metadata.addAnnotatedClass(PumpAggregate.class);
         metadata.addAnnotatedClass(Reducer.class);
         metadata.addAnnotatedClass(Seal.class);
+        metadata.addAnnotatedClass(User.class);
 
         SchemaExport export = new SchemaExport();
         export.setOutputFile("schema_ddl.sql");

@@ -2,6 +2,7 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
+import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.bo.equipment.requests.PumpCreateRequest;
 import eu.bausov.projects.srvpumpselection.repository.*;
@@ -20,8 +21,6 @@ public class DataBaseManagement {
     private final Logger LOGGER = LoggerFactory.getLogger(DataBaseManagement.class);
 
     private final PumpRepository pumpRepository;
-    private final ReducerRepository reducerRepository;
-    private final MotorRepository motorRepository;
     private final SealRepository sealRepository;
     private final DriverAssemblyRepository driverAssemblyRepository;
     private final FrameRepository frameRepository;
@@ -30,10 +29,8 @@ public class DataBaseManagement {
     private final SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository;
 
     @Autowired
-    public DataBaseManagement(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
+    public DataBaseManagement(PumpRepository pumpRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
         this.pumpRepository = pumpRepository;
-        this.reducerRepository = reducerRepository;
-        this.motorRepository = motorRepository;
         this.sealRepository = sealRepository;
         this.driverAssemblyRepository = driverAssemblyRepository;
         this.frameRepository = frameRepository;
@@ -125,7 +122,11 @@ public class DataBaseManagement {
         pump.setConstMaxTemperature(constantRepository.findOne(request.getConstMaxTemperature()));
         pump.setRpmCoefficient(request.getRpmCoefficient());
 
-//            pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
+        for (SpeedCorrectionCoefficient speedCorrectionCoefficient : request.getSpeedCorrectionCoefficients()) {
+            speedCorrectionCoefficientRepository.save(speedCorrectionCoefficient);
+        }
+
+        pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
         pumpRepository.save(pump);
 
         // update in parts lists
