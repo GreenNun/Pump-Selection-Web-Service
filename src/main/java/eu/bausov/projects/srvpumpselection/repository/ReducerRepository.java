@@ -1,7 +1,6 @@
-package eu.bausov.projects.srvpumpselection.dao;
+package eu.bausov.projects.srvpumpselection.repository;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Reducer;
-import eu.bausov.projects.srvpumpselection.bo.equipment.Seal;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -9,6 +8,6 @@ import java.util.List;
 /**
  * Created by GreenNun on 18.03.17.
  */
-public interface ReducerDAO  extends CrudRepository<Reducer, Long> {
+public interface ReducerRepository extends CrudRepository<Reducer, Long> {
     List<Reducer> findAll();
 }

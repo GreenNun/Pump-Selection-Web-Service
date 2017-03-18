@@ -4,7 +4,7 @@ import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
-import eu.bausov.projects.srvpumpselection.dao.*;
+import eu.bausov.projects.srvpumpselection.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +26,27 @@ import java.util.Set;
 public class DBFillingService {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
 
-    private final PumpDAO pumpDAO;
-    private final ReducerDAO reducerDAO;
-    private final MotorDAO motorDAO;
-    private final SealDAO sealDAO;
-    private final DriverAssemblyDAO driverAssemblyDAO;
-    private final FrameDAO frameDAO;
-    private final ConstantDAO constantDAO;
-    private final ProducerDAO producerDAO;
-    private final SpeedCorrectionCoefficientDAO speedCorrectionCoefficientDAO;
+    private final PumpRepository pumpRepository;
+    private final ReducerRepository reducerRepository;
+    private final MotorRepository motorRepository;
+    private final SealRepository sealRepository;
+    private final DriverAssemblyRepository driverAssemblyRepository;
+    private final FrameRepository frameRepository;
+    private final ConstantRepository constantRepository;
+    private final ProducerRepository producerRepository;
+    private final SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository;
 
     @Autowired
-    public DBFillingService(PumpDAO pumpDAO, ReducerDAO reducerDAO, MotorDAO motorDAO, SealDAO sealDAO, DriverAssemblyDAO driverAssemblyDAO, FrameDAO frameDAO, ConstantDAO constantDAO, ProducerDAO producerDAO, SpeedCorrectionCoefficientDAO speedCorrectionCoefficientDAO) {
-        this.pumpDAO = pumpDAO;
-        this.reducerDAO = reducerDAO;
-        this.motorDAO = motorDAO;
-        this.sealDAO = sealDAO;
-        this.driverAssemblyDAO = driverAssemblyDAO;
-        this.frameDAO = frameDAO;
-        this.constantDAO = constantDAO;
-        this.producerDAO = producerDAO;
-        this.speedCorrectionCoefficientDAO = speedCorrectionCoefficientDAO;
+    public DBFillingService(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
+        this.pumpRepository = pumpRepository;
+        this.reducerRepository = reducerRepository;
+        this.motorRepository = motorRepository;
+        this.sealRepository = sealRepository;
+        this.driverAssemblyRepository = driverAssemblyRepository;
+        this.frameRepository = frameRepository;
+        this.constantRepository = constantRepository;
+        this.producerRepository = producerRepository;
+        this.speedCorrectionCoefficientRepository = speedCorrectionCoefficientRepository;
     }
 
     @ResponseBody
@@ -61,11 +61,11 @@ public class DBFillingService {
          * COUNTRIES
          */
         Constant wonderland = new Constant("country", "Wonderland");
-        constantDAO.save(wonderland);
+        constantRepository.save(wonderland);
         Constant germany = new Constant("country", "Germany");
-        constantDAO.save(germany);
+        constantRepository.save(germany);
         Constant turkey = new Constant("country", "Turkey");
-        constantDAO.save(turkey);
+        constantRepository.save(turkey);
 
         /**
          * PRODUCERS
@@ -73,142 +73,142 @@ public class DBFillingService {
         Producer dreampompa = new Producer();
         dreampompa.setProducerName("Dreampompa"); // producer
         dreampompa.setProducerCountry(wonderland); // country
-        producerDAO.save(dreampompa);
+        producerRepository.save(dreampompa);
 
         Producer eagleBurgmann = new Producer();
         eagleBurgmann.setProducerName("Eagle Burgmann"); // producer
         eagleBurgmann.setProducerCountry(germany); // country
-        producerDAO.save(eagleBurgmann);
+        producerRepository.save(eagleBurgmann);
 
         Producer abb = new Producer();
         abb.setProducerName("ABB"); // producer
         abb.setProducerCountry(germany); // country
-        producerDAO.save(abb);
+        producerRepository.save(abb);
 
         Producer turkishMotor = new Producer();
         turkishMotor.setProducerName("GAMAK, WAT, ABANA or VOLT"); // producer
         turkishMotor.setProducerCountry(turkey); // country
-        producerDAO.save(turkishMotor);
+        producerRepository.save(turkishMotor);
 
         Producer iMak = new Producer();
         iMak.setProducerName("I.Mak Reduktor"); // producer
         iMak.setProducerCountry(turkey); // country
-        producerDAO.save(iMak);
+        producerRepository.save(iMak);
 
         /**
          * PUMP TYPES
          */
         Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
-        constantDAO.save(internalGearPump);
+        constantRepository.save(internalGearPump);
         Constant modularGearPump = new Constant("pump type", "Modular Gear Pump"); // pumpType
-        constantDAO.save(internalGearPump);
+        constantRepository.save(internalGearPump);
         Constant helicalGearPump = new Constant("pump type", "Helical Gear Pump"); // pumpType
-        constantDAO.save(internalGearPump);
+        constantRepository.save(internalGearPump);
         Constant lobePump = new Constant("pump type", "Lobe Pump"); // pumpType
-        constantDAO.save(internalGearPump);
+        constantRepository.save(internalGearPump);
         Constant foodPump = new Constant("pump type", "Food Pump"); // pumpType
-        constantDAO.save(internalGearPump);
+        constantRepository.save(internalGearPump);
 
         /**
          * SEAL TYPES
          */
         Constant sealTypePacking = new Constant("sealType", "Packing");
-        constantDAO.save(sealTypePacking);
+        constantRepository.save(sealTypePacking);
         Constant sealTypeLip = new Constant("sealType", "Lip Seal");
-        constantDAO.save(sealTypeLip);
+        constantRepository.save(sealTypeLip);
         Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
-        constantDAO.save(sealTypeMechanical);
+        constantRepository.save(sealTypeMechanical);
         Constant sealTypeCartridgeMechanical = new Constant("sealType", "Cartridge Mechanical Seal");
-        constantDAO.save(sealTypeCartridgeMechanical);
+        constantRepository.save(sealTypeCartridgeMechanical);
 
         /**
          * MATERIALS
          */
         Constant oRingMaterialNone = new Constant("material", "none"); // none
-        constantDAO.save(oRingMaterialNone);
+        constantRepository.save(oRingMaterialNone);
         Constant oRingMaterialViton = new Constant("material", "Viton&reg;"); // Viton
-        constantDAO.save(oRingMaterialViton);
+        constantRepository.save(oRingMaterialViton);
         Constant castIron25 = new Constant("material", "GG 25 Cast Iron");
-        constantDAO.save(castIron25);
+        constantRepository.save(castIron25);
         Constant castIron40 = new Constant("material", "GGG 40 Cast Iron");
-        constantDAO.save(castIron40);
+        constantRepository.save(castIron40);
         Constant castSteel = new Constant("material", "GS 45 Cast Steel");
-        constantDAO.save(castSteel);
+        constantRepository.save(castSteel);
         Constant cast304Steel = new Constant("material", "AISI 304 CrNi Stainless Steel");
-        constantDAO.save(cast304Steel);
+        constantRepository.save(cast304Steel);
         Constant cast316Steel = new Constant("material", "AISI 316 CrNi Stainless Steel");
-        constantDAO.save(cast316Steel);
+        constantRepository.save(cast316Steel);
         Constant heatTreated1050 = new Constant("material", "1050 Steel, Heat Treated");
-        constantDAO.save(heatTreated1050);
+        constantRepository.save(heatTreated1050);
         Constant bronze = new Constant("material", "CuSn 12 Bronze Bushings");
-        constantDAO.save(bronze);
+        constantRepository.save(bronze);
         Constant carbon = new Constant("material", "Carbon Graphite Bushings");
-        constantDAO.save(carbon);
+        constantRepository.save(carbon);
 
 
         /**
          * CONNECTIONS TYPES
          */
         Constant flange = new Constant("connections type", "Flange");
-        constantDAO.save(flange);
+        constantRepository.save(flange);
         Constant thread = new Constant("connections type", "Thread");
-        constantDAO.save(thread);
+        constantRepository.save(thread);
         Constant pipeToothed = new Constant("connections type", "Pipe Toothed");
-        constantDAO.save(pipeToothed);
+        constantRepository.save(pipeToothed);
 
         /**
          * DN
          */
         Constant dn865 = new Constant("DN", "65");
-        constantDAO.save(dn865);
+        constantRepository.save(dn865);
         Constant dn80 = new Constant("DN", "80");
-        constantDAO.save(dn80);
+        constantRepository.save(dn80);
         Constant dn125 = new Constant("DN", "125");
-        constantDAO.save(dn125);
+        constantRepository.save(dn125);
 
         /**
          * MAX PRESSURE
          */
         Constant maxPressure10 = new Constant("max. pressure", "10");
-        constantDAO.save(maxPressure10);
+        constantRepository.save(maxPressure10);
         Constant maxPressure14 = new Constant("max. pressure", "14");
-        constantDAO.save(maxPressure14);
+        constantRepository.save(maxPressure14);
 
         /**
          * CONNECTIONS ANGLE
          */
         Constant connectionsAngle90 = new Constant("connections angle", "90");
-        constantDAO.save(connectionsAngle90);
+        constantRepository.save(connectionsAngle90);
         Constant connectionsAngle180 = new Constant("connections angle", "180");
-        constantDAO.save(connectionsAngle180);
+        constantRepository.save(connectionsAngle180);
 
 
         /**
          * MAX TEMPERATURE
          */
         Constant maxTemperature200 = new Constant("max. temperature", "200");
-        constantDAO.save(maxTemperature200);
+        constantRepository.save(maxTemperature200);
 
         /**
          * YKF-3 COEFFICIENTS
          */
         Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients = new HashSet<>();
         SpeedCorrectionCoefficient sp38 = new SpeedCorrectionCoefficient(38, 60);
-        speedCorrectionCoefficientDAO.save(sp38);
+        speedCorrectionCoefficientRepository.save(sp38);
         SpeedCorrectionCoefficient sp100 = new SpeedCorrectionCoefficient(100, 63);
-        speedCorrectionCoefficientDAO.save(sp100);
+        speedCorrectionCoefficientRepository.save(sp100);
         SpeedCorrectionCoefficient sp750 = new SpeedCorrectionCoefficient(750, 30);
-        speedCorrectionCoefficientDAO.save(sp750);
+        speedCorrectionCoefficientRepository.save(sp750);
         SpeedCorrectionCoefficient sp2500 = new SpeedCorrectionCoefficient(2500, 17);
-        speedCorrectionCoefficientDAO.save(sp2500);
+        speedCorrectionCoefficientRepository.save(sp2500);
         SpeedCorrectionCoefficient sp7500 = new SpeedCorrectionCoefficient(7500, 10);
-        speedCorrectionCoefficientDAO.save(sp7500);
+        speedCorrectionCoefficientRepository.save(sp7500);
         SpeedCorrectionCoefficient sp25000 = new SpeedCorrectionCoefficient(25000, 5);
-        speedCorrectionCoefficientDAO.save(sp25000);
+        speedCorrectionCoefficientRepository.save(sp25000);
         SpeedCorrectionCoefficient sp75000 = new SpeedCorrectionCoefficient(75000, 13);
-        speedCorrectionCoefficientDAO.save(sp75000);
+        speedCorrectionCoefficientRepository.save(sp75000);
         SpeedCorrectionCoefficient sp250000 = new SpeedCorrectionCoefficient(250000, 1);
-        speedCorrectionCoefficientDAO.save(sp250000);
+        speedCorrectionCoefficientRepository.save(sp250000);
         speedCorrectionCoefficients.add(sp38);
         speedCorrectionCoefficients.add(sp100);
         speedCorrectionCoefficients.add(sp750);
@@ -241,7 +241,7 @@ public class DBFillingService {
         ykf3.setConstMaxTemperature(maxTemperature200);
         ykf3.setRpmCoefficient(12.5);
         ykf3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3);
+        pumpRepository.save(ykf3);
         // YKYF-3
         Pump ykyf3 = new Pump();
         ykyf3.setProducer(dreampompa);
@@ -264,7 +264,7 @@ public class DBFillingService {
         ykyf3.setConstMaxTemperature(maxTemperature200);
         ykyf3.setRpmCoefficient(12.5);
         ykyf3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3);
+        pumpRepository.save(ykyf3);
         // YKU-2.5
         Pump yku2_5 = new Pump();
         yku2_5.setProducer(dreampompa);
@@ -287,7 +287,7 @@ public class DBFillingService {
         yku2_5.setConstMaxTemperature(maxTemperature200);
         yku2_5.setRpmCoefficient(12.5);
         yku2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5);
+        pumpRepository.save(yku2_5);
         // YKUF-2.5
         Pump ykuf2_5 = new Pump();
         ykuf2_5.setProducer(dreampompa);
@@ -310,7 +310,7 @@ public class DBFillingService {
         ykuf2_5.setConstMaxTemperature(maxTemperature200);
         ykuf2_5.setRpmCoefficient(12.5);
         ykuf2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5);
+        pumpRepository.save(ykuf2_5);
         // YKUYF-2.5
         Pump ykuyf2_5 = new Pump();
         ykuyf2_5.setProducer(dreampompa);
@@ -333,7 +333,7 @@ public class DBFillingService {
         ykuyf2_5.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5.setRpmCoefficient(12.5);
         ykuyf2_5.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5);
+        pumpRepository.save(ykuyf2_5);
 ////////////////////////////////////////////////////////////////////////////////////////// + VALVE
         //YKF-3
         Pump ykf3v = new Pump();
@@ -357,7 +357,7 @@ public class DBFillingService {
         ykf3v.setConstMaxTemperature(maxTemperature200);
         ykf3v.setRpmCoefficient(12.5);
         ykf3v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3v);
+        pumpRepository.save(ykf3v);
         // YKYF-3
         Pump ykyf3v = new Pump();
         ykyf3v.setProducer(dreampompa);
@@ -380,7 +380,7 @@ public class DBFillingService {
         ykyf3v.setConstMaxTemperature(maxTemperature200);
         ykyf3v.setRpmCoefficient(12.5);
         ykyf3v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3v);
+        pumpRepository.save(ykyf3v);
         // YKU-2.5
         Pump yku2_5v = new Pump();
         yku2_5v.setProducer(dreampompa);
@@ -403,7 +403,7 @@ public class DBFillingService {
         yku2_5v.setConstMaxTemperature(maxTemperature200);
         yku2_5v.setRpmCoefficient(12.5);
         yku2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5v);
+        pumpRepository.save(yku2_5v);
         // YKUF-2.5
         Pump ykuf2_5v = new Pump();
         ykuf2_5v.setProducer(dreampompa);
@@ -426,7 +426,7 @@ public class DBFillingService {
         ykuf2_5v.setConstMaxTemperature(maxTemperature200);
         ykuf2_5v.setRpmCoefficient(12.5);
         ykuf2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5v);
+        pumpRepository.save(ykuf2_5v);
         // YKUYF-2.5
         Pump ykuyf2_5v = new Pump();
         ykuyf2_5v.setProducer(dreampompa);
@@ -449,7 +449,7 @@ public class DBFillingService {
         ykuyf2_5v.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5v.setRpmCoefficient(12.5);
         ykuyf2_5v.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5v);
+        pumpRepository.save(ykuyf2_5v);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER
         //YKF-3
         Pump ykf3h1 = new Pump();
@@ -473,7 +473,7 @@ public class DBFillingService {
         ykf3h1.setConstMaxTemperature(maxTemperature200);
         ykf3h1.setRpmCoefficient(12.5);
         ykf3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h1);
+        pumpRepository.save(ykf3h1);
         // YKYF-3
         Pump ykyf3h1 = new Pump();
         ykyf3h1.setProducer(dreampompa);
@@ -496,7 +496,7 @@ public class DBFillingService {
         ykyf3h1.setConstMaxTemperature(maxTemperature200);
         ykyf3h1.setRpmCoefficient(12.5);
         ykyf3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3h1);
+        pumpRepository.save(ykyf3h1);
         // YKU-2.5
         Pump yku2_5h1 = new Pump();
         yku2_5h1.setProducer(dreampompa);
@@ -519,7 +519,7 @@ public class DBFillingService {
         yku2_5h1.setConstMaxTemperature(maxTemperature200);
         yku2_5h1.setRpmCoefficient(12.5);
         yku2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5h1);
+        pumpRepository.save(yku2_5h1);
         // YKUF-2.5
         Pump ykuf2_5h1 = new Pump();
         ykuf2_5h1.setProducer(dreampompa);
@@ -542,7 +542,7 @@ public class DBFillingService {
         ykuf2_5h1.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h1.setRpmCoefficient(12.5);
         ykuf2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h1);
+        pumpRepository.save(ykuf2_5h1);
         // YKUYF-2.5
         Pump ykuyf2_5h1 = new Pump();
         ykuyf2_5h1.setProducer(dreampompa);
@@ -565,7 +565,7 @@ public class DBFillingService {
         ykuyf2_5h1.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5h1.setRpmCoefficient(12.5);
         ykuyf2_5h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5h1);
+        pumpRepository.save(ykuyf2_5h1);
 ////////////////////////////////////////////////////////////////////////////////////////// + H CASING
         //YKF-3
         Pump ykf3h2 = new Pump();
@@ -589,7 +589,7 @@ public class DBFillingService {
         ykf3h2.setConstMaxTemperature(maxTemperature200);
         ykf3h2.setRpmCoefficient(12.5);
         ykf3h2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h2);
+        pumpRepository.save(ykf3h2);
 
         // YKUF-2.5
         Pump ykuf2_5h2 = new Pump();
@@ -613,7 +613,7 @@ public class DBFillingService {
         ykuf2_5h2.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h2.setRpmCoefficient(12.5);
         ykuf2_5h2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h2);
+        pumpRepository.save(ykuf2_5h2);
 ////////////////////////////////////////////////////////////////////////////////////////// + H BRACKET
         //YKF-3
         Pump ykf3h3 = new Pump();
@@ -637,7 +637,7 @@ public class DBFillingService {
         ykf3h3.setConstMaxTemperature(maxTemperature200);
         ykf3h3.setRpmCoefficient(12.5);
         ykf3h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h3);
+        pumpRepository.save(ykf3h3);
         // YKYF-3
         Pump ykyf3h3 = new Pump();
         ykyf3h3.setProducer(dreampompa);
@@ -660,7 +660,7 @@ public class DBFillingService {
         ykyf3h3.setConstMaxTemperature(maxTemperature200);
         ykyf3h3.setRpmCoefficient(12.5);
         ykyf3h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3h3);
+        pumpRepository.save(ykyf3h3);
         // YKU-2.5
         Pump yku2_5h3 = new Pump();
         yku2_5h3.setProducer(dreampompa);
@@ -683,7 +683,7 @@ public class DBFillingService {
         yku2_5h3.setConstMaxTemperature(maxTemperature200);
         yku2_5h3.setRpmCoefficient(12.5);
         yku2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5h3);
+        pumpRepository.save(yku2_5h3);
         // YKUF-2.5
         Pump ykuf2_5h3 = new Pump();
         ykuf2_5h3.setProducer(dreampompa);
@@ -706,7 +706,7 @@ public class DBFillingService {
         ykuf2_5h3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h3.setRpmCoefficient(12.5);
         ykuf2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h3);
+        pumpRepository.save(ykuf2_5h3);
         // YKUYF-2.5
         Pump ykuyf2_5h3 = new Pump();
         ykuyf2_5h3.setProducer(dreampompa);
@@ -729,7 +729,7 @@ public class DBFillingService {
         ykuyf2_5h3.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5h3.setRpmCoefficient(12.5);
         ykuyf2_5h3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5h3);
+        pumpRepository.save(ykuyf2_5h3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING
         //YKF-3
         Pump ykf3h1_2 = new Pump();
@@ -753,7 +753,7 @@ public class DBFillingService {
         ykf3h1_2.setConstMaxTemperature(maxTemperature200);
         ykf3h1_2.setRpmCoefficient(12.5);
         ykf3h1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h1_2);
+        pumpRepository.save(ykf3h1_2);
 
         // YKUF-2.5
         Pump ykuf2_5h1_2 = new Pump();
@@ -777,7 +777,7 @@ public class DBFillingService {
         ykuf2_5h1_2.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h1_2.setRpmCoefficient(12.5);
         ykuf2_5h1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h1_2);
+        pumpRepository.save(ykuf2_5h1_2);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + BRACKET
         //YKF-3
         Pump ykf3h1_3 = new Pump();
@@ -801,7 +801,7 @@ public class DBFillingService {
         ykf3h1_3.setConstMaxTemperature(maxTemperature200);
         ykf3h1_3.setRpmCoefficient(12.5);
         ykf3h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h1_3);
+        pumpRepository.save(ykf3h1_3);
         // YKYF-3
         Pump ykyf3h1_3 = new Pump();
         ykyf3h1_3.setProducer(dreampompa);
@@ -824,7 +824,7 @@ public class DBFillingService {
         ykyf3h1_3.setConstMaxTemperature(maxTemperature200);
         ykyf3h1_3.setRpmCoefficient(12.5);
         ykyf3h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3h1_3);
+        pumpRepository.save(ykyf3h1_3);
         // YKU-2.5
         Pump yku2_5h1_3 = new Pump();
         yku2_5h1_3.setProducer(dreampompa);
@@ -847,7 +847,7 @@ public class DBFillingService {
         yku2_5h1_3.setConstMaxTemperature(maxTemperature200);
         yku2_5h1_3.setRpmCoefficient(12.5);
         yku2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5h1_3);
+        pumpRepository.save(yku2_5h1_3);
         // YKUF-2.5
         Pump ykuf2_5h1_3 = new Pump();
         ykuf2_5h1_3.setProducer(dreampompa);
@@ -870,7 +870,7 @@ public class DBFillingService {
         ykuf2_5h1_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h1_3.setRpmCoefficient(12.5);
         ykuf2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h1_3);
+        pumpRepository.save(ykuf2_5h1_3);
         // YKUYF-2.5
         Pump ykuyf2_5h1_3 = new Pump();
         ykuyf2_5h1_3.setProducer(dreampompa);
@@ -893,7 +893,7 @@ public class DBFillingService {
         ykuyf2_5h1_3.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5h1_3.setRpmCoefficient(12.5);
         ykuyf2_5h1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5h1_3);
+        pumpRepository.save(ykuyf2_5h1_3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H CASING + BRACKET
         //YKF-3
         Pump ykf3h2_3 = new Pump();
@@ -917,7 +917,7 @@ public class DBFillingService {
         ykf3h2_3.setConstMaxTemperature(maxTemperature200);
         ykf3h2_3.setRpmCoefficient(12.5);
         ykf3h2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h2_3);
+        pumpRepository.save(ykf3h2_3);
 
         // YKUF-2.5
         Pump ykuf2_5h2_3 = new Pump();
@@ -941,7 +941,7 @@ public class DBFillingService {
         ykuf2_5h2_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h2_3.setRpmCoefficient(12.5);
         ykuf2_5h2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h2_3);
+        pumpRepository.save(ykuf2_5h2_3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + BRACKET
         //YKF-3
         Pump ykf3h1_2_3 = new Pump();
@@ -965,7 +965,7 @@ public class DBFillingService {
         ykf3h1_2_3.setConstMaxTemperature(maxTemperature200);
         ykf3h1_2_3.setRpmCoefficient(12.5);
         ykf3h1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3h1_2_3);
+        pumpRepository.save(ykf3h1_2_3);
 
         // YKUF-2.5
         Pump ykuf2_5h1_2_3 = new Pump();
@@ -989,7 +989,7 @@ public class DBFillingService {
         ykuf2_5h1_2_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5h1_2_3.setRpmCoefficient(12.5);
         ykuf2_5h1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5h1_2_3);
+        pumpRepository.save(ykuf2_5h1_2_3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + VALVE
         //YKF-3
         Pump ykfv3h1 = new Pump();
@@ -1013,7 +1013,7 @@ public class DBFillingService {
         ykfv3h1.setConstMaxTemperature(maxTemperature200);
         ykfv3h1.setRpmCoefficient(12.5);
         ykfv3h1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykfv3h1);
+        pumpRepository.save(ykfv3h1);
         // YKYF-3
         Pump ykyf3vh1 = new Pump();
         ykyf3vh1.setProducer(dreampompa);
@@ -1036,7 +1036,7 @@ public class DBFillingService {
         ykyf3vh1.setConstMaxTemperature(maxTemperature200);
         ykyf3vh1.setRpmCoefficient(12.5);
         ykyf3vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3vh1);
+        pumpRepository.save(ykyf3vh1);
         // YKU-2.5
         Pump yku2_5vh1 = new Pump();
         yku2_5vh1.setProducer(dreampompa);
@@ -1059,7 +1059,7 @@ public class DBFillingService {
         yku2_5vh1.setConstMaxTemperature(maxTemperature200);
         yku2_5vh1.setRpmCoefficient(12.5);
         yku2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5vh1);
+        pumpRepository.save(yku2_5vh1);
         // YKUF-2.5
         Pump ykuf2_5vh1 = new Pump();
         ykuf2_5vh1.setProducer(dreampompa);
@@ -1082,7 +1082,7 @@ public class DBFillingService {
         ykuf2_5vh1.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh1.setRpmCoefficient(12.5);
         ykuf2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh1);
+        pumpRepository.save(ykuf2_5vh1);
         // YKUYF-2.5
         Pump ykuyf2_5vh1 = new Pump();
         ykuyf2_5vh1.setProducer(dreampompa);
@@ -1105,7 +1105,7 @@ public class DBFillingService {
         ykuyf2_5vh1.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5vh1.setRpmCoefficient(12.5);
         ykuyf2_5vh1.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5vh1);
+        pumpRepository.save(ykuyf2_5vh1);
 ////////////////////////////////////////////////////////////////////////////////////////// + H CASING + VALVE
         //YKF-3
         Pump ykf3vh2 = new Pump();
@@ -1129,7 +1129,7 @@ public class DBFillingService {
         ykf3vh2.setConstMaxTemperature(maxTemperature200);
         ykf3vh2.setRpmCoefficient(12.5);
         ykf3vh2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3vh2);
+        pumpRepository.save(ykf3vh2);
 
         // YKUF-2.5
         Pump ykuf2_5vh2 = new Pump();
@@ -1153,7 +1153,7 @@ public class DBFillingService {
         ykuf2_5vh2.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh2.setRpmCoefficient(12.5);
         ykuf2_5vh2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh2);
+        pumpRepository.save(ykuf2_5vh2);
 ////////////////////////////////////////////////////////////////////////////////////////// + H BRACKET + VALVE
         //YKF-3
         Pump ykf3vh3 = new Pump();
@@ -1177,7 +1177,7 @@ public class DBFillingService {
         ykf3vh3.setConstMaxTemperature(maxTemperature200);
         ykf3vh3.setRpmCoefficient(12.5);
         ykf3vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3vh3);
+        pumpRepository.save(ykf3vh3);
         // YKYF-3
         Pump ykyf3vh3 = new Pump();
         ykyf3vh3.setProducer(dreampompa);
@@ -1200,7 +1200,7 @@ public class DBFillingService {
         ykyf3vh3.setConstMaxTemperature(maxTemperature200);
         ykyf3vh3.setRpmCoefficient(12.5);
         ykyf3vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3vh3);
+        pumpRepository.save(ykyf3vh3);
         // YKU-2.5
         Pump yku2_5vh3 = new Pump();
         yku2_5vh3.setProducer(dreampompa);
@@ -1223,7 +1223,7 @@ public class DBFillingService {
         yku2_5vh3.setConstMaxTemperature(maxTemperature200);
         yku2_5vh3.setRpmCoefficient(12.5);
         yku2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5vh3);
+        pumpRepository.save(yku2_5vh3);
         // YKUF-2.5
         Pump ykuf2_5vh3 = new Pump();
         ykuf2_5vh3.setProducer(dreampompa);
@@ -1246,7 +1246,7 @@ public class DBFillingService {
         ykuf2_5vh3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh3.setRpmCoefficient(12.5);
         ykuf2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh3);
+        pumpRepository.save(ykuf2_5vh3);
         // YKUYF-2.5
         Pump ykuyf2_5vh3 = new Pump();
         ykuyf2_5vh3.setProducer(dreampompa);
@@ -1269,7 +1269,7 @@ public class DBFillingService {
         ykuyf2_5vh3.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5vh3.setRpmCoefficient(12.5);
         ykuyf2_5vh3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5vh3);
+        pumpRepository.save(ykuyf2_5vh3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + VALVE
         //YKF-3
         Pump ykf3vh1_2 = new Pump();
@@ -1293,7 +1293,7 @@ public class DBFillingService {
         ykf3vh1_2.setConstMaxTemperature(maxTemperature200);
         ykf3vh1_2.setRpmCoefficient(12.5);
         ykf3vh1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3vh1_2);
+        pumpRepository.save(ykf3vh1_2);
 
         // YKUF-2.5
         Pump ykuf2_5vh1_2 = new Pump();
@@ -1317,7 +1317,7 @@ public class DBFillingService {
         ykuf2_5vh1_2.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh1_2.setRpmCoefficient(12.5);
         ykuf2_5vh1_2.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh1_2);
+        pumpRepository.save(ykuf2_5vh1_2);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + BRACKET + VALVE
         //YKF-3
         Pump ykf3vh1_3 = new Pump();
@@ -1341,7 +1341,7 @@ public class DBFillingService {
         ykf3vh1_3.setConstMaxTemperature(maxTemperature200);
         ykf3vh1_3.setRpmCoefficient(12.5);
         ykf3vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3vh1_3);
+        pumpRepository.save(ykf3vh1_3);
         // YKYF-3
         Pump ykyf3vh1_3 = new Pump();
         ykyf3vh1_3.setProducer(dreampompa);
@@ -1364,7 +1364,7 @@ public class DBFillingService {
         ykyf3vh1_3.setConstMaxTemperature(maxTemperature200);
         ykyf3vh1_3.setRpmCoefficient(12.5);
         ykyf3vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykyf3vh1_3);
+        pumpRepository.save(ykyf3vh1_3);
         // YKU-2.5
         Pump yku2_5vh1_3 = new Pump();
         yku2_5vh1_3.setProducer(dreampompa);
@@ -1387,7 +1387,7 @@ public class DBFillingService {
         yku2_5vh1_3.setConstMaxTemperature(maxTemperature200);
         yku2_5vh1_3.setRpmCoefficient(12.5);
         yku2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(yku2_5vh1_3);
+        pumpRepository.save(yku2_5vh1_3);
         // YKUF-2.5
         Pump ykuf2_5vh1_3 = new Pump();
         ykuf2_5vh1_3.setProducer(dreampompa);
@@ -1410,7 +1410,7 @@ public class DBFillingService {
         ykuf2_5vh1_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh1_3.setRpmCoefficient(12.5);
         ykuf2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh1_3);
+        pumpRepository.save(ykuf2_5vh1_3);
         // YKUYF-2.5
         Pump ykuyf2_5vh1_3 = new Pump();
         ykuyf2_5vh1_3.setProducer(dreampompa);
@@ -1433,7 +1433,7 @@ public class DBFillingService {
         ykuyf2_5vh1_3.setConstMaxTemperature(maxTemperature200);
         ykuyf2_5vh1_3.setRpmCoefficient(12.5);
         ykuyf2_5vh1_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuyf2_5vh1_3);
+        pumpRepository.save(ykuyf2_5vh1_3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H CASING + BRACKET + VALVE
         //YKF-3
         Pump ykf3hv2_3 = new Pump();
@@ -1457,7 +1457,7 @@ public class DBFillingService {
         ykf3hv2_3.setConstMaxTemperature(maxTemperature200);
         ykf3hv2_3.setRpmCoefficient(12.5);
         ykf3hv2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3hv2_3);
+        pumpRepository.save(ykf3hv2_3);
 
         // YKUF-2.5
         Pump ykuf2_5vh2_3 = new Pump();
@@ -1481,7 +1481,7 @@ public class DBFillingService {
         ykuf2_5vh2_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh2_3.setRpmCoefficient(12.5);
         ykuf2_5vh2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh2_3);
+        pumpRepository.save(ykuf2_5vh2_3);
 ////////////////////////////////////////////////////////////////////////////////////////// + H COVER + CASING + BRACKET + VALVE
         //YKF-3
         Pump ykf3vh1_2_3 = new Pump();
@@ -1505,7 +1505,7 @@ public class DBFillingService {
         ykf3vh1_2_3.setConstMaxTemperature(maxTemperature200);
         ykf3vh1_2_3.setRpmCoefficient(12.5);
         ykf3vh1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykf3vh1_2_3);
+        pumpRepository.save(ykf3vh1_2_3);
 
         // YKUF-2.5
         Pump ykuf2_5vh1_2_3 = new Pump();
@@ -1529,7 +1529,7 @@ public class DBFillingService {
         ykuf2_5vh1_2_3.setConstMaxTemperature(maxTemperature200);
         ykuf2_5vh1_2_3.setRpmCoefficient(12.5);
         ykuf2_5vh1_2_3.setSpeedCorrectionCoefficients(speedCorrectionCoefficients);
-        pumpDAO.save(ykuf2_5vh1_2_3);
+        pumpRepository.save(ykuf2_5vh1_2_3);
 
 
         /**
@@ -1598,163 +1598,163 @@ public class DBFillingService {
          * SEALS - YKF-3
          */
         Seal seaYkf3Packing = new Seal(dreampompa, "YKF-3 packing", new BigDecimal("0"), sealTypePacking, oRingMaterialNone, pumpsSetYKF);
-        sealDAO.save(seaYkf3Packing);
+        sealRepository.save(seaYkf3Packing);
         Seal seaYkf3Lip = new Seal(dreampompa, "YKF-3 lip seal", new BigDecimal("0"), sealTypeLip, oRingMaterialNone, pumpsSetYKF);
-        sealDAO.save(seaYkf3Lip);
+        sealRepository.save(seaYkf3Lip);
         Seal seaYkf3MechanicalDreampompa = new Seal(dreampompa, "YKF-3 mechanical seal", new BigDecimal("200"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
-        sealDAO.save(seaYkf3MechanicalDreampompa);
+        sealRepository.save(seaYkf3MechanicalDreampompa);
         Seal seaYkf3MechanicalBurgmann = new Seal(eagleBurgmann, "YKF-3 mechanical seal", new BigDecimal("360"), sealTypeMechanical, oRingMaterialViton, pumpsSetYKF);
-        sealDAO.save(seaYkf3MechanicalBurgmann);
+        sealRepository.save(seaYkf3MechanicalBurgmann);
         Seal seaYkf3Crtex = new Seal(dreampompa, "YKF-3 Cartridge mechanical seal", new BigDecimal("900.2"), sealTypeCartridgeMechanical, oRingMaterialViton, pumpsSetYKF);
-        sealDAO.save(seaYkf3Crtex);
+        sealRepository.save(seaYkf3Crtex);
 
         /**
          * DRIVER ASSEMBLY TYPES
          */
         Constant adder = new Constant("driver assembly type", "Pump Adder");
-        constantDAO.save(adder);
+        constantRepository.save(adder);
         Constant coupling = new Constant("driver assembly type", "Coupling");
-        constantDAO.save(coupling);
+        constantRepository.save(coupling);
         Constant exProofCoupling = new Constant("driver assembly type", "Ex.Proof Coupling");
-        constantDAO.save(exProofCoupling);
+        constantRepository.save(exProofCoupling);
         Constant belt = new Constant("driver assembly type", "Belt and Pulley");
-        constantDAO.save(belt);
+        constantRepository.save(belt);
         Constant flex = new Constant("driver assembly type", "Flexible Coupling");
-        constantDAO.save(flex);
+        constantRepository.save(flex);
 
         /**
          * EX PROOF TYPES
          */
         Constant atex = new Constant("explosion proof", "ATEX");
-        constantDAO.save(atex);
+        constantRepository.save(atex);
         Constant none = new Constant("explosion proof", "none");
-        constantDAO.save(none);
+        constantRepository.save(none);
 
         /**
          * DRIVER ASSEMBLIES
          */
         DriverAssembly ykf3assembly01 = new DriverAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
                 adder, atex, pumpsSetYKF);
-        driverAssemblyDAO.save(ykf3assembly01);
+        driverAssemblyRepository.save(ykf3assembly01);
         DriverAssembly ykf3assembly02 = new DriverAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
                 coupling, atex, pumpsSetYKF);
-        driverAssemblyDAO.save(ykf3assembly02);
+        driverAssemblyRepository.save(ykf3assembly02);
         DriverAssembly ykf3assembly03 = new DriverAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
                 belt, none, pumpsSetYKF);
-        driverAssemblyDAO.save(ykf3assembly03);
+        driverAssemblyRepository.save(ykf3assembly03);
         DriverAssembly ykf3assembly04 = new DriverAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
                 flex, none, pumpsSetYKF);
-        driverAssemblyDAO.save(ykf3assembly04);
+        driverAssemblyRepository.save(ykf3assembly04);
         DriverAssembly ykf3assembly05 = new DriverAssembly(dreampompa, "ykf-3 coupling", new BigDecimal("0"),
                 flex, none, pumpsSetYKF);
-        driverAssemblyDAO.save(ykf3assembly05);
+        driverAssemblyRepository.save(ykf3assembly05);
 
 
         /**
          * FRAMES
          */
         Frame frame01 = new Frame(dreampompa, "YKF-3 frame", new BigDecimal("0"), pumpsSetYKF);
-        frameDAO.save(frame01);
+        frameRepository.save(frame01);
 
         /**
          * MOTOR POWERS
          */
         Constant motorPower5_5 = new Constant("motor power", "5.5");
-        constantDAO.save(motorPower5_5);
+        constantRepository.save(motorPower5_5);
         Constant motorPower7_5 = new Constant("motor power", "7.5");
-        constantDAO.save(motorPower7_5);
+        constantRepository.save(motorPower7_5);
         Constant motorPower10 = new Constant("motor power", "10");
-        constantDAO.save(motorPower10);
+        constantRepository.save(motorPower10);
         Constant motorPower15 = new Constant("motor power", "15");
-        constantDAO.save(motorPower15);
+        constantRepository.save(motorPower15);
         Constant motorPower20 = new Constant("motor power", "20");
-        constantDAO.save(motorPower20);
+        constantRepository.save(motorPower20);
 
         /**
          * MOTOR FRAME SIZES
          */
         Constant motorFrame112 = new Constant("motor frame size", "112");
-        constantDAO.save(motorFrame112);
+        constantRepository.save(motorFrame112);
         Constant motorFrame132 = new Constant("motor frame size", "132");
-        constantDAO.save(motorFrame132);
+        constantRepository.save(motorFrame132);
         Constant motorFrame160 = new Constant("motor frame size", "160");
-        constantDAO.save(motorFrame160);
+        constantRepository.save(motorFrame160);
 
         /**
          * REDUCERS
          */
         Reducer reducer01 = new Reducer(iMak, "IRAM62/112M", new BigDecimal("660"), dreampompa, 87, 480,
                 none, motorPower5_5, motorFrame112);
-        reducerDAO.save(reducer01);
+        reducerRepository.save(reducer01);
         Reducer reducer02 = new Reducer(iMak, "IRAM62/C112M", new BigDecimal("730"), dreampompa, 210, 450,
                 none, motorPower7_5, motorFrame112);
-        reducerDAO.save(reducer02);
+        reducerRepository.save(reducer02);
         Reducer reducer03 = new Reducer(iMak, "IRAM72/132S", new BigDecimal("990"), dreampompa, 75, 210,
                 none, motorPower7_5, motorFrame132);
-        reducerDAO.save(reducer03);
+        reducerRepository.save(reducer03);
         Reducer reducer04 = new Reducer(iMak, "IRAM72/132M", new BigDecimal("1070"), dreampompa, 93, 450,
                 none, motorPower10, motorFrame132);
-        reducerDAO.save(reducer04);
+        reducerRepository.save(reducer04);
         Reducer reducer05 = new Reducer(iMak, "IRAM72/C132M", new BigDecimal("1190"), dreampompa, 200, 450,
                 none, motorPower15, motorFrame132);
-        reducerDAO.save(reducer05);
+        reducerRepository.save(reducer05);
         Reducer reducer06 = new Reducer(iMak, "IRAM82/160L", new BigDecimal("1910"), dreampompa, 130, 450,
                 none, motorPower20, motorFrame160);
-        reducerDAO.save(reducer06);
+        reducerRepository.save(reducer06);
 
         /**
          * MOTOR SPEED TYPES
          */
         Constant motorSpeed1500 = new Constant("motor speed", "1500");
-        constantDAO.save(motorSpeed1500);
+        constantRepository.save(motorSpeed1500);
 
         /**
          * MOTORS
          */
         Motor motor01 = new Motor(turkishMotor, "turkish motor 5.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower5_5, motorFrame112);
-        motorDAO.save(motor01);
+        motorRepository.save(motor01);
         Motor motor02 = new Motor(turkishMotor, "turkish motor 7.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower7_5, motorFrame112);
-        motorDAO.save(motor02);
+        motorRepository.save(motor02);
         Motor motor02a = new Motor(turkishMotor, "turkish motor 7.5 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower7_5, motorFrame132);
-        motorDAO.save(motor02a);
+        motorRepository.save(motor02a);
         Motor motor03 = new Motor(turkishMotor, "turkish motor 10 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower10, motorFrame132);
-        motorDAO.save(motor03);
+        motorRepository.save(motor03);
         Motor motor04 = new Motor(turkishMotor, "turkish motor 15 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower15, motorFrame132);
-        motorDAO.save(motor04);
+        motorRepository.save(motor04);
         Motor motor05 = new Motor(turkishMotor, "turkish motor 20 HP", new BigDecimal("0"), dreampompa, motorSpeed1500,
                 none, motorPower20, motorFrame160);
-        motorDAO.save(motor05);
+        motorRepository.save(motor05);
         // ABB
         Motor motor01abb = new Motor(abb, "ABB motor 5.5 HP", new BigDecimal("160"), dreampompa, motorSpeed1500,
                 none, motorPower5_5, motorFrame112);
-        motorDAO.save(motor01abb);
+        motorRepository.save(motor01abb);
         Motor motor02abb = new Motor(abb, "ABB motor 7.5 HP", new BigDecimal("200"), dreampompa, motorSpeed1500,
                 none, motorPower7_5, motorFrame132);
-        motorDAO.save(motor02abb);
+        motorRepository.save(motor02abb);
         Motor motor03abb = new Motor(abb, "ABB motor 10 HP", new BigDecimal("290"), dreampompa, motorSpeed1500,
                 none, motorPower10, motorFrame132);
-        motorDAO.save(motor03abb);
+        motorRepository.save(motor03abb);
         Motor motor05abb = new Motor(abb, "ABB motor 20 HP", new BigDecimal("430"), dreampompa, motorSpeed1500,
                 none, motorPower20, motorFrame160);
-        motorDAO.save(motor05abb);
+        motorRepository.save(motor05abb);
         // ATEX ABB
         Motor motor01abbAtex = new Motor(abb, "ABB motor 5.5 HP, ATEX", new BigDecimal("1000"), dreampompa, motorSpeed1500,
                 atex, motorPower5_5, motorFrame112);
-        motorDAO.save(motor01abbAtex);
+        motorRepository.save(motor01abbAtex);
         Motor motor02abbAtex = new Motor(abb, "ABB motor 7.5 HP, ATEX", new BigDecimal("1140"), dreampompa, motorSpeed1500,
                 atex, motorPower7_5, motorFrame132);
-        motorDAO.save(motor02abbAtex);
+        motorRepository.save(motor02abbAtex);
         Motor motor03abbAtex = new Motor(abb, "ABB motor 10 HP, ATEX", new BigDecimal("1380"), dreampompa, motorSpeed1500,
                 atex, motorPower10, motorFrame132);
-        motorDAO.save(motor03abbAtex);
+        motorRepository.save(motor03abbAtex);
         Motor motor05abbAtex = new Motor(abb, "ABB motor 20 HP, ATEX", new BigDecimal("1910"), dreampompa, motorSpeed1500,
                 atex, motorPower20, motorFrame160);
-        motorDAO.save(motor05abbAtex);
+        motorRepository.save(motor05abbAtex);
 
 
         return "OK";

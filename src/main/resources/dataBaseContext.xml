@@ -36,7 +36,7 @@
         <property name="accessToUnderlyingConnectionAllowed" value="true"/>
     </bean>
 
-    <jpa:repositories base-package="eu.bausov.projects.srvpumpselection.dao"/>
+    <jpa:repositories base-package="eu.bausov.projects.srvpumpselection.repository"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

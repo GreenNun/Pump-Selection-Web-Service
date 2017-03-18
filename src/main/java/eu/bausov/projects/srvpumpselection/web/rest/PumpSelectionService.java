@@ -2,7 +2,7 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Parameters;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
-import eu.bausov.projects.srvpumpselection.dao.*;
+import eu.bausov.projects.srvpumpselection.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +21,21 @@ import java.util.List;
 public class PumpSelectionService {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
 
-    private final PumpDAO pumpDAO;
-    private final ReducerDAO reducerDAO;
-    private final MotorDAO motorDAO;
-    private final SealDAO sealDAO;
-    private final DriverAssemblyDAO driverAssemblyDAO;
-    private final FrameDAO frameDAO;
+    private final PumpRepository pumpRepository;
+    private final ReducerRepository reducerRepository;
+    private final MotorRepository motorRepository;
+    private final SealRepository sealRepository;
+    private final DriverAssemblyRepository driverAssemblyRepository;
+    private final FrameRepository frameRepository;
 
     @Autowired
-    public PumpSelectionService(PumpDAO pumpDAO, ReducerDAO reducerDAO, MotorDAO motorDAO, SealDAO sealDAO, DriverAssemblyDAO driverAssemblyDAO, FrameDAO frameDAO) {
-        this.pumpDAO = pumpDAO;
-        this.reducerDAO = reducerDAO;
-        this.motorDAO = motorDAO;
-        this.sealDAO = sealDAO;
-        this.driverAssemblyDAO = driverAssemblyDAO;
-        this.frameDAO = frameDAO;
+    public PumpSelectionService(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository) {
+        this.pumpRepository = pumpRepository;
+        this.reducerRepository = reducerRepository;
+        this.motorRepository = motorRepository;
+        this.sealRepository = sealRepository;
+        this.driverAssemblyRepository = driverAssemblyRepository;
+        this.frameRepository = frameRepository;
     }
 
     @ResponseBody
@@ -44,12 +44,12 @@ public class PumpSelectionService {
         LOGGER.info("Current session received '{}'", this.getClass());
 
         // Get all equipment lists from DB
-        List<Pump> pumps = pumpDAO.findAll();
-        List<Reducer> reducers = reducerDAO.findAll();
-        List<Motor> motors = motorDAO.findAll();
-        List<Seal> seals = sealDAO.findAll();
-        List<DriverAssembly> driverAssemblies = driverAssemblyDAO.findAll();
-        List<Frame> frames = frameDAO.findAll();
+        List<Pump> pumps = pumpRepository.findAll();
+        List<Reducer> reducers = reducerRepository.findAll();
+        List<Motor> motors = motorRepository.findAll();
+        List<Seal> seals = sealRepository.findAll();
+        List<DriverAssembly> driverAssemblies = driverAssemblyRepository.findAll();
+        List<Frame> frames = frameRepository.findAll();
 
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
