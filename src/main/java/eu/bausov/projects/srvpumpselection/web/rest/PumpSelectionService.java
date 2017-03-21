@@ -3,6 +3,7 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 import eu.bausov.projects.srvpumpselection.bo.Parameters;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.repository.*;
+import eu.bausov.projects.srvpumpselection.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,21 @@ import java.util.List;
 public class PumpSelectionService {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
 
-    private final PumpRepository pumpRepository;
-    private final ReducerRepository reducerRepository;
-    private final MotorRepository motorRepository;
-    private final SealRepository sealRepository;
-    private final DriverAssemblyRepository driverAssemblyRepository;
-    private final FrameRepository frameRepository;
+    private final PumpService pumpService;
+    private final ReducerService reducerService;
+    private final MotorService motorService;
+    private final SealService sealService;
+    private final DriverAssemblyService driverAssemblyService;
+    private final FrameService frameService;
 
     @Autowired
-    public PumpSelectionService(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository) {
-        this.pumpRepository = pumpRepository;
-        this.reducerRepository = reducerRepository;
-        this.motorRepository = motorRepository;
-        this.sealRepository = sealRepository;
-        this.driverAssemblyRepository = driverAssemblyRepository;
-        this.frameRepository = frameRepository;
+    public PumpSelectionService(PumpService pumpService, ReducerService reducerService, MotorService motorService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService) {
+        this.pumpService = pumpService;
+        this.reducerService = reducerService;
+        this.motorService = motorService;
+        this.sealService = sealService;
+        this.driverAssemblyService = driverAssemblyService;
+        this.frameService = frameService;
     }
 
     @ResponseBody
@@ -44,12 +45,12 @@ public class PumpSelectionService {
         LOGGER.info("Current session received '{}'", this.getClass());
 
         // Get all equipment lists from DB
-        List<Pump> pumps = pumpRepository.findAll();
-        List<Reducer> reducers = reducerRepository.findAll();
-        List<Motor> motors = motorRepository.findAll();
-        List<Seal> seals = sealRepository.findAll();
-        List<DriverAssembly> driverAssemblies = driverAssemblyRepository.findAll();
-        List<Frame> frames = frameRepository.findAll();
+        List<Pump> pumps = pumpService.findAllPumps();
+        List<Reducer> reducers = reducerService.findAllReducers();
+        List<Motor> motors = motorService.findAllMotors();
+        List<Seal> seals = sealService.findAllSeals();
+        List<DriverAssembly> driverAssemblies = driverAssemblyService.findAllDriverAssemblies();
+        List<Frame> frames = frameService.findAllFrames();
 
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
         // Pump
