@@ -19,7 +19,7 @@
 
     <import resource="classpath:webServicesContext.xml"/>
 
-    <bean id="exceptionResolver" class="eu.bausov.projects.srvpumpselection.web.rest.HandlerExceptionResolver">
+    <bean id="exceptionResolver" class="eu.bausov.projects.srvpumpselection.web.HandlerExceptionResolver">
         <property name="order" value="1"/>
     </bean>
 
