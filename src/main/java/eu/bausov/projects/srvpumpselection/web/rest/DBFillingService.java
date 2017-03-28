@@ -101,13 +101,13 @@ public class DBFillingService {
         Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
         constantRepository.save(internalGearPump);
         Constant modularGearPump = new Constant("pump type", "Modular Gear Pump"); // pumpType
-        constantRepository.save(internalGearPump);
+        constantRepository.save(modularGearPump);
         Constant helicalGearPump = new Constant("pump type", "Helical Gear Pump"); // pumpType
-        constantRepository.save(internalGearPump);
+        constantRepository.save(helicalGearPump);
         Constant lobePump = new Constant("pump type", "Lobe Pump"); // pumpType
-        constantRepository.save(internalGearPump);
+        constantRepository.save(lobePump);
         Constant foodPump = new Constant("pump type", "Food Pump"); // pumpType
-        constantRepository.save(internalGearPump);
+        constantRepository.save(foodPump);
 
         /**
          * SEAL TYPES

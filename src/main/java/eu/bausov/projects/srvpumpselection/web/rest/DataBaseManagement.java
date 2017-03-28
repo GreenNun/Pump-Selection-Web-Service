@@ -2,14 +2,15 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
-import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
-import eu.bausov.projects.srvpumpselection.bo.equipment.*;
+import eu.bausov.projects.srvpumpselection.bo.equipment.DriverAssembly;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Frame;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Seal;
 import eu.bausov.projects.srvpumpselection.bo.equipment.requests.PumpCreateRequest;
-import eu.bausov.projects.srvpumpselection.repository.*;
+import eu.bausov.projects.srvpumpselection.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,23 +21,23 @@ import java.util.List;
 public class DataBaseManagement {
     private final Logger LOGGER = LoggerFactory.getLogger(DataBaseManagement.class);
 
-    private final PumpRepository pumpRepository;
-    private final SealRepository sealRepository;
-    private final DriverAssemblyRepository driverAssemblyRepository;
-    private final FrameRepository frameRepository;
-    private final ConstantRepository constantRepository;
-    private final ProducerRepository producerRepository;
-    private final SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository;
+    private final PumpService pumpService;
+    private final SealService sealService;
+    private final DriverAssemblyService driverAssemblyService;
+    private final FrameService frameService;
+    private final ConstantService constantService;
+    private final ProducerService producerService;
+    private final SpeedCorrectionCoefficientService speedCorrectionCoefficientService;
 
     @Autowired
-    public DataBaseManagement(PumpRepository pumpRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
-        this.pumpRepository = pumpRepository;
-        this.sealRepository = sealRepository;
-        this.driverAssemblyRepository = driverAssemblyRepository;
-        this.frameRepository = frameRepository;
-        this.constantRepository = constantRepository;
-        this.producerRepository = producerRepository;
-        this.speedCorrectionCoefficientRepository = speedCorrectionCoefficientRepository;
+    public DataBaseManagement(PumpService pumpService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService, ConstantService constantService, ProducerService producerService, SpeedCorrectionCoefficientService speedCorrectionCoefficientService) {
+        this.pumpService = pumpService;
+        this.sealService = sealService;
+        this.driverAssemblyService = driverAssemblyService;
+        this.frameService = frameService;
+        this.constantService = constantService;
+        this.producerService = producerService;
+        this.speedCorrectionCoefficientService = speedCorrectionCoefficientService;
     }
 
     @ResponseBody
@@ -44,7 +45,7 @@ public class DataBaseManagement {
     public List<Constant> getConstantsList() {
         LOGGER.info("Constants list requested");
 
-        return constantRepository.findAll();
+        return constantService.findAllConstants();
     }
 
     @ResponseBody
@@ -52,7 +53,7 @@ public class DataBaseManagement {
     public List<Producer> getProducersList() {
         LOGGER.info("Producers list requested");
 
-        return producerRepository.findAll();
+        return producerService.findAllProducers();
     }
 
     @ResponseBody
@@ -60,7 +61,7 @@ public class DataBaseManagement {
     public List<Seal> getSealsList() {
         LOGGER.info("Seals list requested");
 
-        return sealRepository.findAll();
+        return sealService.findAllSeals();
     }
 
     @ResponseBody
@@ -68,7 +69,7 @@ public class DataBaseManagement {
     public List<Frame> getFramesList() {
         LOGGER.info("Frames list requested");
 
-        return frameRepository.findAll();
+        return frameService.findAllFrames();
     }
 
     @ResponseBody
@@ -76,16 +77,16 @@ public class DataBaseManagement {
     public List<DriverAssembly> getAssembliesList() {
         LOGGER.info("Driver Assemblies list requested");
 
-        return driverAssemblyRepository.findAll();
+        return driverAssemblyService.findAllDriverAssemblies();
     }
 
     @SuppressWarnings("unchecked")
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
     public List<Pump> getList() {
         LOGGER.info("Pumps list requested");
 
-        return pumpRepository.findAll();
+        return pumpService.findAllPumps();
     }
 
     @ResponseBody
@@ -93,46 +94,45 @@ public class DataBaseManagement {
     public Pump getPump(@PathVariable("id") Long id) {
         LOGGER.info("Pump with id:{} requested", id);
 
-        return pumpRepository.findOne(id);
+        return pumpService.findOnePump(id);
     }
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPump(@RequestBody PumpCreateRequest request) throws IllegalAccessException {
-        LOGGER.info("createPump() invoked, model: {}", request.getModelName());
+        LOGGER.info("Create pump requested, model: {}", request.getModelName());
 
         Pump pump = new Pump();
         pump.setModelName(request.getModelName());
         pump.setPrice(request.getPrice());
-        pump.setProducer(producerRepository.findOne(request.getProducer()));
-        pump.setConstPumpType(constantRepository.findOne(request.getConstPumpType()));
+        pump.setProducer(producerService.findOneProducer(request.getProducerId()));
+        pump.setConstPumpType(constantService.findOneConstant(request.getConstPumpTypeId()));
         pump.setReliefValve(request.isReliefValve());
         pump.setHeatingJacketOnCover(request.isHeatingJacketOnCover());
         pump.setHeatingJacketOnCasing(request.isHeatingJacketOnBracket());
         pump.setHeatingJacketOnBracket(request.isHeatingJacketOnBracket());
-        pump.setConstCasingMaterial(constantRepository.findOne(request.getConstCasingMaterial()));
-        pump.setConstRotorGearMaterial(constantRepository.findOne(request.getConstRotorGearMaterial()));
-        pump.setConstIdlerGearMaterial(constantRepository.findOne(request.getConstIdlerGearMaterial()));
-        pump.setConstShaftSupportMaterial(constantRepository.findOne(request.getConstShaftSupportMaterial()));
-        pump.setConstShaftMaterial(constantRepository.findOne(request.getConstShaftMaterial()));
-        pump.setConstConnectionsType(constantRepository.findOne(request.getConstConnectionsType()));
-        pump.setConstDn(constantRepository.findOne(request.getConstDn()));
-        pump.setConstConnectionsAngle(constantRepository.findOne(request.getConstConnectionsAngle()));
-        pump.setConstMaxPressure(constantRepository.findOne(request.getConstMaxPressure()));
-        pump.setConstMaxTemperature(constantRepository.findOne(request.getConstMaxTemperature()));
+        pump.setConstCasingMaterial(constantService.findOneConstant(request.getConstCasingMaterialId()));
+        pump.setConstRotorGearMaterial(constantService.findOneConstant(request.getConstRotorGearMaterialId()));
+        pump.setConstIdlerGearMaterial(constantService.findOneConstant(request.getConstIdlerGearMaterialId()));
+        pump.setConstShaftSupportMaterial(constantService.findOneConstant(request.getConstShaftSupportMaterialId()));
+        pump.setConstShaftMaterial(constantService.findOneConstant(request.getConstShaftMaterialId()));
+        pump.setConstConnectionsType(constantService.findOneConstant(request.getConstConnectionsTypeId()));
+        pump.setConstDn(constantService.findOneConstant(request.getConstDnId()));
+        pump.setConstConnectionsAngle(constantService.findOneConstant(request.getConstConnectionsAngleId()));
+        pump.setConstMaxPressure(constantService.findOneConstant(request.getConstMaxPressureId()));
+        pump.setConstMaxTemperature(constantService.findOneConstant(request.getConstMaxTemperatureId()));
         pump.setRpmCoefficient(request.getRpmCoefficient());
 
-        for (SpeedCorrectionCoefficient speedCorrectionCoefficient : request.getSpeedCorrectionCoefficients()) {
-            speedCorrectionCoefficientRepository.save(speedCorrectionCoefficient);
-        }
-
+        // todo look here
+        request.getSpeedCorrectionCoefficients().forEach(speedCorrectionCoefficientService::saveSpeedCorrectionCoefficient);
         pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
-        pumpRepository.save(pump);
+
+        pumpService.savePump(pump);
 
         // update in parts lists
-        partsListUpdate(pump, sealRepository, request.getSeals());
-        partsListUpdate(pump, frameRepository, request.getFrames());
-        partsListUpdate(pump, driverAssemblyRepository, request.getDriverAssemblies());
+        sealService.addToPartLists(pump, request.getSealsIdentifires());
+        frameService.addToPartLists(pump, request.getFramesIdentifires());
+        driverAssemblyService.addToPartLists(pump, request.getDriverAssembliesIdentifires());
 
         LOGGER.info("Pump with id {} created", pump.getId());
 
@@ -141,18 +141,10 @@ public class DataBaseManagement {
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Pump updatePump(@RequestBody Pump pump) {
+    public String updatePump(@RequestBody Pump pump) {
 
-        return pumpRepository.save(pump);
-    }
+        pumpService.savePump(pump);
 
-    private <T extends PumpPart> void partsListUpdate(Pump pump, CrudRepository<T, Long> dao, long[] identifiers) {
-        for (long identifier : identifiers) {
-            T pumpPart = dao.findOne(identifier);
-            pumpPart.getSuitablePumps().add(pump);
-            dao.save(pumpPart);
-
-            LOGGER.info("{}.class parts list UPDATED with pump id: {}");
-        }
+        return "Pump updated";
     }
 }
