@@ -1,6 +1,7 @@
 package eu.bausov.projects.srvpumpselection.service;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Frame;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface FrameService {
     List<Frame> findAllFrames();
+    Frame findOneFrame(Long id);
+    void addToPartLists(Pump pump, long[] framesIdentifiers);
 }

@@ -1,5 +1,6 @@
 package eu.bausov.projects.srvpumpselection.service;
 
+import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
 import eu.bausov.projects.srvpumpselection.bo.equipment.Seal;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface SealService {
     List<Seal> findAllSeals();
+    Seal findOneSeal(Long id);
+    void addToPartLists(Pump pump, long[] sealsIdentifiers);
 }

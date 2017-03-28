@@ -1,7 +1,8 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.repository.ConstantRepository;
+import eu.bausov.projects.srvpumpselection.service.ConstantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,12 @@ public class ConstantServiceImpl implements ConstantService {
     }
 
     @Override
-    public List<Constant> getAllConstants() {
+    public List<Constant> findAllConstants() {
         return constantRepository.findAll();
+    }
+
+    @Override
+    public Constant findOneConstant(Long id) {
+        return constantRepository.findOne(id);
     }
 }

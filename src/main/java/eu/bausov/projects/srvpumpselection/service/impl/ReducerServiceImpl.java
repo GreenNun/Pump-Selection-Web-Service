@@ -1,7 +1,8 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Reducer;
 import eu.bausov.projects.srvpumpselection.repository.ReducerRepository;
+import eu.bausov.projects.srvpumpselection.service.ReducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class ReducerServiceImpl implements ReducerService {
     @Override
     public List<Reducer> findAllReducers() {
         return reducerRepository.findAll();
+    }
+
+    @Override
+    public Reducer findOneReducer(Long id) {
+        return reducerRepository.findOne(id);
     }
 }

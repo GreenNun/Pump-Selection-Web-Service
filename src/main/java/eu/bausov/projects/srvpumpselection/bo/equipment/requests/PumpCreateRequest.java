@@ -44,7 +44,7 @@ public class PumpCreateRequest {
         this.modelName = modelName;
     }
 
-    public long getProducer() {
+    public long getProducerId() {
         return producer;
     }
 
@@ -60,7 +60,7 @@ public class PumpCreateRequest {
         this.price = price;
     }
 
-    public long getConstPumpType() {
+    public long getConstPumpTypeId() {
         return constPumpType;
     }
 
@@ -100,7 +100,7 @@ public class PumpCreateRequest {
         isHeatingJacketOnBracket = heatingJacketOnBracket;
     }
 
-    public long getConstCasingMaterial() {
+    public long getConstCasingMaterialId() {
         return constCasingMaterial;
     }
 
@@ -108,7 +108,7 @@ public class PumpCreateRequest {
         this.constCasingMaterial = constCasingMaterial;
     }
 
-    public long getConstRotorGearMaterial() {
+    public long getConstRotorGearMaterialId() {
         return constRotorGearMaterial;
     }
 
@@ -116,7 +116,7 @@ public class PumpCreateRequest {
         this.constRotorGearMaterial = constRotorGearMaterial;
     }
 
-    public long getConstIdlerGearMaterial() {
+    public long getConstIdlerGearMaterialId() {
         return constIdlerGearMaterial;
     }
 
@@ -124,7 +124,7 @@ public class PumpCreateRequest {
         this.constIdlerGearMaterial = constIdlerGearMaterial;
     }
 
-    public long getConstShaftSupportMaterial() {
+    public long getConstShaftSupportMaterialId() {
         return constShaftSupportMaterial;
     }
 
@@ -132,7 +132,7 @@ public class PumpCreateRequest {
         this.constShaftSupportMaterial = constShaftSupportMaterial;
     }
 
-    public long getConstShaftMaterial() {
+    public long getConstShaftMaterialId() {
         return constShaftMaterial;
     }
 
@@ -140,7 +140,7 @@ public class PumpCreateRequest {
         this.constShaftMaterial = constShaftMaterial;
     }
 
-    public long getConstConnectionsType() {
+    public long getConstConnectionsTypeId() {
         return constConnectionsType;
     }
 
@@ -148,7 +148,7 @@ public class PumpCreateRequest {
         this.constConnectionsType = constConnectionsType;
     }
 
-    public long getConstDn() {
+    public long getConstDnId() {
         return constDn;
     }
 
@@ -156,7 +156,7 @@ public class PumpCreateRequest {
         this.constDn = constDn;
     }
 
-    public long getConstMaxPressure() {
+    public long getConstMaxPressureId() {
         return constMaxPressure;
     }
 
@@ -164,7 +164,7 @@ public class PumpCreateRequest {
         this.constMaxPressure = constMaxPressure;
     }
 
-    public long getConstConnectionsAngle() {
+    public long getConstConnectionsAngleId() {
         return constConnectionsAngle;
     }
 
@@ -172,7 +172,7 @@ public class PumpCreateRequest {
         this.constConnectionsAngle = constConnectionsAngle;
     }
 
-    public long getConstMaxTemperature() {
+    public long getConstMaxTemperatureId() {
         return constMaxTemperature;
     }
 
@@ -196,7 +196,7 @@ public class PumpCreateRequest {
         this.speedCorrectionCoefficients = speedCorrectionCoefficients;
     }
 
-    public long[] getSeals() {
+    public long[] getSealsIdentifires() {
         return seals;
     }
 
@@ -204,7 +204,7 @@ public class PumpCreateRequest {
         this.seals = seals;
     }
 
-    public long[] getFrames() {
+    public long[] getFramesIdentifires() {
         return frames;
     }
 
@@ -212,7 +212,7 @@ public class PumpCreateRequest {
         this.frames = frames;
     }
 
-    public long[] getDriverAssemblies() {
+    public long[] getDriverAssembliesIdentifires() {
         return driverAssemblies;
     }
 

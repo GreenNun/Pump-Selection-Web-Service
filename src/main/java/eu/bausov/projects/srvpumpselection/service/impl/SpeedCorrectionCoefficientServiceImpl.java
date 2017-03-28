@@ -1,7 +1,8 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.repository.SpeedCorrectionCoefficientRepository;
+import eu.bausov.projects.srvpumpselection.service.SpeedCorrectionCoefficientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class SpeedCorrectionCoefficientServiceImpl implements SpeedCorrectionCoe
     @Override
     public List<SpeedCorrectionCoefficient> findAllSpeedCorrectionCoefficients() {
         return speedCorrectionCoefficientRepository.findAll();
+    }
+
+    @Override
+    public void saveSpeedCorrectionCoefficient(SpeedCorrectionCoefficient speedCorrectionCoefficient) {
+        speedCorrectionCoefficientRepository.save(speedCorrectionCoefficient);
     }
 }

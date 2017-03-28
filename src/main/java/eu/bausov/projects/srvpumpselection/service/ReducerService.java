@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface ReducerService {
     List<Reducer> findAllReducers();
+    Reducer findOneReducer(Long id);
 }

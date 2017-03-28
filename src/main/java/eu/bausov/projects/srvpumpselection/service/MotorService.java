@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface MotorService {
     List<Motor> findAllMotors();
+    Motor findOneMotor(Long id);
 }

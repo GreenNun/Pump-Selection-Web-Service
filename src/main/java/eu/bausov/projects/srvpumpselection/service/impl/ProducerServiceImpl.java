@@ -1,7 +1,8 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.repository.ProducerRepository;
+import eu.bausov.projects.srvpumpselection.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class ProducerServiceImpl implements ProducerService {
     @Override
     public List<Producer> findAllProducers() {
         return producerRepository.findAll();
+    }
+
+    @Override
+    public Producer findOneProducer(Long id) {
+        return producerRepository.findOne(id);
     }
 }

@@ -1,6 +1,7 @@
 package eu.bausov.projects.srvpumpselection.service;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.DriverAssembly;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface DriverAssemblyService {
     List<DriverAssembly> findAllDriverAssemblies();
+    DriverAssembly findOneDriverAssembly(Long id);
+    void addToPartLists(Pump pump, long[] driverAssembliesIdentifiers);
 }

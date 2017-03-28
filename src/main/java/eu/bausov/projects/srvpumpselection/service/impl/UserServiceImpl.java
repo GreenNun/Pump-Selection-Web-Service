@@ -1,6 +1,7 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.repository.UserRepository;
+import eu.bausov.projects.srvpumpselection.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

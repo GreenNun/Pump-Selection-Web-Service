@@ -1,7 +1,9 @@
-package eu.bausov.projects.srvpumpselection.service;
+package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
+import eu.bausov.projects.srvpumpselection.bo.equipment.PumpPart;
 import eu.bausov.projects.srvpumpselection.repository.PumpRepository;
+import eu.bausov.projects.srvpumpselection.service.PumpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class PumpServiceImpl implements PumpService {
     @Override
     public List<Pump> findAllPumps() {
         return pumpRepository.findAll();
+    }
+
+    @Override
+    public Pump findOnePump(Long id) {
+        return pumpRepository.findOne(id);
     }
 
     @Override
