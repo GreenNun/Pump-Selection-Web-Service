@@ -1,10 +1,12 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "TB_SPEED_CORRECTION_COEFFICIENTS", uniqueConstraints = {@UniqueConstraint(columnNames = {"viscosity", "coefficient"})})
+@Table(name = "TB_SPEED_CORRECTION_COEFFICIENTS")
 @XmlRootElement
 public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedCorrectionCoefficient> {
     private Integer viscosity;
@@ -39,7 +41,7 @@ public class SpeedCorrectionCoefficient extends JPA implements Comparable<SpeedC
     }
 
     @Override // for sorting in Stream API
-    public int compareTo(SpeedCorrectionCoefficient c) {
+    public int compareTo(@NotNull SpeedCorrectionCoefficient c) {
         return Integer.compare(viscosity, c.viscosity);
     }
 }

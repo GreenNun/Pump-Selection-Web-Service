@@ -1,4 +1,4 @@
-package eu.bausov.projects.srvpumpselection.web.rest;
+package eu.bausov.projects.srvpumpselection.web;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.hibernate.ObjectNotFoundException;
@@ -24,7 +24,7 @@ public class HandlerExceptionResolver extends AbstractHandlerExceptionResolver {
         if (ex instanceof AccessDeniedException) {
             return processAccessDeniedException(request, response, (AccessDeniedException) ex);
         } else if (ex instanceof HttpMessageNotWritableException) {
-            return processNotWritableException(response, (HttpMessageNotWritableException)ex);
+            return processNotWritableException(response, (HttpMessageNotWritableException) ex);
         } else {
             return processOtherExceptions(response, ex);
         }
@@ -43,7 +43,7 @@ public class HandlerExceptionResolver extends AbstractHandlerExceptionResolver {
         if (th instanceof ObjectNotFoundException) {
             response.setHeader("Error-msg", "Requested object is not found");
         } else {
-            response.setHeader("Error-msg",  th.getMessage());
+            response.setHeader("Error-msg", th.getMessage());
         }
 
         logger.info("Full stack trace", ex);

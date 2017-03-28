@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -246,7 +247,7 @@ public class Pump extends Equipment {
 
     //@XmlTransient
     @Fetch(FetchMode.SUBSELECT)
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
         return speedCorrectionCoefficients;
     }
@@ -293,10 +294,7 @@ public class Pump extends Equipment {
     private int getSpeedCorrectionCoefficient(Parameters p) {
         Optional<SpeedCorrectionCoefficient> optional = speedCorrectionCoefficients.stream().sorted().filter((s) ->
                 s.getViscosity() >= p.getViscosity()).findFirst();
-        if (optional.isPresent()) {
-            return optional.get().getCoefficient();
-        }
-        return 0;
+        return optional.map(SpeedCorrectionCoefficient::getCoefficient).orElse(0);
     }
 
     /**
@@ -327,7 +325,7 @@ public class Pump extends Equipment {
      */
     public boolean isViscosityValid(Parameters parameters) {
         Optional<SpeedCorrectionCoefficient> max = getSpeedCorrectionCoefficients().stream()
-                .max((o1, o2) -> o1.getViscosity().compareTo(o2.getViscosity()));
+                .max(Comparator.comparing(SpeedCorrectionCoefficient::getViscosity));
         return max.isPresent() && max.get().getViscosity() >= parameters.getViscosity();
     }
 
@@ -338,9 +336,6 @@ public class Pump extends Equipment {
      * @return Returns true if equivalent of current pump is found.
      */
     public boolean isValidTo(Set<Pump> pumps){
-        for (Pump pump : pumps){
-            if (this.equals(pump)) return true;
-        }
-        return false;
+        return pumps.stream().anyMatch(this::equals);
     }
 }

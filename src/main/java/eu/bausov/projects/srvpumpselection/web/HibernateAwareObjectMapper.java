@@ -1,4 +1,4 @@
-package eu.bausov.projects.srvpumpselection.web.rest;
+package eu.bausov.projects.srvpumpselection.web;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

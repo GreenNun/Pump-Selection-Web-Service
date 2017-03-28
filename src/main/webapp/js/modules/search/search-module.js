@@ -16,6 +16,17 @@ angular.module('pump.modules.search')
             capacity: "1"
         };
 
+        $http({
+            method: 'GET',
+            url: '/pump/api/select/constants'
+        })
+            .success(function (data) {
+                $scope.constants = data;
+            })
+            .error(function (data) {
+                $rootScope.addNotification('danger', data);
+            });
+
         $scope.doSearch = function () {
 
             $scope.result = {
@@ -24,7 +35,7 @@ angular.module('pump.modules.search')
 
             $http({
                 method: 'POST',
-                url: '/pump/api/PumpSelectionService/search',
+                url: '/pump/api/select/search',
                 data: $scope.search
             })
                 .success(function (data) {

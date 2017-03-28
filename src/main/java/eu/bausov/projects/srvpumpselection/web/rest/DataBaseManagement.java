@@ -1,36 +1,43 @@
 package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
-import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
-import eu.bausov.projects.srvpumpselection.bo.equipment.*;
+import eu.bausov.projects.srvpumpselection.bo.equipment.DriverAssembly;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Frame;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
+import eu.bausov.projects.srvpumpselection.bo.equipment.Seal;
 import eu.bausov.projects.srvpumpselection.bo.equipment.requests.PumpCreateRequest;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+import eu.bausov.projects.srvpumpselection.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/DataBaseManagement")
 public class DataBaseManagement {
     private final Logger LOGGER = LoggerFactory.getLogger(DataBaseManagement.class);
 
-    private final SessionFactory sessionFactory;
+    private final PumpService pumpService;
+    private final SealService sealService;
+    private final DriverAssemblyService driverAssemblyService;
+    private final FrameService frameService;
+    private final ConstantService constantService;
+    private final ProducerService producerService;
+    private final SpeedCorrectionCoefficientService speedCorrectionCoefficientService;
 
     @Autowired
-    public DataBaseManagement(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public DataBaseManagement(PumpService pumpService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService, ConstantService constantService, ProducerService producerService, SpeedCorrectionCoefficientService speedCorrectionCoefficientService) {
+        this.pumpService = pumpService;
+        this.sealService = sealService;
+        this.driverAssemblyService = driverAssemblyService;
+        this.frameService = frameService;
+        this.constantService = constantService;
+        this.producerService = producerService;
+        this.speedCorrectionCoefficientService = speedCorrectionCoefficientService;
     }
 
     @ResponseBody
@@ -38,8 +45,7 @@ public class DataBaseManagement {
     public List<Constant> getConstantsList() {
         LOGGER.info("Constants list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Constant>) session.createCriteria(Constant.class).list();
+        return constantService.findAllConstants();
     }
 
     @ResponseBody
@@ -47,8 +53,7 @@ public class DataBaseManagement {
     public List<Producer> getProducersList() {
         LOGGER.info("Producers list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Producer>) session.createCriteria(Producer.class).list();
+        return producerService.findAllProducers();
     }
 
     @ResponseBody
@@ -56,8 +61,7 @@ public class DataBaseManagement {
     public List<Seal> getSealsList() {
         LOGGER.info("Seals list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Seal>) session.createCriteria(Seal.class).list();
+        return sealService.findAllSeals();
     }
 
     @ResponseBody
@@ -65,8 +69,7 @@ public class DataBaseManagement {
     public List<Frame> getFramesList() {
         LOGGER.info("Frames list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Frame>) session.createCriteria(Frame.class).list();
+        return frameService.findAllFrames();
     }
 
     @ResponseBody
@@ -74,140 +77,74 @@ public class DataBaseManagement {
     public List<DriverAssembly> getAssembliesList() {
         LOGGER.info("Driver Assemblies list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<DriverAssembly>) session.createCriteria(DriverAssembly.class).list();
+        return driverAssemblyService.findAllDriverAssemblies();
     }
 
     @SuppressWarnings("unchecked")
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/pumps", method = RequestMethod.GET)
     public List<Pump> getList() {
+        LOGGER.info("Pumps list requested");
 
-        Session session = sessionFactory.getCurrentSession();
-        return (List<Pump>) session.createCriteria(Pump.class).list();
-
+        return pumpService.findAllPumps();
     }
 
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Pump getPump(@PathVariable("id") Long id) {
+        LOGGER.info("Pump with id:{} requested", id);
 
-        Session session = sessionFactory.getCurrentSession();
-        return (Pump) session.load(Pump.class, id);
-
+        return pumpService.findOnePump(id);
     }
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPump(@RequestBody PumpCreateRequest request) throws IllegalAccessException {
-        LOGGER.info("createPump() invoked, model: {}", request.getModelName());
-
-        Session session = sessionFactory.getCurrentSession();
+        LOGGER.info("Create pump requested, model: {}", request.getModelName());
 
         Pump pump = new Pump();
         pump.setModelName(request.getModelName());
         pump.setPrice(request.getPrice());
-        pump.setProducer((Producer) session.load(Producer.class, request.getProducer()));
-        pump.setConstPumpType((Constant) session.load(Constant.class, request.getConstPumpType()));
+        pump.setProducer(producerService.findOneProducer(request.getProducerId()));
+        pump.setConstPumpType(constantService.findOneConstant(request.getConstPumpTypeId()));
         pump.setReliefValve(request.isReliefValve());
         pump.setHeatingJacketOnCover(request.isHeatingJacketOnCover());
         pump.setHeatingJacketOnCasing(request.isHeatingJacketOnBracket());
         pump.setHeatingJacketOnBracket(request.isHeatingJacketOnBracket());
-        pump.setConstCasingMaterial((Constant) session.load(Constant.class, request.getConstCasingMaterial()));
-        pump.setConstRotorGearMaterial((Constant) session.load(Constant.class, request.getConstRotorGearMaterial()));
-        pump.setConstIdlerGearMaterial((Constant) session.load(Constant.class, request.getConstIdlerGearMaterial()));
-        pump.setConstShaftSupportMaterial((Constant) session.load(Constant.class, request.getConstShaftSupportMaterial()));
-        pump.setConstShaftMaterial((Constant) session.load(Constant.class, request.getConstShaftMaterial()));
-        pump.setConstConnectionsType((Constant) session.load(Constant.class, request.getConstConnectionsType()));
-        pump.setConstDn((Constant) session.load(Constant.class, request.getConstDn()));
-        pump.setConstConnectionsAngle((Constant) session.load(Constant.class, request.getConstConnectionsAngle()));
-        pump.setConstMaxPressure((Constant) session.load(Constant.class, request.getConstMaxPressure()));
-        pump.setConstMaxTemperature((Constant) session.load(Constant.class, request.getConstMaxTemperature()));
+        pump.setConstCasingMaterial(constantService.findOneConstant(request.getConstCasingMaterialId()));
+        pump.setConstRotorGearMaterial(constantService.findOneConstant(request.getConstRotorGearMaterialId()));
+        pump.setConstIdlerGearMaterial(constantService.findOneConstant(request.getConstIdlerGearMaterialId()));
+        pump.setConstShaftSupportMaterial(constantService.findOneConstant(request.getConstShaftSupportMaterialId()));
+        pump.setConstShaftMaterial(constantService.findOneConstant(request.getConstShaftMaterialId()));
+        pump.setConstConnectionsType(constantService.findOneConstant(request.getConstConnectionsTypeId()));
+        pump.setConstDn(constantService.findOneConstant(request.getConstDnId()));
+        pump.setConstConnectionsAngle(constantService.findOneConstant(request.getConstConnectionsAngleId()));
+        pump.setConstMaxPressure(constantService.findOneConstant(request.getConstMaxPressureId()));
+        pump.setConstMaxTemperature(constantService.findOneConstant(request.getConstMaxTemperatureId()));
         pump.setRpmCoefficient(request.getRpmCoefficient());
 
-        // transaction starts here
-        try {
-            Transaction transaction = session.beginTransaction();
+        // todo look here
+        request.getSpeedCorrectionCoefficients().forEach(speedCorrectionCoefficientService::saveSpeedCorrectionCoefficient);
+        pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
 
-            pump.setSpeedCorrectionCoefficients(persistOrCreate(session, request.getSpeedCorrectionCoefficients()));
-            session.persist(pump);
+        pumpService.savePump(pump);
 
-            // update in parts lists
-            partsListUpdate(session, pump, Seal.class, request.getSeals());
-            partsListUpdate(session, pump, Frame.class, request.getFrames());
-            partsListUpdate(session, pump, DriverAssembly.class, request.getDriverAssemblies());
+        // update in parts lists
+        sealService.addToPartLists(pump, request.getSealsIdentifires());
+        frameService.addToPartLists(pump, request.getFramesIdentifires());
+        driverAssemblyService.addToPartLists(pump, request.getDriverAssembliesIdentifires());
 
-            session.flush();
-            session.clear();
-            transaction.commit();
-        } catch (RuntimeException e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-
-            LOGGER.warn("Transaction ROLLBACK");
-            return e.getMessage() + "\n" + e.toString();
-        }
-
-        LOGGER.info("Pump with id {} has been created", pump.getId());
-
-//        session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        session.flush();
-        session.clear();
-        transaction.commit();
+        LOGGER.info("Pump with id {} created", pump.getId());
 
         return "CREATED pump with id: " + pump.getId();
     }
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public Pump updatePump(@RequestBody Pump pump) {
+    public String updatePump(@RequestBody Pump pump) {
 
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(pump);
+        pumpService.savePump(pump);
 
-        return pump;
-
-    }
-
-    /**
-     * Takes objects from set and add to result set persisted (if exist in db) ro creates new in db and add.
-     * Method resolves problem when hibernate cannot persist object because of database unique keys restriction.
-     *
-     * @param session
-     * @param set
-     * @param <T>
-     * @throws IllegalAccessException
-     */
-    private <T extends JPA> Set<T> persistOrCreate(Session session, Set<T> set) throws IllegalAccessException {
-        Set<T> result = new HashSet<T>();
-
-        for (T object : set) {
-            Criteria criteria = session.createCriteria(object.getClass());
-            for (Field f : object.getClass().getDeclaredFields()) {
-                f.setAccessible(true);
-                criteria.add(Restrictions.eq(f.getName(), f.get(object)));
-            }
-            T object1 = (T) criteria.uniqueResult();
-            if (object1 == null) {
-                session.persist(object);
-                result.add(object);
-                LOGGER.info("JPA object persisted and added to Set");
-            } else {
-                result.add(object1);
-                LOGGER.info("JPA object loaded from database and added to Set");
-            }
-        }
-        return result;
-    }
-
-    private <T extends Equipment> void partsListUpdate(Session session, Pump pump, Class<T> clazz, long[] identifiers) {
-        for (long identifier : identifiers) {
-            PumpPart equipment = (PumpPart) session.load(clazz, identifier);
-            equipment.getSuitablePumps().add(pump);
-
-            LOGGER.info("{}.class parts list UPDATED with pump id: {}", clazz.getSimpleName(), pump.getId());
-        }
+        return "Pump updated";
     }
 }

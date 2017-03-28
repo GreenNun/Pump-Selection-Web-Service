@@ -1,4 +1,4 @@
-package eu.bausov.projects.srvpumpselection.web.rest;
+package eu.bausov.projects.srvpumpselection.web;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -11,5 +11,4 @@ public class HibernateJaxb2Marshaller extends Jaxb2Marshaller {
     public boolean supports(Class clazz) {
         return super.supports(clazz) || AnnotationUtils.findAnnotation(clazz, XmlRootElement.class) != null;
     }
-
 }

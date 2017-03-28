@@ -18,9 +18,8 @@
     <security:global-method-security pre-post-annotations="enabled"/>
 
     <import resource="classpath:webServicesContext.xml"/>
-    <!--<mvc:resources mapping="" location=""/>-->
 
-    <bean id="exceptionResolver" class="eu.bausov.projects.srvpumpselection.web.rest.HandlerExceptionResolver">
+    <bean id="exceptionResolver" class="eu.bausov.projects.srvpumpselection.web.HandlerExceptionResolver">
         <property name="order" value="1"/>
     </bean>
 

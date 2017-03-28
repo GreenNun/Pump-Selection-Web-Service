@@ -40,9 +40,9 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="jacksonHibernateObjectMapper" class="eu.bausov.projects.srvpumpselection.web.rest.HibernateAwareObjectMapper"/>
+    <bean id="jacksonHibernateObjectMapper" class="eu.bausov.projects.srvpumpselection.web.HibernateAwareObjectMapper"/>
 
-    <bean id="jaxb2marshaller" class="eu.bausov.projects.srvpumpselection.web.rest.HibernateJaxb2Marshaller">
+    <bean id="jaxb2marshaller" class="eu.bausov.projects.srvpumpselection.web.HibernateJaxb2Marshaller">
         <property name="packagesToScan">
             <list>
                 <value>eu.bausov.projects.srvpumpselection.bo.equipment</value>

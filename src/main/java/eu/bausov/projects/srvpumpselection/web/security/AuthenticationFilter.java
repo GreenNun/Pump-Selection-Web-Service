@@ -26,6 +26,4 @@ public class AuthenticationFilter extends AbstractPreAuthenticatedProcessingFilt
     protected Object getPreAuthenticatedCredentials(HttpServletRequest httpServletRequest) {
         return "N/A";
     }
-
-
 }
