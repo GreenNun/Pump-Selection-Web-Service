@@ -86,14 +86,8 @@
             <label for="constPumpType">Pump Type</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="search.pumpType"
-                           btn-radio="'Internal Eccentric Gear Pump'">Internal Eccentric Gear Pump</label>
-                    <label class="btn btn-default" ng-model="search.pumpType" btn-radio="'Modular Gear Pump'">Modular
-                        Gear Pump</label>
-                    <label class="btn btn-default" ng-model="search.pumpType" btn-radio="'Helical Gear Pump'">Helical
-                        Gear Pump</label>
-                    <label class="btn btn-default" ng-model="search.pumpType" btn-radio="'Lobe Pump'">Lobe Pump</label>
-                    <label class="btn btn-default" ng-model="search.pumpType" btn-radio="'Food Pump'">Food Pump</label>
+                    <label ng-repeat="type in constants | filter: {name: 'pump type'}" class="btn btn-default"
+                           ng-model="search.pumpType" btn-radio="type.value">{{type.value}}</label>
                 </div>
             </div>
         </div>

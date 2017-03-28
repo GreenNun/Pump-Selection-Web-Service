@@ -1,5 +1,6 @@
 package eu.bausov.projects.srvpumpselection.web.rest;
 
+import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Parameters;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.repository.*;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/PumpSelectionService")
+@RequestMapping(value = "/select")
 //@PreAuthorize("hasRole('ADMIN')")
 public class PumpSelectionService {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpSelectionService.class);
@@ -28,19 +30,22 @@ public class PumpSelectionService {
     private final SealService sealService;
     private final DriverAssemblyService driverAssemblyService;
     private final FrameService frameService;
+    private final ConstantService constantService;
 
     @Autowired
-    public PumpSelectionService(PumpService pumpService, ReducerService reducerService, MotorService motorService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService) {
+    public PumpSelectionService(PumpService pumpService, ReducerService reducerService, MotorService motorService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService, ConstantService constantService) {
         this.pumpService = pumpService;
         this.reducerService = reducerService;
         this.motorService = motorService;
         this.sealService = sealService;
         this.driverAssemblyService = driverAssemblyService;
         this.frameService = frameService;
+        this.constantService = constantService;
     }
 
     @ResponseBody
     @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @Transactional
     public List<PumpAggregate> getSuitablePumps(@RequestBody Parameters parameters) {
         LOGGER.info("Current session received '{}'", this.getClass());
 
@@ -116,5 +121,13 @@ public class PumpSelectionService {
         }
 
         return pumpAggregates;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/constants", method = RequestMethod.GET)
+    public List<Constant> getConstantsList() {
+        LOGGER.info("Constants list requested");
+
+        return constantService.findAllConstants();
     }
 }
