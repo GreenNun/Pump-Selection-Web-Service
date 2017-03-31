@@ -128,16 +128,8 @@
             <label for="assembly">Driver Assembly</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
-                           btn-radio="'Coupling'">Coupling</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
-                           btn-radio="'Ex.Proof Coupling'">Ex.Proof Coupling</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
-                           btn-radio="'Pump Adder'">Pump Adder</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
-                           btn-radio="'Flexible Coupling'">Flexible Coupling</label>
-                    <label class="btn btn-default" ng-model="search.driverAssemblyType"
-                           btn-radio="'Belt and Pulley'">Belt and Pulley</label>
+                    <label ng-repeat="type in constants | filter: {name: 'driver assembly type'}" class="btn btn-default"
+                           ng-model="search.driverAssemblyType" btn-radio="type.value">{{type.value}}</label>
                 </div>
             </div>
         </div>
