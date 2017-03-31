@@ -114,14 +114,10 @@
             <label for="seal">Seal Type</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label class="btn btn-default" ng-model="search.sealType" btn-radio="'Packing'">Packing</label>
-                    <label class="btn btn-default" ng-model="search.sealType" btn-radio="'Lip Seal'">Lip Seal</label>
-                    <label class="btn btn-default" ng-model="search.sealType" btn-radio="'Rotatherm Seal'">Rotatherm
-                        Seal</label>
-                    <label class="btn btn-default" ng-model="search.sealType" btn-radio="'Mechanical Seal'">Mechanical
-                        Seal</label>
-                    <label class="btn btn-default" ng-model="search.sealType" btn-radio="'Cartridge Mechanical Seal'">
-                        Cartridge Mechanical Seal</label>
+                    <div class="btn-group">
+                        <label ng-repeat="type in constants | filter: {name: 'sealType'}" class="btn btn-default"
+                               ng-model="search.sealType" btn-radio="type.value">{{type.value}}</label>
+                    </div>
                 </div>
             </div>
         </div>
