@@ -86,7 +86,7 @@
             <label for="constPumpType">Pump Type</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label ng-repeat="type in constants | filter: {name: 'pump type'}" class="btn btn-default"
+                    <label ng-repeat="type in constants | filter: {name: 'pump type'} | orderBy: 'value'" class="btn btn-default"
                            ng-model="search.pumpType" btn-radio="type.value">{{type.value}}</label>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             <div class="btn-toolbar">
                 <div class="btn-group">
                     <div class="btn-group">
-                        <label ng-repeat="type in constants | filter: {name: 'sealType'}" class="btn btn-default"
+                        <label ng-repeat="type in constants | filter: {name: 'sealType'} | orderBy: 'value'" class="btn btn-default"
                                ng-model="search.sealType" btn-radio="type.value">{{type.value}}</label>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
             <label for="assembly">Driver Assembly</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <label ng-repeat="type in constants | filter: {name: 'driver assembly type'}" class="btn btn-default"
+                    <label ng-repeat="type in constants | filter: {name: 'driver assembly type'} | orderBy: 'value'" class="btn btn-default"
                            ng-model="search.driverAssemblyType" btn-radio="type.value">{{type.value}}</label>
                 </div>
             </div>
