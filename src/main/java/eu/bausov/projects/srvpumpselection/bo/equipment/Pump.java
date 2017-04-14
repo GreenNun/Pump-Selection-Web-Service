@@ -247,7 +247,7 @@ public class Pump extends Equipment {
 
     //@XmlTransient
     @Fetch(FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     public Set<SpeedCorrectionCoefficient> getSpeedCorrectionCoefficients() {
         return speedCorrectionCoefficients;
     }
