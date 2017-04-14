@@ -2,7 +2,6 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.service.ProducerService;
-import eu.bausov.projects.srvpumpselection.utils.DBConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
