@@ -19,7 +19,6 @@ public class Constant extends JPA {
         this.value = value;
     }
 
-    //@XmlTransient
     @Basic(optional = false)
     @Column(name = "name")
     public String getName() {
