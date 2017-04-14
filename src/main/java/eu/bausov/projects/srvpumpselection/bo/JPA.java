@@ -10,7 +10,6 @@ public abstract class JPA {
     private Long id;
     private Date version;
 
-    //@XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -22,7 +21,6 @@ public abstract class JPA {
         this.id = id;
     }
 
-    @XmlTransient
     @Version
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "version")
