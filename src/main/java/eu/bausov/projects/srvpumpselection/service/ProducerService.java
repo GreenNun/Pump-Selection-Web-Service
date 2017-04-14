@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProducerService {
     List<Producer> findAllProducers();
     Producer findOneProducer(Long id);
+    Producer saveOneProducer(Producer producer);
 }

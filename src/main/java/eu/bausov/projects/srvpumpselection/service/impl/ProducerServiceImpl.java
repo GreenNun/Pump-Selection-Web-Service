@@ -29,4 +29,9 @@ public class ProducerServiceImpl implements ProducerService {
     public Producer findOneProducer(Long id) {
         return producerRepository.findOne(id);
     }
+
+    @Override
+    public Producer saveOneProducer(Producer producer) {
+        return producerRepository.save(producer);
+    }
 }
