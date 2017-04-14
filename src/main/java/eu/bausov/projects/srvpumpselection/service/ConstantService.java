@@ -9,5 +9,7 @@ import java.util.List;
  */
 public interface ConstantService {
     List<Constant> findAllConstants();
+    List<Constant> findAllConstantsByName(String name);
     Constant findOneConstant(Long id);
+    Constant saveOneConstant(Constant constant);
 }

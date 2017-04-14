@@ -16,16 +16,16 @@ angular.module('pump.modules.search')
             capacity: "1"
         };
 
-        $http({
-            method: 'GET',
-            url: '/pump/api/select/constants'
-        })
-            .success(function (data) {
-                $scope.constants = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
-            });
+        // $http({
+        //     method: 'GET',
+        //     url: '/pump/api/select/constants'
+        // })
+        //     .success(function (data) {
+        //         $scope.constants = data;
+        //     })
+        //     .error(function (data) {
+        //         $rootScope.addNotification('danger', data);
+        //     });
 
         $scope.doSearch = function () {
 

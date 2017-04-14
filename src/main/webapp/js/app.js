@@ -6,13 +6,18 @@ angular.module('pump.modules.manage',
     []
 );
 
+angular.module('pump.modules.constant',
+    []
+);
+
 angular.module('pump.modules.route',
     [
         'ngRoute',
         'ui.bootstrap',
         'ngSanitize',
         'pump.modules.search',
-        'pump.modules.manage'
+        'pump.modules.manage',
+        'pump.modules.constant'
     ]
 );
 
@@ -32,6 +37,16 @@ angular.module('pump.modules.route')
             .when('/manage', {
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
+            })
+
+            .when('/edit/pump', {
+                templateUrl: getViewPath('edit-pump.html'),
+                controller: 'editPumpCtrl'
+            })
+
+            .when('/constant', {
+                templateUrl: getViewPath('constant.html'),
+                controller: 'editPumpCtrl'
             })
 
             .otherwise({

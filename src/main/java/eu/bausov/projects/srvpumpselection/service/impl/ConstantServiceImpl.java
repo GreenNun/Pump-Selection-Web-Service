@@ -6,6 +6,7 @@ import eu.bausov.projects.srvpumpselection.service.ConstantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +27,17 @@ public class ConstantServiceImpl implements ConstantService {
     }
 
     @Override
+    public List<Constant> findAllConstantsByName(String name) {
+        return constantRepository.findAllByName(name);
+    }
+
+    @Override
     public Constant findOneConstant(Long id) {
         return constantRepository.findOne(id);
+    }
+
+    @Override // return id
+    public Constant saveOneConstant(Constant constant) {
+        return constantRepository.save(constant);
     }
 }

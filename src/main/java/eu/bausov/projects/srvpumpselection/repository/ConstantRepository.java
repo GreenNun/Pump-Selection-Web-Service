@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface ConstantRepository extends CrudRepository<Constant, Long> {
     List<Constant> findAll();
+    List<Constant> findAllByName(String name);
+    void flush();
 }
