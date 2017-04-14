@@ -5,6 +5,7 @@ import eu.bausov.projects.srvpumpselection.bo.Producer;
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
 import eu.bausov.projects.srvpumpselection.repository.*;
+import eu.bausov.projects.srvpumpselection.utils.DBConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +61,11 @@ public class DBFillingService {
         /**
          * COUNTRIES
          */
-        Constant wonderland = new Constant("country", "Wonderland");
+        Constant wonderland = new Constant(DBConst.COUNTRY, "Wonderland");
         constantRepository.save(wonderland);
-        Constant germany = new Constant("country", "Germany");
+        Constant germany = new Constant(DBConst.COUNTRY, "Germany");
         constantRepository.save(germany);
-        Constant turkey = new Constant("country", "Turkey");
+        Constant turkey = new Constant(DBConst.COUNTRY, "Turkey");
         constantRepository.save(turkey);
 
         /**
@@ -98,95 +99,95 @@ public class DBFillingService {
         /**
          * PUMP TYPES
          */
-        Constant internalGearPump = new Constant("pump type", "Internal Eccentric Gear Pump"); // pumpType
+        Constant internalGearPump = new Constant(DBConst.PUMP_TYPE, "Internal Eccentric Gear Pump"); // pumpType
         constantRepository.save(internalGearPump);
-        Constant modularGearPump = new Constant("pump type", "Modular Gear Pump"); // pumpType
+        Constant modularGearPump = new Constant(DBConst.PUMP_TYPE, "Modular Gear Pump"); // pumpType
         constantRepository.save(modularGearPump);
-        Constant helicalGearPump = new Constant("pump type", "Helical Gear Pump"); // pumpType
+        Constant helicalGearPump = new Constant(DBConst.PUMP_TYPE, "Helical Gear Pump"); // pumpType
         constantRepository.save(helicalGearPump);
-        Constant lobePump = new Constant("pump type", "Lobe Pump"); // pumpType
+        Constant lobePump = new Constant(DBConst.PUMP_TYPE, "Lobe Pump"); // pumpType
         constantRepository.save(lobePump);
-        Constant foodPump = new Constant("pump type", "Food Pump"); // pumpType
+        Constant foodPump = new Constant(DBConst.PUMP_TYPE, "Food Pump"); // pumpType
         constantRepository.save(foodPump);
 
         /**
          * SEAL TYPES
          */
-        Constant sealTypePacking = new Constant("sealType", "Packing");
+        Constant sealTypePacking = new Constant(DBConst.SEAL_TYPE, "Packing");
         constantRepository.save(sealTypePacking);
-        Constant sealTypeLip = new Constant("sealType", "Lip Seal");
+        Constant sealTypeLip = new Constant(DBConst.SEAL_TYPE, "Lip Seal");
         constantRepository.save(sealTypeLip);
-        Constant sealTypeMechanical = new Constant("sealType", "Mechanical Seal");
+        Constant sealTypeMechanical = new Constant(DBConst.SEAL_TYPE, "Mechanical Seal");
         constantRepository.save(sealTypeMechanical);
-        Constant sealTypeCartridgeMechanical = new Constant("sealType", "Cartridge Mechanical Seal");
+        Constant sealTypeCartridgeMechanical = new Constant(DBConst.SEAL_TYPE, "Cartridge Mechanical Seal");
         constantRepository.save(sealTypeCartridgeMechanical);
 
         /**
          * MATERIALS
          */
-        Constant oRingMaterialNone = new Constant("material", "none"); // none
+        Constant oRingMaterialNone = new Constant(DBConst.MATERIAL, "none"); // none
         constantRepository.save(oRingMaterialNone);
-        Constant oRingMaterialViton = new Constant("material", "Viton&reg;"); // Viton
+        Constant oRingMaterialViton = new Constant(DBConst.MATERIAL, "Viton&reg;"); // Viton
         constantRepository.save(oRingMaterialViton);
-        Constant castIron25 = new Constant("material", "GG 25 Cast Iron");
+        Constant castIron25 = new Constant(DBConst.MATERIAL, "GG 25 Cast Iron");
         constantRepository.save(castIron25);
-        Constant castIron40 = new Constant("material", "GGG 40 Cast Iron");
+        Constant castIron40 = new Constant(DBConst.MATERIAL, "GGG 40 Cast Iron");
         constantRepository.save(castIron40);
-        Constant castSteel = new Constant("material", "GS 45 Cast Steel");
+        Constant castSteel = new Constant(DBConst.MATERIAL, "GS 45 Cast Steel");
         constantRepository.save(castSteel);
-        Constant cast304Steel = new Constant("material", "AISI 304 CrNi Stainless Steel");
+        Constant cast304Steel = new Constant(DBConst.MATERIAL, "AISI 304 CrNi Stainless Steel");
         constantRepository.save(cast304Steel);
-        Constant cast316Steel = new Constant("material", "AISI 316 CrNi Stainless Steel");
+        Constant cast316Steel = new Constant(DBConst.MATERIAL, "AISI 316 CrNi Stainless Steel");
         constantRepository.save(cast316Steel);
-        Constant heatTreated1050 = new Constant("material", "1050 Steel, Heat Treated");
+        Constant heatTreated1050 = new Constant(DBConst.MATERIAL, "1050 Steel, Heat Treated");
         constantRepository.save(heatTreated1050);
-        Constant bronze = new Constant("material", "CuSn 12 Bronze Bushings");
+        Constant bronze = new Constant(DBConst.MATERIAL, "CuSn 12 Bronze Bushings");
         constantRepository.save(bronze);
-        Constant carbon = new Constant("material", "Carbon Graphite Bushings");
+        Constant carbon = new Constant(DBConst.MATERIAL, "Carbon Graphite Bushings");
         constantRepository.save(carbon);
 
 
         /**
          * CONNECTIONS TYPES
          */
-        Constant flange = new Constant("connections type", "Flange");
+        Constant flange = new Constant(DBConst.CONNECTIONS_TYPE, "Flange");
         constantRepository.save(flange);
-        Constant thread = new Constant("connections type", "Thread");
+        Constant thread = new Constant(DBConst.CONNECTIONS_TYPE, "Thread");
         constantRepository.save(thread);
-        Constant pipeToothed = new Constant("connections type", "Pipe Toothed");
+        Constant pipeToothed = new Constant(DBConst.CONNECTIONS_TYPE, "Pipe Toothed");
         constantRepository.save(pipeToothed);
 
         /**
          * DN
          */
-        Constant dn865 = new Constant("DN", "65");
+        Constant dn865 = new Constant(DBConst.DN, "65");
         constantRepository.save(dn865);
-        Constant dn80 = new Constant("DN", "80");
+        Constant dn80 = new Constant(DBConst.DN, "80");
         constantRepository.save(dn80);
-        Constant dn125 = new Constant("DN", "125");
+        Constant dn125 = new Constant(DBConst.DN, "125");
         constantRepository.save(dn125);
 
         /**
          * MAX PRESSURE
          */
-        Constant maxPressure10 = new Constant("max. pressure", "10");
+        Constant maxPressure10 = new Constant(DBConst.MAX_PRESSURE, "10");
         constantRepository.save(maxPressure10);
-        Constant maxPressure14 = new Constant("max. pressure", "14");
+        Constant maxPressure14 = new Constant(DBConst.MAX_PRESSURE, "14");
         constantRepository.save(maxPressure14);
 
         /**
          * CONNECTIONS ANGLE
          */
-        Constant connectionsAngle90 = new Constant("connections angle", "90");
+        Constant connectionsAngle90 = new Constant(DBConst.CONNECTIONS_ANGLE, "90");
         constantRepository.save(connectionsAngle90);
-        Constant connectionsAngle180 = new Constant("connections angle", "180");
+        Constant connectionsAngle180 = new Constant(DBConst.CONNECTIONS_ANGLE, "180");
         constantRepository.save(connectionsAngle180);
 
 
         /**
          * MAX TEMPERATURE
          */
-        Constant maxTemperature200 = new Constant("max. temperature", "200");
+        Constant maxTemperature200 = new Constant(DBConst.MAX_TEMPERATURE, "200");
         constantRepository.save(maxTemperature200);
 
         /**
@@ -1774,23 +1775,23 @@ public class DBFillingService {
         /**
          * DRIVER ASSEMBLY TYPES
          */
-        Constant adder = new Constant("driver assembly type", "Pump Adder");
+        Constant adder = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Pump Adder");
         constantRepository.save(adder);
-        Constant coupling = new Constant("driver assembly type", "Coupling");
+        Constant coupling = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Coupling");
         constantRepository.save(coupling);
-        Constant exProofCoupling = new Constant("driver assembly type", "Ex.Proof Coupling");
+        Constant exProofCoupling = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Ex.Proof Coupling");
         constantRepository.save(exProofCoupling);
-        Constant belt = new Constant("driver assembly type", "Belt and Pulley");
+        Constant belt = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Belt and Pulley");
         constantRepository.save(belt);
-        Constant flex = new Constant("driver assembly type", "Flexible Coupling");
+        Constant flex = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Flexible Coupling");
         constantRepository.save(flex);
 
         /**
          * EX PROOF TYPES
          */
-        Constant atex = new Constant("explosion proof", "ATEX");
+        Constant atex = new Constant(DBConst.EXPLOSION_PROOF, "ATEX");
         constantRepository.save(atex);
-        Constant none = new Constant("explosion proof", "none");
+        Constant none = new Constant(DBConst.EXPLOSION_PROOF, "none");
         constantRepository.save(none);
 
         /**
@@ -1822,25 +1823,25 @@ public class DBFillingService {
         /**
          * MOTOR POWERS
          */
-        Constant motorPower5_5 = new Constant("motor power", "5.5");
+        Constant motorPower5_5 = new Constant(DBConst.MOTOR_POWER, "5.5");
         constantRepository.save(motorPower5_5);
-        Constant motorPower7_5 = new Constant("motor power", "7.5");
+        Constant motorPower7_5 = new Constant(DBConst.MOTOR_POWER, "7.5");
         constantRepository.save(motorPower7_5);
-        Constant motorPower10 = new Constant("motor power", "10");
+        Constant motorPower10 = new Constant(DBConst.MOTOR_POWER, "10");
         constantRepository.save(motorPower10);
-        Constant motorPower15 = new Constant("motor power", "15");
+        Constant motorPower15 = new Constant(DBConst.MOTOR_POWER, "15");
         constantRepository.save(motorPower15);
-        Constant motorPower20 = new Constant("motor power", "20");
+        Constant motorPower20 = new Constant(DBConst.MOTOR_POWER, "20");
         constantRepository.save(motorPower20);
 
         /**
          * MOTOR FRAME SIZES
          */
-        Constant motorFrame112 = new Constant("motor frame size", "112");
+        Constant motorFrame112 = new Constant(DBConst.MOTOR_FRAME_SIZE, "112");
         constantRepository.save(motorFrame112);
-        Constant motorFrame132 = new Constant("motor frame size", "132");
+        Constant motorFrame132 = new Constant(DBConst.MOTOR_FRAME_SIZE, "132");
         constantRepository.save(motorFrame132);
-        Constant motorFrame160 = new Constant("motor frame size", "160");
+        Constant motorFrame160 = new Constant(DBConst.MOTOR_FRAME_SIZE, "160");
         constantRepository.save(motorFrame160);
 
         /**
@@ -1868,7 +1869,7 @@ public class DBFillingService {
         /**
          * MOTOR SPEED TYPES
          */
-        Constant motorSpeed1500 = new Constant("motor speed", "1500");
+        Constant motorSpeed1500 = new Constant(DBConst.MOTOR_SPEED, "1500");
         constantRepository.save(motorSpeed1500);
 
         /**
