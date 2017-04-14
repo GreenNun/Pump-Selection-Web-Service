@@ -9,7 +9,7 @@ angular.module('pump.modules.constant')
             url: '/pump/api/constant/list'
         })
             .success(function (data) {
-                $scope.constants = data;
+                $scope.constant_module = data;
             })
             .error(function (data) {
                 $rootScope.addNotification('danger', data);
@@ -20,11 +20,11 @@ angular.module('pump.modules.constant')
             $http({
                 method: 'POST',
                 url: '/pump/api/constant/save',
-                data: $scope.constants[0]
+                data: $scope.constant_module[0]
             })
                 .success(function (data) {
                     $rootScope.addNotification('success', data);
-                    $scope.constants[0] = data;
+                    $scope.constant_module[0] = data;
                 })
                 .error(function (data) {
                     $rootScope.addNotification('warning', data);
