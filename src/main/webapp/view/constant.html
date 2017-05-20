@@ -1,12 +1,40 @@
-constant: {{constant_module}}
-<div class="col-xs-12 col-sm-12 col-md-12">
-    <div class="form-group row">
-        <div id="value" class="col-xs-12 col-sm-12 col-md-12">
-            <label for="value">Constant</label>
-            <input ng-model="constant_module[0].value" class="form-control form-control-sm" placeholder="constant_module[0].value"/>
-        </div>
+<div class="row">
+    <div class="col-md-2 border-between">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
     </div>
+    <div class="col-md-10">
+        constant: {{constant_module}}
+        <div class="form-group row">
+            <div id="value" class="col-xs-12 col-sm-12 col-md-12">
+                <label for="value">Constant</label>
+                <input ng-model="constant_module[0].value" class="form-control form-control-sm"
+                       placeholder="constant_module[0].value"/>
+            </div>
+        </div>
 
-    <button ng-click="doSave()" class="btn btn-sm btn-danger" type="submit">Save</button>
+        <button ng-click="doSave()" class="btn btn-sm btn-danger" type="submit">Save</button>
 
+
+        <br>--------------------------------------------------<br>
+
+        producers: {{constant_module_producer}}
+        <div class="form-group row">
+            <div id="value1" class="col-xs-12 col-sm-12 col-md-12">
+                <label for="value1">Producer</label>
+                <input ng-model="constant_module_producer[2].producerName"
+                       class="form-control form-control-sm"
+                       placeholder="constant_module_producer[2].producerName"/>
+                <br>
+                <select name="mySelect" id="mySelect" class="form-control"
+                        ng-options="option.value for option in constant_module track by option.value"
+                        ng-model="constant_module_producer[2].producerCountry"></select>
+            </div>
+        </div>
+        {{constant_module_producer[2].producerCountry}}
+        <button ng-click="doSaveProducer()" class="btn btn-sm btn-danger" type="submit">Save</button>
+    </div>
 </div>

@@ -2,13 +2,11 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.service.ConstantService;
-import eu.bausov.projects.srvpumpselection.utils.DBConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,8 +24,10 @@ public class ConstantController {
         this.constantService = constantService;
     }
 
-    @RequestMapping(value = "/(id)", method = RequestMethod.GET)
-    public Constant findOneConstant(@RequestBody Long id) {
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/one", method = RequestMethod.GET)
+//    public Constant findOneConstant(@PathVariable("id") Long id) {
+    public Constant findOneConstant(@RequestParam("id") Long id) {
         LOGGER.debug("Constant request");
         return constantService.findOneConstant(id);
     }
@@ -39,9 +39,9 @@ public class ConstantController {
 //    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Constant> findAllConstantsByName() {
+    public List<Constant> findAllConstantsByName(@RequestParam("name") String name) {
         LOGGER.debug("Constants list request");
-        return constantService.findAllConstantsByName(DBConst.COUNTRY);
+        return constantService.findAllConstantsByName(name);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
