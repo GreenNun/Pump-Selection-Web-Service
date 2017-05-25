@@ -9,11 +9,10 @@ angular.module('pump.modules.constant')
             url: '/pump/api/constant/list',
             params: {name: "country"}
         })
-            .success(function (data) {
-                $scope.constant_module = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.constant_module = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         // var index = 451;
@@ -38,14 +37,12 @@ angular.module('pump.modules.constant')
                 url: '/pump/api/constant/save',
                 data: $scope.constant_module[0]
             })
-                .success(function (data) {
-                    $rootScope.addNotification('success', data);
-                    $scope.constant_module[0] = data;
-                })
-                .error(function (data) {
-                    $rootScope.addNotification('warning', data);
-                })
-
+                .then(function (success) {
+                    $rootScope.addNotification('success', success.data);
+                    $scope.constant_module[0] = success.data;
+                }, function (error) {
+                    $rootScope.addNotification('danger', error.data);
+                });
         };
 
         // PRODUCER
@@ -54,13 +51,11 @@ angular.module('pump.modules.constant')
             method: 'GET',
             url: '/pump/api/producer/list'
         })
-            .success(function (data) {
-                $scope.constant_module_producer = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.constant_module_producer = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
-
 
         $scope.doSaveProducer = function () {
             $http({
@@ -68,12 +63,11 @@ angular.module('pump.modules.constant')
                 url: '/pump/api/producer/save',
                 data: $scope.constant_module_producer[2]
             })
-                .success(function (data) {
-                    $rootScope.addNotification('success', data);
-                    $scope.constant_module_producer[2] = data;
-                })
-                .error(function (data) {
-                    $rootScope.addNotification('warning', data);
+                .then(function (success) {
+                    $rootScope.addNotification('success', success.data);
+                    $scope.constant_module_producer[2] = success.data;
+                }, function (error) {
+                    $rootScope.addNotification('warning', error.data);
                 })
 
         };

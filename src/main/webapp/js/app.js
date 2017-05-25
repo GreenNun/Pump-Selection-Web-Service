@@ -22,12 +22,43 @@ angular.module('pump.modules.route',
 );
 
 angular.module('pump.modules.route')
-    .config(function ($routeProvider) {
+// .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+//
+//
+//     $stateProvider
+//         .state('search', {
+//             url: '/search',
+//             templateUrl: getViewPath('search.html'),
+//             controller: 'searchCtrl'
+//         })
+//
+//         .state('manage', {
+//             url: '/manage',
+//             templateUrl: getViewPath('manageCtrl.html'),
+//             controller: 'manageCtrl'
+//         })
+//
+//         .state('editPump', {
+//             url: '/edit/pump',
+//             templateUrl: getViewPath('edit-pump.html'),
+//             controller: 'editPumpCtrl'
+//         })
+//
+//         .state('constant', {
+//             url: '/constant',
+//             templateUrl: getViewPath('constant.html'),
+//             controller: 'editPumpCtrl'
+//         });
+//
+//     $urlRouterProvider.otherwise('/search');
+//
+//     function getViewPath(view) {
+//         return '/pump/view/' + view;
+//     }
+//
+// }])
 
-        function getViewPath(view) {
-            return '/pump/view/' + view;
-        }
-
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/search', {
                 templateUrl: getViewPath('search.html'),
@@ -52,7 +83,13 @@ angular.module('pump.modules.route')
             .otherwise({
                 redirectTo: '/search'
             });
-    })
+
+        $locationProvider.hashPrefix('');
+
+        function getViewPath(view) {
+            return '/pump/view/' + view;
+        }
+    }])
 
     .run(function ($rootScope) {
 

@@ -20,11 +20,10 @@ angular.module('pump.modules.search')
             method: 'GET',
             url: '/pump/api/select/constants'
         })
-            .success(function (data) {
-                $scope.constants = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.constants = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         $scope.doSearch = function () {
@@ -38,13 +37,12 @@ angular.module('pump.modules.search')
                 url: '/pump/api/select/search',
                 data: $scope.search
             })
-                .success(function (data) {
+                .then(function (success) {
                     $scope.result = {
-                        list: data
+                        list: success.data
                     };
-                })
-                .error(function (data) {
-                    $rootScope.addNotification('danger', data);
+                }, function (error) {
+                    $rootScope.addNotification('danger', error.data);
                 });
         };
     });
