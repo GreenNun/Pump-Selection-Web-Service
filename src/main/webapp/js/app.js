@@ -13,7 +13,7 @@ angular.module('pump.modules.constant',
 angular.module('pump.modules.route',
     [
         'ngRoute',
-        'ui.bootstrap',
+        'ui.router',
         'ngSanitize',
         'pump.modules.search',
         'pump.modules.manage',
@@ -22,73 +22,40 @@ angular.module('pump.modules.route',
 );
 
 angular.module('pump.modules.route')
-// .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-//
-//
-//     $stateProvider
-//         .state('search', {
-//             url: '/search',
-//             templateUrl: getViewPath('search.html'),
-//             controller: 'searchCtrl'
-//         })
-//
-//         .state('manage', {
-//             url: '/manage',
-//             templateUrl: getViewPath('manageCtrl.html'),
-//             controller: 'manageCtrl'
-//         })
-//
-//         .state('editPump', {
-//             url: '/edit/pump',
-//             templateUrl: getViewPath('edit-pump.html'),
-//             controller: 'editPumpCtrl'
-//         })
-//
-//         .state('constant', {
-//             url: '/constant',
-//             templateUrl: getViewPath('constant.html'),
-//             controller: 'editPumpCtrl'
-//         });
-//
-//     $urlRouterProvider.otherwise('/search');
-//
-//     function getViewPath(view) {
-//         return '/pump/view/' + view;
-//     }
-//
-// }])
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
 
-    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $routeProvider
-            .when('/search', {
+        $stateProvider
+            .state('search', {
+                url: '/search',
                 templateUrl: getViewPath('search.html'),
                 controller: 'searchCtrl'
             })
 
-            .when('/manage', {
+            .state('manage', {
+                url: '/manage',
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
             })
 
-            .when('/edit/pump', {
+            .state('editPump', {
+                url: '/edit/pump',
                 templateUrl: getViewPath('edit-pump.html'),
                 controller: 'editPumpCtrl'
             })
 
-            .when('/constant', {
+            .state('constant', {
+                url: '/constant',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
-            })
-
-            .otherwise({
-                redirectTo: '/search'
             });
 
-        $locationProvider.hashPrefix('');
+        $urlRouterProvider.otherwise('/search');
 
         function getViewPath(view) {
             return '/pump/view/' + view;
         }
+
     }])
 
     .run(function ($rootScope) {
