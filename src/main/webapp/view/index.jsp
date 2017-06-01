@@ -19,6 +19,7 @@
                 "../js/libs/angular-route.js",
 
                 "../js/libs/angular-ui/angular-ui-router.js",
+                "../js/libs/angular-ui/ui-bootstrap-2.5.0.js",
 
                 "../js/libs/es5-shim.min.js",
 

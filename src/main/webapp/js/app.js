@@ -14,6 +14,7 @@ angular.module('pump.modules.route',
     [
         'ngRoute',
         'ui.router',
+        'ui.bootstrap',
         'ngSanitize',
         'pump.modules.search',
         'pump.modules.manage',
