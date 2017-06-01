@@ -26,25 +26,41 @@ angular.module('pump.modules.route')
         $locationProvider.hashPrefix('');
 
         $stateProvider
-            .state('search', {
+            .state('main', {
+                url: '',
+                templateUrl: getViewPath('components/menu-main.html')
+            })
+
+            .state('main.search', {
                 url: '/search',
                 templateUrl: getViewPath('search.html'),
                 controller: 'searchCtrl'
             })
 
-            .state('manage', {
+            .state('main.manage', {
                 url: '/manage',
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
             })
 
-            .state('editPump', {
-                url: '/edit/pump',
-                templateUrl: getViewPath('edit-pump.html'),
+            .state('main.edit', {
+                url: '/edit',
+                templateUrl: getViewPath('components/menu-edit-left.html')
+            })
+
+            .state('main.edit.constant', {
+                url: '/constant',
+                templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
             })
 
-            .state('constant', {
+            .state('main.edit.manage', {
+                url: '/manage',
+                templateUrl: getViewPath('manage.html'),
+                controller: 'manageCtrl'
+            })
+
+            .state('main.constant', {
                 url: '/constant',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
