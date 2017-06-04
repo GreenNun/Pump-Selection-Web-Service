@@ -6,27 +6,23 @@
         <div class="form-group row">
             <div id="medium" class="col-xs-12 col-sm-12 col-md-12">
                 <label for="medium">Medium</label>
-                <input ng-model="search.medium" class="form-control form-control-sm" placeholder="Medium"/>
+                <input ng-model="search.medium" class="form-control" placeholder="Medium"/>
             </div>
         </div>
         <!--CAPACITY-->
         <div class="form-group row">
-            <div id="capacity" class="col-xs-12 col-sm-4 col-md-4">
+            <div id="capacity" class="col-xs-12 col-sm-12 col-md-12">
                 <label for="capacity">Capacity</label>
                 <div class="input-group">
-                    <input
-                            placeholder="m&sup3;/h"
-                            ng-model="search.capacity"
-                            type="number"
-                            min="0"
-                            step="0.1"
-                            class="form-control"/>
-                    <div class="input-group-btn">
-                        <label class="btn btn-default" btn-radio="'1'" ng-model="units.capacity">m&sup3;/h</label>
-                        <label class="btn btn-default" btn-radio="'2'" ng-model="units.capacity">l/h</label>
-                        <label class="btn btn-default" btn-radio="'3'" ng-model="units.capacity">l/m</label>
-                    </div>
-                </div>
+                    <input placeholder="m&sup3;/h" ng-model="search.capacity" type="number" min="0" step="0.1" class="form-control" />
+                    <span class="input-group-btn">
+                        <div class="btn-group">
+                            <button class="btn btn-outline-info" ng-model="units.capacity" uib-btn-radio="'1'">m&sup3;/h</button>
+                            <button class="btn btn-outline-info" ng-model="units.capacity" uib-btn-radio="'2'">l/h</button>
+                            <button class="btn btn-outline-info" ng-model="units.capacity" uib-btn-radio="'3'">l/m</button>
+                        </div>
+                    </span>
+                 </div>
             </div>
         </div>
         <!--PPRESSURE-->
@@ -87,9 +83,9 @@
                 <label for="constPumpType">Pump Type</label>
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        <label ng-repeat="type in constants | filter: {name: 'pump type'} | orderBy: 'value'"
-                               class="btn btn-default"
-                               ng-model="search.pumpType" btn-radio="type.value">{{type.value}}</label>
+                        <button ng-repeat="type in constants | filter: {name: 'pump type'} | orderBy: 'value'"
+                               class="btn btn-outline-info"
+                               ng-model="search.pumpType" uib-btn-radio="type.value">{{type.value}}</button>
                     </div>
                 </div>
             </div>
@@ -100,12 +96,12 @@
                 <label for="material">Casing Material</label>
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Cast Iron'">Cast
-                            Iron</label>
-                        <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Cast Steel'">Cast
-                            Steel</label>
-                        <label class="btn btn-default" ng-model="search.casingMaterial" btn-radio="'Stainless Steel'">Stainless
-                            Steel</label>
+                        <button class="btn btn-outline-info" ng-model="search.casingMaterial" uib-btn-radio="'Cast Iron'">Cast
+                            Iron</button>
+                        <button class="btn btn-outline-info" ng-model="search.casingMaterial" uib-btn-radio="'Cast Steel'">Cast
+                            Steel</button>
+                        <button class="btn btn-outline-info" ng-model="search.casingMaterial" uib-btn-radio="'Stainless Steel'">Stainless
+                            Steel</button>
                     </div>
                 </div>
             </div>
@@ -117,9 +113,9 @@
                 <div class="btn-toolbar">
                     <div class="btn-group">
                         <div class="btn-group">
-                            <label ng-repeat="type in constants | filter: {name: 'sealType'} | orderBy: 'value'"
-                                   class="btn btn-default"
-                                   ng-model="search.sealType" btn-radio="type.value">{{type.value}}</label>
+                            <button ng-repeat="type in constants | filter: {name: 'sealType'} | orderBy: 'value'"
+                                   class="btn btn-outline-info"
+                                   ng-model="search.sealType" uib-btn-radio="type.value">{{type.value}}</button>
                         </div>
                     </div>
                 </div>
@@ -131,9 +127,9 @@
                 <label for="assembly">Driver Assembly</label>
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        <label ng-repeat="type in constants | filter: {name: 'driver assembly type'} | orderBy: 'value'"
-                               class="btn btn-default"
-                               ng-model="search.driverAssemblyType" btn-radio="type.value">{{type.value}}</label>
+                        <button ng-repeat="type in constants | filter: {name: 'driver assembly type'} | orderBy: 'value'"
+                               class="btn btn-outline-info"
+                               ng-model="search.driverAssemblyType" uib-btn-radio="type.value">{{type.value}}</button>
                     </div>
                 </div>
             </div>
@@ -146,40 +142,53 @@
             <label for="options">Options:</label>
             <div class="form-group" id="options">
 
-                <input type="checkbox" id="option1-checkbox" autocomplete="off" ng-model="search.reliefValve"
-                       ng-true-value="true" ng-false-value="false"/>
+                <!--<input type="checkbox" id="option1-checkbox" autocomplete="off" ng-model="search.reliefValve"-->
+                       <!--ng-true-value="true" ng-false-value="false"/>-->
                 <div class="btn-group">
-                    <label for="option1-checkbox" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span> </span>
-                    </label>
-                    <label for="option1-checkbox" class="btn btn-default open">Relief Valve</label>
+                    <!--<label for="option1-checkbox" class="btn btn-outline-info">-->
+                        <!--<span class="glyphicon glyphicon-ok"></span>-->
+                        <!--<span> </span>-->
+                    <!--</label>-->
+                    <!--<label for="option1-checkbox" class="btn btn-outline-info open">Relief Valve</label>-->
+                    <button type="button" class="btn btn-outline-info"
+                            ng-model="search.reliefValve" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                        Relief Valve
+                    </button>
                 </div>
 
-                <input type="checkbox" id="option2-checkbox" autocomplete="off" ng-model="search.heatingJacket"
-                       ng-true-value="true" ng-false-value="false"/>
+                <!--<input type="checkbox" id="option2-checkbox" autocomplete="off" ng-model="search.heatingJacket"-->
+                       <!--ng-true-value="true" ng-false-value="false"/>-->
                 <div class="btn-group">
-                    <label for="option2-checkbox" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span> </span>
-                    </label>
-                    <label for="option2-checkbox" class="btn btn-default open">Heating Jacket</label>
+                    <!--<label for="option2-checkbox" class="btn btn-outline-info">-->
+                        <!--<span class="glyphicon glyphicon-ok"></span>-->
+                        <!--<span> </span>-->
+                    <!--</label>-->
+                    <!--<label for="option2-checkbox" class="btn btn-outline-info open">Heating Jacket</label>-->
+                    <button type="button" class="btn btn-outline-info"
+                            ng-model="search.heatingJacket" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                        Heating Jacket
+                    </button>
                 </div>
 
-                <input type="checkbox" id="option3-checkbox" autocomplete="off" ng-model="search.explosionProof"
-                       ng-true-value="true" ng-false-value="false"/>
+                <!--<input type="checkbox" id="option3-checkbox" autocomplete="off" ng-model="search.explosionProof"-->
+                       <!--ng-true-value="true" ng-false-value="false"/>-->
                 <div class="btn-group">
-                    <label for="option3-checkbox" class="btn btn-default">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <span> </span>
-                    </label>
-                    <label for="option3-checkbox" class="btn btn-default open">Explosion Proof Motor</label>
+                    <!--<label for="option3-checkbox" class="btn btn-outline-info">-->
+                        <!--<i class="fa fa-check"></i>-->
+                        <!--<span> </span>-->
+                    <!--</label>-->
+                    <!--<label for="option3-checkbox" class="btn btn-outline-info open">Explosion Proof Motor</label>-->
+                    <button type="button" class="btn btn-outline-info"
+                            ng-model="search.explosionProof" uib-btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+                        Explosion Proof Motor
+                    </button>
                 </div>
 
             </div>
         </div>
 
-        <button ng-click="doSearch()" class="btn btn-lg btn-block btn-primary" type="submit">Search</button>
+        <button ng-click="doSearch()" class="btn btn-lg btn-block btn-outline-secondary" type="submit">Search</button>
+        <!--<button ng-click="doSearch()" class="btn btn-lg btn-block btn-secondary" type="submit">Search</button>-->
 
         <div ng-if="result.list.length > 0"
              style="border: 2px groove #f2f2f2 !important; border-radius: 5px; margin-top: 15px">
