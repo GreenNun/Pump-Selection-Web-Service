@@ -41,7 +41,7 @@ angular.module('pump.modules.route')
 
             .state('main.manage', {
                 url: '/manage',
-                templateUrl: getViewPath('components/menu-edit-left.html'),
+                templateUrl: getViewPath('components/menu-edit-left.html')
             })
 
             .state('main.manage.constant', {
