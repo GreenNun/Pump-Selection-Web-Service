@@ -2,30 +2,36 @@
     /*background-color: whitesmoke;*/
 /*}*/
 
+/*table 100% width*/
+/*.table-responsive {*/
+    /*display: table;*/
+/*}*/
+
+
 /*checkboxes*/
-.form-group input[type="checkbox"] {
-    display: none;
-}
+/*.form-group input[type="checkbox"] {*/
+    /*display: none;*/
+/*}*/
 
-.form-group input[type="checkbox"] + .btn-group > label span {
-    width: 20px;
-}
+/*.form-group input[type="checkbox"] + .btn-group > label span {*/
+    /*width: 20px;*/
+/*}*/
 
-.form-group input[type="checkbox"] + .btn-group > label span:first-child {
-    display: none;
-}
+/*.form-group input[type="checkbox"] + .btn-group > label span:first-child {*/
+    /*display: none;*/
+/*}*/
 
-.form-group input[type="checkbox"] + .btn-group > label span:last-child {
-    display: inline-block;
-}
+/*.form-group input[type="checkbox"] + .btn-group > label span:last-child {*/
+    /*display: inline-block;*/
+/*}*/
 
-.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
-    display: inline-block;
-}
+/*.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {*/
+    /*display: inline-block;*/
+/*}*/
 
-.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
-    display: none;
-}
+/*.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {*/
+    /*display: none;*/
+/*}*/
 
 /*coefficients box*/
 #input1 {
@@ -101,3 +107,27 @@
 /*#frames_box_right_column {*/
     /*padding-left: 0;*/
 /*}*/
+
+
+/*NOTIFICATION ANIMATE*/
+/*.animate-if {*/
+    /*background:white;*/
+    /*border:1px solid black;*/
+    /*padding:10px;*/
+/*}*/
+
+.animate-if.ng-enter, .animate-if.ng-leave {
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+}
+
+.animate-if.ng-enter,
+.animate-if.ng-leave.ng-leave-active {
+    max-height: 0;
+    opacity:0;
+}
+
+.animate-if.ng-leave,
+.animate-if.ng-enter.ng-enter-active {
+    max-height: 100px;
+    opacity:1;
+}

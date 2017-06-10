@@ -13,9 +13,10 @@ angular.module('pump.modules.constant',
 angular.module('pump.modules.route',
     [
         'ngRoute',
+        'ngSanitize',
+        'ngAnimate',
         'ui.router',
         'ui.bootstrap',
-        'ngSanitize',
         'pump.modules.search',
         'pump.modules.manage',
         'pump.modules.constant'
@@ -40,29 +41,29 @@ angular.module('pump.modules.route')
 
             .state('main.manage', {
                 url: '/manage',
-                templateUrl: getViewPath('manage.html'),
-                controller: 'manageCtrl'
+                templateUrl: getViewPath('components/menu-edit-left.html'),
             })
 
-            .state('main.edit', {
-                url: '/edit',
-                templateUrl: getViewPath('components/menu-edit-left.html')
-            })
-
-            .state('main.edit.constant', {
-                url: '/constant',
+            .state('main.manage.constant', {
+                url: '/manage',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
             })
 
-            .state('main.edit.manage', {
-                url: '/manage',
+            .state('main.manage.manage', {
+                url: '/manage0',
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
             })
 
+            .state('main.manage.countries', {
+                url: '/countries',
+                templateUrl: getViewPath('manage/countries.html'),
+                controller: 'countriesCtrl'
+            })
+
             .state('main.constant', {
-                url: '/constant',
+                url: '/constant0',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
             });
@@ -75,7 +76,7 @@ angular.module('pump.modules.route')
 
     }])
 
-    .run(function ($rootScope) {
+    .run(function ($rootScope, $timeout) {
 
 
         $rootScope.state = {};
@@ -103,6 +104,9 @@ angular.module('pump.modules.route')
                 message: message,
                 hideView: hideView || false
             };
+            $timeout(function () {
+                $rootScope.cleanUpNotification();
+            }, 3000);
         };
 
         $rootScope.addPostReloadNotification = function (type, message, hideView) {

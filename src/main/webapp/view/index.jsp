@@ -14,9 +14,10 @@
                 "../js/libs/tether-1.3.3/tether.js",
                 "../js/libs/bootstrap-4.0.0-alpha.6/bootstrap.js",
 
-                "../js/libs/angular.js",
-                "../js/libs/angular-sanitize.js",
-                "../js/libs/angular-route.js",
+                "../js/libs/angular-1.6.4/angular.js",
+                "../js/libs/angular-1.6.4/angular-route.js",
+                "../js/libs/angular-1.6.4/angular-sanitize.js",
+                "../js/libs/angular-1.6.4/angular-animate.js",
 
                 "../js/libs/angular-ui/angular-ui-router.js",
                 "../js/libs/angular-ui/ui-bootstrap-2.5.0.js",
@@ -38,6 +39,7 @@
                 "../css/tether-1.3.3/tether-theme-arrows-dark.css",
                 "../css/tether-1.3.3/tether-theme-basic.css",
                 "../css/font-awesome.css",
+                "../css/loader.css",
                 "../css/style.css"
         };
     %>
@@ -61,13 +63,7 @@
          style="z-index: 8900; margin-top: 20%; width: 60%; margin-left: 20%;">
         <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div>
     </div>
-    <div ng-if="state.notification"
-         type="{{state.notification.type}}"
-         close="cleanUpNotification()"
-         class="alert alert-{{state.notification.type}} mb-0">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="container-fluid animate-if alert-{{state.notification.type}} text-center" ng-if="state.notification">
         {{state.notification.message}}
     </div>
     <div ng-if="!state.viewReload && !state.notification.hideView" ui-view></div>
