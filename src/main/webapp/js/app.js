@@ -55,82 +55,162 @@ angular.module('pump.modules.route')
             .state('main.manage.countries', {
                 url: '/countries',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'country',
+                    constant: 'Country',
+                    title: 'Countries Dictionary'
+                }
             })
             .state('main.manage.pumpTypes', {
                 url: '/pumpTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'pump type',
+                    constant: 'Pump Type',
+                    title: 'Pump Types Dictionary'
+                }
             })
             .state('main.manage.sealTypes', {
                 url: '/sealTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'seal type',
+                    constant: 'Seal Type',
+                    title: 'Seal Types Dictionary'
+                }
             })
             .state('main.manage.materials', {
                 url: '/materials',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'material',
+                    constant: 'Material',
+                    title: 'Pump Casting Materials Dictionary'
+                }
             })
             .state('main.manage.sealMaterials', {
                 url: '/sealMaterials',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'seal material',
+                    constant: 'Seal O-Ring Material',
+                    title: 'Seal Materials Dictionary'
+                }
             })
             .state('main.manage.bushingMaterials', {
                 url: '/bushingMaterials',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'bushing material',
+                    constant: 'Bushing Material',
+                    title: 'Bushing Materials Dictionary'
+                }
             })
             .state('main.manage.connectionTypes', {
                 url: '/connectionTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'connection type',
+                    constant: 'Connection Type',
+                    title: 'Connection Types Dictionary'
+                }
             })
             .state('main.manage.dn', {
                 url: '/dn',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'dn',
+                    constant: 'DN Type',
+                    title: 'DN Types Dictionary'
+                }
             })
             .state('main.manage.connectionAngleTypes', {
                 url: '/connectionAngleTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'connection angle type',
+                    constant: 'Connection Angle Type',
+                    title: 'Connection Angle Types Dictionary'
+                }
             })
             .state('main.manage.pressures', {
                 url: '/pressures',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'pressure limit',
+                    constant: 'Pressure Limit',
+                    title: 'Pressure Limits Dictionary'
+                }
             })
             .state('main.manage.temperatures', {
                 url: '/temperatures',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'temperature limit',
+                    constant: 'Temperature Limit',
+                    title: 'Temperature Limit Dictionary'
+                }
             })
             .state('main.manage.driverAssemblyTypes', {
                 url: '/driverAssemblyTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'driver assembly type',
+                    constant: 'Driver Assembly Type',
+                    title: 'Driver Assembly Types Dictionary'
+                }
             })
             .state('main.manage.explosionProofTypes', {
                 url: '/explosionProofTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'explosion proof',
+                    constant: 'Explosion Proof Type',
+                    title: 'Explosion Proof Types Dictionary'
+                }
             })
             .state('main.manage.motorPowerTypes', {
                 url: '/motorPowerTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor power',
+                    constant: 'Motor Power Type',
+                    title: 'Motor Power Types Dictionary'
+                }
             })
             .state('main.manage.motorFrameSizes', {
                 url: '/motorFrameSizes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor frame size',
+                    constant: 'Motor Frame Size',
+                    title: 'Motor Frame Sizes Dictionary'
+                }
             })
             .state('main.manage.motorSpeedTypes', {
                 url: '/motorSpeedTypes',
                 templateUrl: getViewPath('manage/constant.html'),
-                controller: 'constantCtrl'
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor speed',
+                    constant: 'Motor Speed Type',
+                    title: 'Motor Speed Types Dictionary'
+                }
             });
 
         $urlRouterProvider.otherwise('/search');
