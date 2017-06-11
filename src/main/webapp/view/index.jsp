@@ -39,7 +39,6 @@
                 "../css/tether-1.3.3/tether-theme-arrows-dark.css",
                 "../css/tether-1.3.3/tether-theme-basic.css",
                 "../css/font-awesome.css",
-                "../css/loader.css",
                 "../css/style.css"
         };
     %>
@@ -59,11 +58,14 @@
 
 <body>
 <div ng-app="pump.modules.route" ng-cloak>
-    <div ng-if="state.viewReload" class="progress-striped active progress"
-         style="z-index: 8900; margin-top: 20%; width: 60%; margin-left: 20%;">
-        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div>
+    <%--<div ng-if="state.viewReload" class="progress-striped active progress"--%>
+         <%--style="z-index: 8900; margin-top: 20%; width: 60%; margin-left: 20%;">--%>
+        <%--<div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div>--%>
+    <%--</div>--%>
+    <div ng-if="state.viewReload" class="progress" style="z-index: 8900; margin-top: 20%; width: 60%; margin-left: 20%;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
     </div>
-    <div class="container-fluid animate-if alert-{{state.notification.type}} text-center" ng-if="state.notification">
+    <div ng-if="state.notification" class="container-fluid animate-if alert-{{state.notification.type}} text-center" style="position: fixed; z-index: 8900; width: 100%">
         {{state.notification.message}}
     </div>
     <div ng-if="!state.viewReload && !state.notification.hideView" ui-view></div>

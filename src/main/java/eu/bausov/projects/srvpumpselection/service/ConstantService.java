@@ -12,4 +12,5 @@ public interface ConstantService {
     List<Constant> findAllConstantsByName(String name);
     Constant findOneConstant(Long id);
     Constant saveOneConstant(Constant constant);
+    void deleteOneConstant(Constant constant);
 }

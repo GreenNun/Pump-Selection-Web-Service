@@ -32,40 +32,105 @@ angular.module('pump.modules.route')
                 url: '',
                 templateUrl: getViewPath('components/menu-main.html')
             })
-
             .state('main.search', {
                 url: '/search',
                 templateUrl: getViewPath('search.html'),
                 controller: 'searchCtrl'
             })
-
             .state('main.manage', {
                 url: '/manage',
                 templateUrl: getViewPath('components/menu-edit-left.html')
             })
-
             .state('main.manage.constant', {
                 url: '/manage',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
             })
-
+            // MANAGE
             .state('main.manage.manage', {
                 url: '/manage0',
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
             })
-
             .state('main.manage.countries', {
                 url: '/countries',
-                templateUrl: getViewPath('manage/countries.html'),
-                controller: 'countriesCtrl'
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
             })
-
-            .state('main.constant', {
-                url: '/constant0',
-                templateUrl: getViewPath('constant.html'),
-                controller: 'editPumpCtrl'
+            .state('main.manage.pumpTypes', {
+                url: '/pumpTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.sealTypes', {
+                url: '/sealTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.materials', {
+                url: '/materials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.sealMaterials', {
+                url: '/sealMaterials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.bushingMaterials', {
+                url: '/bushingMaterials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.connectionTypes', {
+                url: '/connectionTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.dn', {
+                url: '/dn',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.connectionAngleTypes', {
+                url: '/connectionAngleTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.pressures', {
+                url: '/pressures',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.temperatures', {
+                url: '/temperatures',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.driverAssemblyTypes', {
+                url: '/driverAssemblyTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.explosionProofTypes', {
+                url: '/explosionProofTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.motorPowerTypes', {
+                url: '/motorPowerTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.motorFrameSizes', {
+                url: '/motorFrameSizes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
+            })
+            .state('main.manage.motorSpeedTypes', {
+                url: '/motorSpeedTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl'
             });
 
         $urlRouterProvider.otherwise('/search');
@@ -80,6 +145,8 @@ angular.module('pump.modules.route')
 
 
         $rootScope.state = {};
+        $rootScope.success = 'Completed';
+        $rootScope.error = 'Something goes wrong =(';
 
         $rootScope.startViewReload = function () {
             $rootScope.state.viewReload = true;

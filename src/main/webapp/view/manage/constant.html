@@ -1,0 +1,97 @@
+<div class="row mt-2 mb-5">
+    <div class="col-sm-12 clearfix">
+        <h1 class="display-4 float-left">{{config.title}}</h1>
+        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" title="Add {{config.constant}}">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+<div class="modal fade bd-add-modal-lg" id="addModal" tabindex="0" role="dialog" aria-labelledby="largeModalLabelAdd" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabelAdd">New</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input ng-model="newItem.value" class="form-control" placeholder="Name"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container col-sm-12">
+    <div class="row">
+        <input type="text" class="form-control float-right mb-2" placeholder="Search..." ng-model="query"/>
+        <table class="table table-hover table-sm">
+            <!--<thead class="table-active">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th colspan="3">-->
+                    <!--<input type="text" class="form-control" placeholder="Search..." ng-model="query"/>-->
+                <!--</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <tr ng-repeat="item in constant_module | orderBy: 'value' | filter: query">
+                <td style="width: 1%" scope="row">{{$index + 1}} </td>
+                <td >{{item.value}}</td>
+                <td style="width: 1%">
+                    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit {{config.constant}}" ng-click="edit(item)">
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="false"></i>
+                    </button>
+
+                    <div class="modal fade bd-{{$index}}-modal-lg" id="editModal" tabindex="0" role="dialog" aria-labelledby="largeModalLabelEdit" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input ng-model="tempItem.value" class="form-control"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(constant_module.indexOf(item))">Update</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target=".bd-{{$index}}-modal-sm">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade bd-{{$index}}-modal-sm" id="confirmActionModal" tabindex="-1" role="dialog" aria-labelledby="confirmActionLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: #eb9316"></i>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Continue removal?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#editModal').modal('show');">Dismiss</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(item)">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <!--</tbody>-->
+        </table>
+    </div>
+</div>
