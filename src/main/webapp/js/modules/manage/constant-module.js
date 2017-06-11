@@ -12,7 +12,7 @@ angular.module('pump.modules.constant')
         };
         var pumpTypes = {
             operation: 'pump type',
-            constant: 'Pump Types',
+            constant: 'Pump Type',
             title: 'Pump Types Dictionary'
         };
         var sealTypes = {
