@@ -110,12 +110,6 @@
 
 
 /*NOTIFICATION ANIMATE*/
-/*.animate-if {*/
-    /*background:white;*/
-    /*border:1px solid black;*/
-    /*padding:10px;*/
-/*}*/
-
 .animate-if.ng-enter, .animate-if.ng-leave {
     transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
 }
@@ -130,4 +124,13 @@
 .animate-if.ng-enter.ng-enter-active {
     max-height: 100px;
     opacity:1;
+}
+
+/*MENU LEFT PILLS*/
+/*LoVe-HAte (a:link, a:visited, a:hover, a:active)*/
+.nav-pills .nav-link:focus, .nav-pills .nav-link:hover {
+    background-color: #ededed;
+}
+.nav-pills .nav-link.active {
+    background-color: #2563ab;
 }
