@@ -91,7 +91,7 @@
     <label for="casingMaterial">Casing material:</label>
     <select class="form-control" id="casingMaterial" ng-model="pump.constCasingMaterial">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump material'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>
@@ -141,7 +141,7 @@
     <label for="connectionType">Connections type:</label>
     <select class="form-control" id="connectionType" ng-model="pump.constConnectionsType">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connections type'"
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connection type'"
                 value="{{item.id}}">{{item.value}}
         </option>
     </select>
@@ -151,7 +151,7 @@
     <label for="dn">DN:</label>
     <select class="form-control" id="dn" ng-model="pump.constDn">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'DN'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'dn'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>
@@ -161,7 +161,7 @@
     <label for="connectionsAngle">Connections placement angle [&#176;]:</label>
     <select class="form-control" id="connectionsAngle" ng-model="pump.constConnectionsAngle">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connections angle'"
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'connection angle type'"
                 value="{{item.id}}">{{item.value}}
         </option>
     </select>
@@ -171,7 +171,7 @@
     <label for="maxPressure">Max. Pressure [bar]:</label>
     <select class="form-control" id="maxPressure" ng-model="pump.constMaxPressure">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'max. pressure'"
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pressure limit'"
                 value="{{item.id}}">{{item.value}}
         </option>
     </select>
@@ -181,7 +181,7 @@
     <label for="maxTemperature">Max. Temperature [&#8451;]:</label>
     <select class="form-control" id="maxTemperature" ng-model="pump.constMaxTemperature">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'max. temperature'"
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'temperature limit'"
                 value="{{item.id}}">{{item.value}}
         </option>
     </select>
