@@ -101,7 +101,7 @@
     <label for="rotorGearMaterial">Rotor Gear material:</label>
     <select class="form-control" id="rotorGearMaterial" ng-model="pump.constRotorGearMaterial">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump material'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>
@@ -111,7 +111,7 @@
     <label for="idlerGearMaterial">Idler Gear material:</label>
     <select class="form-control" id="idlerGearMaterial" ng-model="pump.constIdlerGearMaterial">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump material'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>
@@ -121,7 +121,7 @@
     <label for="shaftSupportMaterial">Shaft Support material:</label>
     <select class="form-control" id="shaftSupportMaterial" ng-model="pump.constShaftSupportMaterial">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump material'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>
@@ -131,7 +131,7 @@
     <label for="shaftMaterial">Shaft material:</label>
     <select class="form-control" id="shaftMaterial" ng-model="pump.constShaftMaterial">
         <option></option>
-        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'material'" value="{{item.id}}">
+        <option ng-repeat="item in constants | orderBy: 'value' | filter: 'pump material'" value="{{item.id}}">
             {{item.value}}
         </option>
     </select>

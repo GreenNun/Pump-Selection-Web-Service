@@ -129,17 +129,17 @@ public class DBFillingService {
         constantRepository.save(oRingMaterialNone);
         Constant oRingMaterialViton = new Constant(DBConst.SEAL_MATERIAL, "Viton&reg;"); // Viton
         constantRepository.save(oRingMaterialViton);
-        Constant castIron25 = new Constant(DBConst.MATERIAL, "GG 25 Cast Iron");
+        Constant castIron25 = new Constant(DBConst.PUMP_MATERIAL, "GG 25 Cast Iron");
         constantRepository.save(castIron25);
-        Constant castIron40 = new Constant(DBConst.MATERIAL, "GGG 40 Cast Iron");
+        Constant castIron40 = new Constant(DBConst.PUMP_MATERIAL, "GGG 40 Cast Iron");
         constantRepository.save(castIron40);
-        Constant castSteel = new Constant(DBConst.MATERIAL, "GS 45 Cast Steel");
+        Constant castSteel = new Constant(DBConst.PUMP_MATERIAL, "GS 45 Cast Steel");
         constantRepository.save(castSteel);
-        Constant cast304Steel = new Constant(DBConst.MATERIAL, "AISI 304 CrNi Stainless Steel");
+        Constant cast304Steel = new Constant(DBConst.PUMP_MATERIAL, "AISI 304 CrNi Stainless Steel");
         constantRepository.save(cast304Steel);
-        Constant cast316Steel = new Constant(DBConst.MATERIAL, "AISI 316 CrNi Stainless Steel");
+        Constant cast316Steel = new Constant(DBConst.PUMP_MATERIAL, "AISI 316 CrNi Stainless Steel");
         constantRepository.save(cast316Steel);
-        Constant heatTreated1050 = new Constant(DBConst.MATERIAL, "1050 Steel, Heat Treated");
+        Constant heatTreated1050 = new Constant(DBConst.PUMP_MATERIAL, "1050 Steel, Heat Treated");
         constantRepository.save(heatTreated1050);
         Constant bronze = new Constant(DBConst.BUSHING_MATERIAL, "CuSn 12 Bronze Bushings");
         constantRepository.save(bronze);

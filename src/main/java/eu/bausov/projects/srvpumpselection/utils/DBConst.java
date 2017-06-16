@@ -7,7 +7,7 @@ public class DBConst {
     public static final String COUNTRY = "country";
     public static final String PUMP_TYPE = "pump type";
     public static final String SEAL_TYPE = "seal type";
-    public static final String MATERIAL = "material";
+    public static final String PUMP_MATERIAL = "pump material";
     public static final String SEAL_MATERIAL = "seal material";
     public static final String BUSHING_MATERIAL = "bushing material";
     public static final String CONNECTIONS_TYPE = "connection type";
