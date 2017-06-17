@@ -253,7 +253,7 @@ angular.module('pump.modules.route')
             };
             $timeout(function () {
                 $rootScope.cleanUpNotification();
-            }, 3000);
+            }, 800);
         };
 
         $rootScope.addPostReloadNotification = function (type, message, hideView) {
@@ -294,7 +294,7 @@ angular.module('pump.modules.route')
             $rootScope.stopViewReload();
         });
 
-        $transitions.onStart({ }, function(trans) {
+        $transitions.onStart({}, function (trans) {
             $rootScope.cleanUpNotification();
             $rootScope.startViewReload();
             // trans.promise.finally($timeout(function () {
