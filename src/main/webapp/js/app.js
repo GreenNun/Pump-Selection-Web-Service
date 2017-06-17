@@ -37,6 +37,12 @@ angular.module('pump.modules.route')
                 templateUrl: getViewPath('search.html'),
                 controller: 'searchCtrl'
             })
+            // MANAGE
+            .state('main.manage.manage', {
+                url: '/manage0',
+                templateUrl: getViewPath('manage.html'),
+                controller: 'manageCtrl'
+            })
             .state('main.manage', {
                 url: '/manage',
                 templateUrl: getViewPath('components/menu-edit-left.html')
@@ -45,12 +51,6 @@ angular.module('pump.modules.route')
                 url: '/manage',
                 templateUrl: getViewPath('constant.html'),
                 controller: 'editPumpCtrl'
-            })
-            // MANAGE
-            .state('main.manage.manage', {
-                url: '/manage0',
-                templateUrl: getViewPath('manage.html'),
-                controller: 'manageCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',
