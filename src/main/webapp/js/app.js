@@ -87,7 +87,7 @@ angular.module('pump.modules.route')
                 templateUrl: getViewPath('manage/constant.html'),
                 controller: 'constantCtrl',
                 data: {
-                    operation: 'material',
+                    operation: 'pump material',
                     constant: 'Material',
                     title: 'Pump Casting Materials Dictionary'
                 }
@@ -221,7 +221,7 @@ angular.module('pump.modules.route')
 
     }])
 
-    .run(function ($rootScope, $timeout) {
+    .run(function ($rootScope, $timeout, $transitions) {
 
 
         $rootScope.state = {};
@@ -292,5 +292,14 @@ angular.module('pump.modules.route')
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
             $rootScope.showPostReloadNotification();
             $rootScope.stopViewReload();
+        });
+
+        $transitions.onStart({ }, function(trans) {
+            $rootScope.cleanUpNotification();
+            $rootScope.startViewReload();
+            // trans.promise.finally($timeout(function () {
+            //     $rootScope.stopViewReload();
+            // }, 1000));
+            trans.promise.finally($rootScope.stopViewReload());
         });
     });
