@@ -127,7 +127,7 @@ public class DBFillingService {
          */
         Constant oRingMaterialNone = new Constant(DBConst.SEAL_MATERIAL, "none"); // none
         constantRepository.save(oRingMaterialNone);
-        Constant oRingMaterialViton = new Constant(DBConst.SEAL_MATERIAL, "Viton&reg;"); // Viton
+        Constant oRingMaterialViton = new Constant(DBConst.SEAL_MATERIAL, "Viton®"); // Viton
         constantRepository.save(oRingMaterialViton);
         Constant castIron25 = new Constant(DBConst.PUMP_MATERIAL, "GG 25 Cast Iron");
         constantRepository.save(castIron25);
