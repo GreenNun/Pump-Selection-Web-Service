@@ -34,6 +34,7 @@ public class ProducerController {
         return producerService.findOneProducer(id);
     }
 
+    @Transactional
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Producer> findAllProducers() {
         LOGGER.debug("Producer list request");
