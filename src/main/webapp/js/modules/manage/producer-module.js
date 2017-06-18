@@ -1,26 +1,36 @@
 /**
- * Created by GreenNun on 12.04.17.
+ * Created by GreenNun on 17.06.17.
  */
-angular.module('pump.modules.constant')
-    .controller('constantCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http, $state) {
-        $scope.config = $state.current.data;
-
+angular.module('pump.modules.producer')
+    .controller('producerCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http) {
         $scope.tempItem = [];
         $scope.newItem = {
             id: null,
             version: null,
-            name: $scope.config.operation,
-            value: null
+            producerName: null,
+            producerCountry: null
         };
 
-        $scope.getConstantList = function (constantName) {
+        $scope.getProducerList = function () {
+            $http({
+                method: 'GET',
+                url: '/pump/api/producer/list'
+            })
+                .then(function (success) {
+                    $scope.producers = success.data;
+                }, function (error) {
+                    $rootScope.addNotification('danger', error.data);
+                });
+        };
+
+        $scope.getCountryList = function () {
             $http({
                 method: 'GET',
                 url: '/pump/api/constant/list',
-                params: {name: constantName}
+                params: {name: 'country'}
             })
                 .then(function (success) {
-                    $scope.constant_module = success.data;
+                    $scope.countries = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
@@ -33,12 +43,12 @@ angular.module('pump.modules.constant')
         $scope.save = function (index) {
             $http({
                 method: 'POST',
-                url: '/pump/api/constant/save',
+                url: '/pump/api/producer/save',
                 data: $scope.tempItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.constant_module[index] = success.data;
+                    $scope.producers[index] = success.data;
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
@@ -49,13 +59,18 @@ angular.module('pump.modules.constant')
         $scope.add = function () {
             $http({
                 method: 'POST',
-                url: '/pump/api/constant/save',
+                url: '/pump/api/producer/save',
                 data: $scope.newItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.constant_module.push(success.data);
-                    $scope.newItem.value = null;
+                    $scope.producers.push(success.data);
+                    $scope.newItem =  {
+                        id: null,
+                        version: null,
+                        producerName: null,
+                        producerCountry: null
+                    };
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', $rootScope.error);
@@ -66,18 +81,19 @@ angular.module('pump.modules.constant')
         $scope.delete = function (item) {
             $http({
                 method: 'POST',
-                url: '/pump/api/constant/delete',
+                url: '/pump/api/producer/delete',
                 data: item
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    var index = $scope.constant_module.indexOf(item);
-                    $scope.constant_module.splice(index, 1);
+                    var index = $scope.countries.indexOf(item);
+                    $scope.producers.splice(index, 1);
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getConstantList($scope.config.operation);
+        $scope.getProducerList();
+        $scope.getCountryList();
     }]);

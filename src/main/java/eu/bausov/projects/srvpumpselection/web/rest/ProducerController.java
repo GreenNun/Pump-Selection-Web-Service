@@ -5,6 +5,7 @@ import eu.bausov.projects.srvpumpselection.service.ProducerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,14 +35,22 @@ public class ProducerController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Producer> findAllConstantsByName() {
+    public List<Producer> findAllProducers() {
         LOGGER.debug("Producer list request");
         return producerService.findAllProducers();
     }
 
+    @Transactional
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Producer saveConstant(@RequestBody Producer producer) {
         LOGGER.debug("Producer save request");
         return producerService.saveOneProducer(producer);
+    }
+
+    @Transactional
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void delete(@RequestBody Producer producer) {
+        LOGGER.debug("Producer remove request");
+        producerService.deleteOneProducer(producer);
     }
 }

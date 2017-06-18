@@ -34,4 +34,9 @@ public class ProducerServiceImpl implements ProducerService {
     public Producer saveOneProducer(Producer producer) {
         return producerRepository.save(producer);
     }
+
+    @Override
+    public void deleteOneProducer(Producer producer) {
+        producerRepository.delete(producer);
+    }
 }

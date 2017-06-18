@@ -8,22 +8,20 @@ angular.module('pump.modules.manage')
             method: 'GET',
             url: '/pump/api/DataBaseManagement/constants'
         })
-            .success(function (data) {
-                $scope.constants = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.constants = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         $http({
             method: 'GET',
             url: '/pump/api/DataBaseManagement/producers'
         })
-            .success(function (data) {
-                $scope.producers = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.producers = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         /*coefficients box*/
@@ -47,11 +45,10 @@ angular.module('pump.modules.manage')
             method: 'GET',
             url: '/pump/api/DataBaseManagement/seals'
         })
-            .success(function (data) {
-                $scope.sealsBoxAvailable = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.sealsBoxAvailable = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         $scope.move = function (from, selected, to) {
@@ -79,11 +76,10 @@ angular.module('pump.modules.manage')
             method: 'GET',
             url: '/pump/api/DataBaseManagement/frames'
         })
-            .success(function (data) {
-                $scope.framesBoxAvailable = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.framesBoxAvailable = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         $scope.move = function (from, selected, to) {
@@ -111,11 +107,10 @@ angular.module('pump.modules.manage')
             method: 'GET',
             url: '/pump/api/DataBaseManagement/assemblies'
         })
-            .success(function (data) {
-                $scope.driverAssembliesBoxAvailable = data;
-            })
-            .error(function (data) {
-                $rootScope.addNotification('danger', data);
+            .then(function (success) {
+                $scope.driverAssembliesBoxAvailable = success.data;
+            }, function (error) {
+                $rootScope.addNotification('danger', error.data);
             });
 
         $scope.move = function (from, selected, to) {
@@ -155,11 +150,10 @@ angular.module('pump.modules.manage')
                 url: '/pump/api/DataBaseManagement/create',
                 data: $scope.pump
             })
-                .success(function (data) {
-                    $rootScope.addNotification('success', data);
-                })
-                .error(function (data) {
-                    $rootScope.addNotification('warning', data);
+                .then(function (success) {
+                    $rootScope.addNotification('success', success.data);
+                }, function (error) {
+                    $rootScope.addNotification('warning', error.data);
                 })
                 .then(function () {
                     // empty array after request sent

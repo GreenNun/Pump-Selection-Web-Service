@@ -1,0 +1,45 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse navbar-static-top mb-3">
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-static-top mb-3">-->
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Eqeeper</a>
+
+    <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            <li class="nav-item dropdown" ui-sref-active="active">
+                <!--<a class="nav-link dropdown-toggle" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>-->
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" ui-sref-active="active" ui-sref="main.search">Search</a>
+                    <a class="dropdown-item" ui-sref-active="active" ui-sref="main.manage">Manage</a>
+                    <a class="dropdown-item" ui-sref-active="active" ui-sref="main.constant">Constant</a>
+                    <a class="dropdown-item" ui-sref-active="active" ui-sref="main.edit">Edit</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline">
+            <div class="col-xs-6 my-1 mr-1">
+                <input class="form-control" type="email" placeholder="E-mail">
+                <input class="form-control" type="password" placeholder="Password">
+            </div>
+            <div class="col-xs-6 my-1 mr-0">
+                <button class="btn btn-outline-primary" type="submit"><i class="fa fa-sign-in"></i> Log In</button>
+                <button class="btn btn-outline-success" type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div ui-view class="container-fluid"></div>

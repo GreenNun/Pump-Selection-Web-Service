@@ -125,25 +125,25 @@ public class DBFillingService {
         /**
          * MATERIALS
          */
-        Constant oRingMaterialNone = new Constant(DBConst.MATERIAL, "none"); // none
+        Constant oRingMaterialNone = new Constant(DBConst.SEAL_MATERIAL, "none"); // none
         constantRepository.save(oRingMaterialNone);
-        Constant oRingMaterialViton = new Constant(DBConst.MATERIAL, "Viton&reg;"); // Viton
+        Constant oRingMaterialViton = new Constant(DBConst.SEAL_MATERIAL, "Viton®"); // Viton
         constantRepository.save(oRingMaterialViton);
-        Constant castIron25 = new Constant(DBConst.MATERIAL, "GG 25 Cast Iron");
+        Constant castIron25 = new Constant(DBConst.PUMP_MATERIAL, "GG 25 Cast Iron");
         constantRepository.save(castIron25);
-        Constant castIron40 = new Constant(DBConst.MATERIAL, "GGG 40 Cast Iron");
+        Constant castIron40 = new Constant(DBConst.PUMP_MATERIAL, "GGG 40 Cast Iron");
         constantRepository.save(castIron40);
-        Constant castSteel = new Constant(DBConst.MATERIAL, "GS 45 Cast Steel");
+        Constant castSteel = new Constant(DBConst.PUMP_MATERIAL, "GS 45 Cast Steel");
         constantRepository.save(castSteel);
-        Constant cast304Steel = new Constant(DBConst.MATERIAL, "AISI 304 CrNi Stainless Steel");
+        Constant cast304Steel = new Constant(DBConst.PUMP_MATERIAL, "AISI 304 CrNi Stainless Steel");
         constantRepository.save(cast304Steel);
-        Constant cast316Steel = new Constant(DBConst.MATERIAL, "AISI 316 CrNi Stainless Steel");
+        Constant cast316Steel = new Constant(DBConst.PUMP_MATERIAL, "AISI 316 CrNi Stainless Steel");
         constantRepository.save(cast316Steel);
-        Constant heatTreated1050 = new Constant(DBConst.MATERIAL, "1050 Steel, Heat Treated");
+        Constant heatTreated1050 = new Constant(DBConst.PUMP_MATERIAL, "1050 Steel, Heat Treated");
         constantRepository.save(heatTreated1050);
-        Constant bronze = new Constant(DBConst.MATERIAL, "CuSn 12 Bronze Bushings");
+        Constant bronze = new Constant(DBConst.BUSHING_MATERIAL, "CuSn 12 Bronze Bushings");
         constantRepository.save(bronze);
-        Constant carbon = new Constant(DBConst.MATERIAL, "Carbon Graphite Bushings");
+        Constant carbon = new Constant(DBConst.BUSHING_MATERIAL, "Carbon Graphite Bushings");
         constantRepository.save(carbon);
 
 
@@ -178,9 +178,9 @@ public class DBFillingService {
         /**
          * CONNECTIONS ANGLE
          */
-        Constant connectionsAngle90 = new Constant(DBConst.CONNECTIONS_ANGLE, "90");
+        Constant connectionsAngle90 = new Constant(DBConst.CONNECTION_ANGLE_TYPE, "90");
         constantRepository.save(connectionsAngle90);
-        Constant connectionsAngle180 = new Constant(DBConst.CONNECTIONS_ANGLE, "180");
+        Constant connectionsAngle180 = new Constant(DBConst.CONNECTION_ANGLE_TYPE, "180");
         constantRepository.save(connectionsAngle180);
 
 

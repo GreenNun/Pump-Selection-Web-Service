@@ -10,54 +10,228 @@ angular.module('pump.modules.constant',
     []
 );
 
+angular.module('pump.modules.producer',
+    []
+);
+
 angular.module('pump.modules.route',
     [
         'ngRoute',
-        'ui.bootstrap',
         'ngSanitize',
+        'ngAnimate',
+        'ui.router',
+        'ui.bootstrap',
         'pump.modules.search',
         'pump.modules.manage',
-        'pump.modules.constant'
+        'pump.modules.constant',
+        'pump.modules.producer'
     ]
 );
 
 angular.module('pump.modules.route')
-    .config(function ($routeProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        $locationProvider.hashPrefix('');
+
+        $stateProvider
+            .state('main', {
+                url: '',
+                templateUrl: getViewPath('components/menu-main.html')
+            })
+            .state('main.search', {
+                url: '/search',
+                templateUrl: getViewPath('search.html'),
+                controller: 'searchCtrl'
+            })
+            .state('main.manage.manage', {
+                url: '/manage0',
+                templateUrl: getViewPath('manage.html'),
+                controller: 'manageCtrl'
+            })
+            // MANAGE
+            .state('main.manage', {
+                url: '/manage',
+                templateUrl: getViewPath('components/menu-edit-left.html')
+            })
+            .state('main.manage.producers', {
+                url: '/producers',
+                templateUrl: getViewPath('manage/producer.html'),
+                controller: 'producerCtrl'
+            })
+            .state('main.manage.countries', {
+                url: '/countries',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'country',
+                    constant: 'Country',
+                    title: 'Countries Dictionary'
+                }
+            })
+            .state('main.manage.pumpTypes', {
+                url: '/pumpTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'pump type',
+                    constant: 'Pump Type',
+                    title: 'Pump Types Dictionary'
+                }
+            })
+            .state('main.manage.sealTypes', {
+                url: '/sealTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'seal type',
+                    constant: 'Seal Type',
+                    title: 'Seal Types Dictionary'
+                }
+            })
+            .state('main.manage.materials', {
+                url: '/materials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'pump material',
+                    constant: 'Material',
+                    title: 'Pump Casting Materials Dictionary'
+                }
+            })
+            .state('main.manage.sealMaterials', {
+                url: '/sealMaterials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'seal material',
+                    constant: 'Seal O-Ring Material',
+                    title: 'Seal Materials Dictionary'
+                }
+            })
+            .state('main.manage.bushingMaterials', {
+                url: '/bushingMaterials',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'bushing material',
+                    constant: 'Bushing Material',
+                    title: 'Bushing Materials Dictionary'
+                }
+            })
+            .state('main.manage.connectionTypes', {
+                url: '/connectionTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'connection type',
+                    constant: 'Connection Type',
+                    title: 'Connection Types Dictionary'
+                }
+            })
+            .state('main.manage.dn', {
+                url: '/dn',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'dn',
+                    constant: 'DN Type',
+                    title: 'DN Types Dictionary'
+                }
+            })
+            .state('main.manage.connectionAngleTypes', {
+                url: '/connectionAngleTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'connection angle type',
+                    constant: 'Connection Angle Type',
+                    title: 'Connection Angle Types Dictionary'
+                }
+            })
+            .state('main.manage.pressures', {
+                url: '/pressures',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'pressure limit',
+                    constant: 'Pressure Limit',
+                    title: 'Pressure Limits Dictionary'
+                }
+            })
+            .state('main.manage.temperatures', {
+                url: '/temperatures',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'temperature limit',
+                    constant: 'Temperature Limit',
+                    title: 'Temperature Limit Dictionary'
+                }
+            })
+            .state('main.manage.driverAssemblyTypes', {
+                url: '/driverAssemblyTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'driver assembly type',
+                    constant: 'Driver Assembly Type',
+                    title: 'Driver Assembly Types Dictionary'
+                }
+            })
+            .state('main.manage.explosionProofTypes', {
+                url: '/explosionProofTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'explosion proof',
+                    constant: 'Explosion Proof Type',
+                    title: 'Explosion Proof Types Dictionary'
+                }
+            })
+            .state('main.manage.motorPowerTypes', {
+                url: '/motorPowerTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor power',
+                    constant: 'Motor Power Type',
+                    title: 'Motor Power Types Dictionary'
+                }
+            })
+            .state('main.manage.motorFrameSizes', {
+                url: '/motorFrameSizes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor frame size',
+                    constant: 'Motor Frame Size',
+                    title: 'Motor Frame Sizes Dictionary'
+                }
+            })
+            .state('main.manage.motorSpeedTypes', {
+                url: '/motorSpeedTypes',
+                templateUrl: getViewPath('manage/constant.html'),
+                controller: 'constantCtrl',
+                data: {
+                    operation: 'motor speed',
+                    constant: 'Motor Speed Type',
+                    title: 'Motor Speed Types Dictionary'
+                }
+            });
+
+        $urlRouterProvider.otherwise('/search');
 
         function getViewPath(view) {
             return '/pump/view/' + view;
         }
 
-        $routeProvider
-            .when('/search', {
-                templateUrl: getViewPath('search.html'),
-                controller: 'searchCtrl'
-            })
+    }])
 
-            .when('/manage', {
-                templateUrl: getViewPath('manage.html'),
-                controller: 'manageCtrl'
-            })
-
-            .when('/edit/pump', {
-                templateUrl: getViewPath('edit-pump.html'),
-                controller: 'editPumpCtrl'
-            })
-
-            .when('/constant', {
-                templateUrl: getViewPath('constant.html'),
-                controller: 'editPumpCtrl'
-            })
-
-            .otherwise({
-                redirectTo: '/search'
-            });
-    })
-
-    .run(function ($rootScope) {
+    .run(function ($rootScope, $timeout, $transitions) {
 
 
         $rootScope.state = {};
+        $rootScope.success = 'Completed';
+        $rootScope.error = 'Something goes wrong =(';
 
         $rootScope.startViewReload = function () {
             $rootScope.state.viewReload = true;
@@ -82,6 +256,9 @@ angular.module('pump.modules.route')
                 message: message,
                 hideView: hideView || false
             };
+            $timeout(function () {
+                $rootScope.cleanUpNotification();
+            }, 1200);
         };
 
         $rootScope.addPostReloadNotification = function (type, message, hideView) {
@@ -120,5 +297,14 @@ angular.module('pump.modules.route')
         $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
             $rootScope.showPostReloadNotification();
             $rootScope.stopViewReload();
+        });
+
+        $transitions.onStart({}, function (trans) {
+            $rootScope.cleanUpNotification();
+            $rootScope.startViewReload();
+            // trans.promise.finally($timeout(function () {
+            //     $rootScope.stopViewReload();
+            // }, 1000));
+            trans.promise.finally($rootScope.stopViewReload());
         });
     });

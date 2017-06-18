@@ -2,13 +2,12 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.service.ConstantService;
-import eu.bausov.projects.srvpumpselection.utils.DBConst;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,28 +25,38 @@ public class ConstantController {
         this.constantService = constantService;
     }
 
-    @RequestMapping(value = "/(id)", method = RequestMethod.GET)
-    public Constant findOneConstant(@RequestBody Long id) {
+    @Transactional
+    @RequestMapping(value = "/one", method = RequestMethod.GET)
+    public Constant findOneConstant(@RequestParam("id") Long id) {
         LOGGER.debug("Constant request");
         return constantService.findOneConstant(id);
     }
 
-//    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    public List<Constant> findAllConstantsByName(@RequestBody String name) {
-//        LOGGER.debug("Constants list request");
-//        return constantService.findAllConstantsByName(name);
+//    @Transactional
+//    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+//    public int delete(@RequestParam("id") Long id) {
+//        LOGGER.debug("Constant remove request");
+//        return constantService.deleteById(id);
 //    }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Constant> findAllConstantsByName() {
-        LOGGER.debug("Constants list request");
-        return constantService.findAllConstantsByName(DBConst.COUNTRY);
+    @Transactional
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void delete(@RequestBody Constant constant) {
+        LOGGER.debug("Constant remove request");
+        constantService.deleteOneConstant(constant);
     }
 
+    @Transactional
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public List<Constant> findAllConstantsByName(@RequestParam("name") String name) {
+        LOGGER.debug("Constants list request");
+        return constantService.findAllConstantsByName(name);
+    }
+
+    @Transactional
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Constant saveConstant(@RequestBody Constant constant) {
         LOGGER.debug("Constant save request");
         return constantService.saveOneConstant(constant);
     }
-
 }
