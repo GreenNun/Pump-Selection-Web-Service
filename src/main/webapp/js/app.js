@@ -10,6 +10,10 @@ angular.module('pump.modules.constant',
     []
 );
 
+angular.module('pump.modules.producer',
+    []
+);
+
 angular.module('pump.modules.route',
     [
         'ngRoute',
@@ -19,7 +23,8 @@ angular.module('pump.modules.route',
         'ui.bootstrap',
         'pump.modules.search',
         'pump.modules.manage',
-        'pump.modules.constant'
+        'pump.modules.constant',
+        'pump.modules.producer'
     ]
 );
 
@@ -37,20 +42,20 @@ angular.module('pump.modules.route')
                 templateUrl: getViewPath('search.html'),
                 controller: 'searchCtrl'
             })
-            // MANAGE
             .state('main.manage.manage', {
                 url: '/manage0',
                 templateUrl: getViewPath('manage.html'),
                 controller: 'manageCtrl'
             })
+            // MANAGE
             .state('main.manage', {
                 url: '/manage',
                 templateUrl: getViewPath('components/menu-edit-left.html')
             })
-            .state('main.manage.constant', {
-                url: '/manage',
-                templateUrl: getViewPath('constant.html'),
-                controller: 'editPumpCtrl'
+            .state('main.manage.producers', {
+                url: '/producers',
+                templateUrl: getViewPath('manage/producer.html'),
+                controller: 'producerCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',
@@ -253,7 +258,7 @@ angular.module('pump.modules.route')
             };
             $timeout(function () {
                 $rootScope.cleanUpNotification();
-            }, 800);
+            }, 1200);
         };
 
         $rootScope.addPostReloadNotification = function (type, message, hideView) {
