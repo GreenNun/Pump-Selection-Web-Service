@@ -35,6 +35,7 @@ public class MotorController {
         return motorService.findOneMotor(id);
     }
 
+    @Transactional
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Motor> findAllProducers() {
         LOGGER.debug("Motor list request");
