@@ -10,4 +10,6 @@ import java.util.List;
 public interface MotorService {
     List<Motor> findAllMotors();
     Motor findOneMotor(Long id);
+    Motor saveOneMotor(Motor motor);
+    void deleteOneMotor(Motor motor);
 }

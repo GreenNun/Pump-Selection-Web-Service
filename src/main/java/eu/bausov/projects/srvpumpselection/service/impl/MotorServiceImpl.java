@@ -29,4 +29,14 @@ public class MotorServiceImpl implements MotorService {
     public Motor findOneMotor(Long id) {
         return motorRepository.findOne(id);
     }
+
+    @Override
+    public Motor saveOneMotor(Motor motor) {
+        return motorRepository.save(motor);
+    }
+
+    @Override
+    public void deleteOneMotor(Motor motor) {
+        motorRepository.delete(motor);
+    }
 }

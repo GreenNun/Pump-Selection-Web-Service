@@ -28,7 +28,8 @@
                 "../js/modules/search/search-module.js",
                 "../js/modules/manage/manage-module.js",
                 "../js/modules/manage/constant-module.js",
-                "../js/modules/manage/producer-module.js"
+                "../js/modules/manage/producer-module.js",
+                "../js/modules/manage/motor-module.js"
         };
 
         static final String[] CSS = {
