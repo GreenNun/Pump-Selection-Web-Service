@@ -134,3 +134,9 @@ body {
 .nav-pills .nav-link.active {
     background-color: #2563ab;
 }
+
+/*TABLE*/
+.tb-content {
+    width: 1%;
+    white-space: nowrap;
+}

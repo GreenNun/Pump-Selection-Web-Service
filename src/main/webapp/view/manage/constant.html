@@ -10,13 +10,20 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabelAdd">New</h5>
+                <h5 class="modal-title" id="largeModalLabelAdd">New {{config.constant}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <input ng-model="newItem.value" class="form-control" placeholder="Name"/>
+                <form>
+                    <div class="form-group row">
+                        <label for="nameInput" class="col-sm-3 pr-0 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.value" class="form-control" id="nameInput"/>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -29,21 +36,20 @@
 
 <div class="container col-sm-12">
     <div class="row">
-        <input type="text" class="form-control float-right mb-2" placeholder="Search..." ng-model="query"/>
+        <input type="text" class="form-control mb-2 col-3" placeholder="Search..." ng-model="query"/>
         <table class="table table-hover table-sm">
-            <!--<thead class="table-active">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th colspan="3">-->
-                    <!--<input type="text" class="form-control" placeholder="Search..." ng-model="query"/>-->
-                <!--</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
             <tr ng-repeat="item in constant_module | orderBy: 'value' | filter: query">
-                <td style="width: 1%" scope="row">{{$index + 1}} </td>
+                <th class="tb-content" scope="row">{{$index + 1}} </th>
                 <td >{{item.value}}</td>
-                <td style="width: 1%">
+                <td class="tb-content">
                     <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit {{config.constant}}" ng-click="edit(item)">
                         <i class="fa fa-pencil-square-o fa-lg" aria-hidden="false"></i>
                     </button>
@@ -52,13 +58,20 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit</h5>
+                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit {{config.constant}}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <input ng-model="tempItem.value" class="form-control"/>
+                                    <form>
+                                        <div class="form-group row">
+                                            <label for="nameInput1" class="col-sm-3 pr-0 col-form-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.value" class="form-control" id="nameInput1"/>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -91,7 +104,7 @@
 
                 </td>
             </tr>
-            <!--</tbody>-->
+            </tbody>
         </table>
     </div>
 </div>
