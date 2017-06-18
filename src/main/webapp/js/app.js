@@ -14,6 +14,10 @@ angular.module('pump.modules.producer',
     []
 );
 
+angular.module('pump.modules.motor',
+    []
+);
+
 angular.module('pump.modules.route',
     [
         'ngRoute',
@@ -24,7 +28,8 @@ angular.module('pump.modules.route',
         'pump.modules.search',
         'pump.modules.manage',
         'pump.modules.constant',
-        'pump.modules.producer'
+        'pump.modules.producer',
+        'pump.modules.motor'
     ]
 );
 
@@ -56,6 +61,11 @@ angular.module('pump.modules.route')
                 url: '/producers',
                 templateUrl: getViewPath('manage/producer.html'),
                 controller: 'producerCtrl'
+            })
+            .state('main.manage.motors', {
+                url: '/motors',
+                templateUrl: getViewPath('manage/motor.html'),
+                controller: 'motorCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',

@@ -1,0 +1,203 @@
+<div class="row mt-2 mb-5">
+    <div class="col-sm-12 clearfix">
+        <h1 class="display-4 float-left">Motors</h1>
+        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" title="Add new Producer">
+            <i class="fa fa-plus fa-lg"></i>
+        </button>
+    </div>
+</div>
+<div class="modal fade bd-add-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabelAdd" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabelAdd">New Producer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="nameInput" class="col-sm-3 pr-0 col-form-label">Model</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.modelName" class="form-control" id="nameInput"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="producerInput" class="col-sm-3 pr-0 col-form-label">Producer</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="producerInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="newItem.producer"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="priceInput" class="col-sm-3 pr-0 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.price" class="form-control" id="priceInput" type="number" min="0" step="1"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorInput" class="col-sm-3 pr-0 col-form-label">Vendor</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="vendorInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="newItem.vendor"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="speedInput" class="col-sm-3 pr-0 col-form-label">Speed</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="speedInput" ng-options="item.value for item in speeds track by item.id" ng-model="newItem.constSpeed"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="exProofInput" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="exProofInput" ng-options="item.value for item in exProofs track by item.id" ng-model="newItem.constExplosionProof"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="powerInput" class="col-sm-3 pr-0 col-form-label">Power [hp]</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="powerInput" ng-options="item.value for item in powers track by item.id" ng-model="newItem.constPowerHp"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="frameSizeInput" class="col-sm-3 pr-0 col-form-label">Frame size</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="frameSizeInput" ng-options="item.value for item in frameSizes track by item.id" ng-model="newItem.constMotorFrameSize"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container col-sm-12">
+    <div class="row">
+        <input type="text" class="form-control mb-2 col-3" placeholder="Search..." ng-model="query"/>
+        <table class="table table-hover table-sm">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Model</th>
+                <th>Producer</th>
+                <th>Vendor</th>
+                <th>Speed</th>
+                <th>Power</th>
+                <th>Ex. Proof</th>
+                <th>Frame Size</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in motors | orderBy: 'modelName' | filter: query">
+                <th class="tb-content" scope="row">{{$index + 1}} </th>
+                <td>{{item.modelName}}</td>
+                <td>{{item.producer.producerName}}, {{item.producer.producerCountry.value}}</td>
+                <td>{{item.vendor.producerName}}, {{item.vendor.producerCountry.value}}</td>
+                <td>{{item.constSpeed.value}}</td>
+                <td>{{item.constPowerHp.value}}</td>
+                <td>{{item.constExplosionProof.value}}</td>
+                <td>{{item.constMotorFrameSize.value}}</td>
+                <td class="tb-content">
+                    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit Motor" ng-click="edit(item)">
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="false"></i>
+                    </button>
+                    <div class="modal fade bd-{{$index}}-modal-lg" id="editModal" tabindex="0" role="dialog" aria-labelledby="largeModalLabelEdit" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit Motor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group row">
+                                            <label for="nameInput1" class="col-sm-3 pr-0 col-form-label">Model</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.modelName" class="form-control" id="nameInput1"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="producerInput1" class="col-sm-3 pr-0 col-form-label">Producer</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="tempItem.producer"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="priceInput1" class="col-sm-3 pr-0 col-form-label">Price</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.price" class="form-control" id="priceInput1" type="number" min="0" step="1"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="vendorInput1" class="col-sm-3 pr-0 col-form-label">Vendor</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="vendorInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="tempItem.vendor"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="speedInput1" class="col-sm-3 pr-0 col-form-label">Speed</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="speedInput1" ng-options="item.value for item in speeds track by item.id" ng-model="tempItem.constSpeed"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="exProofInput1" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="exProofInput1" ng-options="item.value for item in exProofs track by item.id" ng-model="tempItem.constExplosionProof"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="powerInput1" class="col-sm-3 pr-0 col-form-label">Power [hp]</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="powerInput1" ng-options="item.value for item in powers track by item.id" ng-model="tempItem.constPowerHp"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="frameSizeInput1" class="col-sm-3 pr-0 col-form-label">Frame size</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="frameSizeInput1" ng-options="item.value for item in frameSizes track by item.id" ng-model="tempItem.constMotorFrameSize"></select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(motors.indexOf(item))">Update</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target=".bd-{{$index}}-modal-sm">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-{{$index}}-modal-sm" id="confirmActionModal" tabindex="-1" role="dialog" aria-labelledby="confirmActionLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: #eb9316"></i>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Continue removal?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#editModal').modal('show');">Dismiss</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(item)">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

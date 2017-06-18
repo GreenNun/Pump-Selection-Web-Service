@@ -4,7 +4,6 @@ import eu.bausov.projects.srvpumpselection.bo.JPA;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
 @MappedSuperclass
@@ -34,7 +33,7 @@ public abstract class Equipment extends JPA {
         this.modelName = modelName;
     }
 
-    @XmlTransient // comment to show price
+//    @XmlTransient // comment to show price
     @Basic(optional = false)
     @Column(name = "price")
     public BigDecimal getPrice() {
