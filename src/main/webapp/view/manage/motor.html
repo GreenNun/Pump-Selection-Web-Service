@@ -85,6 +85,7 @@
                 <th>#</th>
                 <th>Model</th>
                 <th>Producer</th>
+                <th>Price</th>
                 <th>Vendor</th>
                 <th>Speed</th>
                 <th>Power</th>
@@ -98,6 +99,7 @@
                 <th class="tb-content" scope="row">{{$index + 1}} </th>
                 <td>{{item.modelName}}</td>
                 <td>{{item.producer.producerName}}, {{item.producer.producerCountry.value}}</td>
+                <td>{{item.price}}</td>
                 <td>{{item.vendor.producerName}}, {{item.vendor.producerCountry.value}}</td>
                 <td>{{item.constSpeed.value}}</td>
                 <td>{{item.constPowerHp.value}}</td>
