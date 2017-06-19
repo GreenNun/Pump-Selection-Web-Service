@@ -1,8 +1,8 @@
 /**
- * Created by GreenNun on 18.06.17.
+ * Created by GreenNun on 19.06.17.
  */
-angular.module('pump.modules.motor')
-    .controller('motorCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http) {
+angular.module('pump.modules.reducer')
+    .controller('reducerCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http) {
         $scope.tempItem = [];
         $scope.newItem = {
             id: null,
@@ -11,19 +11,20 @@ angular.module('pump.modules.motor')
             producer: null,
             price: null,
             vendor: null,
-            constSpeed: null,
+            minRpm: null,
+            maxRpm: null,
             constExplosionProof: null,
-            constPowerHp: null,
+            constRequiredMotorPowerHp: null,
             constMotorFrameSize: null
         };
 
-        $scope.getMotorList = function () {
+        $scope.getReducerList = function () {
             $http({
                 method: 'GET',
-                url: '/pump/api/motor/list'
+                url: '/pump/api/reducer/list'
             })
                 .then(function (success) {
-                    $scope.motors = success.data;
+                    $scope.reducers = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
@@ -36,19 +37,6 @@ angular.module('pump.modules.motor')
             })
                 .then(function (success) {
                     $scope.producers = success.data;
-                }, function (error) {
-                    $rootScope.addNotification('danger', error.data);
-                });
-        };
-
-        $scope.getConstSpeedList = function () {
-            $http({
-                method: 'GET',
-                url: '/pump/api/constant/list',
-                params: {name: 'motor speed'}
-            })
-                .then(function (success) {
-                    $scope.speeds = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
@@ -100,12 +88,12 @@ angular.module('pump.modules.motor')
         $scope.save = function (index) {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/save',
+                url: '/pump/api/reducer/save',
                 data: $scope.tempItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.motors[index] = success.data;
+                    $scope.reducers[index] = success.data;
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
@@ -116,12 +104,12 @@ angular.module('pump.modules.motor')
         $scope.add = function () {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/save',
+                url: '/pump/api/reducer/save',
                 data: $scope.newItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.motors.push(success.data);
+                    $scope.reducers.push(success.data);
                     $scope.newItem =  {
                         id: null,
                         version: null,
@@ -129,9 +117,10 @@ angular.module('pump.modules.motor')
                         producer: null,
                         price: null,
                         vendor: null,
-                        constSpeed: null,
+                        minRpm: null,
+                        maxRpm: null,
                         constExplosionProof: null,
-                        constPowerHp: null,
+                        constRequiredMotorPowerHp: null,
                         constMotorFrameSize: null
                     };
                     $('.modal-backdrop').remove();
@@ -144,24 +133,24 @@ angular.module('pump.modules.motor')
         $scope.delete = function (item) {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/delete',
+                url: '/pump/api/reducer/delete',
                 data: item
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    var index = $scope.motors.indexOf(item);
-                    $scope.motors.splice(index, 1);
+                    var index = $scope.reducers.indexOf(item);
+                    $scope.reducers.splice(index, 1);
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getMotorList();
+        $scope.getReducerList();
         $scope.getProducerList();
-        $scope.getConstSpeedList();
         $scope.getConstExProofList();
         $scope.getConstPowerList();
         $scope.getConstFrameSizesList();
     }]);
+
 

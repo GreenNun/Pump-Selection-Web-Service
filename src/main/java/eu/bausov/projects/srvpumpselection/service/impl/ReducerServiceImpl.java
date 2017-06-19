@@ -29,4 +29,14 @@ public class ReducerServiceImpl implements ReducerService {
     public Reducer findOneReducer(Long id) {
         return reducerRepository.findOne(id);
     }
+
+    @Override
+    public Reducer saveOneReducer(Reducer reducer) {
+        return reducerRepository.save(reducer);
+    }
+
+    @Override
+    public void deleteOneReducer(Reducer reducer) {
+        reducerRepository.delete(reducer);
+    }
 }
