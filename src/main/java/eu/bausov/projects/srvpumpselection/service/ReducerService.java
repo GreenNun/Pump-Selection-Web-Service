@@ -10,4 +10,6 @@ import java.util.List;
 public interface ReducerService {
     List<Reducer> findAllReducers();
     Reducer findOneReducer(Long id);
+    Reducer saveOneReducer(Reducer reducer);
+    void deleteOneReducer(Reducer reducer);
 }
