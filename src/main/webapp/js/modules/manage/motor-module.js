@@ -94,7 +94,7 @@ angular.module('pump.modules.motor')
         };
 
         $scope.edit = function (value) {
-            $scope.tempItem = jQuery.extend({}, value);
+            $scope.tempItem = jQuery.extend(true, {}, value);
         };
 
         $scope.save = function (index) {
