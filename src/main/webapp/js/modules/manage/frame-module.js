@@ -2,7 +2,7 @@
  * Created by GreenNun on 19.06.17.
  */
 angular.module('pump.modules.frame')
-    .controller('frameCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http) {
+    .controller('frameCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
         $scope.tempItem = [];
         $scope.tempPumps = [];
         $scope.newItem = {
