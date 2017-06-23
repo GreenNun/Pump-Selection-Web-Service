@@ -38,7 +38,8 @@
                     <hr>
                     <div class="form-group row">
                         <div class="container">
-                            <label for="pump_box">Suitable Pumps</label>
+                            <label for="pump_box">Suitable Pumps <span ng-if="newItem.suitablePumps.length > 0" class="badge badge-pill badge-info">{{newItem.suitablePumps.length}}</span>
+                                <span ng-if="newItem.suitablePumps.length == 0" class="badge badge-pill badge-danger">{{newItem.suitablePumps.length}}</span></label>
                             <div class="row" id="pump_box">
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query1"/>
@@ -51,7 +52,6 @@
                                     <button ng-click="moveAll(tempPumps, newItem.suitablePumps)" class="btn btn-block btn-warning mx-0" type="submit"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
                                     <button ng-click="move(tempPumps, perSelectedFrom, newItem.suitablePumps)" class="btn btn-block btn-success mx-0" type="submit"><i class="fa fa-chevron-right"></i></button>
                                     <button ng-click="move(newItem.suitablePumps, selectedTo, tempPumps)" class="btn btn-block btn-success mx-0" type="submit"><i class="fa fa-chevron-left"></i></button>
-                                    <button ng-click="moveAll(newItem.suitablePumps, tempPumps)" class="btn btn-block btn-warning mx-0" type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
                                     <button ng-click="moveAll(newItem.suitablePumps, tempPumps)" class="btn btn-block btn-warning mx-0" type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
                                 </div>
                                 <div class="col-sm-6">
@@ -119,7 +119,7 @@
                                         <div class="form-group row">
                                             <label for="producerInput1" class="col-sm-3 pr-0 col-form-label">Producer</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="tempItem.producer"></select>
+                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="tempItem.producer"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -132,7 +132,8 @@
                                         <div class="form-group row">
                                             <div class="container">
                                                 <!--<div dual-list-box-select available="pumps" selected="tempItem.suitablePumps"></div>-->
-                                                <label for="pump_box1">Suitable Pumps</label>
+                                                <label for="pump_box1">Suitable Pumps <span ng-if="tempItem.suitablePumps.length > 0" class="badge badge-pill badge-info">{{tempItem.suitablePumps.length}}</span>
+                                                    <span ng-if="tempItem.suitablePumps.length == 0" class="badge badge-pill badge-danger">{{tempItem.suitablePumps.length}}</span></label>
                                                 <div class="row" id="pump_box1">
                                                     <div class="col-sm-5">
                                                         <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query1"/>
@@ -141,13 +142,13 @@
                                                                 ng-model="perSelectedFrom">
                                                         </select>
                                                     </div>
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-1 px-0">
                                                         <button ng-click="moveAll(tempPumps, tempItem.suitablePumps)" class="btn btn-block btn-warning" type="submit"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
                                                         <button ng-click="move(tempPumps, perSelectedFrom, tempItem.suitablePumps)" class="btn btn-block btn-success" type="submit"><i class="fa fa-chevron-right"></i></button>
                                                         <button ng-click="move(tempItem.suitablePumps, selectedTo, tempPumps)" class="btn btn-block btn-success" type="submit"><i class="fa fa-chevron-left"></i></button>
                                                         <button ng-click="moveAll(tempItem.suitablePumps, tempPumps)" class="btn btn-block btn-warning" type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
                                                     </div>
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-6">
                                                         <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query2"/>
                                                         <select class="form-control" size="8" multiple="multiple"
                                                                 ng-options="(item.modelName + ', ' + item.producer.producerName + ', ' + item.producer.producerCountry.value) for item in tempItem.suitablePumps | filter: query2 | orderBy: 'id'"
