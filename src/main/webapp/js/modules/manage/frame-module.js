@@ -149,43 +149,10 @@ angular.module('pump.modules.frame')
             }
         };
 
-
         $scope.getFrameList();
         $scope.getProducerList();
         $scope.getPumpList();
     }])
-    // .directive('dualListBoxSelect', function($compile) {
-    //     return {
-    //         controller: ['$scope', function dualListBoxSelectCtrl($scope) {
-    //             $scope.orderProp = 'modelName';
-    //             $scope.selectedFrom = [];
-    //             $scope.perSelectedFrom = [];
-    //             $scope.selectedTo = [];
-    //
-    //             $scope.move = function (from, selected, to) {
-    //                 angular.forEach(selected, function (item) {
-    //                     to.push(item);
-    //                     var index = from.indexOf(item);
-    //                     from.splice(index, 1);
-    //                 });
-    //             };
-    //
-    //             $scope.moveAll = function (from, to) {
-    //                 angular.forEach(from, function (item) {
-    //                     to.push(item);
-    //                 });
-    //                 from.length = 0;
-    //             };
-    //
-    //             selected = $scope.selectedFrom;
-    //         }],
-    //         templateUrl: '/pump/view/components/dual-select-box.html',
-    //         scope: {
-    //             available: '=',
-    //             selected: '='
-    //         }
-    //     };
-    // })
 ;
 
 
