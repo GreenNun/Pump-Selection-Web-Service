@@ -1,7 +1,6 @@
 package eu.bausov.projects.srvpumpselection.service;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
-import eu.bausov.projects.srvpumpselection.bo.equipment.PumpPart;
 
 import java.util.List;
 
@@ -11,5 +10,6 @@ import java.util.List;
 public interface PumpService {
     List<Pump> findAllPumps();
     Pump findOnePump(Long id);
-    void savePump(Pump pump);
+    Pump saveOnePump(Pump pump);
+    void deleteOnePump(Pump pump);
 }

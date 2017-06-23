@@ -22,6 +22,10 @@ angular.module('pump.modules.reducer',
     []
 );
 
+angular.module('pump.modules.frame',
+    []
+);
+
 angular.module('pump.modules.route',
     [
         'ngRoute',
@@ -34,7 +38,9 @@ angular.module('pump.modules.route',
         'pump.modules.constant',
         'pump.modules.producer',
         'pump.modules.motor',
-        'pump.modules.reducer'
+        'pump.modules.reducer',
+        'pump.modules.reducer',
+        'pump.modules.frame',
     ]
 );
 
@@ -76,6 +82,11 @@ angular.module('pump.modules.route')
                 url: '/reducers',
                 templateUrl: getViewPath('manage/reducer.html'),
                 controller: 'reducerCtrl'
+            })
+            .state('main.manage.frames', {
+                url: '/frames',
+                templateUrl: getViewPath('manage/frame.html'),
+                controller: 'frameCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',

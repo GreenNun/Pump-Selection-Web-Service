@@ -33,6 +33,16 @@ public class FrameServiceImpl implements FrameService, PartsUpdater {
     }
 
     @Override
+    public Frame saveOneFrame(Frame frame) {
+        return frameRepository.save(frame);
+    }
+
+    @Override
+    public void deleteOneFrame(Frame frame) {
+        frameRepository.delete(frame);
+    }
+
+    @Override
     public void addToPartLists(Pump pump, long[] framesIdentifiers) {
         add(pump, frameRepository, framesIdentifiers);
     }
