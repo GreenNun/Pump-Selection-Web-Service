@@ -1,7 +1,6 @@
 package eu.bausov.projects.srvpumpselection.service.impl;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
-import eu.bausov.projects.srvpumpselection.bo.equipment.PumpPart;
 import eu.bausov.projects.srvpumpselection.repository.PumpRepository;
 import eu.bausov.projects.srvpumpselection.service.PumpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,12 @@ public class PumpServiceImpl implements PumpService {
     }
 
     @Override
-    public void savePump(Pump pump) {
-        pumpRepository.save(pump);
+    public Pump saveOnePump(Pump pump) {
+        return pumpRepository.save(pump);
+    }
+
+    @Override
+    public void deleteOnePump(Pump pump) {
+        pumpRepository.delete(pump);
     }
 }
