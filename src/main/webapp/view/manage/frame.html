@@ -1,7 +1,7 @@
 <div class="row mt-2 mb-5">
     <div class="col-sm-12 clearfix">
-        <h1 class="display-4 float-left">Motors</h1>
-        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" title="Add new Motor">
+        <h1 class="display-4 float-left">Frames</h1>
+        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" ng-click="new()" title="Add new Frame">
             <i class="fa fa-plus fa-lg"></i>
         </button>
     </div>
@@ -10,7 +10,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabelAdd">New Motor</h5>
+                <h5 class="modal-title" id="largeModalLabelAdd">New Frame</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,34 +35,33 @@
                             <input ng-model="newItem.price" class="form-control" id="priceInput" type="number" min="0" step="1"/>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group row">
-                        <label for="vendorInput" class="col-sm-3 pr-0 col-form-label">Vendor</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="vendorInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="newItem.vendor"></select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="speedInput" class="col-sm-3 pr-0 col-form-label">Speed</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="speedInput" ng-options="item.value for item in speeds| orderBy: 'value' track by item.id" ng-model="newItem.constSpeed"></select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="exProofInput" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="exProofInput" ng-options="item.value for item in exProofs | orderBy: 'value' track by item.id" ng-model="newItem.constExplosionProof"></select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="powerInput" class="col-sm-3 pr-0 col-form-label">Power [hp]</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="powerInput" ng-options="item.value for item in powers | orderBy: 'value' track by item.id" ng-model="newItem.constPowerHp"></select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="frameSizeInput" class="col-sm-3 pr-0 col-form-label">Frame size</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="frameSizeInput" ng-options="item.value for item in frameSizes | orderBy: 'value' track by item.id" ng-model="newItem.constMotorFrameSize"></select>
+                        <div class="container">
+                            <label for="pump_box">Suitable Pumps <span ng-if="newItem.suitablePumps.length > 0" class="badge badge-pill badge-info">{{newItem.suitablePumps.length}}</span>
+                                <span ng-if="newItem.suitablePumps.length == 0" class="badge badge-pill badge-danger">{{newItem.suitablePumps.length}}</span></label>
+                            <div class="row" id="pump_box">
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query1"/>
+                                    <select class="form-control" size="8" multiple="multiple"
+                                            ng-options="(item.modelName + ', ' + item.producer.producerName + ', ' + item.producer.producerCountry.value) for item in tempPumps | filter: query1 | orderBy: 'id'"
+                                            ng-model="perSelectedFrom">
+                                    </select>
+                                </div>
+                                <div class="col-sm-1 px-0">
+                                    <button ng-click="moveAll(tempPumps, newItem.suitablePumps)" class="btn btn-block btn-warning mx-0" type="submit"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
+                                    <button ng-click="move(tempPumps, perSelectedFrom, newItem.suitablePumps)" class="btn btn-block btn-success mx-0" type="submit"><i class="fa fa-chevron-right"></i></button>
+                                    <button ng-click="move(newItem.suitablePumps, selectedTo, tempPumps)" class="btn btn-block btn-success mx-0" type="submit"><i class="fa fa-chevron-left"></i></button>
+                                    <button ng-click="moveAll(newItem.suitablePumps, tempPumps)" class="btn btn-block btn-warning mx-0" type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query2"/>
+                                    <select class="form-control" size="8" multiple="multiple"
+                                            ng-options="(item.modelName + ', ' + item.producer.producerName + ', ' + item.producer.producerCountry.value) for item in newItem.suitablePumps | filter: query2 | orderBy: 'id'"
+                                            ng-model="selectedTo">
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -74,8 +73,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="container col-sm-12">
     <div class="row">
         <input type="text" class="form-control mb-2 col-3" placeholder="Search..." ng-model="query"/>
@@ -86,34 +83,27 @@
                 <th>Model</th>
                 <th>Producer</th>
                 <th>Price</th>
-                <th>Vendor</th>
-                <th>Speed</th>
-                <th>Power</th>
-                <th>Ex. Proof</th>
-                <th>Frame Size</th>
+                <th>Suitable pumps</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in motors | orderBy: 'modelName' | filter: query">
+            <tr ng-repeat="item in frames | orderBy: 'modelName' | filter: query">
                 <th class="tb-content" scope="row">{{$index + 1}} </th>
                 <td>{{item.modelName}}</td>
                 <td>{{item.producer.producerName}}, {{item.producer.producerCountry.value}}</td>
                 <td>{{item.price}}</td>
-                <td>{{item.vendor.producerName}}, {{item.vendor.producerCountry.value}}</td>
-                <td>{{item.constSpeed.value}}</td>
-                <td>{{item.constPowerHp.value}}</td>
-                <td>{{item.constExplosionProof.value}}</td>
-                <td>{{item.constMotorFrameSize.value}}</td>
+                <td><h5><span ng-if="item.suitablePumps.length > 0" class="badge badge-pill badge-info">{{item.suitablePumps.length}}</span>
+                    <span ng-if="item.suitablePumps.length == 0" class="badge badge-pill badge-danger">{{item.suitablePumps.length}}</span></h5></td>
                 <td class="tb-content">
-                    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit Motor" ng-click="edit(item)">
+                    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit Frame" ng-click="edit(item)">
                         <i class="fa fa-pencil-square-o fa-lg" aria-hidden="false"></i>
                     </button>
                     <div class="modal fade bd-{{$index}}-modal-lg" id="editModal" tabindex="0" role="dialog" aria-labelledby="largeModalLabelEdit" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit Motor</h5>
+                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit Frame</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -138,41 +128,41 @@
                                                 <input ng-model="tempItem.price" class="form-control" id="priceInput1" type="number" min="0" step="1"/>
                                             </div>
                                         </div>
+                                        <hr>
                                         <div class="form-group row">
-                                            <label for="vendorInput1" class="col-sm-3 pr-0 col-form-label">Vendor</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="vendorInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="tempItem.vendor"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="speedInput1" class="col-sm-3 pr-0 col-form-label">Speed</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="speedInput1" ng-options="item.value for item in speeds | orderBy: 'value' track by item.id" ng-model="tempItem.constSpeed"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="exProofInput1" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="exProofInput1" ng-options="item.value for item in exProofs | orderBy: 'value' track by item.id" ng-model="tempItem.constExplosionProof"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="powerInput1" class="col-sm-3 pr-0 col-form-label">Power [hp]</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="powerInput1" ng-options="item.value for item in powers | orderBy: 'value' track by item.id" ng-model="tempItem.constPowerHp"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="frameSizeInput1" class="col-sm-3 pr-0 col-form-label">Frame size</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="frameSizeInput1" ng-options="item.value for item in frameSizes | orderBy: 'value' track by item.id" ng-model="tempItem.constMotorFrameSize"></select>
+                                            <div class="container">
+                                                <!--<div dual-list-box-select available="pumps" selected="tempItem.suitablePumps"></div>-->
+                                                <label for="pump_box1">Suitable Pumps <span ng-if="tempItem.suitablePumps.length > 0" class="badge badge-pill badge-info">{{tempItem.suitablePumps.length}}</span>
+                                                    <span ng-if="tempItem.suitablePumps.length == 0" class="badge badge-pill badge-danger">{{tempItem.suitablePumps.length}}</span></label>
+                                                <div class="row" id="pump_box1">
+                                                    <div class="col-sm-5">
+                                                        <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query1"/>
+                                                        <select class="form-control" size="8" multiple="multiple"
+                                                                ng-options="(item.modelName + ', ' + item.producer.producerName + ', ' + item.producer.producerCountry.value) for item in tempPumps | filter: query1 | orderBy: 'id'"
+                                                                ng-model="perSelectedFrom">
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-1 px-0">
+                                                        <button ng-click="moveAll(tempPumps, tempItem.suitablePumps)" class="btn btn-block btn-warning" type="submit"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
+                                                        <button ng-click="move(tempPumps, perSelectedFrom, tempItem.suitablePumps)" class="btn btn-block btn-success" type="submit"><i class="fa fa-chevron-right"></i></button>
+                                                        <button ng-click="move(tempItem.suitablePumps, selectedTo, tempPumps)" class="btn btn-block btn-success" type="submit"><i class="fa fa-chevron-left"></i></button>
+                                                        <button ng-click="moveAll(tempItem.suitablePumps, tempPumps)" class="btn btn-block btn-warning" type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control mb-2" placeholder="Search..." ng-model="query2"/>
+                                                        <select class="form-control" size="8" multiple="multiple"
+                                                                ng-options="(item.modelName + ', ' + item.producer.producerName + ', ' + item.producer.producerCountry.value) for item in tempItem.suitablePumps | filter: query2 | orderBy: 'id'"
+                                                                ng-model="selectedTo">
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(motors.indexOf(item))">Update</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(frames.indexOf(item))">Update</button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target=".bd-{{$index}}-modal-sm">Remove</button>
                                 </div>
                             </div>

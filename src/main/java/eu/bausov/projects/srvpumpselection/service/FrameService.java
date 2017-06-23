@@ -11,5 +11,7 @@ import java.util.List;
 public interface FrameService {
     List<Frame> findAllFrames();
     Frame findOneFrame(Long id);
+    Frame saveOneFrame(Frame frame);
+    void deleteOneFrame(Frame frame);
     void addToPartLists(Pump pump, long[] framesIdentifiers);
 }

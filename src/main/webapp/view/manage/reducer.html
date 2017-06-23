@@ -1,7 +1,7 @@
 <div class="row mt-2 mb-5">
     <div class="col-sm-12 clearfix">
         <h1 class="display-4 float-left">Reducers</h1>
-        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" title="Add new Producer">
+        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" title="Add new Reducer">
             <i class="fa fa-plus fa-lg"></i>
         </button>
     </div>
@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <label for="producerInput" class="col-sm-3 pr-0 col-form-label">Producer</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="producerInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="newItem.producer"></select>
+                            <select class="form-control" id="producerInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="newItem.producer"></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -38,7 +38,7 @@
                     <div class="form-group row">
                         <label for="vendorInput" class="col-sm-3 pr-0 col-form-label">Vendor</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="vendorInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="newItem.vendor"></select>
+                            <select class="form-control" id="vendorInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="newItem.vendor"></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -56,19 +56,19 @@
                     <div class="form-group row">
                         <label for="exProofInput" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="exProofInput" ng-options="item.value for item in exProofs track by item.id" ng-model="newItem.constExplosionProof"></select>
+                            <select class="form-control" id="exProofInput" ng-options="item.value for item in exProofs | orderBy: 'value' track by item.id" ng-model="newItem.constExplosionProof"></select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="powerInput" class="col-sm-3 pr-0 col-form-label">Req. power [hp]</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="powerInput" ng-options="item.value for item in powers track by item.id" ng-model="newItem.constRequiredMotorPowerHp"></select>
+                            <select class="form-control" id="powerInput" ng-options="item.value for item in powers | orderBy: 'value' track by item.id" ng-model="newItem.constRequiredMotorPowerHp"></select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="frameSizeInput" class="col-sm-3 pr-0 col-form-label">Frame size</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="frameSizeInput" ng-options="item.value for item in frameSizes track by item.id" ng-model="newItem.constMotorFrameSize"></select>
+                            <select class="form-control" id="frameSizeInput" ng-options="item.value for item in frameSizes | orderBy: 'value' track by item.id" ng-model="newItem.constMotorFrameSize"></select>
                         </div>
                     </div>
                 </form>
@@ -137,7 +137,7 @@
                                         <div class="form-group row">
                                             <label for="producerInput1" class="col-sm-3 pr-0 col-form-label">Producer</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="tempItem.producer"></select>
+                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="tempItem.producer"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -149,7 +149,7 @@
                                         <div class="form-group row">
                                             <label for="vendorInput1" class="col-sm-3 pr-0 col-form-label">Vendor</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="vendorInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers track by item.id" ng-model="tempItem.vendor"></select>
+                                                <select class="form-control" id="vendorInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="tempItem.vendor"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -167,19 +167,19 @@
                                         <div class="form-group row">
                                             <label for="exProofInput1" class="col-sm-3 pr-0 col-form-label">Explosion Proof</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="exProofInput1" ng-options="item.value for item in exProofs track by item.id" ng-model="tempItem.constExplosionProof"></select>
+                                                <select class="form-control" id="exProofInput1" ng-options="item.value for item in exProofs | orderBy: 'value' track by item.id" ng-model="tempItem.constExplosionProof"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="powerInput1" class="col-sm-3 pr-0 col-form-label">Req. power [hp]</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="powerInput1" ng-options="item.value for item in powers track by item.id" ng-model="tempItem.constRequiredMotorPowerHp"></select>
+                                                <select class="form-control" id="powerInput1" ng-options="item.value for item in powers | orderBy: 'value' track by item.id" ng-model="tempItem.constRequiredMotorPowerHp"></select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="frameSizeInput1" class="col-sm-3 pr-0 col-form-label">Frame size</label>
                                             <div class="col-sm-9">
-                                                <select class="form-control" id="frameSizeInput1" ng-options="item.value for item in frameSizes track by item.id" ng-model="tempItem.constMotorFrameSize"></select>
+                                                <select class="form-control" id="frameSizeInput1" ng-options="item.value for item in frameSizes | orderBy: 'value' track by item.id" ng-model="tempItem.constMotorFrameSize"></select>
                                             </div>
                                         </div>
                                     </form>
