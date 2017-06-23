@@ -39,7 +39,8 @@ angular.module('pump.modules.route',
         'pump.modules.producer',
         'pump.modules.motor',
         'pump.modules.reducer',
-        'pump.modules.frame'
+        'pump.modules.reducer',
+        'pump.modules.frame',
     ]
 );
 
