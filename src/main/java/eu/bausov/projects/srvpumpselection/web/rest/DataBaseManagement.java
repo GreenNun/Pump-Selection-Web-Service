@@ -127,7 +127,7 @@ public class DataBaseManagement {
         request.getSpeedCorrectionCoefficients().forEach(speedCorrectionCoefficientService::saveSpeedCorrectionCoefficient);
         pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
 
-        pumpService.savePump(pump);
+        pumpService.saveOnePump(pump);
 
         // update in parts lists
         sealService.addToPartLists(pump, request.getSealsIdentifires());
@@ -143,7 +143,7 @@ public class DataBaseManagement {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public String updatePump(@RequestBody Pump pump) {
 
-        pumpService.savePump(pump);
+        pumpService.saveOnePump(pump);
 
         return "Pump updated";
     }
