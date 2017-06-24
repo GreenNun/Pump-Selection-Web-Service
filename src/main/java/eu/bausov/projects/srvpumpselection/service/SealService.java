@@ -11,5 +11,7 @@ import java.util.List;
 public interface SealService {
     List<Seal> findAllSeals();
     Seal findOneSeal(Long id);
+    Seal saveOneSeal(Seal seal);
+    void deleteOneSeal(Seal seal);
     void addToPartLists(Pump pump, long[] sealsIdentifiers);
 }

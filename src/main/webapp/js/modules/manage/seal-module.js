@@ -1,29 +1,28 @@
 /**
- * Created by GreenNun on 18.06.17.
+ * Created by GreenNun on 23.06.17.
  */
-angular.module('pump.modules.motor')
-    .controller('motorCtrl', ['$rootScope', '$scope', '$http', '$state', function ($rootScope, $scope, $http) {
+angular.module('pump.modules.seal')
+    .controller('sealCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
         $scope.tempItem = [];
+        $scope.tempPumps = [];
         $scope.newItem = {
             id: null,
             version: null,
             modelName: null,
             producer: null,
             price: null,
-            vendor: null,
-            constSpeed: null,
-            constExplosionProof: null,
-            constPowerHp: null,
-            constMotorFrameSize: null
+            sealType: null,
+            oringMaterial: null,
+            suitablePumps: []
         };
 
-        $scope.getMotorList = function () {
+        $scope.getSealList = function () {
             $http({
                 method: 'GET',
-                url: '/pump/api/motor/list'
+                url: '/pump/api/seal/list'
             })
                 .then(function (success) {
-                    $scope.motors = success.data;
+                    $scope.seals = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
@@ -41,71 +40,66 @@ angular.module('pump.modules.motor')
                 });
         };
 
-        $scope.getConstSpeedList = function () {
+        $scope.getConstSealTypesList = function () {
             $http({
                 method: 'GET',
                 url: '/pump/api/constant/list',
-                params: {name: 'motor speed'}
+                params: {name: 'seal type'}
             })
                 .then(function (success) {
-                    $scope.speeds = success.data;
+                    $scope.sealTypes = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getConstExProofList = function () {
+        $scope.getConstORingMaterialList = function () {
             $http({
                 method: 'GET',
                 url: '/pump/api/constant/list',
-                params: {name: 'explosion proof'}
+                params: {name: 'seal material'}
             })
                 .then(function (success) {
-                    $scope.exProofs = success.data;
+                    $scope.oRingMaterials = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getConstPowerList = function () {
+        $scope.getPumpList = function () {
             $http({
                 method: 'GET',
-                url: '/pump/api/constant/list',
-                params: {name: 'motor power'}
+                url: '/pump/api/pump/list'
             })
                 .then(function (success) {
-                    $scope.powers = success.data;
+                    $scope.pumps = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getConstFrameSizesList = function () {
-            $http({
-                method: 'GET',
-                url: '/pump/api/constant/list',
-                params: {name: 'motor frame size'}
-            })
-                .then(function (success) {
-                    $scope.frameSizes = success.data;
-                }, function (error) {
-                    $rootScope.addNotification('danger', error.data);
-                });
+        $scope.new = function () {
+            $scope.tempPumps = jQuery.extend(true, [], $scope.pumps);
+            $scope.initAvailablePumpList($scope.tempPumps, $scope.newItem.suitablePumps);
         };
 
         $scope.edit = function (value) {
             $scope.tempItem = jQuery.extend(true, {}, value);
+            $scope.tempPumps = jQuery.extend(true, [], $scope.pumps);
+            $scope.initAvailablePumpList($scope.tempPumps, $scope.tempItem.suitablePumps);
         };
 
         $scope.save = function (index) {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/save',
+                url: '/pump/api/seal/save',
                 data: $scope.tempItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.motors[index] = success.data;
+                    console.log(index);
+                    $scope.seals[index] = success.data;
+                    $scope.tempPumps = [];
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
@@ -115,24 +109,23 @@ angular.module('pump.modules.motor')
         $scope.add = function () {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/save',
+                url: '/pump/api/seal/save',
                 data: $scope.newItem
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.motors.push(success.data);
+                    $scope.seals.push(success.data);
                     $scope.newItem =  {
                         id: null,
                         version: null,
                         modelName: null,
                         producer: null,
                         price: null,
-                        vendor: null,
-                        constSpeed: null,
-                        constExplosionProof: null,
-                        constPowerHp: null,
-                        constMotorFrameSize: null
+                        sealType: null,
+                        oringMaterial: null,
+                        suitablePumps: null
                     };
+                    $scope.tempPumps = [];
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', $rootScope.error);
@@ -143,24 +136,52 @@ angular.module('pump.modules.motor')
         $scope.delete = function (item) {
             $http({
                 method: 'POST',
-                url: '/pump/api/motor/delete',
+                url: '/pump/api/seal/delete',
                 data: item
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    var index = $scope.motors.indexOf(item);
-                    $scope.motors.splice(index, 1);
+                    var index = $scope.seals.indexOf(item);
+                    $scope.seals.splice(index, 1);
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
         };
 
-        $scope.getMotorList();
-        $scope.getProducerList();
-        $scope.getConstSpeedList();
-        $scope.getConstExProofList();
-        $scope.getConstPowerList();
-        $scope.getConstFrameSizesList();
-    }]);
+        // DIRECTIVE
+        $scope.selectedFrom = [];
+        $scope.perSelectedFrom = [];
+        $scope.selectedTo = [];
 
+        $scope.move = function (from, selected, to) {
+            angular.forEach(selected, function (item) {
+                to.push(item);
+                var index = from.indexOf(item);
+                from.splice(index, 1);
+            });
+        };
+
+        $scope.moveAll = function (from, to) {
+            angular.forEach(from, function (item) {
+                to.push(item);
+            });
+            from.length = 0;
+        };
+
+        $scope.initAvailablePumpList = function (available, current){
+            for (var i = 0; i < current.length; i++) {
+                for (var j = 0; j < available.length; j++) {
+                    if(angular.toJson(current[i]) === angular.toJson(available[j])){
+                        available.splice(j, 1);
+                    }
+                }
+            }
+        };
+
+        $scope.getSealList();
+        $scope.getProducerList();
+        $scope.getConstSealTypesList();
+        $scope.getConstORingMaterialList();
+        $scope.getPumpList();
+    }]);

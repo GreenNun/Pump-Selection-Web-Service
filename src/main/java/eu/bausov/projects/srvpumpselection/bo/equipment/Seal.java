@@ -7,7 +7,6 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -20,7 +19,7 @@ import java.util.Set;
  * value:  "Packing" | "Rotatherm Seal" | "Mechanical Seal" | "Lip Seal" | "Cartridge Mechanical Seal";
  * <p>
  * oRingMaterial         name:   "material";
- * value:  "none" | "Viton&reg;";
+ * value:  "none" | "Viton";
  */
 @Entity
 @Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "seal_type",
@@ -64,7 +63,6 @@ public class Seal extends Equipment implements PumpPart {
         this.oRingMaterial = oRingMaterial;
     }
 
-    @XmlTransient
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(fetch = FetchType.EAGER)
     public Set<Pump> getSuitablePumps() {

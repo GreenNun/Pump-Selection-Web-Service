@@ -1,31 +1,27 @@
 angular.module('pump.modules.search',
     []
 );
-
 angular.module('pump.modules.manage',
     []
 );
-
 angular.module('pump.modules.constant',
     []
 );
-
 angular.module('pump.modules.producer',
     []
 );
-
 angular.module('pump.modules.motor',
     []
 );
-
 angular.module('pump.modules.reducer',
     []
 );
-
 angular.module('pump.modules.frame',
     []
 );
-
+angular.module('pump.modules.seal',
+    []
+);
 angular.module('pump.modules.route',
     [
         'ngRoute',
@@ -39,8 +35,8 @@ angular.module('pump.modules.route',
         'pump.modules.producer',
         'pump.modules.motor',
         'pump.modules.reducer',
-        'pump.modules.reducer',
         'pump.modules.frame',
+        'pump.modules.seal'
     ]
 );
 
@@ -87,6 +83,11 @@ angular.module('pump.modules.route')
                 url: '/frames',
                 templateUrl: getViewPath('manage/frame.html'),
                 controller: 'frameCtrl'
+            })
+            .state('main.manage.seals', {
+                url: '/seals',
+                templateUrl: getViewPath('manage/seal.html'),
+                controller: 'sealCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',

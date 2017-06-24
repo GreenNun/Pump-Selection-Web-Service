@@ -32,7 +32,7 @@
                 "../js/modules/manage/motor-module.js",
                 "../js/modules/manage/reducer-module.js",
                 "../js/modules/manage/frame-module.js",
-                "../js/modules/manage/reducer-module.js"
+                "../js/modules/manage/seal-module.js"
         };
 
         static final String[] CSS = {

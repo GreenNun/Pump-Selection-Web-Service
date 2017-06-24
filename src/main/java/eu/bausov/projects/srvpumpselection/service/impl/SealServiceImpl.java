@@ -33,6 +33,16 @@ public class SealServiceImpl implements SealService, PartsUpdater {
     }
 
     @Override
+    public Seal saveOneSeal(Seal seal) {
+        return sealRepository.save(seal);
+    }
+
+    @Override
+    public void deleteOneSeal(Seal seal) {
+        sealRepository.save(seal);
+    }
+
+    @Override
     public void addToPartLists(Pump pump, long[] identifiers){
         add(pump, sealRepository, identifiers);
     }
