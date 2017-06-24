@@ -97,7 +97,6 @@ angular.module('pump.modules.reducer')
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
-                    $('#editModal').modal('show');
                 });
         };
 
@@ -152,5 +151,3 @@ angular.module('pump.modules.reducer')
         $scope.getConstPowerList();
         $scope.getConstFrameSizesList();
     }]);
-
-

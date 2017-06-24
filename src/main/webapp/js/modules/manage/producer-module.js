@@ -52,7 +52,6 @@ angular.module('pump.modules.producer')
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
-                    $('#editModal').modal('show');
                 });
         };
 
