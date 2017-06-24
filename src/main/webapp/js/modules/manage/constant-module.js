@@ -42,6 +42,7 @@ angular.module('pump.modules.constant')
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
+                    $('#editModal').modal('show');
                 });
         };
 

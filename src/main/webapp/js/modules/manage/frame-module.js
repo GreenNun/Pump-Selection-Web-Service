@@ -74,6 +74,7 @@ angular.module('pump.modules.frame')
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
+                    $('#editModal').modal('show');
                 });
         };
 
@@ -151,4 +152,8 @@ angular.module('pump.modules.frame')
         $scope.getFrameList();
         $scope.getProducerList();
         $scope.getPumpList();
-    }]);
+    }])
+;
+
+
+
