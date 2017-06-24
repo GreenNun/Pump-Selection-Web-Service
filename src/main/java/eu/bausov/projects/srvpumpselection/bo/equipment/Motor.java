@@ -2,6 +2,8 @@ package eu.bausov.projects.srvpumpselection.bo.equipment;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,6 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "TB_MOTORS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "vendor",
         "const_speed", "const_explosion_proof", "const_power_hp", "const_motor_frame_size"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Motor extends Equipment {
     private Producer vendor;
     private Constant constSpeed;

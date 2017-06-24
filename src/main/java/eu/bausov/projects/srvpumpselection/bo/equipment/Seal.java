@@ -2,6 +2,8 @@ package eu.bausov.projects.srvpumpselection.bo.equipment;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -25,6 +27,7 @@ import java.util.Set;
 @Table(name = "TB_SEALS", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer", "seal_type",
         "oring_material"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Seal extends Equipment implements PumpPart {
     private Constant sealType;
     private Constant oRingMaterial;

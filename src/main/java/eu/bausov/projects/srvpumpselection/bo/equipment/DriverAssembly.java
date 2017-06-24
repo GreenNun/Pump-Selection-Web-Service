@@ -2,6 +2,8 @@ package eu.bausov.projects.srvpumpselection.bo.equipment;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -28,6 +30,7 @@ import java.util.Set;
 @Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer",
         "driver_assembly_type", "const_explosion_proof"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class DriverAssembly extends Equipment implements PumpPart {
     private Constant driverAssemblyType;
     private Constant constExplosionProof;

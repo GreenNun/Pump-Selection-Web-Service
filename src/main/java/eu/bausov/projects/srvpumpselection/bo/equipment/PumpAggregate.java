@@ -1,6 +1,8 @@
 package eu.bausov.projects.srvpumpselection.bo.equipment;
 
 import eu.bausov.projects.srvpumpselection.bo.JPA;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "TB_PUMP_AGGREGATES")
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PumpAggregate extends JPA {
 
     private String parameters;

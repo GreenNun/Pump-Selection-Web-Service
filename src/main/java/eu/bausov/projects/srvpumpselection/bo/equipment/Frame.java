@@ -1,6 +1,8 @@
 package eu.bausov.projects.srvpumpselection.bo.equipment;
 
 import eu.bausov.projects.srvpumpselection.bo.Producer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -12,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_FRAMES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Frame extends Equipment implements PumpPart {
     private Set<Pump> suitablePumps;
 

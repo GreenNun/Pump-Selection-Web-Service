@@ -56,13 +56,21 @@
                 <property name="database" value="POSTGRESQL"/>
             </bean>
         </property>
+        <property name="jpaProperties">
+            <value>
+                hibernate.cache.use_second_level_cache = true
+                hibernate.cache.region.factory_class = org.hibernate.cache.ehcache.EhCacheRegionFactory
+                hibernate.cache.use_query_cache = true
+                hibernate.generate_statistics = true
+            </value>
+        </property>
         <!--<property name="jpaProperties">-->
-            <!--<value>-->
-                <!--hibernate.cache.use_second_level_cache = true-->
-                <!--hibernate.cache.region.factory_class = org.hibernate.cache.ehcache.EhCacheRegionFactory-->
-                <!--hibernate.cache.use_query_cache = true-->
-                <!--hibernate.generate_statistics = true-->
-            <!--</value>-->
+            <!--<props>-->
+                <!--<prop key="hibernate.cache.use_second_level_cache">true</prop>-->
+                <!--<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>-->
+                <!--<prop key="hibernate.cache.use_query_cache">true</prop>-->
+                <!--<prop key="hibernate.generate_statistics">true</prop>-->
+            <!--</props>-->
         <!--</property>-->
     </bean>
 

@@ -3,6 +3,8 @@ package eu.bausov.projects.srvpumpselection.bo.equipment;
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Parameters;
 import eu.bausov.projects.srvpumpselection.bo.SpeedCorrectionCoefficient;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -63,6 +65,7 @@ import java.util.Set;
         "const_casing_material", "const_rotor_gear_material", "const_idler_gear_material", "const_shaft_support_material",
         "const_shaft_material", "const_connections_type", "const_dn", "const_max_pressure", "const_connections_angle"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Pump extends Equipment {
     private Constant constPumpType;
     private Boolean isReliefValve;

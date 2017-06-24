@@ -1,5 +1,8 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -7,6 +10,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "TB_CONSTANTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "value" }) })
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Constant extends JPA {
     private String name;
     private String value;

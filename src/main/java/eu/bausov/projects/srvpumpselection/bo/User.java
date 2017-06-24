@@ -1,5 +1,8 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "TB_USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 @XmlRootElement
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends JPA {
     private String firstName;
     private String lastName;
