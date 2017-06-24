@@ -97,7 +97,6 @@ angular.module('pump.modules.seal')
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    console.log(index);
                     $scope.seals[index] = success.data;
                     $scope.tempPumps = [];
                     $('.modal-backdrop').remove();

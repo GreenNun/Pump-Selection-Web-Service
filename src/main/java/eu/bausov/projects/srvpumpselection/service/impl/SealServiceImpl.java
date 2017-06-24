@@ -39,7 +39,7 @@ public class SealServiceImpl implements SealService, PartsUpdater {
 
     @Override
     public void deleteOneSeal(Seal seal) {
-        sealRepository.save(seal);
+        sealRepository.delete(seal);
     }
 
     @Override
