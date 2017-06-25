@@ -20,7 +20,7 @@ import java.util.Set;
  * <p>
  * Constants:
  * <p>
- * driveAssemblyType       name:   "drive assembly type";
+ * constDriveAssemblyType       name:   "drive assembly type";
  * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley" | "Ex.Proof Coupling";
  * <p>
  * constExplosionProof      name:   "explosion proof";
@@ -32,31 +32,31 @@ import java.util.Set;
 @XmlRootElement
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class DriveAssembly extends Equipment implements PumpPart {
-    private Constant driveAssemblyType;
+    private Constant constDriveAssemblyType;
     private Constant constExplosionProof;
     private Set<Pump> suitablePumps;
 
     public DriveAssembly() {
     }
 
-    public DriveAssembly(Producer producer, String modelName, BigDecimal price, Constant driveAssemblyType,
+    public DriveAssembly(Producer producer, String modelName, BigDecimal price, Constant constDriveAssemblyType,
                          Constant constExplosionProof, Set<Pump> suitablePumps) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
-        this.driveAssemblyType = driveAssemblyType;
+        this.constDriveAssemblyType = constDriveAssemblyType;
         this.constExplosionProof = constExplosionProof;
         this.suitablePumps = suitablePumps;
     }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "drive_assembly_type")
-    public Constant getDriveAssemblyType() {
-        return driveAssemblyType;
+    public Constant getConstDriveAssemblyType() {
+        return constDriveAssemblyType;
     }
 
-    public void setDriveAssemblyType(Constant driveAssemblyType) {
-        this.driveAssemblyType = driveAssemblyType;
+    public void setConstDriveAssemblyType(Constant constDriveAssemblyType) {
+        this.constDriveAssemblyType = constDriveAssemblyType;
     }
 
     @ManyToOne(optional = false)
@@ -87,13 +87,13 @@ public class DriveAssembly extends Equipment implements PumpPart {
 
         DriveAssembly that = (DriveAssembly) o;
 
-        return driveAssemblyType.equals(that.driveAssemblyType) && constExplosionProof.equals(that.constExplosionProof);
+        return constDriveAssemblyType.equals(that.constDriveAssemblyType) && constExplosionProof.equals(that.constExplosionProof);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + driveAssemblyType.hashCode();
+        result = 31 * result + constDriveAssemblyType.hashCode();
         result = 31 * result + constExplosionProof.hashCode();
         return result;
     }
