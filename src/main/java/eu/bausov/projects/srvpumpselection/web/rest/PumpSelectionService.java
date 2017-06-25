@@ -84,7 +84,7 @@ public class PumpSelectionService {
                                             pump.isValidTo(seal.getSuitablePumps())) {
                                         // DriveAssembly
                                         for (DriveAssembly driveAssembly : driveAssemblies) {            // drive assembly
-                                            if (driveAssembly.getDriveAssemblyType().getValue().equals    // drive assembly type
+                                            if (driveAssembly.getConstDriveAssemblyType().getValue().equals    // drive assembly type
                                                     (parameters.getDriveAssemblyType()) &&
                                                     pump.isValidTo(driveAssembly.getSuitablePumps())) {
                                                 // Frame
