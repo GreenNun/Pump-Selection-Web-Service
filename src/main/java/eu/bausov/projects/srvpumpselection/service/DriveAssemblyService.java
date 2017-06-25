@@ -11,5 +11,7 @@ import java.util.List;
 public interface DriveAssemblyService {
     List<DriveAssembly> findAllDriveAssemblies();
     DriveAssembly findOneDriveAssembly(Long id);
+    DriveAssembly saveOneDriveAssembly(DriveAssembly driveAssembly);
+    void deleteOneDriveAssembly(DriveAssembly driveAssembly);
     void addToPartLists(Pump pump, long[] driveAssembliesIdentifiers);
 }

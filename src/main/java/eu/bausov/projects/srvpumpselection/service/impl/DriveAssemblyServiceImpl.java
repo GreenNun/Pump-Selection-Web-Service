@@ -33,6 +33,16 @@ public class DriveAssemblyServiceImpl implements DriveAssemblyService, PartsUpda
     }
 
     @Override
+    public DriveAssembly saveOneDriveAssembly(DriveAssembly driveAssembly) {
+        return driveAssemblyRepository.save(driveAssembly);
+    }
+
+    @Override
+    public void deleteOneDriveAssembly(DriveAssembly driveAssembly) {
+        driveAssemblyRepository.delete(driveAssembly);
+    }
+
+    @Override
     public void addToPartLists(Pump pump, long[] driveAssembliesIdentifiers) {
         add(pump, driveAssemblyRepository, driveAssembliesIdentifiers);
     }

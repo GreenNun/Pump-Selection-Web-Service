@@ -129,7 +129,7 @@
                     <div class="btn-group">
                         <button ng-repeat="type in constants | filter: {name: 'drive assembly type'} | orderBy: 'value'"
                                class="btn btn-outline-info"
-                               ng-model="search.driveAssemblyType" uib-btn-radio="type.value">{{type.value}}</button>
+                               ng-model="search.constDriveAssemblyType" uib-btn-radio="type.value">{{type.value}}</button>
                     </div>
                 </div>
             </div>
@@ -249,8 +249,8 @@
                     </div>
                 </td>
                 <td>
-                    <div>Pump assembly with {{item.driveAssembly.driveAssemblyType.value}},
-                        {{item.driveAssembly.driveAssemblyType.value}} protection, motor-reducer and the
+                    <div>Pump assembly with {{item.driveAssembly.constDriveAssemblyType.value}},
+                        {{item.driveAssembly.constDriveAssemblyType.value}} protection, motor-reducer and the
                         mounting frame.
                     </div>
                 </td>
