@@ -19,5 +19,5 @@ public class DBConst {
     public static final String MOTOR_FRAME_SIZE = "motor frame size";
     public static final String MOTOR_POWER = "motor power";
     public static final String EXPLOSION_PROOF = "explosion proof";
-    public static final String DRIVER_ASSEMBLY_TYPE = "driver assembly type";
+    public static final String DRIVE_ASSEMBLY_TYPE = "drive assembly type";
 }

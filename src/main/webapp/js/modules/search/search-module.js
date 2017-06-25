@@ -6,7 +6,7 @@ angular.module('pump.modules.search')
             pumpType: 'Internal Eccentric Gear Pump',
             casingMaterial: 'Cast Iron',
             sealType: 'Packing',
-            driverAssemblyType: 'Coupling',
+            driveAssemblyType: 'Coupling',
             reliefValve: "true",
             heatingJacket: "false",
             explosionProof: "false"

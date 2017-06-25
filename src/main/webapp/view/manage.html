@@ -333,45 +333,45 @@
 </div>
 
 <div class="form-group">
-    <label for="driver_assemblies_box">Suitable Driver Assemblies:</label>
-    <div class="row" id="driver_assemblies_box">
-        <div class="col-xs-6" id="driver_assemblies_box_left_column">
-            <input type="text" id="driver_assemblies_box_search_left" class="form-control"
+    <label for="drive_assemblies_box">Suitable Drive Assemblies:</label>
+    <div class="row" id="drive_assemblies_box">
+        <div class="col-xs-6" id="drive_assemblies_box_left_column">
+            <input type="text" id="drive_assemblies_box_search_left" class="form-control"
                    placeholder="Search..."
                    ng-model="query5"/>
             <select class="form-control" size="8" multiple="multiple"
                     ng-options="item as item.modelName + ', ' + item.producer.producerName
-                            for item in driverAssembliesBoxAvailable | filter: query5 | orderBy: orderProp"
-                    ng-model="driverAssembliesBoxPerSelectedFrom">
+                            for item in driveAssembliesBoxAvailable | filter: query5 | orderBy: orderProp"
+                    ng-model="driveAssembliesBoxPerSelectedFrom">
             </select>
         </div>
 
-        <div class="col-xs-1" id="driver_assemblies_box_buttons_column">
-            <button ng-click="moveAll(driverAssembliesBoxAvailable, driverAssembliesBoxSelectedFrom)"
+        <div class="col-xs-1" id="drive_assemblies_box_buttons_column">
+            <button ng-click="moveAll(driveAssembliesBoxAvailable, driveAssembliesBoxSelectedFrom)"
                     class="btn btn-block btn-warning"
                     type="submit"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
-            <button ng-click="move(driverAssembliesBoxAvailable, driverAssembliesBoxPerSelectedFrom, driverAssembliesBoxSelectedFrom)"
+            <button ng-click="move(driveAssembliesBoxAvailable, driveAssembliesBoxPerSelectedFrom, driveAssembliesBoxSelectedFrom)"
                     class="btn btn-block btn-success"
                     type="submit"><i class="fa fa-chevron-right"></i></button>
-            <button ng-click="move(driverAssembliesBoxSelectedFrom, driverAssembliesBoxSelectedTo, driverAssembliesBoxAvailable)"
+            <button ng-click="move(driveAssembliesBoxSelectedFrom, driveAssembliesBoxSelectedTo, driveAssembliesBoxAvailable)"
                     class="btn btn-block btn-success"
                     type="submit"><i class="fa fa-chevron-left"></i></button>
-            <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+            <button ng-click="moveAll(driveAssembliesBoxSelectedFrom, driveAssembliesBoxAvailable)"
                     class="btn btn-block btn-warning"
                     type="submit"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></button>
-            <button ng-click="moveAll(driverAssembliesBoxSelectedFrom, driverAssembliesBoxAvailable)"
+            <button ng-click="moveAll(driveAssembliesBoxSelectedFrom, driveAssembliesBoxAvailable)"
                     class="btn btn-block btn-info"
                     type="submit"><i class="glyphicon glyphicon-edit"></i></button>
         </div>
 
-        <div class="col-xs-5" id="driver_assemblies_box_right_column">
-            <input type="text" id="driver_assemblies_box_search_right" class="form-control"
+        <div class="col-xs-5" id="drive_assemblies_box_right_column">
+            <input type="text" id="drive_assemblies_box_search_right" class="form-control"
                    placeholder="Search..."
                    ng-model="query6"/>
             <select class="form-control" size="8" multiple="multiple"
                     ng-options="item as item.modelName + ', ' + item.producer.producerName
-                            for item in driverAssembliesBoxSelectedFrom | filter: query6"
-                    ng-model="driverAssembliesBoxSelectedTo">
+                            for item in driveAssembliesBoxSelectedFrom | filter: query6"
+                    ng-model="driveAssembliesBoxSelectedTo">
             </select>
         </div>
     </div>

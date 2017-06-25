@@ -97,18 +97,18 @@ angular.module('pump.modules.manage')
             from.length = 0;
         };
 
-        /*driverAssemblies box*/
-        $scope.driverAssembliesBoxOrderProp = 'id';
-        $scope.driverAssembliesBoxSelectedFrom = [];
-        $scope.driverAssembliesBoxPerSelectedFrom = [];
-        $scope.driverAssembliesBoxSelectedTo = [];
+        /*driveAssemblies box*/
+        $scope.driveAssembliesBoxOrderProp = 'id';
+        $scope.driveAssembliesBoxSelectedFrom = [];
+        $scope.driveAssembliesBoxPerSelectedFrom = [];
+        $scope.driveAssembliesBoxSelectedTo = [];
 
         $http({
             method: 'GET',
             url: '/pump/api/DataBaseManagement/assemblies'
         })
             .then(function (success) {
-                $scope.driverAssembliesBoxAvailable = success.data;
+                $scope.driveAssembliesBoxAvailable = success.data;
             }, function (error) {
                 $rootScope.addNotification('danger', error.data);
             });
@@ -131,7 +131,7 @@ angular.module('pump.modules.manage')
         // Create Button
         $scope.pump.seals = [];
         $scope.pump.frames = [];
-        $scope.pump.driverAssemblies = [];
+        $scope.pump.driveAssemblies = [];
 
         $scope.doCreate = function () {
             // copy seals. frames and assemblies id's to request
@@ -141,8 +141,8 @@ angular.module('pump.modules.manage')
             angular.forEach($scope.framesBoxSelectedFrom, function (item) {
                 $scope.pump.frames.push(item.id);
             });
-            angular.forEach($scope.driverAssembliesBoxSelectedFrom, function (item) {
-                $scope.pump.driverAssemblies.push(item.id);
+            angular.forEach($scope.driveAssembliesBoxSelectedFrom, function (item) {
+                $scope.pump.driveAssemblies.push(item.id);
             });
 
             $http({
@@ -159,7 +159,7 @@ angular.module('pump.modules.manage')
                     // empty array after request sent
                     $scope.pump.seals.length = 0;
                     $scope.pump.frames.length = 0;
-                    $scope.pump.driverAssemblies.length = 0;
+                    $scope.pump.driveAssemblies.length = 0;
                 });
         };
     });

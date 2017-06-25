@@ -3,7 +3,6 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Parameters;
 import eu.bausov.projects.srvpumpselection.bo.equipment.*;
-import eu.bausov.projects.srvpumpselection.repository.*;
 import eu.bausov.projects.srvpumpselection.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,17 +27,17 @@ public class PumpSelectionService {
     private final ReducerService reducerService;
     private final MotorService motorService;
     private final SealService sealService;
-    private final DriverAssemblyService driverAssemblyService;
+    private final DriveAssemblyService driveAssemblyService;
     private final FrameService frameService;
     private final ConstantService constantService;
 
     @Autowired
-    public PumpSelectionService(PumpService pumpService, ReducerService reducerService, MotorService motorService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService, ConstantService constantService) {
+    public PumpSelectionService(PumpService pumpService, ReducerService reducerService, MotorService motorService, SealService sealService, DriveAssemblyService driveAssemblyService, FrameService frameService, ConstantService constantService) {
         this.pumpService = pumpService;
         this.reducerService = reducerService;
         this.motorService = motorService;
         this.sealService = sealService;
-        this.driverAssemblyService = driverAssemblyService;
+        this.driveAssemblyService = driveAssemblyService;
         this.frameService = frameService;
         this.constantService = constantService;
     }
@@ -54,7 +53,7 @@ public class PumpSelectionService {
         List<Reducer> reducers = reducerService.findAllReducers();
         List<Motor> motors = motorService.findAllMotors();
         List<Seal> seals = sealService.findAllSeals();
-        List<DriverAssembly> driverAssemblies = driverAssemblyService.findAllDriverAssemblies();
+        List<DriveAssembly> driveAssemblies = driveAssemblyService.findAllDriveAssemblies();
         List<Frame> frames = frameService.findAllFrames();
 
         List<PumpAggregate> pumpAggregates = new ArrayList<>();
@@ -83,11 +82,11 @@ public class PumpSelectionService {
                                     // TODO: 07.08.2016 Connections placement angle check
                                     if (seal.getSealType().getValue().equals(parameters.getSealType()) &&   // seal type
                                             pump.isValidTo(seal.getSuitablePumps())) {
-                                        // DriverAssembly
-                                        for (DriverAssembly driverAssembly : driverAssemblies) {            // driver assembly
-                                            if (driverAssembly.getDriverAssemblyType().getValue().equals    // driver assembly type
-                                                    (parameters.getDriverAssemblyType()) &&
-                                                    pump.isValidTo(driverAssembly.getSuitablePumps())) {
+                                        // DriveAssembly
+                                        for (DriveAssembly driveAssembly : driveAssemblies) {            // drive assembly
+                                            if (driveAssembly.getDriveAssemblyType().getValue().equals    // drive assembly type
+                                                    (parameters.getDriveAssemblyType()) &&
+                                                    pump.isValidTo(driveAssembly.getSuitablePumps())) {
                                                 // Frame
                                                 for (Frame frame : frames) {                                // frame
                                                     if (pump.isValidTo(frame.getSuitablePumps())) {
@@ -96,7 +95,7 @@ public class PumpSelectionService {
                                                         aggregate.setReducer(reducer);
                                                         aggregate.setMotor(motor);
                                                         aggregate.setSeal(seal);
-                                                        aggregate.setDriverAssembly(driverAssembly);
+                                                        aggregate.setDriveAssembly(driveAssembly);
                                                         aggregate.setFrame(frame);
 
                                                         // Write shaft speed to PumpAggregate field.

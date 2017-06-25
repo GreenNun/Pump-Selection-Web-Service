@@ -15,7 +15,7 @@ public class Parameters {
     private int temperature;
     private String casingMaterial;
     private String sealType;
-    private String driverAssemblyType;
+    private String driveAssemblyType;
     private boolean isReliefValve;
     private boolean isHeatingJacket;
     private boolean isExplosionProof;
@@ -92,12 +92,12 @@ public class Parameters {
         this.sealType = sealType;
     }
 
-    public String getDriverAssemblyType() {
-        return driverAssemblyType;
+    public String getDriveAssemblyType() {
+        return driveAssemblyType;
     }
 
-    public void setDriverAssemblyType(String driverAssemblyType) {
-        this.driverAssemblyType = driverAssemblyType;
+    public void setDriveAssemblyType(String driveAssemblyType) {
+        this.driveAssemblyType = driveAssemblyType;
     }
 
     public boolean isReliefValve() {

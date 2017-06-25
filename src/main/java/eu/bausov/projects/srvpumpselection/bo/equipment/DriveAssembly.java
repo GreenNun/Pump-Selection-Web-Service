@@ -14,49 +14,49 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 /**
- * Driver assembling entity.
+ * Drive assembling entity.
  * <p>
  * modelName as relative pumps model name.
  * <p>
  * Constants:
  * <p>
- * driverAssemblyType       name:   "driver assembly type";
+ * driveAssemblyType       name:   "drive assembly type";
  * value:  "Pump Adder" | "Coupling" | "Flexible Coupling" | "Belt and Pulley" | "Ex.Proof Coupling";
  * <p>
  * constExplosionProof      name:   "explosion proof";
  * value:  "none" | "ATEX";
  */
 @Entity
-@Table(name = "TB_DRIVER_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer",
-        "driver_assembly_type", "const_explosion_proof"})})
+@Table(name = "TB_DRIVE_ASSEMBLIES", uniqueConstraints = {@UniqueConstraint(columnNames = {"model_name", "producer",
+        "drive_assembly_type", "const_explosion_proof"})})
 @XmlRootElement
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class DriverAssembly extends Equipment implements PumpPart {
-    private Constant driverAssemblyType;
+public class DriveAssembly extends Equipment implements PumpPart {
+    private Constant driveAssemblyType;
     private Constant constExplosionProof;
     private Set<Pump> suitablePumps;
 
-    public DriverAssembly() {
+    public DriveAssembly() {
     }
 
-    public DriverAssembly(Producer producer, String modelName, BigDecimal price, Constant driverAssemblyType,
-                          Constant constExplosionProof, Set<Pump> suitablePumps) {
+    public DriveAssembly(Producer producer, String modelName, BigDecimal price, Constant driveAssemblyType,
+                         Constant constExplosionProof, Set<Pump> suitablePumps) {
         this.setProducer(producer);
         this.setModelName(modelName);
         this.setPrice(price);
-        this.driverAssemblyType = driverAssemblyType;
+        this.driveAssemblyType = driveAssemblyType;
         this.constExplosionProof = constExplosionProof;
         this.suitablePumps = suitablePumps;
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "driver_assembly_type")
-    public Constant getDriverAssemblyType() {
-        return driverAssemblyType;
+    @JoinColumn(name = "drive_assembly_type")
+    public Constant getDriveAssemblyType() {
+        return driveAssemblyType;
     }
 
-    public void setDriverAssemblyType(Constant driverAssemblyType) {
-        this.driverAssemblyType = driverAssemblyType;
+    public void setDriveAssemblyType(Constant driveAssemblyType) {
+        this.driveAssemblyType = driveAssemblyType;
     }
 
     @ManyToOne(optional = false)
@@ -85,15 +85,15 @@ public class DriverAssembly extends Equipment implements PumpPart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DriverAssembly that = (DriverAssembly) o;
+        DriveAssembly that = (DriveAssembly) o;
 
-        return driverAssemblyType.equals(that.driverAssemblyType) && constExplosionProof.equals(that.constExplosionProof);
+        return driveAssemblyType.equals(that.driveAssemblyType) && constExplosionProof.equals(that.constExplosionProof);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + driverAssemblyType.hashCode();
+        result = 31 * result + driveAssemblyType.hashCode();
         result = 31 * result + constExplosionProof.hashCode();
         return result;
     }

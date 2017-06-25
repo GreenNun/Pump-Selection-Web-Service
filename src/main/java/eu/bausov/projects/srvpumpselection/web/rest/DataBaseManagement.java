@@ -2,7 +2,7 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.Constant;
 import eu.bausov.projects.srvpumpselection.bo.Producer;
-import eu.bausov.projects.srvpumpselection.bo.equipment.DriverAssembly;
+import eu.bausov.projects.srvpumpselection.bo.equipment.DriveAssembly;
 import eu.bausov.projects.srvpumpselection.bo.equipment.Frame;
 import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
 import eu.bausov.projects.srvpumpselection.bo.equipment.Seal;
@@ -23,17 +23,17 @@ public class DataBaseManagement {
 
     private final PumpService pumpService;
     private final SealService sealService;
-    private final DriverAssemblyService driverAssemblyService;
+    private final DriveAssemblyService driveAssemblyService;
     private final FrameService frameService;
     private final ConstantService constantService;
     private final ProducerService producerService;
     private final SpeedCorrectionCoefficientService speedCorrectionCoefficientService;
 
     @Autowired
-    public DataBaseManagement(PumpService pumpService, SealService sealService, DriverAssemblyService driverAssemblyService, FrameService frameService, ConstantService constantService, ProducerService producerService, SpeedCorrectionCoefficientService speedCorrectionCoefficientService) {
+    public DataBaseManagement(PumpService pumpService, SealService sealService, DriveAssemblyService driveAssemblyService, FrameService frameService, ConstantService constantService, ProducerService producerService, SpeedCorrectionCoefficientService speedCorrectionCoefficientService) {
         this.pumpService = pumpService;
         this.sealService = sealService;
-        this.driverAssemblyService = driverAssemblyService;
+        this.driveAssemblyService = driveAssemblyService;
         this.frameService = frameService;
         this.constantService = constantService;
         this.producerService = producerService;
@@ -74,10 +74,10 @@ public class DataBaseManagement {
 
     @ResponseBody
     @RequestMapping(value = "/assemblies", method = RequestMethod.GET)
-    public List<DriverAssembly> getAssembliesList() {
-        LOGGER.info("Driver Assemblies list requested");
+    public List<DriveAssembly> getAssembliesList() {
+        LOGGER.info("Drive Assemblies list requested");
 
-        return driverAssemblyService.findAllDriverAssemblies();
+        return driveAssemblyService.findAllDriveAssemblies();
     }
 
     @SuppressWarnings("unchecked")
@@ -132,7 +132,7 @@ public class DataBaseManagement {
         // update in parts lists
         sealService.addToPartLists(pump, request.getSealsIdentifires());
         frameService.addToPartLists(pump, request.getFramesIdentifires());
-        driverAssemblyService.addToPartLists(pump, request.getDriverAssembliesIdentifires());
+        driveAssemblyService.addToPartLists(pump, request.getDriveAssembliesIdentifires());
 
         LOGGER.info("Pump with id {} created", pump.getId());
 

@@ -29,7 +29,7 @@ public class Generator {
         metadata.addAnnotatedClass(Constant.class);
         metadata.addAnnotatedClass(Producer.class);
         metadata.addAnnotatedClass(SpeedCorrectionCoefficient.class);
-        metadata.addAnnotatedClass(DriverAssembly.class);
+        metadata.addAnnotatedClass(DriveAssembly.class);
         metadata.addAnnotatedClass(Equipment.class);
         metadata.addAnnotatedClass(Frame.class);
         metadata.addAnnotatedClass(Pump.class);

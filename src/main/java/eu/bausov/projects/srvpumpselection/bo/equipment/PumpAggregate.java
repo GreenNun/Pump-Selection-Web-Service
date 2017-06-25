@@ -23,7 +23,7 @@ public class PumpAggregate extends JPA {
     private Seal seal;
     private Reducer reducer;
     private Motor motor;
-    private DriverAssembly driverAssembly;
+    private DriveAssembly driveAssembly;
     private Frame frame;
 
     @Basic
@@ -90,12 +90,12 @@ public class PumpAggregate extends JPA {
     }
 
     @ManyToOne(optional = false)
-    public DriverAssembly getDriverAssembly() {
-        return driverAssembly;
+    public DriveAssembly getDriveAssembly() {
+        return driveAssembly;
     }
 
-    public void setDriverAssembly(DriverAssembly driverAssembly) {
-        this.driverAssembly = driverAssembly;
+    public void setDriveAssembly(DriveAssembly driveAssembly) {
+        this.driveAssembly = driveAssembly;
     }
 
     @ManyToOne(optional = false)
@@ -114,7 +114,7 @@ public class PumpAggregate extends JPA {
         totalPrice = totalPrice.add(pump.getPrice());
         totalPrice = totalPrice.add(reducer.getPrice());
         totalPrice = totalPrice.add(motor.getPrice());
-        totalPrice = totalPrice.add(driverAssembly.getPrice());
+        totalPrice = totalPrice.add(driveAssembly.getPrice());
         totalPrice = totalPrice.add(frame.getPrice());
 
         // Example, Price * 2

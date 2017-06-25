@@ -34,7 +34,7 @@ public class PumpCreateRequest {
     private Set<SpeedCorrectionCoefficient> speedCorrectionCoefficients;
     private long[] seals;
     private long[] frames;
-    private long[] driverAssemblies;
+    private long[] driveAssemblies;
 
     public String getModelName() {
         return modelName;
@@ -212,11 +212,11 @@ public class PumpCreateRequest {
         this.frames = frames;
     }
 
-    public long[] getDriverAssembliesIdentifires() {
-        return driverAssemblies;
+    public long[] getDriveAssembliesIdentifires() {
+        return driveAssemblies;
     }
 
-    public void setDriverAssemblies(long[] driverAssemblies) {
-        this.driverAssemblies = driverAssemblies;
+    public void setDriveAssemblies(long[] driveAssemblies) {
+        this.driveAssemblies = driveAssemblies;
     }
 }

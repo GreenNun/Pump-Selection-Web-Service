@@ -31,19 +31,19 @@ public class DBFillingService {
     private final ReducerRepository reducerRepository;
     private final MotorRepository motorRepository;
     private final SealRepository sealRepository;
-    private final DriverAssemblyRepository driverAssemblyRepository;
+    private final DriveAssemblyRepository driveAssemblyRepository;
     private final FrameRepository frameRepository;
     private final ConstantRepository constantRepository;
     private final ProducerRepository producerRepository;
     private final SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository;
 
     @Autowired
-    public DBFillingService(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriverAssemblyRepository driverAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
+    public DBFillingService(PumpRepository pumpRepository, ReducerRepository reducerRepository, MotorRepository motorRepository, SealRepository sealRepository, DriveAssemblyRepository driveAssemblyRepository, FrameRepository frameRepository, ConstantRepository constantRepository, ProducerRepository producerRepository, SpeedCorrectionCoefficientRepository speedCorrectionCoefficientRepository) {
         this.pumpRepository = pumpRepository;
         this.reducerRepository = reducerRepository;
         this.motorRepository = motorRepository;
         this.sealRepository = sealRepository;
-        this.driverAssemblyRepository = driverAssemblyRepository;
+        this.driveAssemblyRepository = driveAssemblyRepository;
         this.frameRepository = frameRepository;
         this.constantRepository = constantRepository;
         this.producerRepository = producerRepository;
@@ -1773,17 +1773,17 @@ public class DBFillingService {
         sealRepository.save(seaYkf3Crtex);
 
         /**
-         * DRIVER ASSEMBLY TYPES
+         * DRIVE ASSEMBLY TYPES
          */
-        Constant adder = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Pump Adder");
+        Constant adder = new Constant(DBConst.DRIVE_ASSEMBLY_TYPE, "Pump Adder");
         constantRepository.save(adder);
-        Constant coupling = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Coupling");
+        Constant coupling = new Constant(DBConst.DRIVE_ASSEMBLY_TYPE, "Coupling");
         constantRepository.save(coupling);
-        Constant exProofCoupling = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Ex.Proof Coupling");
+        Constant exProofCoupling = new Constant(DBConst.DRIVE_ASSEMBLY_TYPE, "Ex.Proof Coupling");
         constantRepository.save(exProofCoupling);
-        Constant belt = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Belt and Pulley");
+        Constant belt = new Constant(DBConst.DRIVE_ASSEMBLY_TYPE, "Belt and Pulley");
         constantRepository.save(belt);
-        Constant flex = new Constant(DBConst.DRIVER_ASSEMBLY_TYPE, "Flexible Coupling");
+        Constant flex = new Constant(DBConst.DRIVE_ASSEMBLY_TYPE, "Flexible Coupling");
         constantRepository.save(flex);
 
         /**
@@ -1795,23 +1795,23 @@ public class DBFillingService {
         constantRepository.save(none);
 
         /**
-         * DRIVER ASSEMBLIES
+         * DRIVE ASSEMBLIES
          */
-        DriverAssembly ykf3assembly01 = new DriverAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
+        DriveAssembly ykf3assembly01 = new DriveAssembly(dreampompa, "ykf-3 pump adder", new BigDecimal("420"),
                 adder, atex, pumpsSetYKF);
-        driverAssemblyRepository.save(ykf3assembly01);
-        DriverAssembly ykf3assembly02 = new DriverAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
+        driveAssemblyRepository.save(ykf3assembly01);
+        DriveAssembly ykf3assembly02 = new DriveAssembly(dreampompa, "ykf-3 ex. proof coupling", new BigDecimal("180"),
                 coupling, atex, pumpsSetYKF);
-        driverAssemblyRepository.save(ykf3assembly02);
-        DriverAssembly ykf3assembly03 = new DriverAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
+        driveAssemblyRepository.save(ykf3assembly02);
+        DriveAssembly ykf3assembly03 = new DriveAssembly(dreampompa, "ykf-3 belt and pulley", new BigDecimal("300"),
                 belt, none, pumpsSetYKF);
-        driverAssemblyRepository.save(ykf3assembly03);
-        DriverAssembly ykf3assembly04 = new DriverAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
+        driveAssemblyRepository.save(ykf3assembly03);
+        DriveAssembly ykf3assembly04 = new DriveAssembly(dreampompa, "ykf-3 flexible coupling", new BigDecimal("240"),
                 flex, none, pumpsSetYKF);
-        driverAssemblyRepository.save(ykf3assembly04);
-        DriverAssembly ykf3assembly05 = new DriverAssembly(dreampompa, "ykf-3 coupling", new BigDecimal("0"),
+        driveAssemblyRepository.save(ykf3assembly04);
+        DriveAssembly ykf3assembly05 = new DriveAssembly(dreampompa, "ykf-3 coupling", new BigDecimal("0"),
                 flex, none, pumpsSetYKF);
-        driverAssemblyRepository.save(ykf3assembly05);
+        driveAssemblyRepository.save(ykf3assembly05);
 
 
         /**

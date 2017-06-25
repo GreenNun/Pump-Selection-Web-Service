@@ -199,14 +199,14 @@ angular.module('pump.modules.route')
                     title: 'Temperature Limit Dictionary'
                 }
             })
-            .state('main.manage.driverAssemblyTypes', {
-                url: '/driverAssemblyTypes',
+            .state('main.manage.driveAssemblyTypes', {
+                url: '/driveAssemblyTypes',
                 templateUrl: getViewPath('manage/constant.html'),
                 controller: 'constantCtrl',
                 data: {
-                    operation: 'driver assembly type',
-                    constant: 'Driver Assembly Type',
-                    title: 'Driver Assembly Types Dictionary'
+                    operation: 'drive assembly type',
+                    constant: 'Drive Assembly Type',
+                    title: 'Drive Assembly Types Dictionary'
                 }
             })
             .state('main.manage.explosionProofTypes', {
