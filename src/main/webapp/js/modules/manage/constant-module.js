@@ -20,7 +20,7 @@ angular.module('pump.modules.constant')
                 params: {name: constantName}
             })
                 .then(function (success) {
-                    $scope.constant_module = success.data;
+                    $scope.constants = success.data;
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
                 });
@@ -38,7 +38,7 @@ angular.module('pump.modules.constant')
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.constant_module[index] = success.data;
+                    $scope.constants[index] = success.data;
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);
@@ -54,7 +54,7 @@ angular.module('pump.modules.constant')
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    $scope.constant_module.push(success.data);
+                    $scope.constants.push(success.data);
                     $scope.newItem.value = null;
                     $('.modal-backdrop').remove();
                 }, function (error) {
@@ -71,8 +71,8 @@ angular.module('pump.modules.constant')
             })
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
-                    var index = $scope.constant_module.indexOf(item);
-                    $scope.constant_module.splice(index, 1);
+                    var index = $scope.constants.indexOf(item);
+                    $scope.constants.splice(index, 1);
                     $('.modal-backdrop').remove();
                 }, function (error) {
                     $rootScope.addNotification('danger', error.data);

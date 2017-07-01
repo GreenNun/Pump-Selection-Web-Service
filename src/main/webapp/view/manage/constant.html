@@ -46,7 +46,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in constant_module | orderBy: 'value' | filter: query">
+            <tr ng-repeat="item in constants | orderBy: 'value' | filter: query">
                 <th class="tb-content" scope="row">{{$index + 1}} </th>
                 <td >{{item.value}}</td>
                 <td class="tb-content">
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(constant_module.indexOf(item))">Update</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(constants.indexOf(item))">Update</button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target=".bd-{{$index}}-modal-sm">Remove</button>
                                 </div>
                             </div>
