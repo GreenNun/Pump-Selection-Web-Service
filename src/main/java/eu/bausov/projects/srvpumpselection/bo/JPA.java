@@ -1,7 +1,6 @@
 package eu.bausov.projects.srvpumpselection.bo;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @MappedSuperclass

@@ -26,7 +26,7 @@ public class SpeedCorrectionCoefficientServiceImpl implements SpeedCorrectionCoe
     }
 
     @Override
-    public void saveSpeedCorrectionCoefficient(SpeedCorrectionCoefficient speedCorrectionCoefficient) {
-        speedCorrectionCoefficientRepository.save(speedCorrectionCoefficient);
+    public SpeedCorrectionCoefficient saveOneSpeedCorrectionCoefficient(SpeedCorrectionCoefficient speedCorrectionCoefficient) {
+        return speedCorrectionCoefficientRepository.save(speedCorrectionCoefficient);
     }
 }

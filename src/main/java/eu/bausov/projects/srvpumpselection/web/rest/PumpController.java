@@ -2,6 +2,7 @@ package eu.bausov.projects.srvpumpselection.web.rest;
 
 import eu.bausov.projects.srvpumpselection.bo.equipment.Pump;
 import eu.bausov.projects.srvpumpselection.service.PumpService;
+import eu.bausov.projects.srvpumpselection.service.SpeedCorrectionCoefficientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,12 @@ public class PumpController {
     private final Logger LOGGER = LoggerFactory.getLogger(PumpController.class);
 
     private final PumpService pumpService;
+    private final SpeedCorrectionCoefficientService speedCorrectionCoefficientService;
 
     @Autowired
-    public PumpController(PumpService pumpService) {
+    public PumpController(PumpService pumpService, SpeedCorrectionCoefficientService speedCorrectionCoefficientService) {
         this.pumpService = pumpService;
+        this.speedCorrectionCoefficientService = speedCorrectionCoefficientService;
     }
 
     @RequestMapping(value = "/(id)", method = RequestMethod.GET)
@@ -45,6 +48,11 @@ public class PumpController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Pump saveConstant(@RequestBody Pump pump) {
         LOGGER.debug("Pump save request");
+        pump.getSpeedCorrectionCoefficients()
+                .stream()
+                .filter(speedCorrectionCoefficient -> speedCorrectionCoefficient.getId() == null)
+                .forEach(speedCorrectionCoefficientService::saveOneSpeedCorrectionCoefficient);
+
         return pumpService.saveOnePump(pump);
     }
 

@@ -143,3 +143,12 @@ body {
 .modal-body {
     background-color: #fdfdfd;
 }
+
+.table thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #eceeef;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}

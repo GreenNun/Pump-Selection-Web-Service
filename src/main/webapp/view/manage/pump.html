@@ -1,0 +1,476 @@
+<div class="row mt-2 mb-5">
+    <div class="col-sm-12 clearfix">
+        <h1 class="display-4 float-left">Pumps</h1>
+        <button class="btn btn-success btn-lg float-right align-bottom mt-2" data-toggle="modal" data-target=".bd-add-modal-lg" ng-click="new()" title="Add new Pump">
+            <i class="fa fa-plus fa-lg"></i>
+        </button>
+    </div>
+</div>
+<div class="modal fade bd-add-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabelAdd" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabelAdd">New Pump</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="nameInput" class="col-sm-3 pr-0 col-form-label">Model</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.modelName" class="form-control" id="nameInput"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="producerInput" class="col-sm-3 pr-0 col-form-label">Producer</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="producerInput" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="newItem.producer"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="priceInput" class="col-sm-3 pr-0 col-form-label">Price</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.price" class="form-control" id="priceInput" type="number" min="0" step="0.01"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pumpTypeInput" class="col-sm-3 pr-0 col-form-label">Pump type</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="pumpTypeInput" ng-options="item.value for item in pumpTypes | orderBy: 'value' track by item.id" ng-model="newItem.constPumpType"></select>
+                        </div>
+                    </div>
+                    <!--TRIGGERS-->
+                    <div class="form-group row">
+                        <label for="pumpValve" class="col-sm-3 pr-0 col-form-label">Options</label>
+                        <div class="col-sm-9" id="pumpValve">
+                            <button type="button" class="btn btn-secondary" ng-model="newItem.reliefValve" uib-btn-checkbox>Relief Valve</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pumpJackets" class="col-sm-3 pr-0 col-form-label">Heating Jackets on</label>
+                        <div class="col-sm-9" id="pumpJackets">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" ng-model="newItem.heatingJacketOnCover" uib-btn-checkbox>Cover</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" ng-model="newItem.heatingJacketOnCasing" uib-btn-checkbox>Casting</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" ng-model="newItem.heatingJacketOnBracket" uib-btn-checkbox>Bracket</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pumpMaterialInput" class="col-sm-3 pr-0 col-form-label">Casting material</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="pumpMaterialInput" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="newItem.constCasingMaterial"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="rotorGearMaterialInput" class="col-sm-3 pr-0 col-form-label">Rotor Gear material</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="rotorGearMaterialInput" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="newItem.constRotorGearMaterial"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idlerGearMaterialInput" class="col-sm-3 pr-0 col-form-label">Idler Gear material</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="idlerGearMaterialInput" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="newItem.constIdlerGearMaterial"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="shaftSupportMaterialInput" class="col-sm-3 pr-0 col-form-label">Shaft Support material</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="shaftSupportMaterialInput" ng-options="item.value for item in busingMaterials | orderBy: 'value' track by item.id" ng-model="newItem.constShaftSupportMaterial"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="shaftMaterialInput1" class="col-sm-3 pr-0 col-form-label">Shaft material</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="shaftMaterialInput" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="newItem.constShaftMaterial"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="connectionTypeInput1" class="col-sm-3 pr-0 col-form-label">Connection type</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="connectionTypeInput" ng-options="item.value for item in connections | orderBy: 'value' track by item.id" ng-model="newItem.constConnectionsType"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="dnInput" class="col-sm-3 pr-0 col-form-label">DN</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="dnInput" ng-options="item.value for item in dn | orderBy: 'value' track by item.id" ng-model="newItem.constDn"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="angleInput1" class="col-sm-3 pr-0 col-form-label">Connections Angle</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="angleInput" ng-options="item.value for item in connectionAngles | orderBy: 'value' track by item.id" ng-model="newItem.constConnectionsAngle"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pressureInput1" class="col-sm-3 pr-0 col-form-label">Max. Pressure</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="pressureInput" ng-options="item.value for item in pressures | orderBy: 'value' track by item.id" ng-model="newItem.constMaxPressure"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="temperatureInput" class="col-sm-3 pr-0 col-form-label">Max. Temperature</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="temperatureInput" ng-options="item.value for item in temperatures | orderBy: 'value' track by item.id" ng-model="newItem.constMaxTemperature"></select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label for="rpmCoefficientInput" class="col-sm-3 pr-0 col-form-label">Speed Coeff.</label>
+                        <div class="col-sm-9">
+                            <input ng-model="newItem.rpmCoefficient" class="form-control" id="rpmCoefficientInput" type="number" min="0" step="0.01"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3 pr-0 col-form-label">
+                            <label>Viscosity Coeff.</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <table class="table">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>Viscosity</th>
+                                    <th>Coeff.</th>
+                                    <!--<th>X</th>-->
+                                    <!--<th>Y</th>-->
+                                    <!--<th>X</th>-->
+                                    <!--<th>Y</th>-->
+                                    <th class="pr-0"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in newItem.speedCorrectionCoefficients">
+                                    <td scope="row" class="pl-0">
+                                        <input ng-model="newItem.speedCorrectionCoefficients[$index].viscosity" type="number" min="0" step="1" class="form-control"/>
+                                    </td>
+                                    <td>
+                                        <input ng-model="newItem.speedCorrectionCoefficients[$index].coefficient" type="number" min="0" step="1" class="form-control"/>
+                                    </td>
+                                    <!--<th scope="row">-->
+                                    <!--<input ng-model="" type="number" min="0" step="1" class="form-control" m/>-->
+                                    <!--</th>-->
+                                    <!--<td>-->
+                                    <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                    <!--</td>-->
+                                    <!--<th scope="row">-->
+                                    <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                    <!--</th>-->
+                                    <!--<td>-->
+                                    <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                    <!--</td>-->
+                                    <td class="pr-0">
+                                        <button ng-click="removeCoeff($index, newItem)" class="btn btn-warning" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td></td>
+                                    <!--<td></td>-->
+                                    <!--<td></td>-->
+                                    <!--<td></td>-->
+                                    <!--<td></td>-->
+                                    <td class="pr-0">
+                                        <button ng-click="addCoeff(newItem)" class="btn btn-success float-right" type="submit"><i class="fa fa-plus"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container col-sm-12">
+    <div class="row">
+        <input type="text" class="form-control mb-2 col-3" placeholder="Search..." ng-model="query"/>
+        <table class="table table-hover table-sm">
+            <thead class="thead-default">
+            <tr>
+                <th class="text-center">#</th>
+                <th>Model</th>
+                <th>Producer</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Valve</th>
+                <th>Jackets</th>
+                <!--<th>On Cover</th>-->
+                <!--<th>On Casting</th>-->
+                <!--<th>On Bracket</th>-->
+                <th>Casting</th>
+                <th>Rotor Gear</th>
+                <th>Idler Gear</th>
+                <th>Shaft Support</th>
+                <th>Shaft</th>
+                <th>Con. Type</th>
+                <th>DN</th>
+                <th>Angle</th>
+                <th>P, [bar]</th>
+                <th>T, [°C]</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in pumps | orderBy: 'modelName' | filter: query">
+                <th class="tb-content" scope="row">{{$index + 1}} </th>
+                <td>{{item.modelName}}</td>
+                <td>{{item.producer.producerName}}, {{item.producer.producerCountry.value}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.constPumpType.value}}</td>
+                <td>
+                    <span ng-if="item.reliefValve"><i class="fa fa-check-circle fa-lg text-success" aria-hidden="true" title="Relief Valve"></i></span>
+                    <span ng-if="!item.reliefValve"><i class="fa fa-times-circle fa-lg" aria-hidden="true" title="Relief Valve"></i></span>
+                </td>
+                <td>
+                    <span ng-if="item.heatingJacketOnCover"><i class="fa fa-check-circle  fa-lg text-success" aria-hidden="true" title="On Cover"></i></span>
+                    <span ng-if="!item.heatingJacketOnCover"><i class="fa fa-times-circle  fa-lg" aria-hidden="true" title="On Cover"></i></span>
+                    <span ng-if="item.heatingJacketOnCasing"><i class="fa fa-check-circle  fa-lg text-success" aria-hidden="true" title="On Casting"></i></span>
+                    <span ng-if="!item.heatingJacketOnCasing"><i class="fa fa-times-circle  fa-lg" aria-hidden="true" title="On Casting"></i></span>
+                    <span ng-if="item.heatingJacketOnBracket"><i class="fa fa-check-circle  fa-lg text-success" aria-hidden="true" title="On Bracket"></i></span>
+                    <span ng-if="!item.heatingJacketOnBracket"><i class="fa fa-times-circle  fa-lg" aria-hidden="true" title="On Bracket"></i></span>
+                </td>
+                <!--<td>{{item.heatingJacketOnCover}}</td>-->
+                <!--<td>{{item.heatingJacketOnCasing}}</td>-->
+                <!--<td>{{item.heatingJacketOnBracket}}</td>-->
+                <td>{{item.constCasingMaterial.value}}</td>
+                <td>{{item.constRotorGearMaterial.value}}</td>
+                <td>{{item.constIdlerGearMaterial.value}}</td>
+                <td>{{item.constShaftSupportMaterial.value}}</td>
+                <td>{{item.constShaftMaterial.value}}</td>
+                <td>{{item.constConnectionsType.value}}</td>
+                <td>{{item.constDn.value}}</td>
+                <td>{{item.constConnectionsAngle.value}}</td>
+                <td>{{item.constMaxPressure.value}}</td>
+                <td>{{item.constMaxTemperature.value}}</td>
+                <td class="tb-content">
+                    <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target=".bd-{{$index}}-modal-lg" title="Edit Pump" ng-click="edit(item)">
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="false"></i>
+                    </button>
+                    <div class="modal fade bd-{{$index}}-modal-lg" id="editModal" tabindex="0" role="dialog" aria-labelledby="largeModalLabelEdit" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="largeModalLabelEdit">Edit Pump</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group row">
+                                            <label for="nameInput1" class="col-sm-3 pr-0 col-form-label">Model</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.modelName" class="form-control" id="nameInput1"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="producerInput1" class="col-sm-3 pr-0 col-form-label">Producer</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="producerInput1" ng-options="(item.producerName + ', ' + item.producerCountry.value) for item in producers | orderBy: 'producerName' track by item.id" ng-model="tempItem.producer"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="priceInput1" class="col-sm-3 pr-0 col-form-label">Price</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.price" class="form-control" id="priceInput1" type="number" min="0" step="0.01"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="pumpTypeInput1" class="col-sm-3 pr-0 col-form-label">Pump type</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="pumpTypeInput1" ng-options="item.value for item in pumpTypes | orderBy: 'value' track by item.id" ng-model="tempItem.constPumpType"></select>
+                                            </div>
+                                        </div>
+                                        <!--TRIGGERS-->
+                                        <div class="form-group row">
+                                            <label for="pumpValve1" class="col-sm-3 pr-0 col-form-label">Options</label>
+                                            <div class="col-sm-9" id="pumpValve1">
+                                                <button type="button" class="btn btn-secondary" ng-model="tempItem.reliefValve" uib-btn-checkbox>Relief Valve</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="pumpJackets1" class="col-sm-3 pr-0 col-form-label">Heating Jackets on</label>
+                                            <div class="col-sm-9" id="pumpJackets1">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary" ng-model="tempItem.heatingJacketOnCover" uib-btn-checkbox>Cover</button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary" ng-model="tempItem.heatingJacketOnCasing" uib-btn-checkbox>Casting</button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary" ng-model="tempItem.heatingJacketOnBracket" uib-btn-checkbox>Bracket</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="pumpMaterialInput1" class="col-sm-3 pr-0 col-form-label">Casting material</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="pumpMaterialInput1" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="tempItem.constCasingMaterial"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="rotorGearMaterialInput1" class="col-sm-3 pr-0 col-form-label">Rotor Gear material</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="rotorGearMaterialInput1" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="tempItem.constRotorGearMaterial"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="idlerGearMaterialInput1" class="col-sm-3 pr-0 col-form-label">Idler Gear material</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="idlerGearMaterialInput1" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="tempItem.constIdlerGearMaterial"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="shaftSupportMaterialInput1" class="col-sm-3 pr-0 col-form-label">Shaft Support material</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="shaftSupportMaterialInput1" ng-options="item.value for item in busingMaterials | orderBy: 'value' track by item.id" ng-model="tempItem.constShaftSupportMaterial"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="shaftMaterialInput1" class="col-sm-3 pr-0 col-form-label">Shaft material</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="shaftMaterialInput1" ng-options="item.value for item in pumpMaterials | orderBy: 'value' track by item.id" ng-model="tempItem.constShaftMaterial"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="connectionTypeInput1" class="col-sm-3 pr-0 col-form-label">Connection type</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="connectionTypeInput1" ng-options="item.value for item in connections | orderBy: 'value' track by item.id" ng-model="tempItem.constConnectionsType"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="dnInput1" class="col-sm-3 pr-0 col-form-label">DN</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="dnInput1" ng-options="item.value for item in dn | orderBy: 'value' track by item.id" ng-model="tempItem.constDn"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="angleInput1" class="col-sm-3 pr-0 col-form-label">Connections Angle</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="angleInput1" ng-options="item.value for item in connectionAngles | orderBy: 'value' track by item.id" ng-model="tempItem.constConnectionsAngle"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="pressureInput1" class="col-sm-3 pr-0 col-form-label">Max. Pressure</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="pressureInput1" ng-options="item.value for item in pressures | orderBy: 'value' track by item.id" ng-model="tempItem.constMaxPressure"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="temperatureInput1" class="col-sm-3 pr-0 col-form-label">Max. Temperature</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="temperatureInput1" ng-options="item.value for item in temperatures | orderBy: 'value' track by item.id" ng-model="tempItem.constMaxTemperature"></select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <label for="rpmCoefficientInput1" class="col-sm-3 pr-0 col-form-label">Speed Coeff.</label>
+                                            <div class="col-sm-9">
+                                                <input ng-model="tempItem.rpmCoefficient" class="form-control" id="rpmCoefficientInput1" type="number" min="0" step="0.01"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 pr-0 col-form-label">
+                                                <label>Viscosity Coeff.</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <table class="table">
+                                                    <thead class="thead-default">
+                                                    <tr>
+                                                        <th>Viscosity</th>
+                                                        <th>Coeff.</th>
+                                                        <!--<th>X</th>-->
+                                                        <!--<th>Y</th>-->
+                                                        <!--<th>X</th>-->
+                                                        <!--<th>Y</th>-->
+                                                        <th class="pr-0"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="item in tempItem.speedCorrectionCoefficients">
+                                                        <td scope="row" class="pl-0">
+                                                            <input ng-model="tempItem.speedCorrectionCoefficients[$index].viscosity" type="number" min="0" step="1" class="form-control"/>
+                                                        </td>
+                                                        <td>
+                                                            <input ng-model="tempItem.speedCorrectionCoefficients[$index].coefficient" type="number" min="0" step="1" class="form-control"/>
+                                                        </td>
+                                                        <!--<th scope="row">-->
+                                                        <!--<input ng-model="" type="number" min="0" step="1" class="form-control" m/>-->
+                                                        <!--</th>-->
+                                                        <!--<td>-->
+                                                        <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                                        <!--</td>-->
+                                                        <!--<th scope="row">-->
+                                                        <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                                        <!--</th>-->
+                                                        <!--<td>-->
+                                                        <!--<input ng-model="" type="number" min="0" step="1" class="form-control"/>-->
+                                                        <!--</td>-->
+                                                        <td class="pr-0">
+                                                            <button ng-click="removeCoeff($index, tempItem)" class="btn btn-warning" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"></th>
+                                                        <td></td>
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <td class="pr-0">
+                                                            <button ng-click="addCoeff(tempItem)" class="btn btn-success float-right" type="submit"><i class="fa fa-plus"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save(pumps.indexOf(item))">Update</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target=".bd-{{$index}}-modal-sm">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-{{$index}}-modal-sm" id="confirmActionModal" tabindex="-1" role="dialog" aria-labelledby="confirmActionLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color: #eb9316"></i>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Continue removal?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#editModal').modal('show');">Dismiss</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="delete(item)">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

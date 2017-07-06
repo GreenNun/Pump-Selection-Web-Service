@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface SpeedCorrectionCoefficientService {
     List<SpeedCorrectionCoefficient> findAllSpeedCorrectionCoefficients();
-    void saveSpeedCorrectionCoefficient(SpeedCorrectionCoefficient speedCorrectionCoefficient);
+    SpeedCorrectionCoefficient saveOneSpeedCorrectionCoefficient(SpeedCorrectionCoefficient speedCorrectionCoefficient);
 }

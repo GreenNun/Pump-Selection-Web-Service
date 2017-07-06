@@ -25,6 +25,9 @@ angular.module('pump.modules.seal',
 angular.module('pump.modules.assembly',
     []
 );
+angular.module('pump.modules.pump',
+    []
+);
 angular.module('pump.modules.route',
     [
         'ngRoute',
@@ -40,7 +43,8 @@ angular.module('pump.modules.route',
         'pump.modules.reducer',
         'pump.modules.frame',
         'pump.modules.seal',
-        'pump.modules.assembly'
+        'pump.modules.assembly',
+        'pump.modules.pump'
     ]
 );
 
@@ -97,6 +101,11 @@ angular.module('pump.modules.route')
                 url: '/assemblies',
                 templateUrl: getViewPath('manage/assembly.html'),
                 controller: 'assemblyCtrl'
+            })
+            .state('main.manage.pumps', {
+                url: '/pumps',
+                templateUrl: getViewPath('manage/pump.html'),
+                controller: 'pumpCtrl'
             })
             .state('main.manage.countries', {
                 url: '/countries',

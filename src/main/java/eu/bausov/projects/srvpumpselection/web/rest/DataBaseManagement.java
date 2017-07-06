@@ -124,7 +124,7 @@ public class DataBaseManagement {
         pump.setRpmCoefficient(request.getRpmCoefficient());
 
         // todo look here
-        request.getSpeedCorrectionCoefficients().forEach(speedCorrectionCoefficientService::saveSpeedCorrectionCoefficient);
+        request.getSpeedCorrectionCoefficients().forEach(speedCorrectionCoefficientService::saveOneSpeedCorrectionCoefficient);
         pump.setSpeedCorrectionCoefficients(request.getSpeedCorrectionCoefficients());
 
         pumpService.saveOnePump(pump);
