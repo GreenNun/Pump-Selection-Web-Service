@@ -22,6 +22,9 @@
                 "../js/libs/angular-ui/angular-ui-router.js",
                 "../js/libs/angular-ui/ui-bootstrap-2.5.0.js",
 
+                "../js/libs/charts/Chart.bundle.js",
+                "../js/libs/charts/tc-angular-chartjs.js",
+
                 "../js/libs/es5-shim.min.js",
 
                 "../js/app.js",

@@ -2,7 +2,7 @@
  * Created by GreenNun on 27.06.17.
  */
 angular.module('pump.modules.pump')
-    .controller('pumpCtrl', ['$rootScope', '$scope', '$http', function ($rootScope, $scope, $http) {
+    .controller('pumpCtrl', ['$rootScope', '$scope', '$http', '$filter', function ($rootScope, $scope, $http, $filter) {
         $scope.tempItem = [];
         // $scope.tempPumps = [];
         $scope.newItem = {
@@ -168,6 +168,8 @@ angular.module('pump.modules.pump')
 
         $scope.edit = function (value) {
             $scope.tempItem = jQuery.extend(true, {}, value);
+            $scope.tempItem.speedCorrectionCoefficients = $filter('orderBy')($scope.tempItem.speedCorrectionCoefficients, 'viscosity', false);
+            $scope.chart($scope.tempItem);
             // $scope.tempPumps = jQuery.extend(true, [], $scope.pumps);
             // $scope.initAvailablePumpList($scope.tempPumps, $scope.tempItem.suitablePumps);
         };
@@ -202,7 +204,7 @@ angular.module('pump.modules.pump')
                 .then(function (success) {
                     $rootScope.addNotification('success', $rootScope.success);
                     $scope.pumps.push(success.data);
-                    $scope.newItem =  {
+                    $scope.newItem = {
                         id: null,
                         version: null,
                         modelName: null,
@@ -303,4 +305,98 @@ angular.module('pump.modules.pump')
         $scope.getConstMaxPressureList();
         $scope.getConstConnectionAngleTypeList();
         $scope.getConstMaxTemperatureList();
+
+
+        // CHARTS
+        $scope.xAxis = function (limit, grade) {
+            var labels = new Array(limit);
+            for (var i = 0; i < limit; i++) {
+                if (i % grade === 0) {
+                    labels[i] = i;
+                } else {
+                    labels[i] = '';
+                }
+            }
+            return labels;
+        };
+
+        $scope.sets = function (item) {
+            var sets = [];
+            for (var i = 0; i < item.speedCorrectionCoefficients.length; i++) {
+                sets.push({
+                    label: item.speedCorrectionCoefficients[i].viscosity,
+                    function: (function (e) {
+                        return function (x) {
+                            return x / item.rpmCoefficient - item.speedCorrectionCoefficients[e].coefficient;
+                        }
+                    })(i),
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    data: [],
+                    fill: false
+                })
+            }
+
+            return sets;
+        };
+
+        $scope.chart = function (item) {
+            $scope.chartData = {
+                labels: $scope.xAxis(600, 50),
+                // labels: new Array(100),
+                datasets: $scope.sets(item)
+            };
+
+            $scope.chartOptions = {
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 40,
+                            stepSize: 10,
+                            fixedStepSize: 10
+                        }
+                    }]
+                    // ,
+                    // xAxes: [{
+                    //     ticks: {
+                    //         beginAtZero: true,
+                    //         min: 0,
+                    //         max: 600
+                    //         ,
+                    //         stepSize: 50//,
+                    //         // fixedStepSize: 100
+                    //     }
+                    // }]
+                }
+            };
+
+            $scope.chartPlugins = [{
+                beforeInit: function (chart) {
+                    var data = chart.config.data;
+                    // var max = chart.options.scales.xAxes[0].ticks.max;
+                    var max = data.labels.length;
+                    for (var i = 0; i < data.datasets.length; i++) {
+                        for (var j = 0; j < max; j++) {
+                            var fct = data.datasets[i].function,
+                                y = fct(j);
+                            data.datasets[i].data.push(y);
+                        }
+                    }
+                }
+            }];
+
+            $scope.onChartClick = function (event) {
+                console.log(event);
+            };
+        };
+
+        // $scope.chart();
+
+
     }]);

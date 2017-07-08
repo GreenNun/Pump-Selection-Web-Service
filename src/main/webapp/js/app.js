@@ -26,7 +26,9 @@ angular.module('pump.modules.assembly',
     []
 );
 angular.module('pump.modules.pump',
-    []
+    [
+        'tc.chartjs'
+    ]
 );
 angular.module('pump.modules.route',
     [
